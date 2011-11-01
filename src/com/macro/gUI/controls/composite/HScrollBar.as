@@ -1,0 +1,679 @@
+package com.macro.gUI.controls.composite
+{
+	import com.macro.gUI.GameUI;
+	import com.macro.gUI.assist.DragMode;
+	import com.macro.gUI.assist.LayoutAlign;
+	import com.macro.gUI.assist.Viewport;
+	import com.macro.gUI.base.AbstractComposite;
+	import com.macro.gUI.base.IControl;
+	import com.macro.gUI.base.feature.IButton;
+	import com.macro.gUI.base.feature.IDrag;
+	import com.macro.gUI.base.feature.IKeyboard;
+	import com.macro.gUI.controls.Button;
+	import com.macro.gUI.controls.Slice;
+	import com.macro.gUI.skin.ISkin;
+	import com.macro.gUI.skin.SkinDef;
+	
+	import flash.display.BitmapData;
+	import flash.events.KeyboardEvent;
+	import flash.geom.Rectangle;
+	import flash.ui.Keyboard;
+	import flash.utils.clearInterval;
+	import flash.utils.setInterval;
+
+
+	/**
+	 * 水平滚动条
+	 * @author Macro776@gmail.com
+	 *
+	 */
+	public class HScrollBar extends AbstractComposite implements IKeyboard, IDrag, IButton
+	{
+
+		private var _stepSize:int;
+		
+		private var _pageSize:int;
+
+		private var _minimum:int;
+
+		private var _maximum:int;
+
+		private var _value:Number;
+
+		
+
+		private var _track:Slice;
+
+		private var _blockBtn:Button;
+
+		private var _leftBtn:Button;
+
+		private var _rightBtn:Button;
+
+		
+		private var _autoSize:Boolean;
+		
+		private var _margin:Rectangle;
+		
+		private var _viewport:Viewport;
+
+
+
+		/**
+		 * 水平滚动条控件。利用边距属性定义滑槽的位置，
+		 * 然后根据滑块和背景的皮肤九切片定义来定位滑块及背景的位置
+		 * @param width 宽度
+		 * @param align 布局对齐方式，默认垂直居中
+		 * @param blockSkin 滑块皮肤
+		 * @param bgSkin 背景皮肤
+		 * @param leftBtnSkin 左滚动按钮皮肤
+		 * @param rightBtnSkin 右滚动按钮皮肤
+		 * 
+		 */
+		public function HScrollBar(width:int = 100, align:int = 0x20, blockSkin:ISkin = null, bgSkin:ISkin = null,
+								   leftBtnSkin:ISkin = null, rightBtnSkin:ISkin = null)
+		{
+			super(width, 20, align);
+
+			//默认自动设置高度
+			_autoSize = true;
+
+			_value = 0;
+			_stepSize = 1;
+			_pageSize = 10;
+			_maximum = 100;
+
+			//四周边距均默认为10
+			_margin = new Rectangle(10, 10);
+
+			
+			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BG);
+			_track = new Slice(width, bgSkin.bitmapData.height, bgSkin);
+
+			blockSkin = blockSkin ? blockSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BLOCK_NORMAL);
+			_blockBtn = new Button(null, null, 0x22, blockSkin);
+			_blockBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BLOCK_OVER);
+			_blockBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BLOCK_DOWN);
+			_blockBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BLOCK_DISABLE);
+			_blockBtn.autoSize = false;
+			
+			leftBtnSkin = leftBtnSkin ? leftBtnSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_LEFT_NORMAL);
+			_leftBtn = new Button(null, null, 0x22, leftBtnSkin);
+			_leftBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_LEFT_OVER);
+			_leftBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_LEFT_DOWN);
+			_leftBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_LEFT_DISABLE);
+			
+			rightBtnSkin = rightBtnSkin ? rightBtnSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_RIGHT_NORMAL);
+			_rightBtn = new Button(null, null, 0x22, rightBtnSkin);
+			_rightBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_RIGHT_OVER);
+			_rightBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_RIGHT_DOWN);
+			_rightBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_RIGHT_DISABLE);
+
+			_children.push(_track);
+			_children.push(_blockBtn);
+			_children.push(_leftBtn);
+			_children.push(_rightBtn);
+
+			resize(_rect.width);
+		}
+
+
+		/**
+		 * 自动设置高度
+		 * @return
+		 *
+		 */
+		public function get autoSize():Boolean
+		{
+			return _autoSize;
+		}
+
+		public function set autoSize(value:Boolean):void
+		{
+			if (_autoSize != value)
+			{
+				_autoSize = value;
+				if (_autoSize)
+					resize(_rect.width);
+			}
+		}
+
+		/**
+		 * 滑槽与四周的边距
+		 * @return
+		 *
+		 */
+		public function get margin():Rectangle
+		{
+			return _margin;
+		}
+
+		public function set margin(value:Rectangle):void
+		{
+			if (!_margin || !_margin.equals(value))
+			{
+				_margin = value;
+				if (_autoSize)
+					resize(_rect.width);
+				else
+					layout();
+			}
+		}
+		
+		/**
+		 * 由滚动条控制的视口
+		 * @return 
+		 * 
+		 */
+		public function get viewport():Viewport
+		{
+			return _viewport;
+		}
+		
+		public function set viewport(value:Viewport):void
+		{
+			_viewport = value;
+			resetScrollBar();
+		}
+
+		
+		/**
+		 * 步长
+		 * @return
+		 *
+		 */
+		public function get stepSize():int
+		{
+			return _stepSize;
+		}
+
+		public function set stepSize(value:int):void
+		{
+			_stepSize = value;
+		}
+		
+		
+		/**
+		 * 按翻页键以及点击滑槽背景时的滚动步长
+		 * @return 
+		 * 
+		 */
+		public function get pageSize():int
+		{
+			return _pageSize;
+		}
+		
+		public function set pageSize(value:int):void
+		{
+			_pageSize = value;
+		}
+			
+
+		/**
+		 * 最小值
+		 * @return
+		 *
+		 */
+		public function get minimum():int
+		{
+			return _minimum;
+		}
+
+		public function set minimum(value:int):void
+		{
+			_minimum = value;
+			this.value = _value;
+		}
+
+		/**
+		 * 最大值
+		 * @return
+		 *
+		 */
+		public function get maximum():int
+		{
+			return _maximum;
+		}
+
+		public function set maximum(value:int):void
+		{
+			_maximum = value;
+			this.value = _value;
+		}
+
+		/**
+		 * 当前值
+		 * @return
+		 *
+		 */
+		public function get value():Number
+		{
+			return _value;
+		}
+
+		public function set value(value:Number):void
+		{
+			_value = value < _minimum ? _minimum : (value > _maximum ? _maximum : value);
+			relocateBlock();
+		}
+
+
+
+		override public function resize(width:int = 0, height:int = 0):void
+		{
+			if (_autoSize)
+			{
+				var min:int = _margin.left + _margin.right + _blockBtn.width;
+				width = width < min ? min : width;
+				height = _margin.top + _margin.bottom;
+			}
+
+			super.resize(width, height);
+		}
+
+		override public function setDefaultSize():void
+		{
+			resize(_rect.width, _margin.top + _margin.bottom);
+		}
+
+
+
+
+		override protected function layout():void
+		{
+			var oy:int = _margin.top;
+			var h:int = _margin.top + _margin.bottom;
+			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
+				oy += (_rect.height - h) >> 1;
+			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+				oy += _rect.height - h;
+
+			_track.x = _margin.left;
+			_track.y = oy - _track.skin.gridTop;
+			_track.width = _rect.width - _margin.right - _track.x;
+
+			_leftBtn.x = _margin.left - _leftBtn.width;
+			_leftBtn.y = oy - _leftBtn.normalSkin.gridTop;
+			
+			_rightBtn.x = _rect.width - _margin.right;
+			_rightBtn.y = oy - _rightBtn.normalSkin.gridTop;
+			
+			_blockBtn.y = oy - _blockBtn.normalSkin.gridTop;
+
+			resetScrollBar();
+		}
+		
+		public function resetScrollBar():void
+		{
+			if (_viewport)
+			{
+				var ratio:Number = _viewport.containerRect.width / _viewport.scrollTarget.rect.width;
+				if (ratio >= 1)
+				{
+					_blockBtn.width = _track.width;
+					_blockBtn.x = _track.x;
+					return;
+				}
+				else
+					_blockBtn.width = ratio * _track.width;
+			}
+			else
+			{
+				_blockBtn.setDefaultSize();
+			}
+			relocateBlock();
+		}
+
+		private function relocateBlock():void
+		{
+			var ratio:Number = (_value - _minimum) / (_maximum - _minimum);
+			_blockBtn.x = _track.x + ratio * (_track.width - _blockBtn.width);
+			scrollViewport();
+		}
+		
+		/**
+		 * TODO 设置Viewport滚动位置
+		 * 
+		 */
+		private function scrollViewport():void
+		{
+			
+		}
+
+
+
+		//==============================================================
+		// 样式定义
+
+		public function get blockNormalSkin():ISkin
+		{
+			return _blockBtn.normalSkin;
+		}
+
+		public function set blockNormalSkin(value:ISkin):void
+		{
+			_blockBtn.normalSkin = value;
+			layout();
+		}
+
+		public function get blockOverSkin():ISkin
+		{
+			return _blockBtn.overSkin;
+		}
+
+		public function set blockOverSkin(value:ISkin):void
+		{
+			_blockBtn.overSkin = value;
+			layout();
+		}
+
+		public function get blockDownSkin():ISkin
+		{
+			return _blockBtn.downSkin;
+		}
+
+		public function set blockDownSkin(value:ISkin):void
+		{
+			_blockBtn.downSkin = value;
+			layout();
+		}
+
+		public function get blockDisableSkin():ISkin
+		{
+			return _blockBtn.disableSkin;
+		}
+
+		public function set blockDisableSkin(value:ISkin):void
+		{
+			_blockBtn.disableSkin = value;
+			layout();
+		}
+		
+		
+		
+		public function get leftNormalSkin():ISkin
+		{
+			return _leftBtn.normalSkin;
+		}
+		
+		public function set leftNormalSkin(value:ISkin):void
+		{
+			_leftBtn.normalSkin = value;
+			layout();
+		}
+		
+		public function get leftOverSkin():ISkin
+		{
+			return _leftBtn.overSkin;
+		}
+		
+		public function set leftOverSkin(value:ISkin):void
+		{
+			_leftBtn.overSkin = value;
+			layout();
+		}
+		
+		public function get leftDownSkin():ISkin
+		{
+			return _leftBtn.downSkin;
+		}
+		
+		public function set leftDownSkin(value:ISkin):void
+		{
+			_leftBtn.downSkin = value;
+			layout();
+		}
+		
+		public function get leftDisableSkin():ISkin
+		{
+			return _leftBtn.disableSkin;
+		}
+		
+		public function set leftDisableSkin(value:ISkin):void
+		{
+			_leftBtn.disableSkin = value;
+			layout();
+		}
+		
+		public function get rightNormalSkin():ISkin
+		{
+			return _rightBtn.normalSkin;
+		}
+		
+		public function set rightNormalSkin(value:ISkin):void
+		{
+			_rightBtn.normalSkin = value;
+			layout();
+		}
+		
+		public function get rightOverSkin():ISkin
+		{
+			return _rightBtn.overSkin;
+		}
+		
+		public function set rightOverSkin(value:ISkin):void
+		{
+			_rightBtn.overSkin = value;
+			layout();
+		}
+		
+		public function get rightDownSkin():ISkin
+		{
+			return _rightBtn.downSkin;
+		}
+		
+		public function set rightDownSkin(value:ISkin):void
+		{
+			_rightBtn.downSkin = value;
+			layout();
+		}
+		
+		public function get rightDisableSkin():ISkin
+		{
+			return _rightBtn.disableSkin;
+		}
+		
+		public function set rightDisableSkin(value:ISkin):void
+		{
+			_rightBtn.disableSkin = value;
+			layout();
+		}
+		
+		
+
+		public function get bgSkin():ISkin
+		{
+			return _track.skin;
+		}
+
+		public function set bgSkin(value:ISkin):void
+		{
+			_track.skin = value;
+			_track.height = value.bitmapData.height;
+			layout();
+		}
+
+
+
+		//==============================================================
+		// 接口实现
+
+		private var _tabIndex:int;
+		
+		private var _mouseObj:IControl;
+		
+		private var _mouseX:int;
+		
+		private var _blockX:int;
+		
+		private var _timer:int;
+
+
+		public function get enabled():Boolean
+		{
+			return _blockBtn.enabled;
+		}
+
+		public function set enabled(value:Boolean):void
+		{
+			_blockBtn.enabled = value;
+			_leftBtn.enabled = value;
+			_rightBtn.enabled = value;
+		}
+
+		public function get focusable():Boolean
+		{
+			return true;
+		}
+
+		public function get tabIndex():int
+		{
+			return _tabIndex;
+		}
+
+		public function set tabIndex(value:int):void
+		{
+			_tabIndex = value;
+		}
+
+
+
+		public function hitTest(x:int, y:int):IControl
+		{
+			_mouseX = x;
+			_blockX = _blockBtn.x;
+			
+			if (_blockBtn.rect.contains(x, y))
+				_mouseObj = _blockBtn;
+			else if (_leftBtn.rect.contains(x, y))
+				_mouseObj = _leftBtn;
+			else if (_rightBtn.rect.contains(x, y))
+				_mouseObj = _rightBtn;
+			else if (_track.rect.contains(x, y))
+				_mouseObj = _track;
+			else
+				_mouseObj = null;
+			
+			return _mouseObj;
+		}
+
+		public function mouseDown():void
+		{
+			if (!_blockBtn.enabled)
+				return;
+			
+			if (_mouseObj == _blockBtn)
+				_blockBtn.mouseDown();
+			else if (_mouseObj == _leftBtn)
+			{
+				_leftBtn.mouseDown();
+				this.value -= _stepSize;
+				_timer = setInterval(autoleft, 50);
+			}
+			else if (_mouseObj == _rightBtn)
+			{
+				_rightBtn.mouseDown();
+				this.value += _stepSize;
+				_timer = setInterval(autoright, 50);
+			}
+			else if (_mouseObj == _track)
+			{
+				if (_mouseX > _blockBtn.x)
+					this.value += _pageSize;
+				else
+					this.value -= _pageSize;
+			}
+		}
+		
+		private function autoleft():void
+		{
+			this.value -= _stepSize;
+		}
+		
+		private function autoright():void
+		{
+			this.value += _stepSize;
+		}
+		
+		public function mouseUp():void
+		{
+			clearInterval(_timer);
+			if (!_blockBtn.enabled)
+				return;
+			
+			if (_mouseObj == _blockBtn)
+				_blockBtn.mouseUp();
+			else if (_mouseObj == _leftBtn)
+				_leftBtn.mouseUp();
+			else if (_mouseObj == _rightBtn)
+				_rightBtn.mouseUp();
+		}
+
+		public function mouseOut():void
+		{
+			clearInterval(_timer);
+			_blockBtn.mouseOut();
+			_leftBtn.mouseOut();
+			_rightBtn.mouseOut();
+		}
+
+		public function mouseOver():void
+		{
+			if (!_blockBtn.enabled)
+				return;
+			
+			if (_mouseObj == _blockBtn)
+				_blockBtn.mouseOver();
+			else if (_mouseObj == _leftBtn)
+				_leftBtn.mouseOver();
+			else if (_mouseObj == _rightBtn)
+				_rightBtn.mouseOver();
+		}
+
+
+		public function keyDown(e:KeyboardEvent):void
+		{
+			if (!_blockBtn.enabled)
+				return;
+
+			if (e.keyCode == Keyboard.LEFT)
+				this.value -= _stepSize;
+			else if (e.keyCode == Keyboard.RIGHT)
+				this.value += _stepSize;
+
+		}
+
+		public function keyUp(e:KeyboardEvent):void
+		{
+		}
+
+
+
+		public function get dragMode():int
+		{
+			if (_mouseObj == _blockBtn)
+				return DragMode.INTERNAL;
+			
+			return DragMode.NONE;
+		}
+
+		public function getDragImage():BitmapData
+		{
+			return null;
+		}
+
+		public function setDragPos(x:int, y:int):void
+		{
+			if (_mouseObj != _blockBtn || !_blockBtn.enabled)
+				return;
+
+			var p:int = _blockX + (x - _mouseX);
+			var max:int = _track.x + _track.width - _blockBtn.width;
+			p = p < _track.x ? _track.x : (p > max ? max : p);
+			_blockBtn.x = p;
+			_value = (p - _track.x) / (_track.width - _blockBtn.width) * (_maximum - _minimum) + _minimum;
+			scrollViewport();
+		}
+
+	}
+}

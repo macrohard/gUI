@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.macro.gUI.FocusManager"/>
+    <classEntry path="com.macro.gUI.GameUI"/>
+    <classEntry path="com.macro.gUI.InteractionManager"/>
+    <classEntry path="com.macro.gUI.PopupManager"/>
+    <classEntry path="com.macro.gUI.SkinManager"/>
+    <classEntry path="com.macro.gUI.UIManager"/>
+    <classEntry path="com.macro.gUI.assist.CtrlState"/>
+    <classEntry path="com.macro.gUI.assist.DragMode"/>
+    <classEntry path="com.macro.gUI.assist.LayoutAlign"/>
+    <classEntry path="com.macro.gUI.assist.TextStyle"/>
+    <classEntry path="com.macro.gUI.assist.Viewport"/>
+    <classEntry path="com.macro.gUI.base.AbstractComposite"/>
+    <classEntry path="com.macro.gUI.base.AbstractContainer"/>
+    <classEntry path="com.macro.gUI.base.AbstractControl"/>
+    <classEntry path="com.macro.gUI.base.IComposite"/>
+    <classEntry path="com.macro.gUI.base.IContainer"/>
+    <classEntry path="com.macro.gUI.base.IControl"/>
+    <classEntry path="com.macro.gUI.base.feature.IButton"/>
+    <classEntry path="com.macro.gUI.base.feature.IDrag"/>
+    <classEntry path="com.macro.gUI.base.feature.IEdit"/>
+    <classEntry path="com.macro.gUI.base.feature.IFocus"/>
+    <classEntry path="com.macro.gUI.base.feature.IKeyboard"/>
+    <classEntry path="com.macro.gUI.containers.Container"/>
+    <classEntry path="com.macro.gUI.containers.Panel"/>
+    <classEntry path="com.macro.gUI.controls.Button"/>
+    <classEntry path="com.macro.gUI.controls.Canvas"/>
+    <classEntry path="com.macro.gUI.controls.IconButton"/>
+    <classEntry path="com.macro.gUI.controls.ImageBox"/>
+    <classEntry path="com.macro.gUI.controls.Label"/>
+    <classEntry path="com.macro.gUI.controls.LinkButton"/>
+    <classEntry path="com.macro.gUI.controls.Slice"/>
+    <classEntry path="com.macro.gUI.controls.TextInput"/>
+    <classEntry path="com.macro.gUI.controls.TitleBar"/>
+    <classEntry path="com.macro.gUI.controls.ToggleButton"/>
+    <classEntry path="com.macro.gUI.controls.composite.CheckBox"/>
+    <classEntry path="com.macro.gUI.controls.composite.HScrollBar"/>
+    <classEntry path="com.macro.gUI.controls.composite.HSlider"/>
+    <classEntry path="com.macro.gUI.controls.composite.ProgressBar"/>
+    <classEntry path="com.macro.gUI.controls.composite.RadioButton"/>
+    <classEntry path="com.macro.gUI.controls.composite.VScrollBar"/>
+    <classEntry path="com.macro.gUI.controls.composite.VSlider"/>
+    <classEntry path="com.macro.gUI.render.R_Composite"/>
+    <classEntry path="com.macro.gUI.render.R_Container"/>
+    <classEntry path="com.macro.gUI.render.R_Control"/>
+    <classEntry path="com.macro.gUI.skin.ISkin"/>
+    <classEntry path="com.macro.gUI.skin.SkinDef"/>
+    <classEntry path="com.macro.gUI.skin.StyleDef"/>
+    <classEntry path="com.macro.gUI.skin.impl.BitmapSkin"/>
+    <classEntry path="com.macro.gUI.skin.impl.MovieClipSkin"/>
+    <classEntry path="com.macro.gUI.skin.impl.SWFProxy"/>
+    <classEntry path="com.macro.gUI.skin.impl.SerialFrames"/>
+    <classEntry path="com.macro.gUI.skin.impl.SpriteSkin"/>
+    <classEntry path="com.macro.logging.IAppender"/>
+    <classEntry path="com.macro.logging.LogFilter"/>
+    <classEntry path="com.macro.logging.LogLevel"/>
+    <classEntry path="com.macro.logging.Logger"/>
+    <classEntry path="com.macro.logging.SOSAppender"/>
+    <classEntry path="com.macro.logging.TraceAppender"/>
+    <classEntry path="com.macro.utils.StrUtil"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

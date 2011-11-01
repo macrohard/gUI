@@ -1,0 +1,381 @@
+package com.macro.gUI.controls
+{
+	import com.macro.gUI.GameUI;
+	import com.macro.gUI.assist.CtrlState;
+	import com.macro.gUI.assist.LayoutAlign;
+	import com.macro.gUI.assist.TextStyle;
+	import com.macro.gUI.base.IControl;
+	import com.macro.gUI.base.feature.IEdit;
+	import com.macro.gUI.base.feature.IKeyboard;
+	import com.macro.gUI.skin.ISkin;
+	import com.macro.gUI.skin.SkinDef;
+	import com.macro.gUI.skin.StyleDef;
+	
+	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.geom.Rectangle;
+	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFieldType;
+	import flash.ui.Keyboard;
+	import flash.utils.Dictionary;
+
+
+	/**
+	 * 文本输入框
+	 * @author macro776@gmail.com
+	 *
+	 */
+	public class TextInput extends Label implements IEdit, IKeyboard
+	{
+
+		protected var _skins:Dictionary;
+
+		protected var _styles:Dictionary;
+
+
+		/**
+		 * 文本输入框，支持背景皮肤定义，有常态及禁用态
+		 * @param text 默认文本
+		 * @param style 文本样式
+		 * @param align 文本对齐方式，默认左中对齐
+		 * @param skin 皮肤样式，如果为null，使用SkinDef中的定义
+		 *
+		 */
+		public function TextInput(text:String = null, style:TextStyle = null, align:int = 0x21, skin:ISkin = null)
+		{
+			//默认控件可用
+			_enabled = true;
+
+			//默认可编辑
+			_editable = true;
+
+			_skin = skin;
+
+			super(text, style, align);
+		}
+
+
+		/**
+		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
+		 *
+		 */
+		override protected function init():void
+		{
+			_autoSize = false;
+			
+			_styles = new Dictionary();
+			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.TEXTINPUT);
+			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.DISABLE);
+
+			//背景皮肤
+			_skins = new Dictionary();
+			_skins[CtrlState.NORMAL] = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_NORMAL);
+			_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_DISABLE);
+
+			_style = _styles[CtrlState.NORMAL];
+			_skin = _skins[CtrlState.NORMAL];
+			
+			_margin = new Rectangle(10);
+		}
+
+
+		override public function resize(width:int = 0, height:int = 0):void
+		{
+			super.resize(width, height);
+			relocateEditBox();
+		}
+
+
+		//=====================================================================
+		// 样式定义
+
+		/**
+		 * 设置文本样式
+		 * @return
+		 *
+		 */
+		override public function get normalStyle():TextStyle
+		{
+			return _styles[CtrlState.NORMAL];
+		}
+
+		override public function set normalStyle(value:TextStyle):void
+		{
+			if (!value)
+				return;
+
+			if (_style == _styles[CtrlState.NORMAL])
+			{
+				_style = value;
+				drawText();
+			}
+
+			_styles[CtrlState.NORMAL] = value;
+		}
+
+		/**
+		 * 设置禁用文本样式
+		 * @return
+		 *
+		 */
+		public function get disableStyle():TextStyle
+		{
+			return _styles[CtrlState.DISABLE];
+		}
+
+		public function set disableStyle(value:TextStyle):void
+		{
+			if (!value)
+				return;
+
+			if (_style == _styles[CtrlState.DISABLE])
+			{
+				_style = value;
+				drawText();
+			}
+
+			_styles[CtrlState.DISABLE] = value;
+		}
+
+		/**
+		 * 设置普通皮肤样式
+		 * @return
+		 *
+		 */
+		public function get normalSkin():ISkin
+		{
+			return _skins[CtrlState.NORMAL];
+		}
+
+		public function set normalSkin(value:ISkin):void
+		{
+			if (_skin == _skins[CtrlState.NORMAL])
+			{
+				_skin = value;
+				paint();
+			}
+
+			_skins[CtrlState.NORMAL] = value;
+		}
+
+		/**
+		 * 设置禁用皮肤样式
+		 * @return
+		 *
+		 */
+		public function get disableSkin():ISkin
+		{
+			return _skins[CtrlState.DISABLE];
+		}
+
+		public function set disableSkin(value:ISkin):void
+		{
+			if (_skin == _skins[CtrlState.DISABLE])
+			{
+				_skin = value;
+				paint();
+			}
+
+			_skins[CtrlState.DISABLE] = value;
+		}
+
+
+
+
+
+		//=====================================================================
+		// 接口实现
+
+
+		private var _editable:Boolean;
+
+		private var _tabIndex:int;
+
+		private var _enabled:Boolean;
+
+		private var _editBox:TextField;
+
+
+		/**
+		 * 是否可编辑
+		 * @return
+		 *
+		 */
+		public function get editable():Boolean
+		{
+			return _editable;
+		}
+
+		public function set editable(value:Boolean):void
+		{
+			_editable = value;
+		}
+
+
+
+		/**
+		 * 是否启用
+		 * @return
+		 *
+		 */
+		public function get enabled():Boolean
+		{
+			return _enabled;
+		}
+
+		public function set enabled(value:Boolean):void
+		{
+			if (_enabled != value)
+			{
+				_enabled = value;
+				if (_enabled)
+				{
+					_skin = _skins[CtrlState.NORMAL];
+					_style = _styles[CtrlState.NORMAL];
+				}
+				else
+				{
+					_skin = _skins[CtrlState.DISABLE];
+					_style = _styles[CtrlState.DISABLE];
+				}
+				drawText();
+			}
+		}
+
+		public function get tabIndex():int
+		{
+			return _tabIndex;
+		}
+
+		public function set tabIndex(value:int):void
+		{
+			_tabIndex = value;
+		}
+
+		public function get focusable():Boolean
+		{
+			return true;
+		}
+
+
+		public function hitTest(x:int, y:int):IControl
+		{
+			if (_textDrawRect && _textDrawRect.contains(x, y))
+				return this;
+
+			return null;
+		}
+
+
+		/**
+		 * 开始编辑
+		 * @return
+		 *
+		 */
+		public function beginEdit():TextField
+		{
+			if (!_enabled)
+				return null;
+
+			if (_editBox)
+				return _editBox;
+
+			_textImg = null;
+			paint();
+
+			_editBox = new TextField();
+			_editBox.autoSize = TextFieldAutoSize.LEFT;
+			_editBox.displayAsPassword = _style.displayAsPassword;
+			_editBox.maxChars = _style.maxChars;
+			_editBox.filters = _style.filters;
+			_editBox.defaultTextFormat = _style;
+			_editBox.text = _text;
+
+			_editBox.addEventListener(Event.CHANGE, onTextChange);
+			relocateEditBox();
+
+			if (_editable)
+				_editBox.type = TextFieldType.INPUT;
+
+			return _editBox;
+		}
+
+		/**
+		 * 结束编辑
+		 *
+		 */
+		public function endEdit():void
+		{
+			if (_editBox)
+			{
+				_text = _editBox.text;
+				drawText();
+
+				_editBox.removeEventListener(Event.CHANGE, onTextChange);
+				_editBox = null;
+			}
+		}
+
+		private function onTextChange(e:Event):void
+		{
+			relocateEditBox();
+		}
+
+		/**
+		 * 重新定位编辑框
+		 *
+		 */
+		private function relocateEditBox():void
+		{
+			if (!_editBox)
+				return;
+
+			var txtW:int = _editBox.textWidth + 4 + _style.leftMargin + _style.rightMargin + _style.indent + _style.blockIndent;
+			var txtH:int = _editBox.textHeight + 4;
+			
+			var w:int = _rect.width - _margin.left - _margin.right;
+			var h:int = _rect.height - _margin.top - _margin.bottom;
+
+			if (txtW > w)
+			{
+				_editBox.autoSize = TextFieldAutoSize.NONE;
+				_editBox.multiline = _style.multiline;
+				_editBox.wordWrap = _style.wordWrap;
+				txtW = w;
+				_editBox.width = txtW + 2;
+//				_editBox.height = txtH;
+				txtH = _editBox.textHeight + 4;
+			}
+			else
+				_editBox.autoSize = TextFieldAutoSize.LEFT;
+
+			var ox:int = _rect.x + _margin.left;
+			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
+				ox += (w - txtW) >> 1;
+			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+				ox += w - txtW;
+
+			var oy:int = _rect.y + _margin.top;
+			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
+				oy += (h - txtH) >> 1;
+			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+				oy += h - txtH;
+
+			_editBox.x = ox;
+			_editBox.y = oy;
+		}
+
+		public function keyDown(e:KeyboardEvent):void
+		{
+			if (e.keyCode == Keyboard.ENTER || e.keyCode == Keyboard.ESCAPE)
+				endEdit();
+			// TODO 应调用InteractiveManager的结束编辑接口
+			// 或者考虑直接将可编辑TextField的创建拿到InteractiveManager中
+		}
+
+		public function keyUp(e:KeyboardEvent):void
+		{
+		}
+	}
+}

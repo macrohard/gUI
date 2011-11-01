@@ -1,0 +1,543 @@
+package com.macro.gUI.base
+{
+
+	import avmplus.getQualifiedClassName;
+	
+	import com.macro.gUI.assist.LayoutAlign;
+	import com.macro.gUI.skin.ISkin;
+	
+	import flash.display.BitmapData;
+	import flash.events.EventDispatcher;
+	import flash.geom.Matrix;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+
+
+	/**
+	 * 抽象控件，不允许实例化，几乎所有控件都继承于它。
+	 * 如果不需要完整的控件功能，可以直接实现IControl接口
+	 * @author Macro776@gmail.com
+	 *
+	 */
+	public class AbstractControl extends EventDispatcher implements IControl
+	{
+
+		/**
+		 * 平滑绘制
+		 */
+		public static var smoothing:Boolean = true;
+
+
+
+		protected var _bgColor:int;
+
+		protected var _transparent:Boolean;
+
+		protected var _bitmapData:BitmapData;
+
+		protected var _rect:Rectangle;
+
+
+
+		/**
+		 * 皮肤。<br/>
+		 * TODO 对于动画皮肤，可以考虑将skin修改为访问器，在替换skin时添加侦听器，实现逐帧绘制<br/><br/>
+		 * 未直接曝露，支持此属性的子类自行提供访问器
+		 */
+		protected var _skin:ISkin;
+
+		/**
+		 * 皮肤绘制范围<br/><br/>
+		 * 未直接曝露，支持此属性的子类自行提供访问器
+		 */
+		protected var _skinDrawRect:Rectangle;
+
+
+
+
+		/**
+		 * 抽象控件，基类，不允许直接实例化
+		 * @param width 控件宽度
+		 * @param height 控件高度
+		 *
+		 */
+		public function AbstractControl(width:int, height:int)
+		{
+			if (getQualifiedClassName(this) == "com.macro.gUI.base::AbstractControl")
+				throw new Error("Abstract class can not be constructed!");
+
+			//默认透明度
+			_alpha = 1;
+
+			//默认无色，0x00000000
+			_bgColor = 0;
+
+			//默认透明
+			_transparent = true;
+
+			//默认尺寸
+			_rect = new Rectangle(0, 0, width, height);
+		}
+
+
+		/**
+		 * 背景色，ARGB格式
+		 */
+		public function get backgroundColor():int
+		{
+			return _bgColor;
+		}
+
+		public function set backgroundColor(value:int):void
+		{
+			if (_bgColor != value)
+			{
+				_bgColor = value;
+				paint();
+			}
+		}
+
+		/**
+		 * 透明
+		 */
+		public function get transparent():Boolean
+		{
+			return _transparent;
+		}
+
+		public function set transparent(value:Boolean):void
+		{
+			if (_transparent != value)
+			{
+				_transparent = value;
+				paint(true);
+			}
+		}
+
+		/**
+		 * 横坐标
+		 * @return
+		 *
+		 */
+		public function get x():int
+		{
+			return _rect.x;
+		}
+
+		public function set x(value:int):void
+		{
+			_rect.x = value;
+		}
+
+		/**
+		 * 纵坐标
+		 * @return
+		 *
+		 */
+		public function get y():int
+		{
+			return _rect.y;
+		}
+
+		public function set y(value:int):void
+		{
+			_rect.y = value;
+		}
+
+		/**
+		 * 控件宽度，最小宽度是1
+		 * @return
+		 *
+		 */
+		public function get width():int
+		{
+			return _rect.width;
+		}
+
+		public function set width(value:int):void
+		{
+			if (_rect.width != value && value > 0)
+				resize(value, _rect.height);
+		}
+
+		/**
+		 * 控件高度，最小高度是1
+		 * @return
+		 *
+		 */
+		public function get height():int
+		{
+			return _rect.height;
+		}
+
+		public function set height(value:int):void
+		{
+			if (_rect.height != value && value > 0)
+				resize(_rect.width, value);
+		}
+
+
+
+
+		/**
+		 * 重设尺寸，如果没有皮肤定义且使用此方法的默认参数，将产生无效调用
+		 * @param width
+		 * @param height
+		 *
+		 */
+		public function resize(width:int = 0, height:int = 0):void
+		{
+			if (_skin && width < _skin.minWidth)
+				width = _skin.minWidth;
+
+			if (_skin && height < _skin.minHeight)
+				height = _skin.minHeight;
+
+			if (width > 0 && height > 0 && (_rect.width != width || _rect.height != height))
+			{
+				_rect.width = width;
+				_rect.height = height;
+				paint(true);
+			}
+			else
+				paint();
+		}
+
+		/**
+		 * 设置为皮肤的默认尺寸
+		 *
+		 */
+		public function setDefaultSize():void
+		{
+			if (_skin)
+				resize(_skin.bitmapData.width, _skin.bitmapData.height);
+		}
+
+
+		/**
+		 * 将当前皮肤绘制到画布上
+		 *
+		 */
+		protected function paint(recreate:Boolean = false):void
+		{
+			if (recreate || !_bitmapData)
+			{
+				if (_bitmapData)
+					_bitmapData.dispose();
+
+				_bitmapData = new BitmapData(_rect.width, _rect.height, _transparent, _bgColor);
+			}
+			else
+				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
+
+			prePaint();
+
+			if (_skin && _skin.bitmapData)
+			{
+				var h:Boolean, v:Boolean;
+
+				if (_skin.gridRight > _skin.gridLeft)
+					h = true;
+
+				if (_skin.gridBottom > _skin.gridTop)
+					v = true;
+
+				if (h && v)
+					_skinDrawRect = drawFull(_bitmapData, _rect, _skin);
+				else if (h && !v)
+					_skinDrawRect = drawHorizontal(_bitmapData, _rect, _skin);
+				else if (!h && v)
+					_skinDrawRect = drawVertical(_bitmapData, _rect, _skin);
+				else
+					_skinDrawRect = drawFixed(_bitmapData, _rect, _skin.align, _skin.bitmapData);
+			}
+
+			postPaint();
+		}
+
+		/**
+		 * 皮肤绘制之后
+		 *
+		 */
+		protected function postPaint():void
+		{
+		}
+
+		/**
+		 * 皮肤绘制之前
+		 *
+		 */
+		protected function prePaint():void
+		{
+		}
+
+
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+		// 以下属性、方法由整个UI体系使用，子类无须关心
+
+
+		private var _parent:IContainer;
+
+		private var _alpha:Number;
+
+		private var _visible:Boolean;
+
+
+		public function get bitmapData():BitmapData
+		{
+			return _bitmapData;
+		}
+
+		public function get rect():Rectangle
+		{
+			return _rect;
+		}
+
+
+		public function get parent():IContainer
+		{
+			return _parent;
+		}
+
+		/**
+		 * 设置父容器，内部行为，外部无法访问
+		 * @param container
+		 *
+		 */
+		internal function setParent(container:IContainer):void
+		{
+			_parent = container;
+		}
+
+		public function get alpha():Number
+		{
+			return _alpha;
+		}
+
+		public function set alpha(value:Number):void
+		{
+			_alpha = value;
+		}
+
+		public function get visible():Boolean
+		{
+			return _visible;
+		}
+
+		public function set visible(value:Boolean):void
+		{
+			_visible = value;
+		}
+
+
+		/**
+		 * 覆盖父类添加侦听器的方法，修改弱引用参数默认值为true，因为使用类成员作为侦听器的使用环境更为常见
+		 *
+		 */
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false,
+												  priority:int = 0, useWeakReference:Boolean = true):void
+		{
+			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		}
+
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+		// 静态绘图方法，由子类使用
+
+
+		/**
+		 * 按完全缩放方式绘图制皮肤
+		 * @param canvas 画布
+		 * @param rect 范围矩形
+		 * @param skin 皮肤
+		 * @return 绘制区域
+		 *
+		 */
+		protected static function drawFull(canvas:BitmapData, rect:Rectangle, skin:ISkin):Rectangle
+		{
+			var scaleW:int = rect.width - skin.minWidth;
+			var scaleX:Number = scaleW / (skin.gridRight - skin.gridLeft);
+
+			var scaleH:int = rect.height - skin.minHeight;
+			var scaleY:Number = scaleH / (skin.gridBottom - skin.gridTop);
+
+
+			canvas.lock();
+
+			//绘制四角
+			canvas.copyPixels(skin.bitmapData, new Rectangle(0, 0, skin.gridLeft, skin.gridTop), new Point(0, 0), null,
+							  null, true);
+			canvas.copyPixels(skin.bitmapData, new Rectangle(skin.gridRight, 0, skin.marginRight, skin.gridTop),
+							  new Point(rect.width - skin.marginRight, 0), null, null, true);
+			canvas.copyPixels(skin.bitmapData, new Rectangle(0, skin.gridBottom, skin.gridLeft, skin.marginBottom),
+							  new Point(0, rect.height - skin.marginBottom), null, null, true);
+			canvas.copyPixels(skin.bitmapData,
+							  new Rectangle(skin.gridRight, skin.gridBottom, skin.marginRight, skin.marginBottom),
+							  new Point(rect.width - skin.marginRight, rect.height - skin.marginBottom), null, null,
+							  true);
+
+			var matrix:Matrix;
+			//绘制上、下两边
+			matrix = new Matrix();
+			matrix.scale(scaleX, 1);
+			matrix.translate(skin.gridLeft * (1 - scaleX), 0);
+			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(skin.gridLeft, 0, scaleW, skin.gridTop),
+						smoothing);
+
+			matrix.translate(0, rect.height - skin.bitmapData.height);
+			canvas.draw(skin.bitmapData, matrix, null, null,
+						new Rectangle(skin.gridLeft, rect.height - skin.marginBottom, scaleW, skin.marginBottom),
+						smoothing);
+
+			//绘制左、右两边
+			matrix = new Matrix();
+			matrix.scale(1, scaleY);
+			matrix.translate(0, skin.gridTop * (1 - scaleY));
+			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(0, skin.gridTop, skin.gridLeft, scaleH),
+						smoothing);
+
+			matrix.translate(rect.width - skin.bitmapData.width, 0);
+			canvas.draw(skin.bitmapData, matrix, null, null,
+						new Rectangle(rect.width - skin.marginRight, skin.gridTop, skin.marginRight, scaleH), smoothing);
+
+			//绘制中心
+			matrix = new Matrix();
+			matrix.scale(scaleX, scaleY);
+			matrix.translate(skin.gridLeft * (1 - scaleX), skin.gridTop * (1 - scaleY));
+			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(skin.gridLeft, skin.gridTop, scaleW, scaleH),
+						smoothing);
+
+			canvas.unlock();
+
+			return new Rectangle(0, 0, canvas.width, canvas.height);
+		}
+
+		/**
+		 * 按垂直缩放方式绘制皮肤
+		 * @param canvas 画布
+		 * @param rect 范围矩形
+		 * @param skin 皮肤
+		 * @return 绘制区域
+		 *
+		 */
+		protected static function drawVertical(canvas:BitmapData, rect:Rectangle, skin:ISkin):Rectangle
+		{
+			var ox:int;
+			if ((skin.align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
+				ox = (rect.width - skin.bitmapData.width) >> 1;
+			else if ((skin.align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+				ox = rect.width - skin.bitmapData.width;
+
+			var scaleH:int = rect.height - skin.minHeight;
+			var scaleY:Number = scaleH / (skin.gridBottom - skin.gridTop);
+
+			canvas.lock();
+
+			//绘制上、下端
+			canvas.copyPixels(skin.bitmapData, new Rectangle(0, 0, skin.bitmapData.width, skin.gridTop),
+							  new Point(ox, 0), null, null, true);
+			canvas.copyPixels(skin.bitmapData,
+							  new Rectangle(0, skin.gridBottom, skin.bitmapData.width, skin.marginBottom),
+							  new Point(ox, rect.height - skin.marginBottom), null, null, true);
+
+			var matrix:Matrix;
+			//绘制中心
+			matrix = new Matrix();
+			matrix.scale(1, scaleY);
+			matrix.translate(ox, skin.gridTop * (1 - scaleY));
+			canvas.draw(skin.bitmapData, matrix, null, null,
+						new Rectangle(ox, skin.gridTop, skin.bitmapData.width, scaleH), smoothing);
+
+			canvas.unlock();
+
+			return new Rectangle(ox, 0, skin.bitmapData.width, canvas.height);
+		}
+
+		/**
+		 * 按水平缩放方式绘制皮肤
+		 * @param canvas 画布
+		 * @param rect 范围矩形
+		 * @param skin 皮肤
+		 * @return 绘制区域
+		 *
+		 */
+		protected static function drawHorizontal(canvas:BitmapData, rect:Rectangle, skin:ISkin):Rectangle
+		{
+			var oy:int;
+			if ((skin.align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
+				oy = (rect.height - skin.bitmapData.height) >> 1;
+			else if ((skin.align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+				oy = rect.height - skin.bitmapData.height;
+
+			var scaleW:int = rect.width - skin.minWidth;
+			var scaleX:Number = scaleW / (skin.gridRight - skin.gridLeft);
+
+			canvas.lock();
+
+			//绘制左、右端
+			canvas.copyPixels(skin.bitmapData, new Rectangle(0, 0, skin.gridLeft, skin.bitmapData.height),
+							  new Point(0, oy), null, null, true);
+			canvas.copyPixels(skin.bitmapData,
+							  new Rectangle(skin.gridRight, 0, skin.marginRight, skin.bitmapData.height),
+							  new Point(rect.width - skin.marginRight, oy), null, null, true);
+
+
+			var matrix:Matrix;
+			//绘制中心
+			matrix = new Matrix();
+			matrix.scale(scaleX, 1);
+			matrix.translate(skin.gridLeft * (1 - scaleX), oy);
+			canvas.draw(skin.bitmapData, matrix, null, null,
+						new Rectangle(skin.gridLeft, oy, scaleW, skin.bitmapData.height), smoothing);
+
+			canvas.unlock();
+
+			return new Rectangle(0, oy, canvas.width, skin.bitmapData.height);
+		}
+
+		/**
+		 * 按固定大小绘制图源
+		 * @param canvas 画布
+		 * @param rect 范围矩形
+		 * @param align 对齐方式
+		 * @param bitmapData 图源
+		 * @param margin 间距
+		 * @return 绘制区域
+		 *
+		 */
+		protected static function drawFixed(canvas:BitmapData, rect:Rectangle, align:int, bitmapData:BitmapData,
+											margin:Rectangle = null):Rectangle
+		{
+			var r:Rectangle = new Rectangle(0, 0, rect.width, rect.height);
+			if (margin)
+			{
+				r.left = margin.left;
+				r.top = margin.top;
+				r.width -= margin.right;
+				r.height -= margin.bottom;
+			}
+
+			var ox:int = r.left;
+			if ((align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
+				ox += (r.width - bitmapData.width) >> 1;
+			else if ((align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+				ox += r.width - bitmapData.width;
+
+			var oy:int = r.top;
+			if ((align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
+				oy += (r.height - bitmapData.height) >> 1;
+			else if ((align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+				oy += r.height - bitmapData.height;
+
+			var t:Rectangle = new Rectangle(ox, oy, bitmapData.width, bitmapData.height);
+			t = r.intersection(t);
+
+			canvas.copyPixels(bitmapData, new Rectangle(t.x - ox, t.y - oy, t.width, t.height), new Point(t.x, t.y),
+							  null, null, true);
+
+			return t;
+		}
+
+	}
+}
