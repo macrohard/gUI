@@ -57,7 +57,7 @@ package com.macro.logging
 
 		private function findLevel(category:String):int
 		{
-			if (_logLevels[category])
+			if (_logLevels[category] != null)
 				return _logLevels[category];
 			
 			var p:String = getParentPath(category);
