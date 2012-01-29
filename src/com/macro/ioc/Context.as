@@ -418,7 +418,7 @@ package com.macro.ioc
 			var eventType:String = getQualifiedClassName(e);
 			var handlerInfo:HandlerInfo;
 			var handlers:Vector.<HandlerInfo>;
-			while (true)
+			do
 			{
 				handlers = _handlers[eventType];
 				if (handlers != null)
@@ -440,12 +440,8 @@ package com.macro.ioc
 				}
 				
 				eventType = getQualifiedSuperclassName(getDefinitionByName(eventType));
-				if (eventType == null)
-				{
-					return;
-				}
-
-			}
+				
+			} while (eventType != null)
 		}
 
 	}
