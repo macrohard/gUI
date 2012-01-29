@@ -213,10 +213,15 @@ package com.macro.ioc
 		private function assembling(obj:Object):void
 		{
 			var describe:XML = describeType(obj);
-
+			
 			setInject(describe, obj);
 			setDispatcher(describe, obj);
-			processManagedEvents(describe, obj);
+			// 对象支持事件派发，则处理托管事件。
+			// 不支持事件派发的对象，应使用[MessageDispatcher]来注入事件派发器
+			if (obj is IEventDispatcher)
+			{
+				processManagedEvents(describe, obj);
+			}
 			addMessageHandlers(describe, obj);
 		}
 
@@ -292,12 +297,6 @@ package com.macro.ioc
 		 */
 		private function processManagedEvents(describe:XML, obj:Object):void
 		{
-			// 对象不支持事件派发，则不处理托管事件。此类对象应使用[MessageDispatcher]来注入事件派发器
-			if (!(obj is IEventDispatcher))
-			{
-				return;
-			}
-
 			var dispatcher:IEventDispatcher = obj as IEventDispatcher;
 			var node:XML;
 			var types:Array;
