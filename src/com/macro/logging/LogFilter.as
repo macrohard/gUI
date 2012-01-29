@@ -3,6 +3,11 @@ package com.macro.logging
 	import flash.utils.Dictionary;
 
 
+	/**
+	 * 日志过滤器
+	 * @author Macro <macro776@gmail.com>
+	 * 
+	 */
 	public class LogFilter
 	{
 
@@ -10,11 +15,21 @@ package com.macro.logging
 
 		private var _rootLevel:int = LogLevel.ALL;
 
+		/**
+		 * 日志输出总阀
+		 * @return 
+		 * 
+		 */
 		public function get rootLevel():int
 		{
 			return _rootLevel;
 		}
 
+		/**
+		 * 日志输出总阀
+		 * @param value
+		 * 
+		 */
 		public function set rootLevel(value:int):void
 		{
 			_rootLevel = value;
@@ -27,11 +42,22 @@ package com.macro.logging
 			_logLevels = new Dictionary();
 		}
 
+		/**
+		 * 添加对应类路径的过滤级别
+		 * @param category
+		 * @param level
+		 * 
+		 */
 		public function addLogLevel(category:String, level:int):void
 		{
 			_logLevels[category] = level;
 		}
 
+		/**
+		 * 移除对应类路径的过滤级别
+		 * @param category
+		 * 
+		 */
 		public function removeLogLevel(category:String):void
 		{
 			_logLevels[category] = null;
