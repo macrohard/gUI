@@ -77,5 +77,52 @@ package com.macro.utils
 			
 			return text;
 		}
+		
+		/**
+		 * 移除两边空白
+		 * @param char
+		 * @return 
+		 * 
+		 */
+		public static function trim(str:String):String
+		{
+			if (str == null)
+			{
+				return null;
+			}
+			return rtrim(ltrim(str));
+		}
+		
+		/**
+		 * 移除左边空白
+		 * @param char
+		 * @return 
+		 * 
+		 */
+		public static function ltrim(str:String):String
+		{
+			if (str == null)
+			{
+				return null;
+			}
+			var pattern:RegExp = /^\s*/;
+			return str.replace(pattern, "");
+		}
+		
+		/**
+		 * 移除右边空白
+		 * @param char
+		 * @return 
+		 * 
+		 */
+		public static function rtrim(str:String):String
+		{
+			if (str == null)
+			{
+				return null;
+			}
+			var pattern:RegExp = /\s*$/;
+			return str.replace(pattern, "");
+		}
 	}
 }

@@ -60,6 +60,7 @@
     <classEntry path="com.macro.logging.SOSAppender"/>
     <classEntry path="com.macro.logging.TraceAppender"/>
     <classEntry path="com.macro.utils.StrUtil"/>
+    <classEntry path="com.macro.ioc.HandlerInfo"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
