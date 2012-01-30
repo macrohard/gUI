@@ -1,7 +1,7 @@
 package com.macro.ioc
 {
 	import com.macro.utils.StrUtil;
-	
+
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.utils.Dictionary;
@@ -213,7 +213,7 @@ package com.macro.ioc
 		private function assembling(obj:Object):void
 		{
 			var describe:XML = describeType(obj);
-			
+
 			setInject(describe, obj);
 			setDispatcher(describe, obj);
 			// 对象支持事件派发，则处理托管事件。
@@ -288,6 +288,23 @@ package com.macro.ioc
 			}
 		}
 
+		/**
+		 * 调用[Init]方法
+		 *
+		 */
+		private function callInit(obj:Object):void
+		{
+			var describe:XML;
+			var node:XML;
+			var handler:Function;
+
+			describe = describeType(obj);
+			for each (node in describe.*.(name() == "method").metadata.(@name == "Init"))
+			{
+				handler = obj[node.parent().@name.toString()];
+				handler.apply();
+			}
+		}
 
 		/**
 		 * 对托管事件[ManagedEvents]添加侦听器
@@ -388,25 +405,6 @@ package com.macro.ioc
 		}
 
 
-
-		/**
-		 * 调用[Init]方法
-		 *
-		 */
-		private function callInit(obj:Object):void
-		{
-			var describe:XML;
-			var node:XML;
-			var handler:Function;
-
-			describe = describeType(obj);
-			for each (node in describe.*.(name() == "method").metadata.(@name == "Init"))
-			{
-				handler = obj[node.parent().@name.toString()];
-				handler.apply();
-			}
-		}
-
 		/**
 		 * 处理托管事件
 		 * @param e
@@ -437,9 +435,9 @@ package com.macro.ioc
 						}
 					}
 				}
-				
+
 				eventType = getQualifiedSuperclassName(getDefinitionByName(eventType));
-				
+
 			} while (eventType != null)
 		}
 
