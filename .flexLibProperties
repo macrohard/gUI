@@ -61,6 +61,7 @@
     <classEntry path="com.macro.logging.TraceAppender"/>
     <classEntry path="com.macro.utils.StrUtil"/>
     <classEntry path="com.macro.ioc.HandlerInfo"/>
+    <classEntry path="com.macro.utils.WordFilterUtil"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
