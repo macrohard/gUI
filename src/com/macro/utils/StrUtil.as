@@ -5,8 +5,6 @@ package com.macro.utils
 	public class StrUtil
 	{
 		
-		public static const EMPTY:String = "";
-		
 		/**
 		 * 格式化字符串。使用样例：<br/>
 		 * StrUtil.format("role id[{0}] identity:{1}", role.duelId, role.identity);<br/>

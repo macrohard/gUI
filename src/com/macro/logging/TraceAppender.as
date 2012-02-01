@@ -20,7 +20,7 @@ package com.macro.logging
 		
 		public function send(category:String, message:String, level:int):String
 		{
-			var msg:String = StrUtil.EMPTY;
+			var msg:String = "";
 			if (includeTime)
 				msg += StrUtil.getTimeString() + _seperator;
 			

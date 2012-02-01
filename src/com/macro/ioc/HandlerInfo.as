@@ -5,7 +5,7 @@ package com.macro.ioc
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	class HandlerInfo
+	internal class HandlerInfo
 	{
 		public var handler:Function;
 		
