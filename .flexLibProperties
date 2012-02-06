@@ -62,6 +62,8 @@
     <classEntry path="com.macro.utils.StrUtil"/>
     <classEntry path="com.macro.ioc.HandlerInfo"/>
     <classEntry path="com.macro.utils.WordFilterUtil"/>
+    <classEntry path="com.macro.utils.TextUtil"/>
+    <classEntry path="com.macro.utils.TextSegment"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
