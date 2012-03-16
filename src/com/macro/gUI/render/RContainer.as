@@ -4,11 +4,11 @@ package com.macro.gUI.render
 	
 	import flash.display.Bitmap;
 
-	public class R_Container extends R_Composite
+	public class RContainer extends RComposite
 	{
 		protected var _cover:Bitmap;
 		
-		public function R_Container(control:IContainer)
+		public function RContainer(control:IContainer)
 		{
 			_cover = new Bitmap(control.bitmapDataCover);
 			

@@ -220,6 +220,8 @@ package com.macro.gUI.base
 		 */
 		protected function paint(recreate:Boolean = false):void
 		{
+			prePaint();
+			
 			if (recreate || !_bitmapData)
 			{
 				if (_bitmapData)
@@ -229,8 +231,6 @@ package com.macro.gUI.base
 			}
 			else
 				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
-
-			prePaint();
 
 			if (_skin && _skin.bitmapData)
 			{

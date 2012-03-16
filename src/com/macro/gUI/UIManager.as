@@ -3,9 +3,9 @@ package com.macro.gUI
 	import com.macro.gUI.base.IComposite;
 	import com.macro.gUI.base.IContainer;
 	import com.macro.gUI.base.IControl;
-	import com.macro.gUI.render.R_Composite;
-	import com.macro.gUI.render.R_Container;
-	import com.macro.gUI.render.R_Control;
+	import com.macro.gUI.render.RComposite;
+	import com.macro.gUI.render.RContainer;
+	import com.macro.gUI.render.RControl;
 	
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
@@ -67,7 +67,7 @@ package com.macro.gUI
 			if (_rootContainer)
 				disposeRootSprite();
 
-			var rootcontainer:R_Container = new R_Container(container);
+			var rootcontainer:RContainer = new RContainer(container);
 			
 			_rootSprite = new Sprite();
 			_rootSprite.addChild(rootcontainer.canvas);
@@ -93,15 +93,15 @@ package com.macro.gUI
 		 */
 		private function render(container:IComposite):void
 		{
-			var parent:R_Composite = _controlsMap[container];
+			var parent:RComposite = _controlsMap[container];
 			for each (var child:IControl in container.children)
 			{
 				if (child is IContainer)
 				{
-					var subcontainer:R_Container = _controlsMap[child];
+					var subcontainer:RContainer = _controlsMap[child];
 					if (!subcontainer)
 					{
-						subcontainer = new R_Container(IContainer(child));
+						subcontainer = new RContainer(IContainer(child));
 						render(IContainer(child));
 						_controlsMap[child] = subcontainer;
 					}
@@ -114,10 +114,10 @@ package com.macro.gUI
 				}
 				else if (child is IComposite)
 				{
-					var subcomposite:R_Composite = _controlsMap[child];
+					var subcomposite:RComposite = _controlsMap[child];
 					if (!subcomposite)
 					{
-						subcomposite = new R_Composite(IComposite(child));
+						subcomposite = new RComposite(IComposite(child));
 						render(IComposite(child));
 						_controlsMap[child] = subcomposite;
 					}
@@ -129,10 +129,10 @@ package com.macro.gUI
 				}
 				else if (child is IControl)
 				{
-					var subcontrol:R_Control = _controlsMap[child];
+					var subcontrol:RControl = _controlsMap[child];
 					if (!subcontrol)
 					{
-						subcontrol = new R_Control(child);
+						subcontrol = new RControl(child);
 						_controlsMap[child] = subcontrol;
 					}
 
@@ -149,7 +149,7 @@ package com.macro.gUI
 		 */
 		public function disposeRootSprite():void
 		{
-			for each (var child:R_Control in _controlsMap)
+			for each (var child:RControl in _controlsMap)
 				child.dispose();
 
 			_controlsMap = new Dictionary(true);
@@ -168,7 +168,7 @@ package com.macro.gUI
 		 */
 		public function updateLocation(control:IControl):void
 		{
-			var rcontrol:R_Control = _controlsMap[control];
+			var rcontrol:RControl = _controlsMap[control];
 			if (rcontrol)
 				rcontrol.updateLocation();
 		}
@@ -180,7 +180,7 @@ package com.macro.gUI
 		 */
 		public function updateSource(control:IControl):void
 		{
-			var rcontrol:R_Control = _controlsMap[control];
+			var rcontrol:RControl = _controlsMap[control];
 			if (rcontrol)
 				rcontrol.updateSource();
 		}
@@ -192,7 +192,7 @@ package com.macro.gUI
 		 */
 		public function updateAlpha(control:IControl):void
 		{
-			var rcontrol:R_Control = _controlsMap[control];
+			var rcontrol:RControl = _controlsMap[control];
 			if (rcontrol)
 				rcontrol.updateAlpha();
 		}
@@ -204,7 +204,7 @@ package com.macro.gUI
 		 */
 		public function updateVisible(control:IControl):void
 		{
-			var rcontrol:R_Control = _controlsMap[control];
+			var rcontrol:RControl = _controlsMap[control];
 			if (rcontrol)
 				rcontrol.updateVisible();
 		}
@@ -218,7 +218,7 @@ package com.macro.gUI
 		 */
 		public function updateContainer(container:IContainer):void
 		{
-			var rcontainer:R_Container = _controlsMap[container];
+			var rcontainer:RContainer = _controlsMap[container];
 			if (rcontainer)
 			{
 				while (rcontainer.container.numChildren > 0)

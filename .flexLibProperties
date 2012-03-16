@@ -42,9 +42,9 @@
     <classEntry path="com.macro.gUI.controls.composite.RadioButton"/>
     <classEntry path="com.macro.gUI.controls.composite.VScrollBar"/>
     <classEntry path="com.macro.gUI.controls.composite.VSlider"/>
-    <classEntry path="com.macro.gUI.render.R_Composite"/>
-    <classEntry path="com.macro.gUI.render.R_Container"/>
-    <classEntry path="com.macro.gUI.render.R_Control"/>
+    <classEntry path="com.macro.gUI.render.RComposite"/>
+    <classEntry path="com.macro.gUI.render.RContainer"/>
+    <classEntry path="com.macro.gUI.render.RControl"/>
     <classEntry path="com.macro.gUI.skin.ISkin"/>
     <classEntry path="com.macro.gUI.skin.SkinDef"/>
     <classEntry path="com.macro.gUI.skin.StyleDef"/>

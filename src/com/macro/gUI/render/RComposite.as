@@ -7,7 +7,7 @@ package com.macro.gUI.render
 	import flash.display.Shape;
 	import flash.display.Sprite;
 
-	public class R_Composite extends R_Control
+	public class RComposite extends RControl
 	{
 		
 		protected var _container:Sprite;
@@ -15,7 +15,7 @@ package com.macro.gUI.render
 		protected var _mask:Shape;
 		
 		
-		public function R_Composite(control:IComposite)
+		public function RComposite(control:IComposite)
 		{
 			_container = new Sprite();
 			_mask = new Shape();

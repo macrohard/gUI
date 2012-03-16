@@ -4,9 +4,9 @@ package com.macro.gUI
 	import com.macro.gUI.base.IContainer;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.containers.Container;
-	import com.macro.gUI.render.R_Composite;
-	import com.macro.gUI.render.R_Container;
-	import com.macro.gUI.render.R_Control;
+	import com.macro.gUI.render.RComposite;
+	import com.macro.gUI.render.RContainer;
+	import com.macro.gUI.render.RControl;
 	
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
@@ -51,15 +51,15 @@ package com.macro.gUI
 		 */
 		private function render(container:IComposite):void
 		{
-			var parent:R_Composite = _popupControlsMap[container];
+			var parent:RComposite = _popupControlsMap[container];
 			for each (var child:IControl in container.children)
 			{
 				if (child is IContainer)
 				{
-					var subcontainer:R_Container = _popupControlsMap[child];
+					var subcontainer:RContainer = _popupControlsMap[child];
 					if (!subcontainer)
 					{
-						subcontainer = new R_Container(IContainer(child));
+						subcontainer = new RContainer(IContainer(child));
 						render(IContainer(child));
 						_popupControlsMap[child] = subcontainer;
 					}
@@ -72,10 +72,10 @@ package com.macro.gUI
 				}
 				else if (child is IComposite)
 				{
-					var subcomposite:R_Composite = _popupControlsMap[child];
+					var subcomposite:RComposite = _popupControlsMap[child];
 					if (!subcomposite)
 					{
-						subcomposite = new R_Composite(IComposite(child));
+						subcomposite = new RComposite(IComposite(child));
 						render(IComposite(child));
 						_popupControlsMap[child] = subcomposite;
 					}
@@ -87,10 +87,10 @@ package com.macro.gUI
 				}
 				else if (child is IControl)
 				{
-					var subcontrol:R_Control = _popupControlsMap[child];
+					var subcontrol:RControl = _popupControlsMap[child];
 					if (!subcontrol)
 					{
-						subcontrol = new R_Control(child);
+						subcontrol = new RControl(child);
 						_popupControlsMap[child] = subcontrol;
 					}
 					
@@ -106,7 +106,7 @@ package com.macro.gUI
 		 */
 		public function disposePopupSprite():void
 		{
-			for each (var child:R_Control in _popupControlsMap)
+			for each (var child:RControl in _popupControlsMap)
 			child.dispose();
 			
 			_popupControlsMap = new Dictionary(true);

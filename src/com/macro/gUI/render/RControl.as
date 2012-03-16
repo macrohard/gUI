@@ -4,13 +4,13 @@ package com.macro.gUI.render
 	
 	import flash.display.Bitmap;
 
-	public class R_Control
+	public class RControl
 	{
 		protected var _canvas:Bitmap;
 		
 		protected var _control:IControl;
 		
-		public function R_Control(control:IControl)
+		public function RControl(control:IControl)
 		{
 			_control = control;
 			_canvas = new Bitmap(control.bitmapData);
