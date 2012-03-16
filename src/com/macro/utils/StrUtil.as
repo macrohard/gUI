@@ -58,6 +58,44 @@ package com.macro.utils
 		}
 		
 		/**
+		 * 获取时间表示的字符串形式
+		 * @param time 从1970年1月1日0时0分0秒开始的时间戳，毫秒为单位
+		 * @return 
+		 * 
+		 */
+		public static function getTimeStr(time:Number):String
+		{
+			var date:Date = new Date(0);
+			date.setTime(time + date.timezoneOffset * 60000);
+			return date.toTimeString().split(" ")[0];
+		}
+		
+		/**
+		 * 获取日期表示的字符串形式，如：1970-1-1
+		 * @param time 从1970年1月1日0时0分0秒开始的时间戳，毫秒为单位
+		 * @return 
+		 * 
+		 */
+		public static function getDateStr(time:Number):String
+		{
+			var date:Date = new Date(0);
+			date.setTime(time + date.timezoneOffset * 60000);
+			return date.fullYear + "-" + date.month + "-" + date.date;
+		}
+		
+		/**
+		 * 将色彩数值转换为字符串，格式如：#FFFFFF
+		 * @param color
+		 * @return
+		 *
+		 */
+		public static function getColorStr(color:int):String
+		{
+			var str:String = color.toString(16);
+			return "#" + str;
+		}
+		
+		/**
 		 * 去掉换行符后的字符串
 		 * @param text
 		 * @return 

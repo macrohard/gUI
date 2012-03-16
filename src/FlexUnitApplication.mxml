@@ -9,12 +9,12 @@
 			   minWidth="955" minHeight="600" creationComplete="onCreationComplete()">
 	<fx:Script>
 		<![CDATA[
-			import com.macro.utils.StrUtil_Tester;
+			import com.macro.TestSuite;
 			
 			public function currentRunTestSuite():Array
 			{
 				var testsToRun:Array = new Array();
-				testsToRun.push(com.macro.utils.StrUtil_Tester);
+				testsToRun.push(com.macro.TestSuite);
 				return testsToRun;
 			}
 			
@@ -29,6 +29,6 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<flexui:FlexUnitTestRunnerUI id="testRunner">
+	<flexui:FlexUnitTestRunnerUI id="testRunner" portNumber="8765">
 	</flexui:FlexUnitTestRunnerUI>
 </s:Application>
