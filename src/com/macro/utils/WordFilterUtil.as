@@ -9,6 +9,8 @@ package com.macro.utils
 	public class WordFilterUtil
 	{
 		public static var lawlessWord:String;
+		
+		public static const CYPHER_TEXT:String = "********************";
 
 		/**
 		 * 按消息逐字过滤处理，而不是按字典逐条处理
@@ -38,7 +40,7 @@ package com.macro.utils
 						j = j - index;
 						if (msg.substr(i, j) == s)
 						{
-							msg = msg.substring(0, i) + "***************".substr(0, j) + msg.substring(i + j);
+							msg = msg.substring(0, i) + CYPHER_TEXT.substr(0, j) + msg.substring(i + j);
 							i += j;
 							break;
 						}
