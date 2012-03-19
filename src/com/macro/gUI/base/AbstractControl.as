@@ -266,7 +266,7 @@ package com.macro.gUI.base
 		 * 覆盖父类添加侦听器的方法，修改弱引用参数默认值为true，因为使用类成员作为侦听器的使用环境更为常见
 		 *
 		 */
-		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false,
+		public override function addEventListener(type:String, listener:Function, useCapture:Boolean = false,
 												  priority:int = 0, useWeakReference:Boolean = true):void
 		{
 			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
@@ -324,8 +324,6 @@ package com.macro.gUI.base
 		 */
 		protected function paint(recreate:Boolean = false):void
 		{
-			prePaint();
-
 			if (recreate || _bitmapData == null)
 			{
 				if (_bitmapData != null)
@@ -339,6 +337,8 @@ package com.macro.gUI.base
 			{
 				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
 			}
+			
+			prePaint();
 
 			if (_skin && _skin.bitmapData)
 			{

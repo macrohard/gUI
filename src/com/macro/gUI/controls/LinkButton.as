@@ -39,7 +39,7 @@ package com.macro.gUI.controls
 			super(text, style, align);
 		}
 
-		override protected function init():void
+		protected override function init():void
 		{
 			_styles = new Dictionary();
 			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
@@ -58,12 +58,12 @@ package com.macro.gUI.controls
 		// 样式定义
 
 
-		override public function get normalStyle():TextStyle
+		public override function get normalStyle():TextStyle
 		{
 			return _styles[CtrlState.NORMAL];
 		}
 
-		override public function set normalStyle(value:TextStyle):void
+		public override function set normalStyle(value:TextStyle):void
 		{
 			if (!value)
 			{

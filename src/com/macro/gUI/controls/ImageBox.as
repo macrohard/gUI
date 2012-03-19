@@ -19,12 +19,6 @@ package com.macro.gUI.controls
 	public class ImageBox extends AbstractControl
 	{
 
-		private var _image:BitmapData;
-
-		private var _autoSize:Boolean;
-
-		private var _align:int;
-
 		/**
 		 * 图片框控件，支持边框
 		 * @param source 要显示的可绘制对象
@@ -48,7 +42,7 @@ package com.macro.gUI.controls
 		}
 
 
-
+		private var _align:int;
 		/**
 		 * 显示内容的对齐方式。
 		 * 请使用LayoutAlign枚举，可按如下方式设置左上角对齐：<br/>
@@ -73,6 +67,7 @@ package com.macro.gUI.controls
 		}
 
 
+		private var _autoSize:Boolean;
 		/**
 		 * 是否自动根据显示内容设置尺寸
 		 * @return
@@ -96,6 +91,7 @@ package com.macro.gUI.controls
 		}
 
 
+		private var _image:BitmapData;
 		/**
 		 * 获取当前正在显示的图元
 		 * @return
@@ -111,7 +107,8 @@ package com.macro.gUI.controls
 		/**
 		 * 设置新的显示对象
 		 * @param value
-		 *
+		 * @param destroy 是否销毁原有的显示对象，默认不销毁
+		 * 
 		 */
 		public function setSource(value:IBitmapDrawable, destroy:Boolean = false):void
 		{
@@ -136,7 +133,7 @@ package com.macro.gUI.controls
 
 
 
-		override public function resize(width:int = 0, height:int = 0):void
+		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize && _image)
 			{
@@ -148,7 +145,7 @@ package com.macro.gUI.controls
 		}
 
 
-		override public function setDefaultSize():void
+		public override function setDefaultSize():void
 		{
 			if (_image)
 			{
@@ -158,7 +155,7 @@ package com.macro.gUI.controls
 
 
 
-		override protected function prePaint():void
+		protected override function prePaint():void
 		{
 			if (_image)
 			{
@@ -183,7 +180,7 @@ package com.macro.gUI.controls
 			}
 			else
 			{
-				throw new Error("Unsupport IBitmapDrawable object!");
+				throw new Error("Unsupport IBitmapDrawable Object!");
 			}
 		}
 

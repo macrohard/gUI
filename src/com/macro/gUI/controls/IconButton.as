@@ -37,7 +37,7 @@ package com.macro.gUI.controls
 			super(text, style, alignText, skin);
 		}
 
-		override protected function init():void
+		protected override function init():void
 		{
 			_styles = new Dictionary();
 			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.ICONBUTTON);
@@ -99,7 +99,7 @@ package com.macro.gUI.controls
 			}
 		}
 
-		override protected function prePaint():void
+		protected override function prePaint():void
 		{
 			if (_icon)
 			{

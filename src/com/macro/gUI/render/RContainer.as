@@ -20,32 +20,32 @@ package com.macro.gUI.render
 			return _cover;
 		}
 
-		override public function updateLocation():void
+		public override function updateLocation():void
 		{
 			super.updateLocation();
 			_cover.x = _control.rect.x;
 			_cover.y = _control.rect.y;
 		}
 		
-		override public function updateSource():void
+		public override function updateSource():void
 		{
 			super.updateSource();
 			_cover.bitmapData = IContainer(_control).bitmapDataCover;
 		}
 		
-		override public function updateAlpha():void
+		public override function updateAlpha():void
 		{
 			super.updateAlpha();
 			_cover.alpha = _control.alpha;
 		}
 		
-		override public function updateVisible():void
+		public override function updateVisible():void
 		{
 			super.updateVisible();
 			_cover.visible = _control.visible;
 		}
 		
-		override public function dispose():void
+		public override function dispose():void
 		{
 			super.dispose();
 			_cover.bitmapData = null;

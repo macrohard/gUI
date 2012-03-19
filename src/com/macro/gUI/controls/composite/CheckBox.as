@@ -138,7 +138,7 @@ package com.macro.gUI.controls.composite
 
 
 
-		override public function resize(width:int = 0, height:int = 0):void
+		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize)
 			{
@@ -149,12 +149,12 @@ package com.macro.gUI.controls.composite
 			super.resize(width, height);
 		}
 
-		override public function setDefaultSize():void
+		public override function setDefaultSize():void
 		{
 			resize(_icon.width + gap + _label.width, _icon.height > _label.height ? _icon.height : _label.height);
 		}
 
-		override protected function layout():void
+		protected override function layout():void
 		{
 			var w:int = _icon.width + gap + _label.width;
 

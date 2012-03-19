@@ -23,7 +23,7 @@ package com.macro.gUI.containers
 		 * @param recreate
 		 * 
 		 */
-		override protected function paint(recreate:Boolean=false):void
+		protected override function paint(recreate:Boolean=false):void
 		{
 			if (_bgColor == 0 && _transparent)
 			{

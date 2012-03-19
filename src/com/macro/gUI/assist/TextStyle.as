@@ -93,23 +93,23 @@ package com.macro.gUI.assist
 		
 		// 以下属性不予支持
 		
-		override public function set bullet(value:Object):void
+		public override function set bullet(value:Object):void
 		{
 		}
 
-		override public function set display(value:String):void
+		public override function set display(value:String):void
 		{
 		}
 
-		override public function set tabStops(value:Array):void
+		public override function set tabStops(value:Array):void
 		{
 		}
 
-		override public function set target(value:String):void
+		public override function set target(value:String):void
 		{
 		}
 
-		override public function set url(value:String):void
+		public override function set url(value:String):void
 		{
 		}
 

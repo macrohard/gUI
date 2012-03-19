@@ -204,7 +204,7 @@ package com.macro.gUI.controls.composite
 
 
 
-		override public function resize(width:int = 0, height:int = 0):void
+		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize)
 			{
@@ -216,7 +216,7 @@ package com.macro.gUI.controls.composite
 			super.resize(width, height);
 		}
 
-		override public function setDefaultSize():void
+		public override function setDefaultSize():void
 		{
 			resize(_rect.width, _padding.top + _padding.bottom);
 		}
@@ -224,7 +224,7 @@ package com.macro.gUI.controls.composite
 
 
 
-		override protected function layout():void
+		protected override function layout():void
 		{
 			var oy:int = _padding.top;
 			var h:int = _padding.top + _padding.bottom;

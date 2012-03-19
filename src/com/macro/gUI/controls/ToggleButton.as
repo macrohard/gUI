@@ -31,7 +31,7 @@ package com.macro.gUI.controls
 			super(text, style, align, skin);
 		}
 
-		override protected function init():void
+		protected override function init():void
 		{
 			_styles = new Dictionary();
 			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.BUTTON_NORMAL);
@@ -202,7 +202,7 @@ package com.macro.gUI.controls
 		// 接口实现
 
 
-		override public function mouseDown():void
+		public override function mouseDown():void
 		{
 			if (!_enabled)
 			{
@@ -232,7 +232,7 @@ package com.macro.gUI.controls
 			drawText();
 		}
 
-		override public function mouseOut():void
+		public override function mouseOut():void
 		{
 			if (!_enabled)
 			{
@@ -262,7 +262,7 @@ package com.macro.gUI.controls
 			drawText();
 		}
 
-		override public function mouseOver():void
+		public override function mouseOver():void
 		{
 			if (!_enabled)
 			{
@@ -292,7 +292,7 @@ package com.macro.gUI.controls
 			drawText();
 		}
 
-		override public function mouseUp():void
+		public override function mouseUp():void
 		{
 			if (!_enabled)
 			{
@@ -304,7 +304,7 @@ package com.macro.gUI.controls
 		}
 
 
-		override public function set enabled(value:Boolean):void
+		public override function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
 			{

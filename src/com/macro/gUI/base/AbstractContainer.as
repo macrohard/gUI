@@ -84,7 +84,7 @@ package com.macro.gUI.base
 		
 		
 
-		override public function resize(width:int = 0, height:int = 0):void
+		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_skinCover && width < _skinCover.minWidth)
 			{
@@ -100,7 +100,7 @@ package com.macro.gUI.base
 		}
 
 
-		override protected function paint(recreate:Boolean = false):void
+		protected override function paint(recreate:Boolean = false):void
 		{
 			super.paint(recreate);
 

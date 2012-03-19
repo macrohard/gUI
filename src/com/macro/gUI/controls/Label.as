@@ -182,7 +182,7 @@ package com.macro.gUI.controls
 		}
 
 
-		override public function resize(width:int = 0, height:int = 0):void
+		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize && _textImg)
 			{
@@ -197,7 +197,7 @@ package com.macro.gUI.controls
 			super.resize(width, height);
 		}
 
-		override public function setDefaultSize():void
+		public override function setDefaultSize():void
 		{
 			if (_textImg)
 			{
@@ -208,7 +208,7 @@ package com.macro.gUI.controls
 		}
 
 
-		override protected function postPaint():void
+		protected override function postPaint():void
 		{
 			if (!_autoSize && _recreateTextImg)
 			{

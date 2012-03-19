@@ -34,14 +34,14 @@ package com.macro.gUI.render
 			return _mask;
 		}
 
-		override public function updateLocation():void
+		public override function updateLocation():void
 		{
 			super.updateLocation();
 			_mask.x = _container.x = _control.rect.x;
 			_mask.y = _container.y = _control.rect.y;
 		}
 		
-		override public function updateSource():void
+		public override function updateSource():void
 		{
 			super.updateSource();
 			_mask.graphics.clear();
@@ -50,19 +50,19 @@ package com.macro.gUI.render
 			_mask.graphics.endFill();
 		}
 		
-		override public function updateAlpha():void
+		public override function updateAlpha():void
 		{
 			super.updateAlpha();
 			_container.alpha = _control.alpha;
 		}
 		
-		override public function updateVisible():void
+		public override function updateVisible():void
 		{
 			super.updateVisible();
 			_container.visible = _control.visible;
 		}
 		
-		override public function dispose():void
+		public override function dispose():void
 		{
 			super.dispose();
 			while(_container.numChildren > 0)

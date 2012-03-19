@@ -25,7 +25,7 @@ package com.macro.gUI.controls
 			super(text, style, align);
 		}
 		
-		override protected function init():void
+		protected override function init():void
 		{
 			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.TITLE);
 			

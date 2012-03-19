@@ -60,7 +60,7 @@ package com.macro.gUI.controls
 		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
 		 *
 		 */
-		override protected function init():void
+		protected override function init():void
 		{
 			_autoSize = false;
 			
@@ -80,7 +80,7 @@ package com.macro.gUI.controls
 		}
 
 
-		override public function resize(width:int = 0, height:int = 0):void
+		public override function resize(width:int = 0, height:int = 0):void
 		{
 			super.resize(width, height);
 			relocateEditBox();
@@ -95,12 +95,12 @@ package com.macro.gUI.controls
 		 * @return
 		 *
 		 */
-		override public function get normalStyle():TextStyle
+		public override function get normalStyle():TextStyle
 		{
 			return _styles[CtrlState.NORMAL];
 		}
 
-		override public function set normalStyle(value:TextStyle):void
+		public override function set normalStyle(value:TextStyle):void
 		{
 			if (!value)
 			{
