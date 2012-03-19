@@ -80,7 +80,9 @@ package com.macro.gUI.controls.composite
 			{
 				_autoSize = value;
 				if (_autoSize)
+				{
 					resize(_rect.width);
+				}
 			}
 		}
 
@@ -116,7 +118,9 @@ package com.macro.gUI.controls.composite
 					width = _bg.skin.minWidth + w;
 				}
 				else
+				{
 					width = width < _bg.skin.minWidth ? _bg.skin.minWidth : width;
+				}
 
 				height = _bg.height;
 			}
@@ -135,9 +139,13 @@ package com.macro.gUI.controls.composite
 		{
 			var oy:int;
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
+			{
 				oy += (_rect.height - _bg.height) >> 1;
+			}
 			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+			{
 				oy += _rect.height - _bg.height;
+			}
 
 			_bg.y = oy;
 			_bg.width = _rect.width;
@@ -151,7 +159,9 @@ package com.macro.gUI.controls.composite
 		private function drawPercentImage():void
 		{
 			if (_percent == 0)
+			{
 				return;
+			}
 
 			var bmd:BitmapData = _canvas.bitmapData;
 			bmd.lock();
@@ -181,7 +191,9 @@ package com.macro.gUI.controls.composite
 					bmd.copyPixels(_infillSkin.bitmapData, _infillSkin.bitmapData.rect, new Point(i), null, null, true);
 					i += _infillSkin.bitmapData.width;
 					if (i > w)
+					{
 						break;
+					}
 				}
 			}
 

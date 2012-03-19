@@ -22,13 +22,19 @@ package com.macro.logging
 		{
 			var msg:String = "";
 			if (includeTime)
+			{
 				msg += StrUtil.getTimeString() + _seperator;
+			}
 			
 			if (includeLevel)
+			{
 				msg += "[" + LogLevel.getLevelString(level) + "]" + _seperator;
+			}
 			
 			if (includeCategory)
+			{
 				msg += category + ":" + _seperator;
+			}
 			
 			msg += message;
 			trace(msg);

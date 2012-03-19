@@ -76,28 +76,40 @@ package com.macro.logging
 			var logLevel:int = findLevel(category);
 
 			if (level >= logLevel)
+			{
 				return true;
+			}
 			else
+			{
 				return false;
+			}
 		}
 
 		private function findLevel(category:String):int
 		{
 			if (_logLevels[category] != null)
+			{
 				return _logLevels[category];
+			}
 			
 			var p:String = getParentPath(category);
 			if (p)
+			{
 				return findLevel(p);
+			}
 			else
+			{
 				return _rootLevel;
+			}
 		}
 		
 		private function getParentPath(path:String):String
 		{
 			var idx:int = path.lastIndexOf(".");
 			if (idx == -1)
+			{
 				return null;
+			}
 			return path.substr(0, idx);
 		}
 	}

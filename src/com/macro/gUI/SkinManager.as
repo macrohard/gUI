@@ -50,21 +50,35 @@ package com.macro.gUI
 		public function registerSkin(id:String, value:Object, grid:Rectangle = null, align:int = 0x11, framerate:int = 20):ISkin
 		{
 			if (!grid)
+			{
 				grid = new Rectangle();
+			}
 			
 			var s:ISkin;
 			if (value is BitmapData)
+			{
 				s = new BitmapSkin(BitmapData(value), grid, align);
+			}
 			else if (value is Vector.<BitmapData>)
+			{
 				s = new SerialFrames(Vector.<BitmapData>(value), framerate, grid, align);
+			}
 			else if (value is Loader)
+			{
 				s = new SWFProxy(Loader(value), framerate, grid, align);
+			}
 			else if (value is MovieClip)
+			{
 				s = new MovieClipSkin(MovieClip(value), framerate, grid, align);
+			}
 			else if (value is Sprite)
+			{
 				s = new SpriteSkin(Sprite(value), grid, align);
+			}
 			else
+			{
 				throw new Error("Unsupport skin class type!");
+			}
 			
 			_skin[id] = s;
 			return s;

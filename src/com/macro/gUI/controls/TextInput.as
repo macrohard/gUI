@@ -103,7 +103,9 @@ package com.macro.gUI.controls
 		override public function set normalStyle(value:TextStyle):void
 		{
 			if (!value)
+			{
 				return;
+			}
 
 			if (_style == _styles[CtrlState.NORMAL])
 			{
@@ -127,7 +129,9 @@ package com.macro.gUI.controls
 		public function set disableStyle(value:TextStyle):void
 		{
 			if (!value)
+			{
 				return;
+			}
 
 			if (_style == _styles[CtrlState.DISABLE])
 			{
@@ -262,7 +266,9 @@ package com.macro.gUI.controls
 		public function hitTest(x:int, y:int):IControl
 		{
 			if (_textDrawRect && _textDrawRect.contains(x, y))
+			{
 				return this;
+			}
 
 			return null;
 		}
@@ -276,10 +282,14 @@ package com.macro.gUI.controls
 		public function beginEdit():TextField
 		{
 			if (!_enabled)
+			{
 				return null;
+			}
 
 			if (_editBox)
+			{
 				return _editBox;
+			}
 
 			_textImg = null;
 			paint();
@@ -296,7 +306,9 @@ package com.macro.gUI.controls
 			relocateEditBox();
 
 			if (_editable)
+			{
 				_editBox.type = TextFieldType.INPUT;
+			}
 
 			return _editBox;
 		}
@@ -329,7 +341,9 @@ package com.macro.gUI.controls
 		private function relocateEditBox():void
 		{
 			if (!_editBox)
+			{
 				return;
+			}
 
 			var txtW:int = _editBox.textWidth + 4 + _style.leftMargin + _style.rightMargin + _style.indent + _style.blockIndent;
 			var txtH:int = _editBox.textHeight + 4;
@@ -348,19 +362,29 @@ package com.macro.gUI.controls
 				txtH = _editBox.textHeight + 4;
 			}
 			else
+			{
 				_editBox.autoSize = TextFieldAutoSize.LEFT;
+			}
 
 			var ox:int = _rect.x + _margin.left;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
+			{
 				ox += (w - txtW) >> 1;
+			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+			{
 				ox += w - txtW;
+			}
 
 			var oy:int = _rect.y + _margin.top;
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
+			{
 				oy += (h - txtH) >> 1;
+			}
 			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+			{
 				oy += h - txtH;
+			}
 
 			_editBox.x = ox;
 			_editBox.y = oy;
@@ -369,9 +393,10 @@ package com.macro.gUI.controls
 		public function keyDown(e:KeyboardEvent):void
 		{
 			if (e.keyCode == Keyboard.ENTER || e.keyCode == Keyboard.ESCAPE)
+			{
 				endEdit();
-			// TODO 应调用InteractiveManager的结束编辑接口
-			// 或者考虑直接将可编辑TextField的创建拿到InteractiveManager中
+			}
+			// TODO 应调用InteractiveManager的结束编辑接口，或者考虑直接将可编辑TextField的创建拿到InteractiveManager中
 		}
 
 		public function keyUp(e:KeyboardEvent):void

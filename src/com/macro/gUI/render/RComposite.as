@@ -66,7 +66,9 @@ package com.macro.gUI.render
 		{
 			super.dispose();
 			while(_container.numChildren > 0)
+			{
 				_container.removeChildAt(0);
+			}
 			_container = null;
 			_mask = null;
 		}

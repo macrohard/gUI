@@ -86,7 +86,9 @@ package com.macro.gUI.controls
 		public function set selectedStyle(value:TextStyle):void
 		{
 			if (!value)
+			{
 				return;
+			}
 
 			if (_style == _styles[CtrlState.SELECTED])
 			{
@@ -125,7 +127,9 @@ package com.macro.gUI.controls
 		public function set selectedDisableStyle(value:TextStyle):void
 		{
 			if (!value)
+			{
 				return;
+			}
 
 			if (_style == _styles[CtrlState.SELECTED_DISABLE])
 			{
@@ -201,12 +205,16 @@ package com.macro.gUI.controls
 		override public function mouseDown():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			if (_selected)
 			{
 				if (_skin == _skins[CtrlState.SELECTED_DOWN] && _style == _styles[CtrlState.SELECTED_DOWN])
+				{
 					return;
+				}
 
 				_skin = _skins[CtrlState.SELECTED_DOWN];
 				_style = _styles[CtrlState.SELECTED_DOWN];
@@ -214,7 +222,9 @@ package com.macro.gUI.controls
 			else
 			{
 				if (_skin == _skins[CtrlState.DOWN] && _style == _styles[CtrlState.DOWN])
+				{
 					return;
+				}
 
 				_skin = _skins[CtrlState.DOWN];
 				_style = _styles[CtrlState.DOWN];
@@ -225,12 +235,16 @@ package com.macro.gUI.controls
 		override public function mouseOut():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			if (_selected)
 			{
 				if (_skin == _skins[CtrlState.SELECTED] && _style == _styles[CtrlState.SELECTED])
+				{
 					return;
+				}
 
 				_skin = _skins[CtrlState.SELECTED];
 				_style = _styles[CtrlState.SELECTED];
@@ -238,7 +252,9 @@ package com.macro.gUI.controls
 			else
 			{
 				if (_skin == _skins[CtrlState.NORMAL] && _style == _styles[CtrlState.NORMAL])
+				{
 					return;
+				}
 
 				_skin = _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.NORMAL];
@@ -249,12 +265,16 @@ package com.macro.gUI.controls
 		override public function mouseOver():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			if (_selected)
 			{
 				if (_skin == _skins[CtrlState.SELECTED_OVER] && _style == _styles[CtrlState.SELECTED_OVER])
+				{
 					return;
+				}
 
 				_skin = _skins[CtrlState.SELECTED_OVER];
 				_style = _styles[CtrlState.SELECTED_OVER];
@@ -262,7 +282,9 @@ package com.macro.gUI.controls
 			else
 			{
 				if (_skin == _skins[CtrlState.OVER] && _style == _styles[CtrlState.OVER])
+				{
 					return;
+				}
 
 				_skin = _skins[CtrlState.OVER];
 				_style = _styles[CtrlState.OVER];
@@ -273,7 +295,9 @@ package com.macro.gUI.controls
 		override public function mouseUp():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			_selected = !_selected;
 			mouseOver();

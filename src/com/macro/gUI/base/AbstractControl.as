@@ -2,15 +2,16 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-	
+
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.skin.ISkin;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.utils.getTimer;
 
 
 	/**
@@ -26,17 +27,6 @@ package com.macro.gUI.base
 		 * 平滑绘制
 		 */
 		public static var smoothing:Boolean = true;
-
-
-
-		protected var _bgColor:int;
-
-		protected var _transparent:Boolean;
-
-		protected var _bitmapData:BitmapData;
-
-		protected var _rect:Rectangle;
-
 
 
 		/**
@@ -64,7 +54,9 @@ package com.macro.gUI.base
 		public function AbstractControl(width:int, height:int)
 		{
 			if (getQualifiedClassName(this) == "com.macro.gUI.base::AbstractControl")
+			{
 				throw new Error("Abstract class can not be constructed!");
+			}
 
 			//默认透明度
 			_alpha = 1;
@@ -79,6 +71,34 @@ package com.macro.gUI.base
 			_rect = new Rectangle(0, 0, width, height);
 		}
 
+
+		protected var _bitmapData:BitmapData;
+
+		/**
+		 * 控件的位图数据对象
+		 * @return
+		 *
+		 */
+		public function get bitmapData():BitmapData
+		{
+			return _bitmapData;
+		}
+
+
+		protected var _rect:Rectangle;
+
+		/**
+		 * 控件的位置、大小
+		 * @return
+		 *
+		 */
+		public function get rect():Rectangle
+		{
+			return _rect;
+		}
+
+
+		protected var _bgColor:int;
 
 		/**
 		 * 背景色，ARGB格式
@@ -96,6 +116,8 @@ package com.macro.gUI.base
 				paint();
 			}
 		}
+
+		protected var _transparent:Boolean;
 
 		/**
 		 * 透明
@@ -157,7 +179,9 @@ package com.macro.gUI.base
 		public function set width(value:int):void
 		{
 			if (_rect.width != value && value > 0)
+			{
 				resize(value, _rect.height);
+			}
 		}
 
 		/**
@@ -173,7 +197,79 @@ package com.macro.gUI.base
 		public function set height(value:int):void
 		{
 			if (_rect.height != value && value > 0)
+			{
 				resize(_rect.width, value);
+			}
+		}
+		
+		
+		private var _alpha:Number;
+		
+		/**
+		 * 透明度，由UI体系使用
+		 * @return
+		 *
+		 */
+		public function get alpha():Number
+		{
+			return _alpha;
+		}
+		
+		public function set alpha(value:Number):void
+		{
+			_alpha = value;
+		}
+		
+		
+		private var _visible:Boolean;
+		
+		/**
+		 * 可见性，由UI体系使用
+		 * @return
+		 *
+		 */
+		public function get visible():Boolean
+		{
+			return _visible;
+		}
+		
+		public function set visible(value:Boolean):void
+		{
+			_visible = value;
+		}
+
+
+		private var _parent:IContainer;
+
+		/**
+		 * 父容器对象，由UI体系使用
+		 * @return
+		 *
+		 */
+		public function get parent():IContainer
+		{
+			return _parent;
+		}
+
+		/**
+		 * 设置父容器，内部行为，外部无法访问
+		 * @param container
+		 *
+		 */
+		internal function setParent(container:IContainer):void
+		{
+			_parent = container;
+		}
+
+
+		/**
+		 * 覆盖父类添加侦听器的方法，修改弱引用参数默认值为true，因为使用类成员作为侦听器的使用环境更为常见
+		 *
+		 */
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false,
+												  priority:int = 0, useWeakReference:Boolean = true):void
+		{
+			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
 
 
@@ -188,10 +284,14 @@ package com.macro.gUI.base
 		public function resize(width:int = 0, height:int = 0):void
 		{
 			if (_skin && width < _skin.minWidth)
+			{
 				width = _skin.minWidth;
+			}
 
 			if (_skin && height < _skin.minHeight)
+			{
 				height = _skin.minHeight;
+			}
 
 			if (width > 0 && height > 0 && (_rect.width != width || _rect.height != height))
 			{
@@ -200,7 +300,9 @@ package com.macro.gUI.base
 				paint(true);
 			}
 			else
+			{
 				paint();
+			}
 		}
 
 		/**
@@ -210,7 +312,9 @@ package com.macro.gUI.base
 		public function setDefaultSize():void
 		{
 			if (_skin)
+			{
 				resize(_skin.bitmapData.width, _skin.bitmapData.height);
+			}
 		}
 
 
@@ -221,35 +325,45 @@ package com.macro.gUI.base
 		protected function paint(recreate:Boolean = false):void
 		{
 			prePaint();
-			
-			if (recreate || !_bitmapData)
+
+			if (recreate || _bitmapData == null)
 			{
-				if (_bitmapData)
+				if (_bitmapData != null)
+				{
 					_bitmapData.dispose();
+				}
 
 				_bitmapData = new BitmapData(_rect.width, _rect.height, _transparent, _bgColor);
 			}
 			else
+			{
 				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
+			}
 
 			if (_skin && _skin.bitmapData)
 			{
-				var h:Boolean, v:Boolean;
-
 				if (_skin.gridRight > _skin.gridLeft)
-					h = true;
-
-				if (_skin.gridBottom > _skin.gridTop)
-					v = true;
-
-				if (h && v)
-					_skinDrawRect = drawFull(_bitmapData, _rect, _skin);
-				else if (h && !v)
-					_skinDrawRect = drawHorizontal(_bitmapData, _rect, _skin);
-				else if (!h && v)
-					_skinDrawRect = drawVertical(_bitmapData, _rect, _skin);
+				{
+					if (_skin.gridBottom > _skin.gridTop)
+					{
+						_skinDrawRect = drawFull(_bitmapData, _rect, _skin);
+					}
+					else
+					{
+						_skinDrawRect = drawHorizontal(_bitmapData, _rect, _skin);
+					}
+				}
 				else
-					_skinDrawRect = drawFixed(_bitmapData, _rect, _skin.align, _skin.bitmapData);
+				{
+					if (_skin.gridBottom > _skin.gridTop)
+					{
+						_skinDrawRect = drawVertical(_bitmapData, _rect, _skin);
+					}
+					else
+					{
+						_skinDrawRect = drawFixed(_bitmapData, _rect, _skin.align, _skin.bitmapData);
+					}
+				}
 			}
 
 			postPaint();
@@ -271,75 +385,6 @@ package com.macro.gUI.base
 		{
 		}
 
-
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-		// 以下属性、方法由整个UI体系使用，子类无须关心
-
-
-		private var _parent:IContainer;
-
-		private var _alpha:Number;
-
-		private var _visible:Boolean;
-
-
-		public function get bitmapData():BitmapData
-		{
-			return _bitmapData;
-		}
-
-		public function get rect():Rectangle
-		{
-			return _rect;
-		}
-
-
-		public function get parent():IContainer
-		{
-			return _parent;
-		}
-
-		/**
-		 * 设置父容器，内部行为，外部无法访问
-		 * @param container
-		 *
-		 */
-		internal function setParent(container:IContainer):void
-		{
-			_parent = container;
-		}
-
-		public function get alpha():Number
-		{
-			return _alpha;
-		}
-
-		public function set alpha(value:Number):void
-		{
-			_alpha = value;
-		}
-
-		public function get visible():Boolean
-		{
-			return _visible;
-		}
-
-		public function set visible(value:Boolean):void
-		{
-			_visible = value;
-		}
-
-
-		/**
-		 * 覆盖父类添加侦听器的方法，修改弱引用参数默认值为true，因为使用类成员作为侦听器的使用环境更为常见
-		 *
-		 */
-		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false,
-												  priority:int = 0, useWeakReference:Boolean = true):void
-		{
-			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-		}
 
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -425,9 +470,13 @@ package com.macro.gUI.base
 		{
 			var ox:int;
 			if ((skin.align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
-				ox = (rect.width - skin.bitmapData.width) >> 1;
+			{
+				ox = rect.width - skin.bitmapData.width >> 1;
+			}
 			else if ((skin.align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+			{
 				ox = rect.width - skin.bitmapData.width;
+			}
 
 			var scaleH:int = rect.height - skin.minHeight;
 			var scaleY:Number = scaleH / (skin.gridBottom - skin.gridTop);
@@ -466,9 +515,13 @@ package com.macro.gUI.base
 		{
 			var oy:int;
 			if ((skin.align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
-				oy = (rect.height - skin.bitmapData.height) >> 1;
+			{
+				oy = rect.height - skin.bitmapData.height >> 1;
+			}
 			else if ((skin.align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+			{
 				oy = rect.height - skin.bitmapData.height;
+			}
 
 			var scaleW:int = rect.width - skin.minWidth;
 			var scaleX:Number = scaleW / (skin.gridRight - skin.gridLeft);
@@ -520,15 +573,23 @@ package com.macro.gUI.base
 
 			var ox:int = r.left;
 			if ((align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
-				ox += (r.width - bitmapData.width) >> 1;
+			{
+				ox += r.width - bitmapData.width >> 1;
+			}
 			else if ((align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+			{
 				ox += r.width - bitmapData.width;
+			}
 
 			var oy:int = r.top;
 			if ((align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
-				oy += (r.height - bitmapData.height) >> 1;
+			{
+				oy += r.height - bitmapData.height >> 1;
+			}
 			else if ((align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+			{
 				oy += r.height - bitmapData.height;
+			}
 
 			var t:Rectangle = new Rectangle(ox, oy, bitmapData.width, bitmapData.height);
 			t = r.intersection(t);

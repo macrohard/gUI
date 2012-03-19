@@ -37,7 +37,7 @@ package com.macro.gUI.controls.composite
 
 		private var _autoSize:Boolean;
 
-		private var _margin:Rectangle;
+		private var _padding:Rectangle;
 
 
 
@@ -72,7 +72,7 @@ package com.macro.gUI.controls.composite
 			_maximum = 10;
 
 			//四周边距均默认为10
-			_margin = new Rectangle(10, 10);
+			_padding = new Rectangle(10, 10);
 
 			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.SLIDER_VERTICAL_BG);
 			_bg = new Slice(bgSkin.bitmapData.width, height, bgSkin);
@@ -106,7 +106,9 @@ package com.macro.gUI.controls.composite
 			{
 				_autoSize = value;
 				if (_autoSize)
+				{
 					resize(0, _rect.height);
+				}
 			}
 		}
 
@@ -115,20 +117,24 @@ package com.macro.gUI.controls.composite
 		 * @return 
 		 * 
 		 */
-		public function get margin():Rectangle
+		public function get padding():Rectangle
 		{
-			return _margin;
+			return _padding;
 		}
 
-		public function set margin(value:Rectangle):void
+		public function set padding(value:Rectangle):void
 		{
-			if (!_margin || !_margin.equals(value))
+			if (!_padding || !_padding.equals(value))
 			{
-				_margin = value;
+				_padding = value;
 				if (_autoSize)
+				{
 					resize(0, _rect.height);
+				}
 				else
+				{
 					layout();
+				}
 			}
 		}
 
@@ -202,9 +208,9 @@ package com.macro.gUI.controls.composite
 		{
 			if (_autoSize)
 			{
-				var min:int = _margin.top + _margin.bottom;
+				var min:int = _padding.top + _padding.bottom;
 				height = height < min ? min : height;
-				width = _margin.left + _margin.right;
+				width = _padding.left + _padding.right;
 			}
 
 			super.resize(width, height);
@@ -212,7 +218,7 @@ package com.macro.gUI.controls.composite
 
 		override public function setDefaultSize():void
 		{
-			resize(_margin.left + _margin.right, _rect.height);
+			resize(_padding.left + _padding.right, _rect.height);
 		}
 
 
@@ -220,19 +226,23 @@ package com.macro.gUI.controls.composite
 
 		override protected function layout():void
 		{
-			var ox:int = _margin.left;
-			var w:int = _margin.left + _margin.right;
+			var ox:int = _padding.left;
+			var w:int = _padding.left + _padding.right;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
+			{
 				ox += (_rect.width - w) >> 1;
+			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+			{
 				ox += _rect.width - w;
+			}
 
 			_bg.x = ox - _bg.skin.gridLeft;
-			_bg.y = _margin.top - _bg.skin.gridTop;
-			_bg.height = _rect.height - _margin.bottom + _bg.skin.marginBottom - _bg.y;
+			_bg.y = _padding.top - _bg.skin.gridTop;
+			_bg.height = _rect.height - _padding.bottom + _bg.skin.marginBottom - _bg.y;
 
-			_minY = _margin.top - _blockBtn.normalSkin.gridTop;
-			_maxY = _rect.height - _margin.bottom - _blockBtn.normalSkin.gridTop;
+			_minY = _padding.top - _blockBtn.normalSkin.gridTop;
+			_maxY = _rect.height - _padding.bottom - _blockBtn.normalSkin.gridTop;
 			_blockBtn.x = ox - _blockBtn.normalSkin.gridLeft;
 
 			relocateBlock();
@@ -345,11 +355,17 @@ package com.macro.gUI.controls.composite
 		public function hitTest(x:int, y:int):IControl
 		{
 			if (_blockBtn.rect.contains(x, y))
+			{
 				_mouseObj = _blockBtn;
+			}
 			else if (_bg.rect.contains(x, y))
+			{
 				_mouseObj = _bg;
+			}
 			else
+			{
 				_mouseObj = null;
+			}
 
 			return _mouseObj;
 		}
@@ -357,7 +373,9 @@ package com.macro.gUI.controls.composite
 		public function mouseDown():void
 		{
 			if (_mouseObj == _blockBtn)
+			{
 				_blockBtn.mouseDown();
+			}
 		}
 
 		public function mouseOut():void
@@ -368,26 +386,35 @@ package com.macro.gUI.controls.composite
 		public function mouseOver():void
 		{
 			if (_mouseObj == _blockBtn)
+			{
 				_blockBtn.mouseOver();
+			}
 		}
 
 		public function mouseUp():void
 		{
 			if (_mouseObj == _blockBtn)
+			{
 				_blockBtn.mouseUp();
+			}
 		}
 
 
 		public function keyDown(e:KeyboardEvent):void
 		{
 			if (!_blockBtn.enabled)
+			{
 				return;
+			}
 
 			if (e.keyCode == Keyboard.UP)
+			{
 				this.value -= this.stepSize;
+			}
 			else if (e.keyCode == Keyboard.DOWN)
+			{
 				this.value += this.stepSize;
-
+			}
 		}
 
 		public function keyUp(e:KeyboardEvent):void
@@ -399,7 +426,9 @@ package com.macro.gUI.controls.composite
 		public function get dragMode():int
 		{
 			if (_mouseObj == _blockBtn)
+			{
 				return DragMode.INTERNAL;
+			}
 			return DragMode.NONE;
 		}
 
@@ -411,10 +440,12 @@ package com.macro.gUI.controls.composite
 		public function setDragPos(x:int, y:int):void
 		{
 			if (_mouseObj != _blockBtn || !_blockBtn.enabled)
+			{
 				return;
+			}
 
-			var h:int = _rect.height - _margin.top - _margin.bottom;
-			var d:int = y - _margin.top;
+			var h:int = _rect.height - _padding.top - _padding.bottom;
+			var d:int = y - _padding.top;
 			this.value = Math.round(d / h * (_maximum - _minimum)) + _minimum;
 		}
 

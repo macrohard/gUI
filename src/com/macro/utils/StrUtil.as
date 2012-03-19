@@ -17,7 +17,9 @@ package com.macro.utils
 		public static function format(message:String, params:Array):String
 		{
 			if (!params)
+			{
 				return message;
+			}
 			
 			var len:int = params.length;
 			for (var i:int = 0; i < len; i++)
@@ -42,19 +44,14 @@ package com.macro.utils
 		public static function getTimeString(date:Date = null):String
 		{
 			if (!date)
+			{
 				date = new Date();
+			}
 			
-			var h:int = date.hours;
-			var m:int = date.minutes;
-			var s:int = date.seconds;
 			var ms:int = date.milliseconds;
+			var mill:String = ":" + (ms < 10 ? "00" + ms : (ms < 100 ? "0" + ms : ms));
 			
-			var hour:String = String(h < 10 ? "0" + h : h);
-			var minu:String = String(m < 10 ? "0" + m : m)
-			var seco:String = String(s < 10 ? "0" + s : s)
-			var mill:String = String(ms < 10 ? "00" + ms : (ms < 100 ? "0" + ms : ms))
-			
-			return hour + ":" + minu + ":" + seco + ":" + mill;
+			return date.toTimeString().split(" ")[0] + mill;
 		}
 		
 		/**
@@ -107,9 +104,13 @@ package com.macro.utils
 			var index2:int = text.indexOf("\r");
 			
 			if (index1 > -1 && (index2 == -1 || index1 < index2))
+			{
 				text = text.substr(0, index1);
+			}
 			else if (index2 > -1)
+			{
 				text = text.substr(0, index2);
+			}
 			
 			return text;
 		}

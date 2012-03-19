@@ -91,7 +91,9 @@ package com.macro.gUI.controls
 				_align = value;
 
 				if (!_autoSize)
+				{
 					paint();
+				}
 			}
 		}
 
@@ -112,7 +114,9 @@ package com.macro.gUI.controls
 			{
 				_autoSize = value;
 				if (_autoSize)
+				{
 					drawText();
+				}
 			}
 		}
 
@@ -207,11 +211,15 @@ package com.macro.gUI.controls
 		override protected function postPaint():void
 		{
 			if (!_autoSize && _recreateTextImg)
+			{
 				_textImg = createTextImage(_text, _style, _rect, _autoSize);
+			}
 			_recreateTextImg = false;
 
 			if (_textImg)
+			{
 				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _margin);
+			}
 		}
 
 
@@ -234,7 +242,9 @@ package com.macro.gUI.controls
 		public function set normalStyle(value:TextStyle):void
 		{
 			if (!value)
+			{
 				return;
+			}
 
 			_style = value;
 			drawText();
@@ -258,10 +268,14 @@ package com.macro.gUI.controls
 												  autoSize:Boolean = true):BitmapData
 		{
 			if (!text || text.length == 0 || !style)
+			{
 				return null;
+			}
 			
 			if (!style.multiline)
+			{
 				text = StrUtil.trimLines(text);
+			}
 			
 			var tf:TextField = new TextField();
 			tf.autoSize = TextFieldAutoSize.LEFT;
@@ -279,7 +293,6 @@ package com.macro.gUI.controls
 			
 			var img:BitmapData = new BitmapData(tf.width, tf.height, true, 0);
 			img.draw(tf, null, null, null, null, smoothing);
-			Logger.debug(AbstractControl, "drawTextField:\t{0}\t{1}", tf.width, tf.height);
 			return img;
 		}
 	}

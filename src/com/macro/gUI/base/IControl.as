@@ -32,17 +32,18 @@ package com.macro.gUI.base
 		function get alpha():Number;
 		
 		/**
+		 * 控件是否可见
+		 * @return 
+		 * 
+		 */
+		function get visible():Boolean;
+		
+		/**
 		 * 获取父级容器
 		 * @return 
 		 * 
 		 */
 		function get parent():IContainer;
 		
-		/**
-		 * 控件是否可见
-		 * @return 
-		 * 
-		 */
-		function get visible():Boolean;
 	}
 }

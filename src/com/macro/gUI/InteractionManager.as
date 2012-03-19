@@ -28,7 +28,9 @@ package com.macro.gUI
 		public function init():void
 		{
 			if (_rootSprite)
+			{
 				removeListener();
+			}
 			
 			_rootSprite = _uimanager.rootSprite;
 			addListener();

@@ -39,7 +39,9 @@ package com.macro.gUI.skin.impl
 		public function BitmapSkin(bitmapData:BitmapData, grid:Rectangle, align:int)
 		{
 			if (!bitmapData)
+			{
 				throw new Error("Invalid bitmapdata!");
+			}
 			
 			_bitmapData = bitmapData;
 			_align = align;

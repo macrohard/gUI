@@ -2,11 +2,12 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
 	import com.macro.gUI.skin.ISkin;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
+	import flash.utils.getTimer;
 
 
 	/**
@@ -17,18 +18,6 @@ package com.macro.gUI.base
 	 */
 	public class AbstractContainer extends AbstractControl implements IContainer
 	{
-
-		/**
-		 * 顶层画布
-		 */
-		protected var _bitmapDataCover:BitmapData;
-
-
-		/**
-		 * 子控件
-		 */
-		protected var _children:Vector.<IControl>;
-
 
 		/**
 		 * 顶层皮肤<br/><br/>
@@ -59,21 +48,53 @@ package com.macro.gUI.base
 			super(width, height);
 
 			if (getQualifiedClassName(this) == "com.macro.gUI.base::AbstractContainer")
+			{
 				throw new Error("Abstract class can not be constructed!");
+			}
 
 			_children = new Vector.<IControl>();
 		}
 
+		
+		protected var _bitmapDataCover:BitmapData;
 
-
+		public function get bitmapDataCover():BitmapData
+		{
+			return _bitmapDataCover;
+		}
+		
+		
+		public function get margin():Rectangle
+		{
+			var r:Rectangle = new Rectangle();
+			r.left = _marginRect.left;
+			r.top = _marginRect.top;
+			r.right = _rect.width - _marginRect.right;
+			r.bottom = _rect.height - _marginRect.bottom;
+			return r;
+		}
+		
+		
+		protected var _children:Vector.<IControl>;
+		
+		public function get children():Vector.<IControl>
+		{
+			return _children;
+		}
+		
+		
 
 		override public function resize(width:int = 0, height:int = 0):void
 		{
 			if (_skinCover && width < _skinCover.minWidth)
+			{
 				width = _skinCover.minWidth;
+			}
 
 			if (_skinCover && height < _skinCover.minHeight)
+			{
 				height = _skinCover.minHeight;
+			}
 
 			super.resize(width, height);
 		}
@@ -86,95 +107,93 @@ package com.macro.gUI.base
 			if (recreate || !_bitmapDataCover)
 			{
 				if (_bitmapDataCover)
+				{
 					_bitmapDataCover.dispose();
+				}
 
 				_bitmapDataCover = new BitmapData(_rect.width, _rect.height, _transparent, 0);
 			}
 			else
+			{
 				_bitmapDataCover.fillRect(_bitmapDataCover.rect, 0);
+			}
 
 			if (_skinCover && _skinCover.bitmapData)
 			{
-				var h:Boolean, v:Boolean;
-
 				if (_skinCover.gridRight > _skinCover.gridLeft)
-					h = true;
-
-				if (_skinCover.gridBottom > _skinCover.gridTop)
-					v = true;
-
-				if (h && v)
-					drawFull(_bitmapDataCover, _rect, _skinCover);
-				else if (h && !v)
-					drawHorizontal(_bitmapDataCover, _rect, _skinCover);
-				else if (!h && v)
-					drawVertical(_bitmapDataCover, _rect, _skinCover);
+				{
+					if (_skinCover.gridBottom > _skinCover.gridTop)
+					{
+						drawFull(_bitmapDataCover, _rect, _skinCover);
+					}
+					else
+					{
+						drawHorizontal(_bitmapDataCover, _rect, _skinCover);
+					}
+				}
 				else
-					drawFixed(_bitmapDataCover, _rect, _skinCover.align, _skinCover.bitmapData);
+				{
+					if (_skinCover.gridBottom > _skinCover.gridTop)
+					{
+						drawVertical(_bitmapDataCover, _rect, _skinCover);
+					}
+					else
+					{
+						drawFixed(_bitmapDataCover, _rect, _skinCover.align, _skinCover.bitmapData);
+					}
+				}
 			}
 		}
 
 
 
-
-		//=======================================================================
-
-
-		/**
-		 * 添加子控件
-		 * @param child
-		 *
-		 */
 		public function addChild(child:IControl):void
 		{
 			_children.push(child);
 
 			if (child.parent)
+			{
 				child.parent.removeChild(child);
+			}
 			AbstractControl(child).setParent(this);
 		}
 
-		/**
-		 * 在给定深度添加子控件
-		 * @param child
-		 * @param index
-		 *
-		 */
 		public function addChildAt(child:IControl, index:int):void
 		{
 			if (index < 1)
+			{
 				_children.unshift(child);
+			}
 			else if (index >= _children.length)
+			{
 				_children.push(child);
+			}
 			else
+			{
 				_children.splice(index, 0, child);
+			}
 
 			if (child.parent)
+			{
 				child.parent.removeChild(child);
+			}
 			AbstractControl(child).setParent(this);
 		}
 
-		/**
-		 * 移除子控件
-		 * @param child
-		 *
-		 */
 		public function removeChild(child:IControl):void
 		{
 			var p:int = _children.indexOf(child);
 			if (p != -1)
+			{
 				_children.splice(p, 1);
+			}
 
 			if (child is AbstractControl)
+			{
 				AbstractControl(child).setParent(null);
+			}
 		}
 
-		/**
-		 * 移除指定深度的控件，并将其返回
-		 * @param index
-		 * @return
-		 *
-		 */
 		public function removeChildAt(index:int):IControl
 		{
 			var child:IControl;
@@ -183,36 +202,13 @@ package com.macro.gUI.base
 				child = _children.splice(index, 1)[0];
 
 				if (child is AbstractControl)
+				{
 					AbstractControl(child).setParent(null);
+				}
 			}
 
 			return child;
 		}
 
-
-
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-		// 以下属性、方法由整个UI体系使用，子类无须关心
-
-		public function get bitmapDataCover():BitmapData
-		{
-			return _bitmapDataCover;
-		}
-
-		public function get containerRect():Rectangle
-		{
-			var r:Rectangle = new Rectangle();
-			r.left = _marginRect.left;
-			r.top = _marginRect.top;
-			r.right = _rect.width - _marginRect.right;
-			r.bottom = _rect.height - _marginRect.bottom;
-			return r;
-		}
-
-		public function get children():Vector.<IControl>
-		{
-			return _children;
-		}
 	}
 }

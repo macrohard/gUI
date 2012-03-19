@@ -27,9 +27,11 @@ package com.macro.gUI.containers
 		{
 			if (_bgColor == 0 && _transparent)
 			{
-				if (_bitmapData)
+				if (_bitmapData != null)
+				{
 					_bitmapData.dispose();
-				_bitmapData = null;
+					_bitmapData = null;
+				}
 				return;
 			}
 			

@@ -1,7 +1,7 @@
 package com.macro.gUI.base
 {
 	import avmplus.getQualifiedClassName;
-
+	
 	import flash.geom.Rectangle;
 
 
@@ -12,16 +12,6 @@ package com.macro.gUI.base
 	 */
 	public class AbstractComposite extends AbstractControl implements IComposite
 	{
-		/**
-		 * 子控件
-		 */
-		protected var _children:Vector.<IControl>;
-
-		/**
-		 * 布局对齐方式
-		 */
-		protected var _align:int;
-
 
 		/**
 		 * 复合式控件。不支持皮肤定义
@@ -35,7 +25,9 @@ package com.macro.gUI.base
 			super(width, height);
 
 			if (getQualifiedClassName(this) == "com.macro.gUI.base::AbstractComposite")
+			{
 				throw new Error("Abstract class can not be constructed!");
+			}
 
 			_align = align;
 
@@ -43,6 +35,8 @@ package com.macro.gUI.base
 		}
 
 
+		protected var _align:int;
+		
 		/**
 		 * 布局对齐方式
 		 * @return
@@ -58,8 +52,28 @@ package com.macro.gUI.base
 			_align = value;
 			layout();
 		}
+		
+		
+		protected var _children:Vector.<IControl>;
 
-
+		public function get children():Vector.<IControl>
+		{
+			return _children;
+		}
+		
+		
+		/**
+		 * 复合式控件的可视范围就是控件的矩形范围，因此边距始终为0。
+		 * @inheritDoc
+		 * @return 
+		 * 
+		 */
+		public function get margin():Rectangle
+		{
+			return new Rectangle();
+		}
+		
+		
 
 		override public function resize(width:int = 0, height:int = 0):void
 		{
@@ -76,9 +90,11 @@ package com.macro.gUI.base
 		{
 			if (_bgColor == 0 && _transparent)
 			{
-				if (_bitmapData)
+				if (_bitmapData != null)
+				{
 					_bitmapData.dispose();
-				_bitmapData = null;
+					_bitmapData = null;
+				}
 				return;
 			}
 
@@ -91,22 +107,6 @@ package com.macro.gUI.base
 		 */
 		protected function layout():void
 		{
-		}
-
-
-
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-		// 以下属性、方法由整个UI体系使用，子类无须关心
-
-		public function get children():Vector.<IControl>
-		{
-			return _children;
-		}
-
-		public function get containerRect():Rectangle
-		{
-			return _rect;
 		}
 	}
 }

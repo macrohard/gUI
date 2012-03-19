@@ -150,7 +150,9 @@ package com.macro.gUI
 		public function disposeRootSprite():void
 		{
 			for each (var child:RControl in _controlsMap)
+			{
 				child.dispose();
+			}
 
 			_controlsMap = new Dictionary(true);
 			_rootContainer = null;
@@ -170,7 +172,9 @@ package com.macro.gUI
 		{
 			var rcontrol:RControl = _controlsMap[control];
 			if (rcontrol)
+			{
 				rcontrol.updateLocation();
+			}
 		}
 
 		/**
@@ -182,7 +186,9 @@ package com.macro.gUI
 		{
 			var rcontrol:RControl = _controlsMap[control];
 			if (rcontrol)
+			{
 				rcontrol.updateSource();
+			}
 		}
 
 		/**
@@ -194,7 +200,9 @@ package com.macro.gUI
 		{
 			var rcontrol:RControl = _controlsMap[control];
 			if (rcontrol)
+			{
 				rcontrol.updateAlpha();
+			}
 		}
 
 		/**
@@ -206,7 +214,9 @@ package com.macro.gUI
 		{
 			var rcontrol:RControl = _controlsMap[control];
 			if (rcontrol)
+			{
 				rcontrol.updateVisible();
+			}
 		}
 
 
@@ -222,7 +232,9 @@ package com.macro.gUI
 			if (rcontainer)
 			{
 				while (rcontainer.container.numChildren > 0)
+				{
 					rcontainer.container.removeChildAt(0);
+				}
 
 				render(container);
 			}

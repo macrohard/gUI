@@ -66,7 +66,9 @@ package com.macro.gUI.controls
 				_align = value;
 				
 				if (!_autoSize)
+				{
 					paint();
+				}
 			}
 		}
 
@@ -87,7 +89,9 @@ package com.macro.gUI.controls
 			{
 				_autoSize = value;
 				if (_autoSize)
+				{
 					resize();
+				}
 			}
 		}
 
@@ -114,13 +118,19 @@ package com.macro.gUI.controls
 			if (value)
 			{
 				if (destroy && _image)
+				{
 					_image.dispose();
+				}
 				
 				_image = getBitmapData(value);
 				if (_autoSize)
+				{
 					resize();
+				}
 				else
+				{
 					paint();
+				}
 			}
 		}
 
@@ -141,7 +151,9 @@ package com.macro.gUI.controls
 		override public function setDefaultSize():void
 		{
 			if (_image)
+			{
 				resize(_image.width, _image.height);
+			}
 		}
 
 
@@ -149,14 +161,18 @@ package com.macro.gUI.controls
 		override protected function prePaint():void
 		{
 			if (_image)
+			{
 				drawFixed(_bitmapData, _rect, _align, _image);
+			}
 		}
 
 
 		private function getBitmapData(image:IBitmapDrawable):BitmapData
 		{
 			if (image is BitmapData)
+			{
 				return BitmapData(image);
+			}
 			else if (image is DisplayObject)
 			{
 				var d:DisplayObject = DisplayObject(image);
@@ -166,7 +182,9 @@ package com.macro.gUI.controls
 				return bmd;
 			}
 			else
+			{
 				throw new Error("Unsupport IBitmapDrawable object!");
+			}
 		}
 
 	}

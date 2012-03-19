@@ -50,42 +50,54 @@ package com.macro.logging
 		{
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.ALL))
-				_appender.send(category, StrUtil.format(message, params), LogLevel.ALL);            
+			{
+				_appender.send(category, StrUtil.format(message, params), LogLevel.ALL);
+			}
 		}
 		
 		public static function debug(cls:Object, message:String, ...params):void
 		{
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.DEBUG))
+			{
 				_appender.send(category, StrUtil.format(message, params), LogLevel.DEBUG);
+			}
 		}
 		
 		public static function info(cls:Object, message:String, ...params):void
 		{
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.INFO))
+			{
 				_appender.send(category, StrUtil.format(message, params), LogLevel.INFO);
+			}
 		}
 		
 		public static function warn(cls:Object, message:String, ...params):void
 		{
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.WARN))
+			{
 				_appender.send(category, StrUtil.format(message, params), LogLevel.WARN);
+			}
 		}
 		
 		public static function error(cls:Object, message:String, ...params):void
 		{
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.ERROR))
+			{
 				_appender.send(category, StrUtil.format(message, params), LogLevel.ERROR);
+			}
 		}
 		
 		public static function fatal(cls:Object, message:String, ...params):void
 		{
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.FATAL))
+			{
 				_appender.send(category, StrUtil.format(message, params), LogLevel.FATAL);
+			}
 		}
 		
 		public static function getCategory(cls:Object):String

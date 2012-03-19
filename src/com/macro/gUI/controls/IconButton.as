@@ -70,7 +70,9 @@ package com.macro.gUI.controls
 				_alignIcon = value;
 				
 				if (!_autoSize)
+				{
 					paint();
+				}
 			}
 		}
 
@@ -88,15 +90,21 @@ package com.macro.gUI.controls
 		{
 			_icon = value;
 			if (_autoSize)
+			{
 				resize();
+			}
 			else
+			{
 				paint();
+			}
 		}
 
 		override protected function prePaint():void
 		{
 			if (_icon)
+			{
 				drawFixed(_bitmapData, _rect, _alignIcon, _icon);
+			}
 		}
 
 

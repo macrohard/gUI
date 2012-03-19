@@ -36,7 +36,9 @@ package com.macro.gUI.controls
 			//如果未设置文本，那么父类Label不会产生进行绘制，
 			//因此需要调用一下绘制接口，以便绘制按钮的皮肤
 			if (!text || text.length == 0)
+			{
 				resize();
+			}
 		}
 
 		override protected function init():void
@@ -155,12 +157,16 @@ package com.macro.gUI.controls
 			if (_precise)
 			{
 				if (_bitmapData.getPixel32(x, y) != 0)
+				{
 					return this;
+				}
 			}
 			else
 			{
 				if (_skinDrawRect && _skinDrawRect.contains(x, y))
+				{
 					return this;
+				}
 			}
 			return null;
 		}
@@ -168,7 +174,9 @@ package com.macro.gUI.controls
 		override public function mouseDown():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			if (_skin != _skins[CtrlState.DOWN] || _style != _styles[CtrlState.DOWN])
 			{
@@ -181,7 +189,9 @@ package com.macro.gUI.controls
 		override public function mouseOut():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			if (_skin != _skins[CtrlState.NORMAL] || _style != _styles[CtrlState.NORMAL])
 			{
@@ -194,7 +204,9 @@ package com.macro.gUI.controls
 		override public function mouseOver():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			if (_skin != _skins[CtrlState.OVER] || _style != _styles[CtrlState.OVER])
 			{

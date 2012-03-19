@@ -110,12 +110,18 @@ package com.macro.logging
 			if (_useSocket)
 			{
 				if (connect())
+				{
 					_socket.send(msg + "\n");
+				}
 				else
+				{
 					_cache.push(msg);
+				}
 			}
 			else
+			{
 				trace(msg);
+			}
 			
 			return msg;
 		}

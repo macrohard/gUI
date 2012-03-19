@@ -60,7 +60,9 @@ package com.macro.gUI
 		public static function init():void
 		{
 			if (_uiManager)
+			{
 				return;
+			}
 			
 			_uiManager = new UIManager();
 			_skinManager = new SkinManager();

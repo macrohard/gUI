@@ -66,7 +66,9 @@ package com.macro.gUI.controls
 		override public function set normalStyle(value:TextStyle):void
 		{
 			if (!value)
+			{
 				return;
+			}
 
 			if (_style == _styles[CtrlState.NORMAL])
 			{
@@ -85,7 +87,9 @@ package com.macro.gUI.controls
 		public function set overStyle(value:TextStyle):void
 		{
 			if (value)
+			{
 				_styles[CtrlState.OVER] = value;
+			}
 		}
 
 		public function get downStyle():TextStyle
@@ -96,7 +100,9 @@ package com.macro.gUI.controls
 		public function set downStyle(value:TextStyle):void
 		{
 			if (value)
+			{
 				_styles[CtrlState.DOWN] = value;
+			}
 		}
 
 		public function get disableStyle():TextStyle
@@ -107,7 +113,9 @@ package com.macro.gUI.controls
 		public function set disableStyle(value:TextStyle):void
 		{
 			if (!value)
+			{
 				return;
+			}
 
 			if (_style == _styles[CtrlState.DISABLE])
 			{
@@ -149,9 +157,13 @@ package com.macro.gUI.controls
 			{
 				_enabled = value;
 				if (_enabled)
+				{
 					_style = _styles[CtrlState.NORMAL];
+				}
 				else
+				{
 					_style = _styles[CtrlState.DISABLE];
+				}
 
 				drawText();
 			}
@@ -166,14 +178,18 @@ package com.macro.gUI.controls
 		public function hitTest(x:int, y:int):IControl
 		{
 			if (_textDrawRect && _textDrawRect.contains(x, y))
+			{
 				return this;
+			}
 			return null;
 		}
 
 		public function mouseDown():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			if (_style != _styles[CtrlState.DOWN])
 			{
@@ -190,7 +206,9 @@ package com.macro.gUI.controls
 		public function mouseOver():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			if (_style != _styles[CtrlState.OVER])
 			{
@@ -202,7 +220,9 @@ package com.macro.gUI.controls
 		public function mouseOut():void
 		{
 			if (!_enabled)
+			{
 				return;
+			}
 
 			if (_style != _styles[CtrlState.NORMAL])
 			{

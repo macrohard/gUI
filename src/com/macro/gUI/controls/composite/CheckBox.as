@@ -86,7 +86,9 @@ package com.macro.gUI.controls.composite
 			{
 				_autoSize = value;
 				if (_autoSize)
+				{
 					resize();
+				}
 			}
 		}
 
@@ -124,9 +126,13 @@ package com.macro.gUI.controls.composite
 			{
 				_label.text = value;
 				if (_autoSize)
+				{
 					resize();
+				}
 				else
+				{
 					layout();
+				}
 			}
 		}
 
@@ -154,9 +160,13 @@ package com.macro.gUI.controls.composite
 
 			var ox:int;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
+			{
 				ox = (_rect.width - w) >> 1;
+			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+			{
 				ox = _rect.width - w;
+			}
 
 			_icon.x = ox;
 			_label.x = ox + _icon.width + gap;
@@ -201,9 +211,13 @@ package com.macro.gUI.controls.composite
 			{
 				_label.normalStyle = value;
 				if (_autoSize)
+				{
 					resize();
+				}
 				else
+				{
 					layout();
+				}
 			}
 		}
 
@@ -308,7 +322,9 @@ package com.macro.gUI.controls.composite
 		public function hitTest(x:int, y:int):IControl
 		{
 			if (_label.rect.contains(x, y) || _icon.rect.contains(x, y))
+			{
 				return _icon;
+			}
 
 			return null;
 		}
@@ -333,7 +349,9 @@ package com.macro.gUI.controls.composite
 		public function keyDown(e:KeyboardEvent):void
 		{
 			if (e.keyCode == Keyboard.SPACE)
+			{
 				this.selected = !this.selected;
+			}
 		}
 
 		public function keyUp(e:KeyboardEvent):void
