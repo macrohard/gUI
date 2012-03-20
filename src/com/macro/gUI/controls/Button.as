@@ -17,8 +17,6 @@ package com.macro.gUI.controls
 
 		protected var _skins:Dictionary;
 
-		protected var _precise:Boolean;
-
 		/**
 		 * 按钮
 		 * @param text 作为文本的字符串
@@ -40,7 +38,99 @@ package com.macro.gUI.controls
 				resize();
 			}
 		}
+		
+		
+		protected var _precise:Boolean;
+		/**
+		 * 是否精确测试，如果为true，则按像素来判断HitTest，否则只考虑范围矩形。默认值是false
+		 * @return
+		 *
+		 */
+		public function get precise():Boolean
+		{
+			return _precise;
+		}
+		
+		public function set precise(value:Boolean):void
+		{
+			_precise = value;
+		}
+		
+		
+		public override function set enabled(value:Boolean):void
+		{
+			if (_enabled != value)
+			{
+				_enabled = value;
+				if (_enabled)
+				{
+					_skin = _skins[CtrlState.NORMAL];
+					_style = _styles[CtrlState.NORMAL];
+				}
+				else
+				{
+					_skin = _skins[CtrlState.DISABLE];
+					_style = _styles[CtrlState.DISABLE];
+				}
+				drawText();
+			}
+		}
+		
+		
+		public function get normalSkin():ISkin
+		{
+			return _skins[CtrlState.NORMAL];
+		}
+		
+		public function set normalSkin(value:ISkin):void
+		{
+			if (_skin == _skins[CtrlState.NORMAL])
+			{
+				_skin = value;
+				paint();
+			}
+			
+			_skins[CtrlState.NORMAL] = value;
+		}
+		
+		public function get overSkin():ISkin
+		{
+			return _skins[CtrlState.OVER];
+		}
+		
+		public function set overSkin(value:ISkin):void
+		{
+			_skins[CtrlState.OVER] = value;
+		}
+		
+		public function get downSkin():ISkin
+		{
+			return _skins[CtrlState.DOWN];
+		}
+		
+		public function set downSkin(value:ISkin):void
+		{
+			_skins[CtrlState.DOWN] = value;
+		}
+		
+		public function get disableSkin():ISkin
+		{
+			return _skins[CtrlState.DISABLE];
+		}
+		
+		public function set disableSkin(value:ISkin):void
+		{
+			if (_skin == _skins[CtrlState.DISABLE])
+			{
+				_skin = value;
+				paint();
+			}
+			
+			_skins[CtrlState.DISABLE] = value;
+		}
+		
 
+		
 		protected override function init():void
 		{
 			_styles = new Dictionary();
@@ -62,21 +152,6 @@ package com.macro.gUI.controls
 		}
 
 
-		/**
-		 * 是否精确测试，如果为true，则按像素来判断HitTest，否则只考虑范围矩形。默认值是false
-		 * @return
-		 *
-		 */
-		public function get precise():Boolean
-		{
-			return _precise;
-		}
-
-		public function set precise(value:Boolean):void
-		{
-			_precise = value;
-		}
-		
 		public override function resize(width:int=0, height:int=0):void
 		{
 			if (_autoSize && _skin && (!text || text.length == 0))
@@ -87,70 +162,6 @@ package com.macro.gUI.controls
 			super.resize(width, height);
 		}
 		
-		
-
-
-		//=======================================================================
-		// 样式定义
-
-
-		public function get normalSkin():ISkin
-		{
-			return _skins[CtrlState.NORMAL];
-		}
-
-		public function set normalSkin(value:ISkin):void
-		{
-			if (_skin == _skins[CtrlState.NORMAL])
-			{
-				_skin = value;
-				paint();
-			}
-
-			_skins[CtrlState.NORMAL] = value;
-		}
-
-		public function get overSkin():ISkin
-		{
-			return _skins[CtrlState.OVER];
-		}
-
-		public function set overSkin(value:ISkin):void
-		{
-			_skins[CtrlState.OVER] = value;
-		}
-
-		public function get downSkin():ISkin
-		{
-			return _skins[CtrlState.DOWN];
-		}
-
-		public function set downSkin(value:ISkin):void
-		{
-			_skins[CtrlState.DOWN] = value;
-		}
-
-		public function get disableSkin():ISkin
-		{
-			return _skins[CtrlState.DISABLE];
-		}
-
-		public function set disableSkin(value:ISkin):void
-		{
-			if (_skin == _skins[CtrlState.DISABLE])
-			{
-				_skin = value;
-				paint();
-			}
-
-			_skins[CtrlState.DISABLE] = value;
-		}
-
-
-
-		//====================================================================
-		// 接口实现
-
 
 		public override function hitTest(x:int, y:int):IControl
 		{
@@ -171,6 +182,7 @@ package com.macro.gUI.controls
 			return null;
 		}
 
+		
 		public override function mouseDown():void
 		{
 			if (!_enabled)
@@ -212,25 +224,6 @@ package com.macro.gUI.controls
 			{
 				_skin = _skins[CtrlState.OVER];
 				_style = _styles[CtrlState.OVER];
-				drawText();
-			}
-		}
-
-		public override function set enabled(value:Boolean):void
-		{
-			if (_enabled != value)
-			{
-				_enabled = value;
-				if (_enabled)
-				{
-					_skin = _skins[CtrlState.NORMAL];
-					_style = _styles[CtrlState.NORMAL];
-				}
-				else
-				{
-					_skin = _skins[CtrlState.DISABLE];
-					_style = _styles[CtrlState.DISABLE];
-				}
 				drawText();
 			}
 		}

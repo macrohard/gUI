@@ -18,9 +18,7 @@ package com.macro.gUI.controls
 	public class LinkButton extends Label implements IButton
 	{
 
-
 		protected var _styles:Dictionary;
-
 
 		/**
 		 * 链接按钮，支持四态样式定义
@@ -38,119 +36,28 @@ package com.macro.gUI.controls
 
 			super(text, style, align);
 		}
-
-		protected override function init():void
-		{
-			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
-			_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
-			_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
-			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);
-
-			_style = _styles[CtrlState.NORMAL];
-		}
-
-
-
-
-
-		//====================================================================
-		// 样式定义
-
-
-		public override function get normalStyle():TextStyle
-		{
-			return _styles[CtrlState.NORMAL];
-		}
-
-		public override function set normalStyle(value:TextStyle):void
-		{
-			if (!value)
-			{
-				return;
-			}
-
-			if (_style == _styles[CtrlState.NORMAL])
-			{
-				_style = value;
-				drawText();
-			}
-
-			_styles[CtrlState.NORMAL] = value;
-		}
-
-		public function get overStyle():TextStyle
-		{
-			return _styles[CtrlState.OVER];
-		}
-
-		public function set overStyle(value:TextStyle):void
-		{
-			if (value)
-			{
-				_styles[CtrlState.OVER] = value;
-			}
-		}
-
-		public function get downStyle():TextStyle
-		{
-			return _styles[CtrlState.DOWN];
-		}
-
-		public function set downStyle(value:TextStyle):void
-		{
-			if (value)
-			{
-				_styles[CtrlState.DOWN] = value;
-			}
-		}
-
-		public function get disableStyle():TextStyle
-		{
-			return _styles[CtrlState.DISABLE];
-		}
-
-		public function set disableStyle(value:TextStyle):void
-		{
-			if (!value)
-			{
-				return;
-			}
-
-			if (_style == _styles[CtrlState.DISABLE])
-			{
-				_style = value;
-				drawText();
-			}
-
-			_styles[CtrlState.DISABLE] = value;
-		}
-
-
-
-		//====================================================================
-		// 接口实现
-
+		
+		
 		protected var _tabIndex:int;
-
-		protected var _enabled:Boolean;
-
-
+		
 		public function get tabIndex():int
 		{
 			return _tabIndex;
 		}
-
+		
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
 		}
-
+		
+		
+		protected var _enabled:Boolean;
+		
 		public function get enabled():Boolean
 		{
 			return _enabled;
 		}
-
+		
 		public function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
@@ -164,14 +71,97 @@ package com.macro.gUI.controls
 				{
 					_style = _styles[CtrlState.DISABLE];
 				}
-
+				
 				drawText();
 			}
 		}
-
+		
 		public function get focusable():Boolean
 		{
 			return true;
+		}
+		
+		
+		public override function get normalStyle():TextStyle
+		{
+			return _styles[CtrlState.NORMAL];
+		}
+		
+		public override function set normalStyle(value:TextStyle):void
+		{
+			if (!value)
+			{
+				return;
+			}
+			
+			if (_style == _styles[CtrlState.NORMAL])
+			{
+				_style = value;
+				drawText();
+			}
+			
+			_styles[CtrlState.NORMAL] = value;
+		}
+		
+		public function get overStyle():TextStyle
+		{
+			return _styles[CtrlState.OVER];
+		}
+		
+		public function set overStyle(value:TextStyle):void
+		{
+			if (value)
+			{
+				_styles[CtrlState.OVER] = value;
+			}
+		}
+		
+		public function get downStyle():TextStyle
+		{
+			return _styles[CtrlState.DOWN];
+		}
+		
+		public function set downStyle(value:TextStyle):void
+		{
+			if (value)
+			{
+				_styles[CtrlState.DOWN] = value;
+			}
+		}
+		
+		public function get disableStyle():TextStyle
+		{
+			return _styles[CtrlState.DISABLE];
+		}
+		
+		public function set disableStyle(value:TextStyle):void
+		{
+			if (!value)
+			{
+				return;
+			}
+			
+			if (_style == _styles[CtrlState.DISABLE])
+			{
+				_style = value;
+				drawText();
+			}
+			
+			_styles[CtrlState.DISABLE] = value;
+		}
+		
+		
+		
+
+		protected override function init():void
+		{
+			_styles = new Dictionary();
+			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
+			_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
+			_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
+			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);
+
+			_style = _styles[CtrlState.NORMAL];
 		}
 
 

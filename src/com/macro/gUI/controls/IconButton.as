@@ -15,13 +15,6 @@ package com.macro.gUI.controls
 
 	public class IconButton extends Button
 	{
-
-		private var _icon:BitmapData;
-		
-		private var _alignIcon:int;
-		
-		
-
 		/**
 		 * 图标按钮
 		 * @param text 作为文本的字符串
@@ -36,7 +29,60 @@ package com.macro.gUI.controls
 			_alignIcon = alignIcon;
 			super(text, style, alignText, skin);
 		}
+		
+		
+		private var _alignIcon:int;
+		
+		/**
+		 * 图标对齐方式
+		 * @return 
+		 * 
+		 */
+		public function get alignIcon():int
+		{
+			return _alignIcon;
+		}
+		
+		public function set alignIcon(value:int):void
+		{
+			if (_alignIcon != value)
+			{
+				_alignIcon = value;
+				
+				if (!_autoSize)
+				{
+					paint();
+				}
+			}
+		}
+		
+		
+		private var _icon:BitmapData;
+		/**
+		 * 图标
+		 * @return 
+		 * 
+		 */
+		public function get icon():BitmapData
+		{
+			return _icon;
+		}
+		
+		public function set icon(value:BitmapData):void
+		{
+			_icon = value;
+			if (_autoSize)
+			{
+				resize();
+			}
+			else
+			{
+				paint();
+			}
+		}
 
+		
+		
 		protected override function init():void
 		{
 			_styles = new Dictionary();
@@ -58,47 +104,6 @@ package com.macro.gUI.controls
 		}
 		
 		
-		public function get alignIcon():int
-		{
-			return _alignIcon;
-		}
-		
-		public function set alignIcon(value:int):void
-		{
-			if (_alignIcon != value)
-			{
-				_alignIcon = value;
-				
-				if (!_autoSize)
-				{
-					paint();
-				}
-			}
-		}
-
-		/**
-		 * 图标
-		 * @param icon
-		 *
-		 */
-		public function get icon():BitmapData
-		{
-			return _icon;
-		}
-
-		public function set icon(value:BitmapData):void
-		{
-			_icon = value;
-			if (_autoSize)
-			{
-				resize();
-			}
-			else
-			{
-				paint();
-			}
-		}
-
 		protected override function prePaint():void
 		{
 			if (_icon)
@@ -106,7 +111,5 @@ package com.macro.gUI.controls
 				drawFixed(_bitmapData, _rect, _alignIcon, _icon);
 			}
 		}
-
-
 	}
 }

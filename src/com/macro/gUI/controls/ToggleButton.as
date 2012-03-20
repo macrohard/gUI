@@ -14,10 +14,6 @@ package com.macro.gUI.controls
 
 	public class ToggleButton extends Button
 	{
-
-		protected var _selected:Boolean;
-
-
 		/**
 		 * 切换按钮
 		 * @param text 作为文本的字符串
@@ -30,6 +26,183 @@ package com.macro.gUI.controls
 		{
 			super(text, style, align, skin);
 		}
+		
+		
+		protected var _selected:Boolean;
+		/**
+		 * 选中状态
+		 * @return 
+		 * 
+		 */
+		public function get selected():Boolean
+		{
+			return _selected;
+		}
+		
+		public function set selected(value:Boolean):void
+		{
+			if (_selected != value)
+			{
+				_selected = value;
+				mouseOut();
+			}
+		}
+		
+		
+		public override function set enabled(value:Boolean):void
+		{
+			if (_enabled != value)
+			{
+				_enabled = value;
+				if (_enabled)
+				{
+					if (_selected)
+					{
+						_skin = _skins[CtrlState.SELECTED];
+						_style = _styles[CtrlState.SELECTED];
+					}
+					else
+					{
+						_skin = _skins[CtrlState.NORMAL];
+						_style = _styles[CtrlState.NORMAL];
+					}
+				}
+				else
+				{
+					if (_selected)
+					{
+						_skin = _skins[CtrlState.SELECTED_DISABLE];
+						_style = _styles[CtrlState.SELECTED_DISABLE];
+					}
+					else
+					{
+						_skin = _skins[CtrlState.DISABLE];
+						_style = _styles[CtrlState.DISABLE];
+					}
+				}
+				drawText();
+			}
+		}
+		
+		
+		
+		public function get selectedStyle():TextStyle
+		{
+			return _styles[CtrlState.SELECTED];
+		}
+		
+		public function set selectedStyle(value:TextStyle):void
+		{
+			if (!value)
+			{
+				return;
+			}
+			
+			if (_style == _styles[CtrlState.SELECTED])
+			{
+				_style = value;
+				drawText();
+			}
+			
+			_styles[CtrlState.SELECTED] = value;
+		}
+		
+		public function get selectedOverStyle():TextStyle
+		{
+			return _styles[CtrlState.SELECTED_OVER];
+		}
+		
+		public function set selectedOverStyle(value:TextStyle):void
+		{
+			_styles[CtrlState.SELECTED_OVER] = value;
+		}
+		
+		public function get selectedDownStyle():TextStyle
+		{
+			return _styles[CtrlState.SELECTED_DOWN];
+		}
+		
+		public function set selectedDownStyle(value:TextStyle):void
+		{
+			_styles[CtrlState.SELECTED_DOWN] = value;
+		}
+		
+		public function get selectedDisableStyle():TextStyle
+		{
+			return _styles[CtrlState.SELECTED_DISABLE];
+		}
+		
+		public function set selectedDisableStyle(value:TextStyle):void
+		{
+			if (!value)
+			{
+				return;
+			}
+			
+			if (_style == _styles[CtrlState.SELECTED_DISABLE])
+			{
+				_style = value;
+				drawText();
+			}
+			
+			_styles[CtrlState.SELECTED_DISABLE] = value;
+		}
+		
+		
+		
+		public function get selectedSkin():ISkin
+		{
+			return _skins[CtrlState.SELECTED];
+		}
+		
+		public function set selectedSkin(value:ISkin):void
+		{
+			if (_skin == _skins[CtrlState.SELECTED])
+			{
+				_skin = value;
+				paint();
+			}
+			
+			_skins[CtrlState.SELECTED] = value;
+		}
+		
+		public function get selectedOverSkin():ISkin
+		{
+			return _skins[CtrlState.SELECTED_OVER];
+		}
+		
+		public function set selectedOverSkin(value:ISkin):void
+		{
+			_skins[CtrlState.SELECTED_OVER] = value;
+		}
+		
+		public function get selectedDownSkin():ISkin
+		{
+			return _skins[CtrlState.SELECTED_DOWN];
+		}
+		
+		public function set selectedDownSkin(value:ISkin):void
+		{
+			_skins[CtrlState.SELECTED_DOWN] = value;
+		}
+		
+		public function get selectedDisableSkin():ISkin
+		{
+			return _skins[CtrlState.SELECTED_DISABLE];
+		}
+		
+		public function set selectedDisableSkin(value:ISkin):void
+		{
+			if (_skin == _skins[CtrlState.SELECTED_DISABLE])
+			{
+				_skin = value;
+				paint();
+			}
+			
+			_skins[CtrlState.SELECTED_DISABLE] = value;
+		}
+		
+		
 
 		protected override function init():void
 		{
@@ -60,148 +233,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public function get selected():Boolean
-		{
-			return _selected;
-		}
-
-		public function set selected(value:Boolean):void
-		{
-			if (_selected != value)
-			{
-				_selected = value;
-				mouseOut();
-			}
-		}
-
-
-		//========================================================================
-		// 样式定义
-
-		public function get selectedStyle():TextStyle
-		{
-			return _styles[CtrlState.SELECTED];
-		}
-
-		public function set selectedStyle(value:TextStyle):void
-		{
-			if (!value)
-			{
-				return;
-			}
-
-			if (_style == _styles[CtrlState.SELECTED])
-			{
-				_style = value;
-				drawText();
-			}
-
-			_styles[CtrlState.SELECTED] = value;
-		}
-
-		public function get selectedOverStyle():TextStyle
-		{
-			return _styles[CtrlState.SELECTED_OVER];
-		}
-
-		public function set selectedOverStyle(value:TextStyle):void
-		{
-			_styles[CtrlState.SELECTED_OVER] = value;
-		}
-
-		public function get selectedDownStyle():TextStyle
-		{
-			return _styles[CtrlState.SELECTED_DOWN];
-		}
-
-		public function set selectedDownStyle(value:TextStyle):void
-		{
-			_styles[CtrlState.SELECTED_DOWN] = value;
-		}
-
-		public function get selectedDisableStyle():TextStyle
-		{
-			return _styles[CtrlState.SELECTED_DISABLE];
-		}
-
-		public function set selectedDisableStyle(value:TextStyle):void
-		{
-			if (!value)
-			{
-				return;
-			}
-
-			if (_style == _styles[CtrlState.SELECTED_DISABLE])
-			{
-				_style = value;
-				drawText();
-			}
-
-			_styles[CtrlState.SELECTED_DISABLE] = value;
-		}
-
-
-
-		public function get selectedSkin():ISkin
-		{
-			return _skins[CtrlState.SELECTED];
-		}
-
-		public function set selectedSkin(value:ISkin):void
-		{
-			if (_skin == _skins[CtrlState.SELECTED])
-			{
-				_skin = value;
-				paint();
-			}
-
-			_skins[CtrlState.SELECTED] = value;
-		}
-
-		public function get selectedOverSkin():ISkin
-		{
-			return _skins[CtrlState.SELECTED_OVER];
-		}
-
-		public function set selectedOverSkin(value:ISkin):void
-		{
-			_skins[CtrlState.SELECTED_OVER] = value;
-		}
-
-		public function get selectedDownSkin():ISkin
-		{
-			return _skins[CtrlState.SELECTED_DOWN];
-		}
-
-		public function set selectedDownSkin(value:ISkin):void
-		{
-			_skins[CtrlState.SELECTED_DOWN] = value;
-		}
-
-		public function get selectedDisableSkin():ISkin
-		{
-			return _skins[CtrlState.SELECTED_DISABLE];
-		}
-
-		public function set selectedDisableSkin(value:ISkin):void
-		{
-			if (_skin == _skins[CtrlState.SELECTED_DISABLE])
-			{
-				_skin = value;
-				paint();
-			}
-
-			_skins[CtrlState.SELECTED_DISABLE] = value;
-		}
-
-
-
-
-
-		//=========================================================================
-		// 接口实现
-
-
+		
 		public override function mouseDown():void
 		{
 			if (!_enabled)
@@ -302,44 +334,5 @@ package com.macro.gUI.controls
 			_selected = !_selected;
 			mouseOver();
 		}
-
-
-		public override function set enabled(value:Boolean):void
-		{
-			if (_enabled != value)
-			{
-				_enabled = value;
-				if (_enabled)
-				{
-					if (_selected)
-					{
-						_skin = _skins[CtrlState.SELECTED];
-						_style = _styles[CtrlState.SELECTED];
-					}
-					else
-					{
-						_skin = _skins[CtrlState.NORMAL];
-						_style = _styles[CtrlState.NORMAL];
-					}
-				}
-				else
-				{
-					if (_selected)
-					{
-						_skin = _skins[CtrlState.SELECTED_DISABLE];
-						_style = _styles[CtrlState.SELECTED_DISABLE];
-					}
-					else
-					{
-						_skin = _skins[CtrlState.DISABLE];
-						_style = _styles[CtrlState.DISABLE];
-					}
-				}
-				drawText();
-			}
-		}
-
-
-
 	}
 }
