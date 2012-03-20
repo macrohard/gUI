@@ -37,23 +37,6 @@ package com.macro.gUI.containers
 		}
 
 
-		/**
-		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
-		 *
-		 */
-		protected function init():void
-		{
-			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
-			_skinCover = _skinCover ? _skinCover : GameUI.skinManager.getSkin(SkinDef.PANEL_COVER);
-
-			_marginRect = new Rectangle();
-			_marginRect.left = _skin.gridLeft;
-			_marginRect.top = _skin.gridTop;
-			_marginRect.right = _skin.marginRight;
-			_marginRect.bottom = _skin.marginBottom;
-		}
-
-
 		public function get skin():ISkin
 		{
 			return _skin
@@ -74,6 +57,23 @@ package com.macro.gUI.containers
 		{
 			_skinCover = value;
 			paint();
+		}
+		
+		
+		/**
+		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
+		 *
+		 */
+		protected function init():void
+		{
+			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
+			_skinCover = _skinCover ? _skinCover : GameUI.skinManager.getSkin(SkinDef.PANEL_COVER);
+			
+			_marginRect = new Rectangle();
+			_marginRect.left = _skin.gridLeft;
+			_marginRect.top = _skin.gridTop;
+			_marginRect.right = _skin.marginRight;
+			_marginRect.bottom = _skin.marginBottom;
 		}
 	}
 }

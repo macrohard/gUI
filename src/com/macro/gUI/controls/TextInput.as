@@ -23,17 +23,21 @@ package com.macro.gUI.controls
 
 	/**
 	 * 文本输入框
+	 * // TODO 应调用InteractiveManager的结束编辑接口
 	 * @author macro776@gmail.com
 	 *
 	 */
-	public class TextInput extends Label implements IEdit, IKeyboard
+	public class TextInput extends Label implements IEdit
 	{
 
 		protected var _skins:Dictionary;
 
 		protected var _styles:Dictionary;
+		
+		
+		private var _editBox:TextField;
 
-
+		
 		/**
 		 * 文本输入框，支持背景皮肤定义，有常态及禁用态
 		 * @param text 默认文本
@@ -54,6 +58,172 @@ package com.macro.gUI.controls
 
 			super(text, style, align);
 		}
+		
+		
+		private var _editable:Boolean;
+		/**
+		 * 是否可编辑
+		 * @return
+		 *
+		 */
+		public function get editable():Boolean
+		{
+			return _editable;
+		}
+		
+		public function set editable(value:Boolean):void
+		{
+			_editable = value;
+		}
+		
+		
+		private var _enabled:Boolean;
+		/**
+		 * 是否启用
+		 * @return
+		 *
+		 */
+		public function get enabled():Boolean
+		{
+			return _enabled;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			if (_enabled != value)
+			{
+				_enabled = value;
+				if (_enabled)
+				{
+					_skin = _skins[CtrlState.NORMAL];
+					_style = _styles[CtrlState.NORMAL];
+				}
+				else
+				{
+					_skin = _skins[CtrlState.DISABLE];
+					_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+					_style = _styles[CtrlState.DISABLE];
+					_style = _style ? _style : _styles[CtrlState.NORMAL];
+				}
+				drawText();
+			}
+		}
+		
+		
+		private var _tabIndex:int;
+		
+		public function get tabIndex():int
+		{
+			return _tabIndex;
+		}
+		
+		public function set tabIndex(value:int):void
+		{
+			_tabIndex = value;
+		}
+		
+		
+		public function get focusable():Boolean
+		{
+			return true;
+		}
+		
+		
+		
+		/**
+		 * 设置文本样式
+		 * @return
+		 *
+		 */
+		public override function get normalStyle():TextStyle
+		{
+			return _styles[CtrlState.NORMAL];
+		}
+		
+		public override function set normalStyle(value:TextStyle):void
+		{
+			if (!value)
+			{
+				return;
+			}
+			
+			if (_style == _styles[CtrlState.NORMAL])
+			{
+				_style = value;
+				drawText();
+			}
+			
+			_styles[CtrlState.NORMAL] = value;
+		}
+		
+		/**
+		 * 设置禁用文本样式
+		 * @return
+		 *
+		 */
+		public function get disableStyle():TextStyle
+		{
+			return _styles[CtrlState.DISABLE];
+		}
+		
+		public function set disableStyle(value:TextStyle):void
+		{
+			if (!value)
+			{
+				return;
+			}
+			
+			if (_style == _styles[CtrlState.DISABLE])
+			{
+				_style = value;
+				drawText();
+			}
+			
+			_styles[CtrlState.DISABLE] = value;
+		}
+		
+		/**
+		 * 设置普通皮肤样式
+		 * @return
+		 *
+		 */
+		public function get normalSkin():ISkin
+		{
+			return _skins[CtrlState.NORMAL];
+		}
+		
+		public function set normalSkin(value:ISkin):void
+		{
+			if (_skin == _skins[CtrlState.NORMAL])
+			{
+				_skin = value;
+				paint();
+			}
+			
+			_skins[CtrlState.NORMAL] = value;
+		}
+		
+		/**
+		 * 设置禁用皮肤样式
+		 * @return
+		 *
+		 */
+		public function get disableSkin():ISkin
+		{
+			return _skins[CtrlState.DISABLE];
+		}
+		
+		public function set disableSkin(value:ISkin):void
+		{
+			if (_skin == _skins[CtrlState.DISABLE])
+			{
+				_skin = value;
+				paint();
+			}
+			
+			_skins[CtrlState.DISABLE] = value;
+		}
+		
 
 
 		/**
@@ -79,188 +249,6 @@ package com.macro.gUI.controls
 			_margin = new Rectangle(10);
 		}
 
-
-		public override function resize(width:int = 0, height:int = 0):void
-		{
-			super.resize(width, height);
-			relocateEditBox();
-		}
-
-
-		//=====================================================================
-		// 样式定义
-
-		/**
-		 * 设置文本样式
-		 * @return
-		 *
-		 */
-		public override function get normalStyle():TextStyle
-		{
-			return _styles[CtrlState.NORMAL];
-		}
-
-		public override function set normalStyle(value:TextStyle):void
-		{
-			if (!value)
-			{
-				return;
-			}
-
-			if (_style == _styles[CtrlState.NORMAL])
-			{
-				_style = value;
-				drawText();
-			}
-
-			_styles[CtrlState.NORMAL] = value;
-		}
-
-		/**
-		 * 设置禁用文本样式
-		 * @return
-		 *
-		 */
-		public function get disableStyle():TextStyle
-		{
-			return _styles[CtrlState.DISABLE];
-		}
-
-		public function set disableStyle(value:TextStyle):void
-		{
-			if (!value)
-			{
-				return;
-			}
-
-			if (_style == _styles[CtrlState.DISABLE])
-			{
-				_style = value;
-				drawText();
-			}
-
-			_styles[CtrlState.DISABLE] = value;
-		}
-
-		/**
-		 * 设置普通皮肤样式
-		 * @return
-		 *
-		 */
-		public function get normalSkin():ISkin
-		{
-			return _skins[CtrlState.NORMAL];
-		}
-
-		public function set normalSkin(value:ISkin):void
-		{
-			if (_skin == _skins[CtrlState.NORMAL])
-			{
-				_skin = value;
-				paint();
-			}
-
-			_skins[CtrlState.NORMAL] = value;
-		}
-
-		/**
-		 * 设置禁用皮肤样式
-		 * @return
-		 *
-		 */
-		public function get disableSkin():ISkin
-		{
-			return _skins[CtrlState.DISABLE];
-		}
-
-		public function set disableSkin(value:ISkin):void
-		{
-			if (_skin == _skins[CtrlState.DISABLE])
-			{
-				_skin = value;
-				paint();
-			}
-
-			_skins[CtrlState.DISABLE] = value;
-		}
-
-
-
-
-
-		//=====================================================================
-		// 接口实现
-
-
-		private var _editable:Boolean;
-
-		private var _tabIndex:int;
-
-		private var _enabled:Boolean;
-
-		private var _editBox:TextField;
-
-
-		/**
-		 * 是否可编辑
-		 * @return
-		 *
-		 */
-		public function get editable():Boolean
-		{
-			return _editable;
-		}
-
-		public function set editable(value:Boolean):void
-		{
-			_editable = value;
-		}
-
-
-
-		/**
-		 * 是否启用
-		 * @return
-		 *
-		 */
-		public function get enabled():Boolean
-		{
-			return _enabled;
-		}
-
-		public function set enabled(value:Boolean):void
-		{
-			if (_enabled != value)
-			{
-				_enabled = value;
-				if (_enabled)
-				{
-					_skin = _skins[CtrlState.NORMAL];
-					_style = _styles[CtrlState.NORMAL];
-				}
-				else
-				{
-					_skin = _skins[CtrlState.DISABLE];
-					_style = _styles[CtrlState.DISABLE];
-				}
-				drawText();
-			}
-		}
-
-		public function get tabIndex():int
-		{
-			return _tabIndex;
-		}
-
-		public function set tabIndex(value:int):void
-		{
-			_tabIndex = value;
-		}
-
-		public function get focusable():Boolean
-		{
-			return true;
-		}
 
 
 		public function hitTest(x:int, y:int):IControl
@@ -348,8 +336,8 @@ package com.macro.gUI.controls
 			var txtW:int = _editBox.textWidth + 4 + _style.leftMargin + _style.rightMargin + _style.indent + _style.blockIndent;
 			var txtH:int = _editBox.textHeight + 4;
 			
-			var w:int = _rect.width - _margin.left - _margin.right;
-			var h:int = _rect.height - _margin.top - _margin.bottom;
+			var w:int = getTextWidth();
+			var h:int = getTextHeight();
 
 			if (txtW > w)
 			{
@@ -358,7 +346,6 @@ package com.macro.gUI.controls
 				_editBox.wordWrap = _style.wordWrap;
 				txtW = w;
 				_editBox.width = txtW + 2;
-//				_editBox.height = txtH;
 				txtH = _editBox.textHeight + 4;
 			}
 			else
@@ -366,7 +353,7 @@ package com.macro.gUI.controls
 				_editBox.autoSize = TextFieldAutoSize.LEFT;
 			}
 
-			var ox:int = _rect.x + _margin.left;
+			var ox:int = _rect.x + (_margin ? _margin.left : 0);
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
 				ox += (w - txtW) >> 1;
@@ -376,7 +363,7 @@ package com.macro.gUI.controls
 				ox += w - txtW;
 			}
 
-			var oy:int = _rect.y + _margin.top;
+			var oy:int = _rect.y + (_margin ? _margin.top : 0);
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
 				oy += (h - txtH) >> 1;
@@ -388,19 +375,6 @@ package com.macro.gUI.controls
 
 			_editBox.x = ox;
 			_editBox.y = oy;
-		}
-
-		public function keyDown(e:KeyboardEvent):void
-		{
-			if (e.keyCode == Keyboard.ENTER || e.keyCode == Keyboard.ESCAPE)
-			{
-				endEdit();
-			}
-			// TODO 应调用InteractiveManager的结束编辑接口，或者考虑直接将可编辑TextField的创建拿到InteractiveManager中
-		}
-
-		public function keyUp(e:KeyboardEvent):void
-		{
 		}
 	}
 }

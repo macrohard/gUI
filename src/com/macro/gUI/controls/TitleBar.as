@@ -10,6 +10,7 @@ package com.macro.gUI.controls
 	
 	public class TitleBar extends Label
 	{
+		
 		/**
 		 * 标题控件，有背景皮肤定义
 		 * @param text 作为文本的字符串
@@ -25,14 +26,6 @@ package com.macro.gUI.controls
 			super(text, style, align);
 		}
 		
-		protected override function init():void
-		{
-			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.TITLE);
-			
-			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.TITLE_BG);
-			
-			_margin = new Rectangle(20);
-		}
 		
 		/**
 		 * 皮肤
@@ -48,6 +41,16 @@ package com.macro.gUI.controls
 		{
 			_skin = value;
 			resize(_rect.width, _rect.height);
+		}
+		
+		
+		protected override function init():void
+		{
+			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.TITLE);
+			
+			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.TITLE_BG);
+			
+			_margin = new Rectangle(20);
 		}
 	}
 }

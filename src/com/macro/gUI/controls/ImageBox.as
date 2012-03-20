@@ -50,15 +50,6 @@ package com.macro.gUI.controls
 			setSource(source);
 		}
 		
-		/**
-		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
-		 *
-		 */
-		protected function init():void
-		{
-			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.IMAGEBOX_BORDER);
-		}
-
 
 		private var _align:int;
 		/**
@@ -108,6 +99,16 @@ package com.macro.gUI.controls
 			}
 		}
 
+		
+		
+		/**
+		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
+		 *
+		 */
+		protected function init():void
+		{
+			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.IMAGEBOX_BORDER);
+		}
 
 		
 		/**

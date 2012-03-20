@@ -4,7 +4,6 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.AbstractControl;
 	import com.macro.gUI.skin.StyleDef;
-	import com.macro.logging.Logger;
 	import com.macro.utils.StrUtil;
 	
 	import flash.display.BitmapData;
@@ -21,27 +20,25 @@ package com.macro.gUI.controls
 	public class Label extends AbstractControl
 	{
 
-		
-
+		/**
+		 * 文本图像
+		 */
 		protected var _textImg:BitmapData;
 
+		/**
+		 * 文本图像区域
+		 */
 		protected var _textDrawRect:Rectangle;
 
-
-		
-
-		
-
-		
-
-		
-
+		/**
+		 * 是否重绘文本
+		 */
 		protected var _recreateTextImg:Boolean;
 
 
 
 		/**
-		 * 文本标签，无皮肤定义，纯显示
+		 * 文本标签，无皮肤定义
 		 * @param text 用以显示的文本字符串
 		 * @param style 文本样式
 		 * @param align 文本对齐方式，默认左上角对齐
@@ -64,16 +61,7 @@ package com.macro.gUI.controls
 			this.text = text;
 		}
 
-		/**
-		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
-		 *
-		 */
-		protected function init():void
-		{
-			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.NORMAL);
-		}
-
-
+		
 		protected var _align:int;
 		/**
 		 * 文本对齐方式<br/>
@@ -160,13 +148,14 @@ package com.macro.gUI.controls
 
 		public function set margin(value:Rectangle):void
 		{
-			if (!_margin || !_margin.equals(value))
+			_margin = value;
+			if (_autoSize)
 			{
-				_margin = value;
-				if (_autoSize)
-					resize();
-				else
-					paint();
+				resize();
+			}
+			else
+			{
+				paint();
 			}
 		}
 		
@@ -194,7 +183,17 @@ package com.macro.gUI.controls
 		}
 
 		
+		
+		/**
+		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
+		 *
+		 */
+		protected function init():void
+		{
+			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.NORMAL);
+		}
 
+		
 		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize && _textImg)
@@ -210,6 +209,7 @@ package com.macro.gUI.controls
 			super.resize(width, height);
 		}
 
+		
 		public override function setDefaultSize():void
 		{
 			if (_textImg)
@@ -220,11 +220,12 @@ package com.macro.gUI.controls
 			super.setDefaultSize();
 		}
 		
+		
 		protected override function postPaint():void
 		{
 			if (!_autoSize && _recreateTextImg)
 			{
-				_textImg = createTextImage(_text, _style, _rect, _autoSize);
+				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize);
 			}
 			_recreateTextImg = false;
 			
@@ -243,7 +244,7 @@ package com.macro.gUI.controls
 		{
 			if (_autoSize)
 			{
-				_textImg = createTextImage(_text, _style, _rect, _autoSize);
+				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize);
 				resize();
 			}
 			else
@@ -252,19 +253,37 @@ package com.macro.gUI.controls
 				paint();
 			}
 		}
+		
+		
+		protected function getTextWidth():int
+		{
+			if (_margin)
+			{
+				return _rect.width - _margin.left - _margin.right;
+			}
+			return _rect.width;
+		}
 
+		protected function getTextHeight():int
+		{
+			if (_margin)
+			{
+				return _rect.height - _margin.top - _margin.bottom;
+			}
+			return _rect.height;
+		}
 
 		
 		/**
 		 * 创建文本图形
 		 * @param text 作为图形的文本
 		 * @param style 文本样式
-		 * @param rect 范围矩形
+		 * @param width 文本框宽度
 		 * @param autoSize 根据文本自动设置尺寸
 		 * @return
 		 *
 		 */
-		protected static function createTextImage(text:String, style:TextStyle, rect:Rectangle,
+		protected static function createTextImage(text:String, style:TextStyle, width:int,
 												  autoSize:Boolean = true):BitmapData
 		{
 			if (!text || text.length == 0 || !style)
@@ -285,10 +304,10 @@ package com.macro.gUI.controls
 			tf.defaultTextFormat = style;
 			tf.text = text;
 			
-			if (!autoSize && tf.width > rect.width)
+			if (!autoSize && tf.width > width)
 			{
 				tf.wordWrap = style.wordWrap;
-				tf.width = rect.width;
+				tf.width = width;
 			}
 			
 			var img:BitmapData = new BitmapData(tf.width, tf.height, true, 0);
