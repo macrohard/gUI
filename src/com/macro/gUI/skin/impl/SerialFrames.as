@@ -1,11 +1,12 @@
 package com.macro.gUI.skin.impl
 {
+	import com.macro.gUI.skin.IAnimationSkin;
 	import com.macro.gUI.skin.ISkin;
 	
 	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 
-	public class SerialFrames implements ISkin
+	public class SerialFrames implements ISkin, IAnimationSkin
 	{
 		public function SerialFrames(frames:Vector.<BitmapData>, framerate:int, grid:Rectangle, align:int)
 		{

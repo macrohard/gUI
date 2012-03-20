@@ -1,12 +1,13 @@
 package com.macro.gUI.skin.impl
 {
+	import com.macro.gUI.skin.IAnimationSkin;
 	import com.macro.gUI.skin.ISkin;
 	
 	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.geom.Rectangle;
 	
-	public class MovieClipSkin implements ISkin
+	public class MovieClipSkin implements ISkin, IAnimationSkin
 	{
 		public function MovieClipSkin(mc:MovieClip, framerate:int, grid:Rectangle, align:int)
 		{

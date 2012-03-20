@@ -1,12 +1,13 @@
 package com.macro.gUI.skin.impl
 {
+	import com.macro.gUI.skin.IAnimationSkin;
 	import com.macro.gUI.skin.ISkin;
 	
 	import flash.display.BitmapData;
 	import flash.display.Loader;
 	import flash.geom.Rectangle;
 
-	public class SWFProxy implements ISkin
+	public class SWFProxy implements ISkin, IAnimationSkin
 	{
 		public function SWFProxy(loader:Loader, framerate:int, grid:Rectangle, align:int)
 		{

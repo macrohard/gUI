@@ -8,6 +8,8 @@ package com.macro.gUI.controls
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.IBitmapDrawable;
+	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.geom.Rectangle;
 
 
@@ -19,6 +21,11 @@ package com.macro.gUI.controls
 	public class ImageBox extends AbstractControl
 	{
 
+		private var _image:BitmapData;
+		
+		private var _mc:MovieClip;
+		
+		
 		/**
 		 * 图片框控件，支持边框
 		 * @param source 要显示的可绘制对象
@@ -36,9 +43,20 @@ package com.macro.gUI.controls
 
 			_autoSize = autoSize;
 			
-			_skin = skin ? skin : GameUI.skinManager.getSkin(SkinDef.IMAGEBOX_BORDER);
+			_skin = skin;
+			
+			init();
 
 			setSource(source);
+		}
+		
+		/**
+		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
+		 *
+		 */
+		protected function init():void
+		{
+			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.IMAGEBOX_BORDER);
 		}
 
 
@@ -91,19 +109,7 @@ package com.macro.gUI.controls
 		}
 
 
-		private var _image:BitmapData;
-		/**
-		 * 获取当前正在显示的图元
-		 * @return
-		 *
-		 */
-		public function get image():BitmapData
-		{
-			return _image;
-		}
-
-
-
+		
 		/**
 		 * 设置新的显示对象
 		 * @param value
@@ -112,6 +118,11 @@ package com.macro.gUI.controls
 		 */
 		public function setSource(value:IBitmapDrawable, destroy:Boolean = false):void
 		{
+			if (_mc)
+			{
+				_mc.removeEventListener(Event.ENTER_FRAME, onRedrawHandler);
+			}
+			
 			if (value)
 			{
 				if (destroy && _image)
@@ -127,6 +138,12 @@ package com.macro.gUI.controls
 				else
 				{
 					paint();
+				}
+				
+				if (value is MovieClip)
+				{
+					_mc = value as MovieClip;
+					_mc.addEventListener(Event.ENTER_FRAME, onRedrawHandler, false, 0, true);
 				}
 			}
 		}
@@ -172,17 +189,26 @@ package com.macro.gUI.controls
 			}
 			else if (image is DisplayObject)
 			{
-				var d:DisplayObject = DisplayObject(image);
-				var r:Rectangle = d.getBounds(null);
+				var r:Rectangle = (image as DisplayObject).getBounds(null);
 				var bmd:BitmapData = new BitmapData(r.right + 1, r.bottom + 1, true, 0);
-				bmd.draw(d);
+				bmd.draw(image);
 				return bmd;
+			}
+			
+			throw new Error("Unknow IBitmapDrawable Object!");
+		}
+
+		private function onRedrawHandler(e:Event):void
+		{
+			_image = getBitmapData(_mc);
+			if (_autoSize)
+			{
+				resize();
 			}
 			else
 			{
-				throw new Error("Unsupport IBitmapDrawable Object!");
+				paint();
 			}
 		}
-
 	}
 }

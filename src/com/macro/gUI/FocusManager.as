@@ -4,7 +4,7 @@ package com.macro.gUI
 
 	/**
 	 * 焦点管理器。
-	 * 只在当前控件父容器一层搜索，不下探
+	 * 当按下Tab键切换焦点时，只在当前控件父容器一层搜索，不下探
 	 * @author Macro776@gmail.com
 	 * 
 	 */

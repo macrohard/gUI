@@ -28,10 +28,9 @@ package com.macro.gUI.base
 		 */
 		public static var smoothing:Boolean = true;
 
-
+		
 		/**
-		 * 皮肤。<br/>
-		 * TODO 对于动画皮肤，可以考虑将skin修改为访问器，在替换skin时添加侦听器，实现逐帧绘制<br/><br/>
+		 * 皮肤。<br/><br/>
 		 * 未直接曝露，支持此属性的子类自行提供访问器
 		 */
 		protected var _skin:ISkin;

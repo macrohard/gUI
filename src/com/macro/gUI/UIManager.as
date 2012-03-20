@@ -14,6 +14,9 @@ package com.macro.gUI
 
 	/**
 	 * 界面管理器，构建基于Sprite的视图结构，并处理控件的添加、删除行为
+	 * 分散渲染时，只需要关注Resize事件中的BitmapData重建，其它情况下，直接更新BitmapData会自动实现显示更新；
+	 * 合并渲染时，由于每帧强制重绘，就无须关心BitmapData的重建或重绘问题。
+	 * 使用Stage3D时，也可以考虑继续分散渲染，避免合并渲染的巨大开销。
 	 * @author Macro776@gmail.com
 	 *
 	 */
