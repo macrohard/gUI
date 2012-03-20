@@ -62,8 +62,8 @@
     <classEntry path="com.macro.utils.StrUtil"/>
     <classEntry path="com.macro.ioc.HandlerInfo"/>
     <classEntry path="com.macro.utils.WordFilterUtil"/>
-    <classEntry path="com.macro.utils.TextUtil"/>
-    <classEntry path="com.macro.utils.TextSegment"/>
+    <classEntry path="com.macro.utils.fte.TextUtil"/>
+    <classEntry path="com.macro.utils.fte.TextSegment"/>
     <classEntry path="com.macro.gUI.skin.IAnimationSkin"/>
   </includeClasses>
   <includeResources/>

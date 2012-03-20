@@ -1,4 +1,4 @@
-package com.macro.utils
+package com.macro.utils.fte
 {
 	/**
 	 * 文本片段

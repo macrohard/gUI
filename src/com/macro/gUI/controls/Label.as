@@ -21,20 +21,20 @@ package com.macro.gUI.controls
 	public class Label extends AbstractControl
 	{
 
-		protected var _text:String;
+		
 
 		protected var _textImg:BitmapData;
 
 		protected var _textDrawRect:Rectangle;
 
 
-		protected var _align:int;
+		
 
-		protected var _autoSize:Boolean;
+		
 
-		protected var _style:TextStyle;
+		
 
-		protected var _margin:Rectangle;
+		
 
 		protected var _recreateTextImg:Boolean;
 
@@ -74,6 +74,7 @@ package com.macro.gUI.controls
 		}
 
 
+		protected var _align:int;
 		/**
 		 * 文本对齐方式<br/>
 		 * 请使用LayoutAlign枚举，可按如下方式设置左上角对齐：<br/>
@@ -98,6 +99,7 @@ package com.macro.gUI.controls
 		}
 
 
+		protected var _autoSize:Boolean;
 		/**
 		 * 自动根据文字内容设置控件宽高，如果是多行文本，则根据现有宽度来自动设置高度
 		 * @return
@@ -121,6 +123,7 @@ package com.macro.gUI.controls
 		}
 
 
+		protected var _text:String;
 		/**
 		 * 作为当前文本的字符串
 		 * @return
@@ -141,6 +144,7 @@ package com.macro.gUI.controls
 		}
 
 
+		protected var _margin:Rectangle;
 		/**
 		 * 定义文本与四周的边距。注意，将使用rect.left作为左间距，rect.right作为右间距，
 		 * rect.top作为上间距，rect.bottom作为下间距。为赋值简便，可以使用如下语法：<br/>
@@ -165,22 +169,31 @@ package com.macro.gUI.controls
 					paint();
 			}
 		}
-
-
-		protected function drawText():void
+		
+		
+		protected var _style:TextStyle;
+		/**
+		 * 设置文本样式
+		 * @return
+		 *
+		 */
+		public function get normalStyle():TextStyle
 		{
-			if (_autoSize)
+			return _style;
+		}
+		
+		public function set normalStyle(value:TextStyle):void
+		{
+			if (!value)
 			{
-				_textImg = createTextImage(_text, _style, _rect, _autoSize);
-				resize();
+				return;
 			}
-			else
-			{
-				_recreateTextImg = true;
-				paint();
-			}
+			
+			_style = value;
+			drawText();
 		}
 
+		
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
@@ -206,8 +219,7 @@ package com.macro.gUI.controls
 			}
 			super.setDefaultSize();
 		}
-
-
+		
 		protected override function postPaint():void
 		{
 			if (!_autoSize && _recreateTextImg)
@@ -215,45 +227,33 @@ package com.macro.gUI.controls
 				_textImg = createTextImage(_text, _style, _rect, _autoSize);
 			}
 			_recreateTextImg = false;
-
+			
 			if (_textImg)
 			{
 				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _margin);
 			}
 		}
-
-
-
-
-
-		//=====================================================================
-		// 样式定义
-
+		
+		
 		/**
-		 * 设置文本样式
-		 * @return
-		 *
+		 * 绘制文本
+		 * 
 		 */
-		public function get normalStyle():TextStyle
+		protected function drawText():void
 		{
-			return _style;
-		}
-
-		public function set normalStyle(value:TextStyle):void
-		{
-			if (!value)
+			if (_autoSize)
 			{
-				return;
+				_textImg = createTextImage(_text, _style, _rect, _autoSize);
+				resize();
 			}
-
-			_style = value;
-			drawText();
+			else
+			{
+				_recreateTextImg = true;
+				paint();
+			}
 		}
 
-		
-		
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-		// 静态绘图方法，由子类使用
+
 		
 		/**
 		 * 创建文本图形

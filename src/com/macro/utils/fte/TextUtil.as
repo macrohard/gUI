@@ -1,4 +1,4 @@
-package com.macro.utils
+package com.macro.utils.fte
 {
 	import flash.display.Shape;
 	import flash.display.Sprite;
