@@ -95,22 +95,27 @@ package com.macro.gUI.assist
 		
 		public override function set bullet(value:Object):void
 		{
+			throw new Error("Unsupport text style!");
 		}
 
 		public override function set display(value:String):void
 		{
+			throw new Error("Unsupport text style!");
 		}
 
 		public override function set tabStops(value:Array):void
 		{
+			throw new Error("Unsupport text style!");
 		}
 
 		public override function set target(value:String):void
 		{
+			throw new Error("Unsupport text style!");
 		}
 
 		public override function set url(value:String):void
 		{
+			throw new Error("Unsupport text style!");
 		}
 
 	}
