@@ -23,14 +23,12 @@ package com.macro.gUI.controls.composite
 	 */
 	public class CheckBox extends AbstractComposite implements IButton, IKeyboard
 	{
+		
 		/**
 		 * 文本标签与图标之间的间距
 		 */
 		private static const gap:int = 5;
 
-
-
-		private var _autoSize:Boolean;
 
 		private var _icon:ToggleButton;
 
@@ -69,7 +67,7 @@ package com.macro.gUI.controls.composite
 		}
 
 
-
+		private var _autoSize:Boolean;
 		/**
 		 * 自动设置尺寸
 		 * @return
@@ -109,7 +107,6 @@ package com.macro.gUI.controls.composite
 		}
 
 
-
 		/**
 		 * 标签文本
 		 * @return
@@ -135,8 +132,129 @@ package com.macro.gUI.controls.composite
 				}
 			}
 		}
+		
+		
+		private var _tabIndex:int;
+		
+		public function get tabIndex():int
+		{
+			return _tabIndex;
+		}
+		
+		public function set tabIndex(value:int):void
+		{
+			_tabIndex = value;
+		}
+		
+		
+		public function get enabled():Boolean
+		{
+			return _icon.enabled;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			_icon.enabled = value;
+		}
+		
+		
+		public function get focusable():Boolean
+		{
+			return true;
+		}
 
 
+		/**
+		 * 标签文本样式
+		 * @return
+		 *
+		 */
+		public function get labelStyle():TextStyle
+		{
+			return _label.normalStyle;
+		}
+		
+		public function set labelStyle(value:TextStyle):void
+		{
+			if (value)
+			{
+				_label.normalStyle = value;
+				if (_autoSize)
+				{
+					resize();
+				}
+				else
+				{
+					layout();
+				}
+			}
+		}
+		
+		/**
+		 * 常态皮肤
+		 * @return
+		 *
+		 */
+		public function get normalSkin():ISkin
+		{
+			return _icon.normalSkin;
+		}
+		
+		public function set normalSkin(value:ISkin):void
+		{
+			_icon.overSkin = _icon.downSkin = _icon.normalSkin = value;
+			layout();
+		}
+		
+		/**
+		 * 禁用态皮肤
+		 * @return
+		 *
+		 */
+		public function get disableSkin():ISkin
+		{
+			return _icon.disableSkin;
+		}
+		
+		public function set disableSkin(value:ISkin):void
+		{
+			_icon.disableSkin = value;
+			layout();
+		}
+		
+		/**
+		 * 选中态皮肤
+		 * @return
+		 *
+		 */
+		public function get selectedSkin():ISkin
+		{
+			return _icon.selectedSkin;
+		}
+		
+		public function set selectedSkin(value:ISkin):void
+		{
+			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = value;
+			layout();
+		}
+		
+		/**
+		 * 选中禁用态皮肤
+		 * @return
+		 *
+		 */
+		public function get selectedDisableSkin():ISkin
+		{
+			return _icon.selectedDisableSkin;
+		}
+		
+		public function set selectedDisableSkin(value:ISkin):void
+		{
+			_icon.selectedDisableSkin = value;
+			layout();
+		}
+		
+		
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
@@ -189,134 +307,6 @@ package com.macro.gUI.controls.composite
 			}
 		}
 
-
-
-		//==============================================================
-		// 样式相关
-
-
-		/**
-		 * 标签文本样式
-		 * @return
-		 *
-		 */
-		public function get labelStyle():TextStyle
-		{
-			return _label.normalStyle;
-		}
-
-		public function set labelStyle(value:TextStyle):void
-		{
-			if (value)
-			{
-				_label.normalStyle = value;
-				if (_autoSize)
-				{
-					resize();
-				}
-				else
-				{
-					layout();
-				}
-			}
-		}
-
-		/**
-		 * 常态皮肤
-		 * @return
-		 *
-		 */
-		public function get normalSkin():ISkin
-		{
-			return _icon.normalSkin;
-		}
-
-		public function set normalSkin(value:ISkin):void
-		{
-			_icon.overSkin = _icon.downSkin = _icon.normalSkin = value;
-			layout();
-		}
-
-		/**
-		 * 禁用态皮肤
-		 * @return
-		 *
-		 */
-		public function get disableSkin():ISkin
-		{
-			return _icon.disableSkin;
-		}
-
-		public function set disableSkin(value:ISkin):void
-		{
-			_icon.disableSkin = value;
-			layout();
-		}
-
-		/**
-		 * 选中态皮肤
-		 * @return
-		 *
-		 */
-		public function get selectedSkin():ISkin
-		{
-			return _icon.selectedSkin;
-		}
-
-		public function set selectedSkin(value:ISkin):void
-		{
-			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = value;
-			layout();
-		}
-
-		/**
-		 * 选中禁用态皮肤
-		 * @return
-		 *
-		 */
-		public function get selectedDisableSkin():ISkin
-		{
-			return _icon.selectedDisableSkin;
-		}
-
-		public function set selectedDisableSkin(value:ISkin):void
-		{
-			_icon.selectedDisableSkin = value;
-			layout();
-		}
-
-
-
-
-		//==============================================================
-		// 接口实现
-
-		private var _tabIndex:int;
-
-		public function get tabIndex():int
-		{
-			return _tabIndex;
-		}
-
-		public function set tabIndex(value:int):void
-		{
-			_tabIndex = value;
-		}
-
-		public function get enabled():Boolean
-		{
-			return _icon.enabled;
-		}
-
-		public function set enabled(value:Boolean):void
-		{
-			_icon.enabled = value;
-		}
-
-		public function get focusable():Boolean
-		{
-			return true;
-		}
 
 
 		public function hitTest(x:int, y:int):IControl

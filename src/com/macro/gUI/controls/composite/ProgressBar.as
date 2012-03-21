@@ -20,31 +20,31 @@ package com.macro.gUI.controls.composite
 	 */
 	public class ProgressBar extends AbstractComposite
 	{
-		private var _autoSize:Boolean;
 
+		/**
+		 * 是否使用遮罩
+		 */
 		private var _mask:Boolean;
+		
+		private var _canvas:Canvas;
 
 		private var _bg:Slice;
 
-		private var _canvas:Canvas;
-
-		private var _percent:int;
-
-		private var _infillSkin:ISkin;
+		private var _fillingSkin:ISkin;
 
 
 		/**
 		 * 水平进度条控件。根据填充物的九切片定义来确定是平铺填充，还是缩放填充。<br/>
 		 * 缩放填充时可以使用遮罩，使用遮罩时，将首先用填充物填满，然后使用遮罩来显示进度。
-		 * @param maskMode 使用遮罩
-		 * @param width 宽度
-		 * @param align 布局对齐方式
 		 * @param bgSkin 背景皮肤。注意将使用此皮肤的gridLeft和gridTop来定位填充物左上角坐标
 		 * @param infillSkin 填充物
+		 * @param width 宽度
+		 * @param align 布局对齐方式
+		 * @param maskMode 使用遮罩
 		 *
 		 */
-		public function ProgressBar(mask:Boolean = false, width:int = 200, align:int = 0x20, bgSkin:ISkin = null,
-									infillSkin:ISkin = null)
+		public function ProgressBar(bgSkin:ISkin = null, infillSkin:ISkin = null, width:int = 200, align:int = 0x20,
+									mask:Boolean = false)
 		{
 			super(width, 20, align);
 
@@ -55,14 +55,18 @@ package com.macro.gUI.controls.composite
 			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_BG);
 			_bg = new Slice(width, bgSkin.bitmapData.height, bgSkin);
 
-			_infillSkin = infillSkin ? infillSkin : GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
-			_canvas = new Canvas(width - bgSkin.gridLeft - bgSkin.gridRight, _infillSkin.bitmapData.height);
+			_fillingSkin = infillSkin ? infillSkin : GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
+			_canvas = new Canvas(width - bgSkin.gridLeft - bgSkin.gridRight, _fillingSkin.bitmapData.height);
 
 			_children.push(_bg);
 			_children.push(_canvas);
 
 			resize(_rect.width);
 		}
+
+
+
+		private var _autoSize:Boolean;
 
 		/**
 		 * 自动设置高度
@@ -86,6 +90,9 @@ package com.macro.gUI.controls.composite
 			}
 		}
 
+
+		private var _percent:int;
+
 		/**
 		 * 进度百分比，最小值为0，最大值为100
 		 * @return
@@ -106,15 +113,53 @@ package com.macro.gUI.controls.composite
 		}
 
 
+		/**
+		 * 背景皮肤
+		 * @return
+		 *
+		 */
+		public function get bgSkin():ISkin
+		{
+			return _bg.skin;
+		}
+
+		public function set bgSkin(value:ISkin):void
+		{
+			_bg.skin = value;
+			_bg.height = value.bitmapData.height;
+			layout();
+		}
+
+
+		/**
+		 * 填充物皮肤
+		 * @return
+		 *
+		 */
+		public function get fillingSkin():ISkin
+		{
+			return _fillingSkin;
+		}
+
+		public function set fillingSkin(value:ISkin):void
+		{
+			_fillingSkin = value;
+			_canvas.height = value.bitmapData.height;
+			layout();
+		}
+
+
+
+
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize)
 			{
-				if (_infillSkin.gridRight <= _infillSkin.gridLeft)
+				if (_fillingSkin.gridRight <= _fillingSkin.gridLeft)
 				{
 					var w:int = width - _bg.skin.minWidth;
-					w = Math.round(w / _infillSkin.bitmapData.width) * _infillSkin.bitmapData.width;
+					w = Math.round(w / _fillingSkin.bitmapData.width) * _fillingSkin.bitmapData.width;
 					width = _bg.skin.minWidth + w;
 				}
 				else
@@ -167,19 +212,19 @@ package com.macro.gUI.controls.composite
 			bmd.lock();
 			bmd.fillRect(bmd.rect, 0);
 
-			if (_infillSkin.gridRight > _infillSkin.gridLeft)
+			if (_fillingSkin.gridRight > _fillingSkin.gridLeft)
 			{
 				if (_mask)
 				{
 					var m:BitmapData = new BitmapData(bmd.width, bmd.height, true, 0);
-					drawHorizontal(m, m.rect, _infillSkin);
+					drawHorizontal(m, m.rect, _fillingSkin);
 					bmd.copyPixels(m, new Rectangle(0, 0, m.width * _percent / 100, m.height), new Point(), null, null,
 								   true);
 					m.dispose();
 				}
 				else
 				{
-					drawHorizontal(bmd, new Rectangle(0, 0, bmd.width * _percent / 100, bmd.height), _infillSkin);
+					drawHorizontal(bmd, new Rectangle(0, 0, bmd.width * _percent / 100, bmd.height), _fillingSkin);
 				}
 			}
 			else
@@ -188,8 +233,9 @@ package com.macro.gUI.controls.composite
 				var w:int = bmd.width * _percent / 100;
 				while (true)
 				{
-					bmd.copyPixels(_infillSkin.bitmapData, _infillSkin.bitmapData.rect, new Point(i), null, null, true);
-					i += _infillSkin.bitmapData.width;
+					bmd.copyPixels(_fillingSkin.bitmapData, _fillingSkin.bitmapData.rect, new Point(i), null, null,
+								   true);
+					i += _fillingSkin.bitmapData.width;
 					if (i > w)
 					{
 						break;
@@ -199,35 +245,5 @@ package com.macro.gUI.controls.composite
 
 			bmd.unlock();
 		}
-
-
-
-		//==============================================================
-		// 样式定义
-
-		public function get bgSkin():ISkin
-		{
-			return _bg.skin;
-		}
-
-		public function set bgSkin(value:ISkin):void
-		{
-			_bg.skin = value;
-			_bg.height = value.bitmapData.height;
-			layout();
-		}
-
-		public function get infillSkin():ISkin
-		{
-			return _infillSkin;
-		}
-
-		public function set infillSkin(value:ISkin):void
-		{
-			_infillSkin = value;
-			_canvas.height = value.bitmapData.height;
-			layout();
-		}
-
 	}
 }

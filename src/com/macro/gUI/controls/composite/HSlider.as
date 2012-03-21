@@ -27,27 +27,24 @@ package com.macro.gUI.controls.composite
 	public class HSlider extends AbstractComposite implements IKeyboard, IDrag, IButton
 	{
 
-		private var _stepSize:int;
-
-		private var _minimum:int;
-
-		private var _maximum:int;
-
-		private var _value:int;
-
-		private var _autoSize:Boolean;
-
-		private var _padding:Rectangle;
-
-
-
 		private var _bg:Slice;
 
 		private var _blockBtn:Button;
 
+		/**
+		 * 鼠标点击的对象
+		 */
+		private var _mouseObj:IControl;
+		
 
+		/**
+		 * 移动区域的最左侧位置
+		 */
 		private var _minX:int;
 
+		/**
+		 * 移动区域的最右侧位置
+		 */
 		private var _maxX:int;
 
 
@@ -90,6 +87,7 @@ package com.macro.gUI.controls.composite
 		}
 
 
+		private var _autoSize:Boolean;
 		/**
 		 * 自动设置高度
 		 * @return
@@ -112,6 +110,8 @@ package com.macro.gUI.controls.composite
 			}
 		}
 
+		
+		private var _padding:Rectangle;
 		/**
 		 * 滑槽与四周的边距
 		 * @return 
@@ -138,6 +138,8 @@ package com.macro.gUI.controls.composite
 			}
 		}
 
+		
+		private var _stepSize:int;
 		/**
 		 * 步长
 		 * @return 
@@ -153,6 +155,8 @@ package com.macro.gUI.controls.composite
 			_stepSize = value;
 		}
 
+		
+		private var _minimum:int;
 		/**
 		 * 最小值
 		 * @return 
@@ -169,6 +173,8 @@ package com.macro.gUI.controls.composite
 			this.value = _value;
 		}
 
+		
+		private var _maximum:int;
 		/**
 		 * 最大值
 		 * @return 
@@ -185,6 +191,8 @@ package com.macro.gUI.controls.composite
 			this.value = _value;
 		}
 
+		
+		private var _value:int;
 		/**
 		 * 当前值
 		 * @return 
@@ -202,6 +210,104 @@ package com.macro.gUI.controls.composite
 			relocateBlock();
 		}
 
+		
+		public function get enabled():Boolean
+		{
+			return _blockBtn.enabled;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			_blockBtn.enabled = value;
+		}
+		
+		
+		public function get focusable():Boolean
+		{
+			return true;
+		}
+		
+		
+		public function get dragMode():int
+		{
+			if (_mouseObj == _blockBtn)
+			{
+				return DragMode.INTERNAL;
+			}
+			return DragMode.NONE;
+		}
+		
+		
+		private var _tabIndex:int;
+		
+		public function get tabIndex():int
+		{
+			return _tabIndex;
+		}
+		
+		public function set tabIndex(value:int):void
+		{
+			_tabIndex = value;
+		}
+		
+		
+		
+		public function get blockNormalSkin():ISkin
+		{
+			return _blockBtn.normalSkin;
+		}
+		
+		public function set blockNormalSkin(value:ISkin):void
+		{
+			_blockBtn.normalSkin = value;
+			layout();
+		}
+		
+		public function get blockOverSkin():ISkin
+		{
+			return _blockBtn.overSkin;
+		}
+		
+		public function set blockOverSkin(value:ISkin):void
+		{
+			_blockBtn.overSkin = value;
+			layout();
+		}
+		
+		public function get blockDownSkin():ISkin
+		{
+			return _blockBtn.downSkin;
+		}
+		
+		public function set blockDownSkin(value:ISkin):void
+		{
+			_blockBtn.downSkin = value;
+			layout();
+		}
+		
+		public function get blockDisableSkin():ISkin
+		{
+			return _blockBtn.disableSkin;
+		}
+		
+		public function set blockDisableSkin(value:ISkin):void
+		{
+			_blockBtn.disableSkin = value;
+			layout();
+		}
+		
+		public function get bgSkin():ISkin
+		{
+			return _bg.skin;
+		}
+		
+		public function set bgSkin(value:ISkin):void
+		{
+			_bg.skin = value;
+			_bg.height = value.bitmapData.height;
+			layout();
+		}
+		
 
 
 		public override function resize(width:int = 0, height:int = 0):void
@@ -248,105 +354,14 @@ package com.macro.gUI.controls.composite
 			relocateBlock();
 		}
 
+		/**
+		 * 定位滑块的位置
+		 * 
+		 */
 		private function relocateBlock():void
 		{
 			var step:Number = (_maxX - _minX) / (_maximum - _minimum);
 			_blockBtn.x = _minX + step * (_value - _minimum);
-		}
-
-
-
-		//==============================================================
-		// 样式定义
-
-		public function get blockNormalSkin():ISkin
-		{
-			return _blockBtn.normalSkin;
-		}
-
-		public function set blockNormalSkin(value:ISkin):void
-		{
-			_blockBtn.normalSkin = value;
-			layout();
-		}
-
-		public function get blockOverSkin():ISkin
-		{
-			return _blockBtn.overSkin;
-		}
-
-		public function set blockOverSkin(value:ISkin):void
-		{
-			_blockBtn.overSkin = value;
-			layout();
-		}
-
-		public function get blockDownSkin():ISkin
-		{
-			return _blockBtn.downSkin;
-		}
-
-		public function set blockDownSkin(value:ISkin):void
-		{
-			_blockBtn.downSkin = value;
-			layout();
-		}
-
-		public function get blockDisableSkin():ISkin
-		{
-			return _blockBtn.disableSkin;
-		}
-
-		public function set blockDisableSkin(value:ISkin):void
-		{
-			_blockBtn.disableSkin = value;
-			layout();
-		}
-
-		public function get bgSkin():ISkin
-		{
-			return _bg.skin;
-		}
-
-		public function set bgSkin(value:ISkin):void
-		{
-			_bg.skin = value;
-			_bg.height = value.bitmapData.height;
-			layout();
-		}
-
-
-
-		//==============================================================
-		// 接口实现
-
-		private var _tabIndex:int;
-
-		private var _mouseObj:IControl;
-
-		public function get enabled():Boolean
-		{
-			return _blockBtn.enabled;
-		}
-
-		public function set enabled(value:Boolean):void
-		{
-			_blockBtn.enabled = value;
-		}
-
-		public function get focusable():Boolean
-		{
-			return true;
-		}
-
-		public function get tabIndex():int
-		{
-			return _tabIndex;
-		}
-
-		public function set tabIndex(value:int):void
-		{
-			_tabIndex = value;
 		}
 
 
@@ -421,16 +436,6 @@ package com.macro.gUI.controls.composite
 		}
 
 
-
-		public function get dragMode():int
-		{
-			if (_mouseObj == _blockBtn)
-			{
-				return DragMode.INTERNAL;
-			}
-			return DragMode.NONE;
-		}
-
 		public function getDragImage():BitmapData
 		{
 			return null;
@@ -447,6 +452,5 @@ package com.macro.gUI.controls.composite
 			var d:int = x - _padding.left;
 			this.value = Math.round(d / w * (_maximum - _minimum)) + _minimum;
 		}
-
 	}
 }

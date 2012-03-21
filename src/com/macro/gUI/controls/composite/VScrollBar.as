@@ -30,18 +30,6 @@ package com.macro.gUI.controls.composite
 	public class VScrollBar extends AbstractComposite implements IKeyboard, IDrag, IButton
 	{
 		
-		private var _stepSize:int;
-		
-		private var _pageSize:int;
-		
-		private var _minimum:int;
-		
-		private var _maximum:int;
-		
-		private var _value:Number;
-		
-		
-		
 		private var _track:Slice;
 		
 		private var _blockBtn:Button;
@@ -51,12 +39,25 @@ package com.macro.gUI.controls.composite
 		private var _downBtn:Button;
 		
 		
-		private var _autoSize:Boolean;
+		/**
+		 * 鼠标点击的对象
+		 */
+		private var _mouseObj:IControl;
 		
-		private var _padding:Rectangle;
+		/**
+		 * 鼠标点击时的坐标位置
+		 */
+		private var _mouseY:int;
 		
-		private var _viewport:Viewport;
+		/**
+		 * 鼠标点击时的滑块位置
+		 */
+		private var _blockY:int;
 		
+		/**
+		 * 自动滑动时的计时器标识
+		 */
+		private var _timerId:int;
 		
 		
 		/**
@@ -118,6 +119,7 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
+		private var _autoSize:Boolean;
 		/**
 		 * 自动设置高度
 		 * @return
@@ -140,6 +142,8 @@ package com.macro.gUI.controls.composite
 			}
 		}
 		
+		
+		private var _padding:Rectangle;
 		/**
 		 * 滑槽与四周的边距
 		 * @return
@@ -166,6 +170,8 @@ package com.macro.gUI.controls.composite
 			}
 		}
 		
+		
+		private var _viewport:Viewport;
 		/**
 		 * 由滚动条控制的视口
 		 * @return 
@@ -183,6 +189,7 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
+		private var _stepSize:int;
 		/**
 		 * 步长
 		 * @return
@@ -199,6 +206,7 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
+		private var _pageSize:int;
 		/**
 		 * 按翻页键以及点击滑槽背景时的滚动步长
 		 * @return 
@@ -215,6 +223,7 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
+		private var _minimum:int;
 		/**
 		 * 最小值
 		 * @return
@@ -231,6 +240,8 @@ package com.macro.gUI.controls.composite
 			this.value = _value;
 		}
 		
+		
+		private var _maximum:int;
 		/**
 		 * 最大值
 		 * @return
@@ -247,6 +258,8 @@ package com.macro.gUI.controls.composite
 			this.value = _value;
 		}
 		
+		
+		private var _value:Number;
 		/**
 		 * 当前值
 		 * @return
@@ -264,97 +277,48 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
-		
-		public override function resize(width:int = 0, height:int = 0):void
+		public function get enabled():Boolean
 		{
-			if (_autoSize)
+			return _blockBtn.enabled;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			_blockBtn.enabled = value;
+			_upBtn.enabled = value;
+			_downBtn.enabled = value;
+		}
+		
+		
+		public function get focusable():Boolean
+		{
+			return true;
+		}
+		
+		
+		public function get dragMode():int
+		{
+			if (_mouseObj == _blockBtn)
 			{
-				var min:int = _padding.top + _padding.bottom + _blockBtn.height;
-				height = height < min ? min : height;
-				width = _padding.left + _padding.right;
+				return DragMode.INTERNAL;
 			}
 			
-			super.resize(width, height);
+			return DragMode.NONE;
 		}
 		
-		public override function setDefaultSize():void
+		
+		private var _tabIndex:int;
+		
+		public function get tabIndex():int
 		{
-			resize(_padding.left + _padding.right, _rect.height);
+			return _tabIndex;
 		}
 		
-		
-		
-		
-		protected override function layout():void
+		public function set tabIndex(value:int):void
 		{
-			var ox:int = _padding.left;
-			var w:int = _padding.left + _padding.right;
-			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
-			{
-				ox += (_rect.width - w) >> 1;
-			}
-			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
-			{
-				ox += _rect.width - w;
-			}
-			
-			_track.x = ox - _track.skin.gridLeft;
-			_track.y = _padding.top
-			_track.height = _rect.height - _padding.bottom - _track.y;
-			
-			_upBtn.x = ox - _upBtn.normalSkin.gridLeft;
-			_upBtn.y = _padding.top - _upBtn.height;
-			
-			_downBtn.x = ox - _downBtn.normalSkin.gridLeft;
-			_downBtn.y = _rect.height - _padding.bottom;
-			
-			
-			_blockBtn.x = ox - _blockBtn.normalSkin.gridLeft;
-			
-			resetScrollBar();
+			_tabIndex = value;
 		}
 		
-		public function resetScrollBar():void
-		{
-			if (_viewport)
-			{
-				var ratio:Number = _viewport.containerRect.height / _viewport.scrollTarget.rect.height;
-				if (ratio >= 1)
-				{
-					_blockBtn.height = _track.height;
-					_blockBtn.y = _track.y;
-					return;
-				}
-				else
-					_blockBtn.height = ratio * _track.height;
-			}
-			else
-			{
-				_blockBtn.setDefaultSize();
-			}
-			relocateBlock();
-		}
-		
-		private function relocateBlock():void
-		{
-			var ratio:Number = (_value - _minimum) / (_maximum - _minimum);
-			_blockBtn.y = _track.y + ratio * (_track.height - _blockBtn.height);
-			scrollViewport();
-		}
-		
-		/**
-		 * TODO 设置Viewport滚动位置
-		 * 
-		 */
-		private function scrollViewport():void
-		{
-			
-		}
-		
-		
-		
-		//==============================================================
-		// 样式定义
 		
 		public function get blockNormalSkin():ISkin
 		{
@@ -399,7 +363,6 @@ package com.macro.gUI.controls.composite
 			_blockBtn.disableSkin = value;
 			layout();
 		}
-		
 		
 		
 		public function get upNormalSkin():ISkin
@@ -491,7 +454,6 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
-		
 		public function get bgSkin():ISkin
 		{
 			return _track.skin;
@@ -506,45 +468,104 @@ package com.macro.gUI.controls.composite
 		
 		
 		
-		//==============================================================
-		// 接口实现
-		
-		private var _tabIndex:int;
-		
-		private var _mouseObj:IControl;
-		
-		private var _mouseY:int;
-		
-		private var _blockY:int;
-		
-		private var _timer:int;
-		
-		
-		public function get enabled():Boolean
+		public override function resize(width:int = 0, height:int = 0):void
 		{
-			return _blockBtn.enabled;
+			if (_autoSize)
+			{
+				var min:int = _padding.top + _padding.bottom + _blockBtn.height;
+				height = height < min ? min : height;
+				width = _padding.left + _padding.right;
+			}
+			
+			super.resize(width, height);
 		}
 		
-		public function set enabled(value:Boolean):void
+		public override function setDefaultSize():void
 		{
-			_blockBtn.enabled = value;
-			_upBtn.enabled = value;
-			_downBtn.enabled = value;
+			resize(_padding.left + _padding.right, _rect.height);
 		}
 		
-		public function get focusable():Boolean
+		
+		protected override function layout():void
 		{
-			return true;
+			var ox:int = _padding.left;
+			var w:int = _padding.left + _padding.right;
+			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
+			{
+				ox += (_rect.width - w) >> 1;
+			}
+			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+			{
+				ox += _rect.width - w;
+			}
+			
+			_track.x = ox - _track.skin.gridLeft;
+			_track.y = _padding.top
+			_track.height = _rect.height - _padding.bottom - _track.y;
+			
+			_upBtn.x = ox - _upBtn.normalSkin.gridLeft;
+			_upBtn.y = _padding.top - _upBtn.height;
+			
+			_downBtn.x = ox - _downBtn.normalSkin.gridLeft;
+			_downBtn.y = _rect.height - _padding.bottom;
+			
+			
+			_blockBtn.x = ox - _blockBtn.normalSkin.gridLeft;
+			
+			resetScrollBar();
 		}
 		
-		public function get tabIndex():int
+		/**
+		 * 重置滑动块的大小及位置
+		 * 
+		 */
+		public function resetScrollBar():void
 		{
-			return _tabIndex;
+			if (_viewport)
+			{
+				var ratio:Number = _viewport.ratioV;
+				if (ratio >= 1)
+				{
+					_blockBtn.height = _track.height;
+					_blockBtn.y = _track.y;
+					return;
+				}
+				else
+					_blockBtn.height = ratio * _track.height;
+			}
+			else
+			{
+				_blockBtn.setDefaultSize();
+			}
+			relocateBlock();
 		}
 		
-		public function set tabIndex(value:int):void
+		/**
+		 * 定位滑动块的位置
+		 * 
+		 */
+		private function relocateBlock():void
 		{
-			_tabIndex = value;
+			var ratio:Number = (_value - _minimum) / (_maximum - _minimum);
+			if (isNaN(ratio) || ratio < 0)
+			{
+				ratio = 0;
+			}
+			_blockBtn.y = _track.y + ratio * (_track.height - _blockBtn.height);
+			scrollViewport(ratio);
+		}
+		
+		/**
+		 * 卷动视口
+		 * @param ratio
+		 * 
+		 */
+		private function scrollViewport(ratio:Number):void
+		{
+			if (_viewport != null)
+			{
+				_viewport.scrollV(ratio);
+			}
 		}
 		
 		
@@ -592,14 +613,20 @@ package com.macro.gUI.controls.composite
 			else if (_mouseObj == _upBtn)
 			{
 				_upBtn.mouseDown();
-				this.value -= _stepSize;
-				_timer = setInterval(autoup, 50);
+				if (_blockBtn.height < _track.height)
+				{
+					this.value -= _stepSize;
+					_timerId = setInterval(autoup, 50);
+				}
 			}
 			else if (_mouseObj == _downBtn)
 			{
 				_downBtn.mouseDown();
-				this.value += _stepSize;
-				_timer = setInterval(autodown, 50);
+				if (_blockBtn.height < _track.height)
+				{
+					this.value += _stepSize;
+					_timerId = setInterval(autodown, 50);
+				}
 			}
 			else if (_mouseObj == _track)
 			{
@@ -614,19 +641,9 @@ package com.macro.gUI.controls.composite
 			}
 		}
 		
-		private function autoup():void
-		{
-			this.value -= _stepSize;
-		}
-		
-		private function autodown():void
-		{
-			this.value += _stepSize;
-		}
-		
 		public function mouseUp():void
 		{
-			clearInterval(_timer);
+			clearInterval(_timerId);
 			if (!_blockBtn.enabled)
 			{
 				return;
@@ -648,7 +665,7 @@ package com.macro.gUI.controls.composite
 		
 		public function mouseOut():void
 		{
-			clearInterval(_timer);
+			clearInterval(_timerId);
 			_blockBtn.mouseOut();
 			_upBtn.mouseOut();
 			_downBtn.mouseOut();
@@ -675,6 +692,16 @@ package com.macro.gUI.controls.composite
 			}
 		}
 		
+		private function autoup():void
+		{
+			this.value -= _stepSize;
+		}
+		
+		private function autodown():void
+		{
+			this.value += _stepSize;
+		}
+		
 		
 		public function keyDown(e:KeyboardEvent):void
 		{
@@ -698,17 +725,6 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
-		
-		public function get dragMode():int
-		{
-			if (_mouseObj == _blockBtn)
-			{
-				return DragMode.INTERNAL;
-			}
-			
-			return DragMode.NONE;
-		}
-		
 		public function getDragImage():BitmapData
 		{
 			return null;
@@ -725,8 +741,15 @@ package com.macro.gUI.controls.composite
 			var max:int = _track.y + _track.height - _blockBtn.height;
 			p = p < _track.y ? _track.y : (p > max ? max : p);
 			_blockBtn.y = p;
-			_value = (p - _track.y) / (_track.height - _blockBtn.height) * (_maximum - _minimum) + _minimum;
-			scrollViewport();
+			
+			var ratio:Number = (p - _track.y) / (_track.height - _blockBtn.height);
+			if (isNaN(ratio) || ratio < 0)
+			{
+				ratio = 0;
+			}
+			_value = ratio * (_maximum - _minimum) + _minimum;
+			
+			scrollViewport(ratio);
 		}
 		
 	}
