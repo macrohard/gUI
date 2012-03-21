@@ -33,7 +33,7 @@
     <classEntry path="com.macro.gUI.controls.LinkButton"/>
     <classEntry path="com.macro.gUI.controls.Slice"/>
     <classEntry path="com.macro.gUI.controls.TextInput"/>
-    <classEntry path="com.macro.gUI.controls.TitleBar"/>
+    <classEntry path="com.macro.gUI.controls.Cell"/>
     <classEntry path="com.macro.gUI.controls.ToggleButton"/>
     <classEntry path="com.macro.gUI.controls.composite.CheckBox"/>
     <classEntry path="com.macro.gUI.controls.composite.HScrollBar"/>

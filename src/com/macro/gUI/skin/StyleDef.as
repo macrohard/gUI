@@ -11,7 +11,7 @@ package com.macro.gUI.skin
 		
 		public static const DISABLE:String = "disable";
 		
-		public static const TITLE:String = "title";
+		public static const CELL:String = "cell";
 		
 		public static const TEXTINPUT:String = "textinput";
 		

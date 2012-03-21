@@ -139,7 +139,7 @@ package com.macro.gUI
 			s.size = 14;
 			s.bold = true;
 			s.color = 0xFFFFFF;
-			_style[StyleDef.TITLE] = s;
+			_style[StyleDef.CELL] = s;
 			
 			//输入文本框样式
 			s = new TextStyle();

@@ -18,7 +18,7 @@ package com.macro.gUI.skin
 		public static const IMAGEBOX_BORDER:String = "imagebox.border";
 		
 		
-		public static const TITLE_BG:String = "title.background";
+		public static const CELL_BG:String = "cell.background";
 		
 		
 		public static const TEXTINPUT_NORMAL:String = "textinput.background";
