@@ -245,7 +245,7 @@ package com.macro.gUI.controls
 			_style = _styles[CtrlState.NORMAL];
 			_skin = _skins[CtrlState.NORMAL];
 			
-			_margin = new Rectangle(10);
+			_padding = new Rectangle(10);
 		}
 
 
@@ -352,7 +352,7 @@ package com.macro.gUI.controls
 				_editBox.autoSize = TextFieldAutoSize.LEFT;
 			}
 
-			var ox:int = _rect.x + (_margin ? _margin.left : 0);
+			var ox:int = _rect.x + (_padding ? _padding.left : 0);
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
 				ox += (w - txtW) >> 1;
@@ -362,7 +362,7 @@ package com.macro.gUI.controls
 				ox += w - txtW;
 			}
 
-			var oy:int = _rect.y + (_margin ? _margin.top : 0);
+			var oy:int = _rect.y + (_padding ? _padding.top : 0);
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
 				oy += (h - txtH) >> 1;

@@ -12,7 +12,7 @@ package com.macro.gUI.assist
 	public class Viewport
 	{
 		/**
-		 * 可视范围
+		 * 可视区域
 		 */
 		public var containerRect:Rectangle;
 		
@@ -22,22 +22,22 @@ package com.macro.gUI.assist
 		public var scrollTarget:IControl;
 		
 		/**
-		 * 边距
+		 * 边距，使用left, top, right, bottom定义
 		 */
-		public var margin:Rectangle;
+		public var padding:Rectangle;
 		
 		/**
 		 * 滚动条控制的视口，由ScrollBar控件使用。
-		 * @param containerRect
-		 * @param scrollTarget
-		 * @param margin
+		 * @param containerRect 可视区域
+		 * @param scrollTarget 滚动目标
+		 * @param padding 边距，使用left, top, right, bottom定义
 		 * 
 		 */
-		public function Viewport(containerRect:Rectangle, scrollTarget:IControl, margin:Rectangle = null)
+		public function Viewport(containerRect:Rectangle, scrollTarget:IControl, padding:Rectangle = null)
 		{
 			this.containerRect = containerRect;
 			this.scrollTarget = scrollTarget;
-			this.margin = margin ? margin : new Rectangle();
+			this.padding = padding ? padding : new Rectangle();
 		}
 		
 		/**
@@ -47,7 +47,7 @@ package com.macro.gUI.assist
 		 */
 		public function get ratioH():Number
 		{
-			return (containerRect.width - margin.left - margin.right) / scrollTarget.rect.width;
+			return (containerRect.width - padding.left - padding.right) / scrollTarget.rect.width;
 		}
 		
 		/**
@@ -57,7 +57,7 @@ package com.macro.gUI.assist
 		 */
 		public function get ratioV():Number
 		{
-			return (containerRect.height - margin.top - margin.bottom) / scrollTarget.rect.height;
+			return (containerRect.height - padding.top - padding.bottom) / scrollTarget.rect.height;
 		}
 		
 		/**
@@ -67,8 +67,8 @@ package com.macro.gUI.assist
 		 */
 		public function scrollH(ratio:Number):void
 		{
-			var x:int = containerRect.x + margin.left;
-			var w:int = scrollTarget.rect.width - (containerRect.width - margin.left - margin.right);
+			var x:int = containerRect.x + padding.left;
+			var w:int = scrollTarget.rect.width - (containerRect.width - padding.left - padding.right);
 			scrollTarget.rect.x = x - w * ratio;
 		}
 		
@@ -79,8 +79,8 @@ package com.macro.gUI.assist
 		 */
 		public function scrollV(ratio:Number):void
 		{
-			var y:int = containerRect.y + margin.top;
-			var h:int = scrollTarget.rect.height - (containerRect.height - margin.top - margin.bottom);
+			var y:int = containerRect.y + padding.top;
+			var h:int = scrollTarget.rect.height - (containerRect.height - padding.top - padding.bottom);
 			scrollTarget.rect.y = y - h * ratio;
 		}
 	}

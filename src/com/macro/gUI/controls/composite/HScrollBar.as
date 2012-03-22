@@ -120,7 +120,6 @@ package com.macro.gUI.controls.composite
 
 
 		private var _autoSize:Boolean;
-
 		/**
 		 * 自动设置高度
 		 * @return
@@ -145,7 +144,6 @@ package com.macro.gUI.controls.composite
 
 
 		private var _padding:Rectangle;
-
 		/**
 		 * 滑槽与四周的边距
 		 * @return
@@ -174,7 +172,6 @@ package com.macro.gUI.controls.composite
 
 
 		private var _viewport:Viewport;
-
 		/**
 		 * 由滚动条控制的视口
 		 * @return
@@ -193,7 +190,6 @@ package com.macro.gUI.controls.composite
 
 
 		private var _stepSize:int;
-
 		/**
 		 * 步长
 		 * @return
@@ -211,7 +207,6 @@ package com.macro.gUI.controls.composite
 
 
 		private var _pageSize:int;
-
 		/**
 		 * 按翻页键以及点击滑槽背景时的滚动步长
 		 * @return
@@ -229,7 +224,6 @@ package com.macro.gUI.controls.composite
 
 
 		private var _minimum:int;
-
 		/**
 		 * 最小值
 		 * @return
@@ -248,7 +242,6 @@ package com.macro.gUI.controls.composite
 
 
 		private var _maximum:int;
-
 		/**
 		 * 最大值
 		 * @return
@@ -267,7 +260,6 @@ package com.macro.gUI.controls.composite
 
 
 		private var _value:Number;
-
 		/**
 		 * 当前值
 		 * @return

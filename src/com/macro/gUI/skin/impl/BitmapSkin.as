@@ -19,9 +19,9 @@ package com.macro.gUI.skin.impl
 		
 		private var _gridBottom:int;
 		
-		private var _marginRight:int;
+		private var _paddingRight:int;
 		
-		private var _marginBottom:int;
+		private var _paddingBottom:int;
 		
 		private var _minWidth:int;
 		
@@ -51,11 +51,11 @@ package com.macro.gUI.skin.impl
 			_gridTop = grid.top;
 			_gridBottom = grid.bottom > bitmapData.height ? bitmapData.height : grid.bottom;
 			
-			_marginRight = bitmapData.width - grid.right;
-			_marginBottom = bitmapData.height - grid.bottom;
+			_paddingRight = bitmapData.width - grid.right;
+			_paddingBottom = bitmapData.height - grid.bottom;
 			
-			_minWidth = _gridLeft + _marginRight;
-			_minHeight = _gridTop + _marginBottom;
+			_minWidth = _gridLeft + _paddingRight;
+			_minHeight = _gridTop + _paddingBottom;
 		}
 		
 		public function get bitmapData():BitmapData
@@ -88,14 +88,14 @@ package com.macro.gUI.skin.impl
 			return _gridTop;
 		}
 		
-		public function get marginBottom():int
+		public function get paddingBottom():int
 		{
-			return _marginBottom;
+			return _paddingBottom;
 		}
 		
-		public function get marginRight():int
+		public function get paddingRight():int
 		{
-			return _marginRight;
+			return _paddingRight;
 		}
 		
 		public function get minHeight():int

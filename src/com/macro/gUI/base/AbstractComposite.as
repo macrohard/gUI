@@ -73,6 +73,18 @@ package com.macro.gUI.base
 		}
 		
 		
+		public override function set backgroundColor(value:int):void
+		{
+			throw new Error("Composite control does not support this property!");
+		}
+		
+		
+		public override function set transparent(value:Boolean):void
+		{
+			throw new Error("Composite control does not support this property!");
+		}
+		
+		
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
@@ -90,7 +102,7 @@ package com.macro.gUI.base
 		}
 
 		/**
-		 * 根据对齐定义重新布局
+		 * 布局
 		 *
 		 */
 		protected function layout():void

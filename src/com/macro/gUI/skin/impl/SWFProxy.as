@@ -50,13 +50,13 @@ package com.macro.gUI.skin.impl
 			return 0;
 		}
 		
-		public function get marginBottom():int
+		public function get paddingBottom():int
 		{
 			// TODO Auto Generated method stub
 			return 0;
 		}
 		
-		public function get marginRight():int
+		public function get paddingRight():int
 		{
 			// TODO Auto Generated method stub
 			return 0;

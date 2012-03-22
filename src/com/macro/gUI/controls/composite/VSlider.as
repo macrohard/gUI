@@ -342,7 +342,7 @@ package com.macro.gUI.controls.composite
 
 			_bg.x = ox - _bg.skin.gridLeft;
 			_bg.y = _padding.top - _bg.skin.gridTop;
-			_bg.height = _rect.height - _padding.bottom + _bg.skin.marginBottom - _bg.y;
+			_bg.height = _rect.height - _padding.bottom + _bg.skin.paddingBottom - _bg.y;
 
 			_minY = _padding.top - _blockBtn.normalSkin.gridTop;
 			_maxY = _rect.height - _padding.bottom - _blockBtn.normalSkin.gridTop;

@@ -236,7 +236,7 @@ package com.macro.gUI.controls
 			_skin = _skins[CtrlState.NORMAL];
 			_style = _styles[CtrlState.NORMAL];
 
-			_margin = new Rectangle(10);
+			_padding = new Rectangle(10);
 		}
 
 

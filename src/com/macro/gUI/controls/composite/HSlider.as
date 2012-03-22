@@ -345,7 +345,7 @@ package com.macro.gUI.controls.composite
 
 			_bg.x = _padding.left - _bg.skin.gridLeft;
 			_bg.y = oy - _bg.skin.gridTop;
-			_bg.width = _rect.width - _padding.right + _bg.skin.marginRight - _bg.x;
+			_bg.width = _rect.width - _padding.right + _bg.skin.paddingRight - _bg.x;
 
 			_minX = _padding.left - _blockBtn.normalSkin.gridLeft;
 			_maxX = _rect.width - _padding.right - _blockBtn.normalSkin.gridLeft;

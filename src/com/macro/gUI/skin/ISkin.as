@@ -58,14 +58,14 @@ package com.macro.gUI.skin
 		 * @return
 		 *
 		 */
-		function get marginRight():int;
+		function get paddingRight():int;
 
 		/**
 		 * 九切片中心区域下边距
 		 * @return
 		 *
 		 */
-		function get marginBottom():int;
+		function get paddingBottom():int;
 
 		/**
 		 * 最小宽度

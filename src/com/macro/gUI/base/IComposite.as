@@ -16,10 +16,11 @@ package com.macro.gUI.base
 		 */
 		function get children():Vector.<IControl>;
 		
+		
 		/**
-		 * 可视范围边距，它影响子控件的可见性。
-		 * 此属性定义的是与基类rect的间距。 如基类rect定义的是[0, 0, 100, 100]，containerRect定义是[5, 5, 5, 5]，
-		 * 则实际容器矩形是[5, 5, 95, 95]。
+		 * 可视范围边距，此属性定义的是与IControl.rect的间距，它影响子控件的可见性。
+		 * 如IControl.rect定义的是[0, 0, 100, 100]，margin定义是[5, 5, 5, 5]，
+		 * 则实际容器矩形是[5, 5, 95, 95]。注意，margin中四个数值是left, top, right, bottom。<br/>
 		 * 通常情况下，此属性值基于皮肤九切片中心区域来定义
 		 * @return 
 		 * 

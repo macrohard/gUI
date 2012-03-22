@@ -42,15 +42,16 @@ package com.macro.gUI.controls
 		 * @param text 用以显示的文本字符串
 		 * @param style 文本样式
 		 * @param align 文本对齐方式，默认左上角对齐
+		 * @param autosize 自动设置尺寸，默认为true
 		 *
 		 */
-		public function Label(text:String = null, style:TextStyle = null, align:int = 0x11)
+		public function Label(text:String = null, style:TextStyle = null, align:int = 0x11, autoSize:Boolean = true)
 		{
 			//默认大小
 			super(100, 20);
 
 			//默认自动设置尺寸
-			_autoSize = true;
+			_autoSize = autoSize;
 
 			_align = align;
 
@@ -132,23 +133,22 @@ package com.macro.gUI.controls
 		}
 
 
-		protected var _margin:Rectangle;
+		protected var _padding:Rectangle;
 		/**
-		 * 定义文本与四周的边距。注意，将使用rect.left作为左间距，rect.right作为右间距，
-		 * rect.top作为上间距，rect.bottom作为下间距。为赋值简便，可以使用如下语法：<br/>
+		 * 定义文本与四周的边距。注意，将使用left, top, right, bottom定义。 为赋值简便，可以使用如下语法：<br/>
 		 * new Rectangle(5, 8, 12 - 5, 5 - 8)<br/>
 		 * 此定义为：左间距为5，上间距为8，右间距为12，下间距为5
 		 * @param rebuild
 		 *
 		 */
-		public function get margin():Rectangle
+		public function get padding():Rectangle
 		{
-			return _margin;
+			return _padding;
 		}
 
-		public function set margin(value:Rectangle):void
+		public function set padding(value:Rectangle):void
 		{
-			_margin = value;
+			_padding = value;
 			if (_autoSize)
 			{
 				resize();
@@ -198,8 +198,8 @@ package com.macro.gUI.controls
 		{
 			if (_autoSize && _textImg)
 			{
-				width = _textImg.width + (_margin ? _margin.left + _margin.right : 0);
-				height = _textImg.height + (_margin ? _margin.top + _margin.bottom : 0);
+				width = _textImg.width + (_padding ? _padding.left + _padding.right : 0);
+				height = _textImg.height + (_padding ? _padding.top + _padding.bottom : 0);
 			}
 			else if (_style.wordWrap)
 			{
@@ -231,7 +231,7 @@ package com.macro.gUI.controls
 			
 			if (_textImg)
 			{
-				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _margin);
+				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _padding);
 			}
 		}
 		
@@ -257,18 +257,18 @@ package com.macro.gUI.controls
 		
 		protected function getTextWidth():int
 		{
-			if (_margin)
+			if (_padding)
 			{
-				return _rect.width - _margin.left - _margin.right;
+				return _rect.width - _padding.left - _padding.right;
 			}
 			return _rect.width;
 		}
 
 		protected function getTextHeight():int
 		{
-			if (_margin)
+			if (_padding)
 			{
-				return _rect.height - _margin.top - _margin.bottom;
+				return _rect.height - _padding.top - _padding.bottom;
 			}
 			return _rect.height;
 		}

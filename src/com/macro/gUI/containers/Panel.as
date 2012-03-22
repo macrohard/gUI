@@ -69,11 +69,11 @@ package com.macro.gUI.containers
 			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
 			_skinCover = _skinCover ? _skinCover : GameUI.skinManager.getSkin(SkinDef.PANEL_COVER);
 			
-			_marginRect = new Rectangle();
-			_marginRect.left = _skin.gridLeft;
-			_marginRect.top = _skin.gridTop;
-			_marginRect.right = _skin.marginRight;
-			_marginRect.bottom = _skin.marginBottom;
+			_margin = new Rectangle();
+			_margin.left = _skin.gridLeft;
+			_margin.top = _skin.gridTop;
+			_margin.right = _skin.paddingRight;
+			_margin.bottom = _skin.paddingBottom;
 		}
 	}
 }

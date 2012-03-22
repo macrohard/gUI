@@ -25,17 +25,6 @@ package com.macro.gUI.base
 		 */
 		protected var _skinCover:ISkin;
 
-		/**
-		 * 容器可视范围边距。此属性定义的是与基类rect的间距。 <br/>
-		 * 如基类_rect定义的是宽为100, 高为100的尺寸，_marginRect定义是[5, 5, 5, 5]，
-		 * 则实际容器矩形是[5, 5, 95, 95]。注意，矩形中四个数值是left, top, right, bottom。<br/>
-		 * 通常情况下，此属性值基于皮肤九切片中心区域来定义。<br/><br/>
-		 * 
-		 * 未直接曝露，支持此属性的子类自行提供访问器
-		 */
-		protected var _marginRect:Rectangle;
-
-
 
 		/**
 		 * 抽象容器
@@ -64,14 +53,11 @@ package com.macro.gUI.base
 		}
 		
 		
+		protected var _margin:Rectangle;
+		
 		public function get margin():Rectangle
 		{
-			var r:Rectangle = new Rectangle();
-			r.left = _marginRect.left;
-			r.top = _marginRect.top;
-			r.right = _rect.width - _marginRect.right;
-			r.bottom = _rect.height - _marginRect.bottom;
-			return r;
+			return _margin;
 		}
 		
 		
@@ -155,7 +141,7 @@ package com.macro.gUI.base
 			{
 				child.parent.removeChild(child);
 			}
-			AbstractControl(child).setParent(this);
+			(child as AbstractControl).setParent(this);
 		}
 
 		public function addChildAt(child:IControl, index:int):void
@@ -177,7 +163,7 @@ package com.macro.gUI.base
 			{
 				child.parent.removeChild(child);
 			}
-			AbstractControl(child).setParent(this);
+			(child as AbstractControl).setParent(this);
 		}
 
 		public function removeChild(child:IControl):void
@@ -190,7 +176,7 @@ package com.macro.gUI.base
 
 			if (child is AbstractControl)
 			{
-				AbstractControl(child).setParent(null);
+				(child as AbstractControl).setParent(null);
 			}
 		}
 
@@ -203,12 +189,69 @@ package com.macro.gUI.base
 
 				if (child is AbstractControl)
 				{
-					AbstractControl(child).setParent(null);
+					(child as AbstractControl).setParent(null);
 				}
 			}
 
 			return child;
 		}
+		
+		/**
+		 * 移除指定范围的所有子控件
+		 * @param beginIndex 首个子控件的深度
+		 * @param endIndex 最后一个子控件的深度，如果是-1，则指向结尾
+		 * 
+		 */
+		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
+		{
+			if (endIndex == -1)
+			{
+				endIndex = _children.length;
+			}
+			
+			if (endIndex < beginIndex)
+			{
+				endIndex = beginIndex;
+			}
+			
+			var child:IControl;
+			for (var i:int = beginIndex; i < endIndex; i++)
+			{
+				child = _children[i];
+				if (child is AbstractControl)
+				{
+					(child as AbstractControl).setParent(null);
+				}
+			}
+			_children.splice(beginIndex, endIndex - beginIndex);
+		}
+		
+		/**
+		 * 获取指定深度的控件
+		 * @param index
+		 * @return 
+		 * 
+		 */
+		public function getChildAt(index:int):IControl
+		{
+			if (index >= 0 && index < _children.length)
+			{
+				return _children[index];
+			}
+			return null;
+		}
+		
+		/**
+		 * 获取指定控件的深度
+		 * @param child
+		 * @return 
+		 * 
+		 */
+		public function getChildIndex(child:IControl):int
+		{
+			return _children.indexOf(child);
+		}
 
+		// TODO 待实现setChildIndex, swapChildren, swapChildrenAt
 	}
 }
