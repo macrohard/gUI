@@ -72,11 +72,13 @@ package com.macro.gUI.controls
 					if (_selected)
 					{
 						_skin = _skins[CtrlState.SELECTED_DISABLE];
+						_skin = _skin ? _skin : _skins[CtrlState.SELECTED];
 						_style = _styles[CtrlState.SELECTED_DISABLE];
 					}
 					else
 					{
 						_skin = _skins[CtrlState.DISABLE];
+						_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 						_style = _styles[CtrlState.DISABLE];
 					}
 				}
@@ -249,6 +251,7 @@ package com.macro.gUI.controls
 				}
 
 				_skin = _skins[CtrlState.SELECTED_DOWN];
+				_skin = _skin ? _skin : _skins[CtrlState.SELECTED];
 				_style = _styles[CtrlState.SELECTED_DOWN];
 			}
 			else
@@ -259,6 +262,7 @@ package com.macro.gUI.controls
 				}
 
 				_skin = _skins[CtrlState.DOWN];
+				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.DOWN];
 			}
 			drawText();
@@ -309,6 +313,7 @@ package com.macro.gUI.controls
 				}
 
 				_skin = _skins[CtrlState.SELECTED_OVER];
+				_skin = _skin ? _skin : _skins[CtrlState.SELECTED];
 				_style = _styles[CtrlState.SELECTED_OVER];
 			}
 			else
@@ -319,6 +324,7 @@ package com.macro.gUI.controls
 				}
 
 				_skin = _skins[CtrlState.OVER];
+				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.OVER];
 			}
 			drawText();

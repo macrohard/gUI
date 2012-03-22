@@ -66,6 +66,7 @@
     <classEntry path="com.macro.utils.fte.TextSegment"/>
     <classEntry path="com.macro.gUI.skin.IAnimationSkin"/>
     <classEntry path="com.macro.gUI.assist.RadioButtonGroup"/>
+    <classEntry path="com.macro.gUI.controls.composite.List"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

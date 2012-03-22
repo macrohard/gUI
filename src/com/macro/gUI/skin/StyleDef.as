@@ -11,14 +11,12 @@ package com.macro.gUI.skin
 		
 		public static const DISABLE:String = "disable";
 		
-		public static const CELL:String = "cell";
-		
 		public static const TEXTINPUT:String = "textinput";
 		
 		
-		public static const ICONBUTTON:String = "iconbutton";
 		
-		public static const ICONBUTTON_DISABLE:String = "iconbutton.disable";
+		public static const CELL:String = "cell";
+		
 		
 		
 		public static const LINKBUTTON_NORMAL:String = "linkbutton.normal";
@@ -38,6 +36,12 @@ package com.macro.gUI.skin
 		public static const BUTTON_DOWN:String = "button.down";
 		
 		public static const BUTTON_DISABLE:String = "button.disable";
+		
+		
+		
+		public static const ICONBUTTON:String = "iconbutton";
+		
+		public static const ICONBUTTON_DISABLE:String = "iconbutton.disable";
 		
 		
 		

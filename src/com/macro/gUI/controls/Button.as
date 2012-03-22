@@ -70,6 +70,7 @@ package com.macro.gUI.controls
 				else
 				{
 					_skin = _skins[CtrlState.DISABLE];
+					_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 					_style = _styles[CtrlState.DISABLE];
 				}
 				drawText();
@@ -193,6 +194,7 @@ package com.macro.gUI.controls
 			if (_skin != _skins[CtrlState.DOWN] || _style != _styles[CtrlState.DOWN])
 			{
 				_skin = _skins[CtrlState.DOWN];
+				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.DOWN];
 				drawText();
 			}
@@ -223,6 +225,7 @@ package com.macro.gUI.controls
 			if (_skin != _skins[CtrlState.OVER] || _style != _styles[CtrlState.OVER])
 			{
 				_skin = _skins[CtrlState.OVER];
+				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.OVER];
 				drawText();
 			}

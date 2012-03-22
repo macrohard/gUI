@@ -36,7 +36,6 @@ package com.macro.gUI.base
 
 
 		protected var _align:int;
-		
 		/**
 		 * 布局对齐方式
 		 * @return

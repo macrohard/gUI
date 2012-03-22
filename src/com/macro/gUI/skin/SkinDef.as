@@ -9,21 +9,21 @@ package com.macro.gUI.skin
 	 */
 	public class SkinDef
 	{
-
 		public static const PANEL_BG:String = "panel.background";
 
 		public static const PANEL_COVER:String = "panel.foreground";
 
+		
 
-		public static const IMAGEBOX_BORDER:String = "imagebox.border";
-		
-		
 		public static const CELL_BG:String = "cell.background";
+		
 		
 		
 		public static const TEXTINPUT_NORMAL:String = "textinput.background";
 
 		public static const TEXTINPUT_DISABLE:String = "textinput.disable";
+		
+		public static const IMAGEBOX_BORDER:String = "imagebox.border";
 		
 		
 		
@@ -107,8 +107,6 @@ package com.macro.gUI.skin
 		
 		public static const SCROLLBAR_HORIZONTAL_BG:String = "scrollbar.horizontal.background";
 		
-		public static const SCROLLBAR_VERTICAL_BG:String = "scrollbar.vertical.background";
-		
 		public static const SCROLLBAR_HORIZONTAL_BLOCK_NORMAL:String = "scrollbar.horizontal.block.normal";
 		
 		public static const SCROLLBAR_HORIZONTAL_BLOCK_OVER:String = "scrollbar.horizontal.block.over";
@@ -116,14 +114,6 @@ package com.macro.gUI.skin
 		public static const SCROLLBAR_HORIZONTAL_BLOCK_DOWN:String = "scrollbar.horizontal.block.down";
 		
 		public static const SCROLLBAR_HORIZONTAL_BLOCK_DISABLE:String = "scrollbar.horizontal.block.disable";
-		
-		public static const SCROLLBAR_VERTICAL_BLOCK_NORMAL:String = "scrollbar.vertical.block.normal";
-		
-		public static const SCROLLBAR_VERTICAL_BLOCK_OVER:String = "scrollbar.vertical.block.over";
-		
-		public static const SCROLLBAR_VERTICAL_BLOCK_DOWN:String = "scrollbar.vertical.block.down";
-		
-		public static const SCROLLBAR_VERTICAL_BLOCK_DISABLE:String = "scrollbar.vertical.block.disable";
 		
 		public static const SCROLLBAR_LEFT_NORMAL:String = "scrollbar.left.normal";
 		
@@ -140,6 +130,18 @@ package com.macro.gUI.skin
 		public static const SCROLLBAR_RIGHT_DOWN:String = "scrollbar.right.down";
 		
 		public static const SCROLLBAR_RIGHT_DISABLE:String = "scrollbar.right.disable";
+		
+		
+		
+		public static const SCROLLBAR_VERTICAL_BG:String = "scrollbar.vertical.background";
+		
+		public static const SCROLLBAR_VERTICAL_BLOCK_NORMAL:String = "scrollbar.vertical.block.normal";
+		
+		public static const SCROLLBAR_VERTICAL_BLOCK_OVER:String = "scrollbar.vertical.block.over";
+		
+		public static const SCROLLBAR_VERTICAL_BLOCK_DOWN:String = "scrollbar.vertical.block.down";
+		
+		public static const SCROLLBAR_VERTICAL_BLOCK_DISABLE:String = "scrollbar.vertical.block.disable";
 		
 		public static const SCROLLBAR_UP_NORMAL:String = "scrollbar.up.normal";
 		

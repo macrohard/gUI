@@ -103,7 +103,6 @@ package com.macro.gUI.controls
 					_skin = _skins[CtrlState.DISABLE];
 					_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 					_style = _styles[CtrlState.DISABLE];
-					_style = _style ? _style : _styles[CtrlState.NORMAL];
 				}
 				drawText();
 			}
