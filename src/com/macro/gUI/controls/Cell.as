@@ -8,6 +8,11 @@ package com.macro.gUI.controls
 	
 	import flash.geom.Rectangle;
 	
+	/**
+	 * 单元格控件
+	 * @author Macro <macro776@gmail.com>
+	 * 
+	 */
 	public class Cell extends Label
 	{
 		

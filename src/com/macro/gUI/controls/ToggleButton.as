@@ -12,10 +12,15 @@ package com.macro.gUI.controls
 	import flash.utils.Dictionary;
 
 
+	/**
+	 * 切换按钮控件
+	 * @author Macro <macro776@gmail.com>
+	 * 
+	 */
 	public class ToggleButton extends Button
 	{
 		/**
-		 * 切换按钮
+		 * 切换按钮控件
 		 * @param text 作为文本的字符串
 		 * @param style 文本样式，如果为null，则使用StyleDef中的定义
 		 * @param align 文本对齐方式，默认居中对齐

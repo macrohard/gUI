@@ -12,6 +12,11 @@ package com.macro.gUI.controls
 	import flash.utils.Dictionary;
 
 
+	/**
+	 * 按钮
+	 * @author Macro <macro776@gmail.com>
+	 * 
+	 */
 	public class Button extends LinkButton
 	{
 

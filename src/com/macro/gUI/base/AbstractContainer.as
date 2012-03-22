@@ -100,11 +100,11 @@ package com.macro.gUI.base
 		}
 
 
-		protected override function paint(recreate:Boolean = false):void
+		protected override function paint(rebuild:Boolean = false):void
 		{
-			super.paint(recreate);
+			super.paint(rebuild);
 
-			if (recreate || !_bitmapDataCover)
+			if (rebuild || !_bitmapDataCover)
 			{
 				if (_bitmapDataCover)
 				{

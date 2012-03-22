@@ -6,7 +6,7 @@ package com.macro.gUI.base
 
 
 	/**
-	 * 复合式控件，由若干基本控件组合而成，如SliderBar，ScrollBar等
+	 * 复合式控件
 	 * @author Macro776@gmail.com
 	 *
 	 */
@@ -14,7 +14,7 @@ package com.macro.gUI.base
 	{
 
 		/**
-		 * 复合式控件。不支持皮肤定义
+		 * 复合式控件，不支持皮肤定义，由基本控件组合而成
 		 * @param width
 		 * @param height
 		 * @param align 布局对齐方式，默认值为左上角对齐
@@ -81,23 +81,12 @@ package com.macro.gUI.base
 		}
 
 		/**
-		 * 复合式控件本身一般情况下不需要背景，因此在背景完全透明时，可以忽略掉绘制行为
-		 * @param recreate
+		 * 复合式控件不支持皮肤，因此，忽略掉绘制行为
+		 * @param rebuild
 		 *
 		 */
-		protected override function paint(recreate:Boolean = false):void
+		protected final override function paint(rebuild:Boolean = false):void
 		{
-			if (_bgColor == 0 && _transparent)
-			{
-				if (_bitmapData != null)
-				{
-					_bitmapData.dispose();
-					_bitmapData = null;
-				}
-				return;
-			}
-
-			super.paint(recreate);
 		}
 
 		/**

@@ -321,9 +321,9 @@ package com.macro.gUI.base
 		 * 将当前皮肤绘制到画布上
 		 *
 		 */
-		protected function paint(recreate:Boolean = false):void
+		protected function paint(rebuild:Boolean = false):void
 		{
-			if (recreate || _bitmapData == null)
+			if (rebuild || _bitmapData == null)
 			{
 				if (_bitmapData != null)
 				{

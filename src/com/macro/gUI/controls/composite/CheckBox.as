@@ -17,7 +17,7 @@ package com.macro.gUI.controls.composite
 
 
 	/**
-	 * 复选框控件，目前定义支持普通，禁用，选择，选择后禁用等四态皮肤
+	 * 复选框控件
 	 * @author Macro776@gmail.com
 	 *
 	 */

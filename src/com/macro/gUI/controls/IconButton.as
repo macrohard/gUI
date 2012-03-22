@@ -13,6 +13,11 @@ package com.macro.gUI.controls
 	import flash.utils.Dictionary;
 
 
+	/**
+	 * 图标按钮
+	 * @author Macro <macro776@gmail.com>
+	 * 
+	 */
 	public class IconButton extends Button
 	{
 		/**

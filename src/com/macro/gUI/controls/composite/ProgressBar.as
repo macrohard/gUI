@@ -14,7 +14,7 @@ package com.macro.gUI.controls.composite
 
 
 	/**
-	 * 进度条
+	 * 水平进度条
 	 * @author Macro776@gmail.com
 	 *
 	 */

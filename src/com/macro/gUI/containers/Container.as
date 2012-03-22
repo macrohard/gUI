@@ -20,10 +20,10 @@ package com.macro.gUI.containers
 		
 		/**
 		 * 空容器本身一般情况下不需要背景，因此在背景完全透明时，可以忽略掉绘制行为
-		 * @param recreate
+		 * @param rebuild
 		 * 
 		 */
-		protected override function paint(recreate:Boolean=false):void
+		protected override function paint(rebuild:Boolean=false):void
 		{
 			if (_bgColor == 0 && _transparent)
 			{
@@ -35,7 +35,7 @@ package com.macro.gUI.containers
 				return;
 			}
 			
-			super.paint(recreate);
+			super.paint(rebuild);
 		}
 		
 		

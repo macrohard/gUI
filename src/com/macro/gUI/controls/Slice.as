@@ -4,10 +4,15 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.AbstractControl;
 	import com.macro.gUI.skin.ISkin;
 	
+	/**
+	 * 九切片控件
+	 * @author Macro <macro776@gmail.com>
+	 * 
+	 */
 	public class Slice extends AbstractControl
 	{
 		/**
-		 * 九切片显示单元，最简单的皮肤显示控件
+		 * 九切片控件，基本显示单元，最简单的皮肤显示控件
 		 * @param width
 		 * @param height
 		 * @param skin

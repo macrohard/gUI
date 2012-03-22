@@ -33,7 +33,7 @@ package com.macro.gUI.controls
 		/**
 		 * 是否重绘文本
 		 */
-		protected var _recreateTextImg:Boolean;
+		protected var _rebuildTextImg:Boolean;
 
 
 
@@ -138,7 +138,7 @@ package com.macro.gUI.controls
 		 * rect.top作为上间距，rect.bottom作为下间距。为赋值简便，可以使用如下语法：<br/>
 		 * new Rectangle(5, 8, 12 - 5, 5 - 8)<br/>
 		 * 此定义为：左间距为5，上间距为8，右间距为12，下间距为5
-		 * @param recreate
+		 * @param rebuild
 		 *
 		 */
 		public function get margin():Rectangle
@@ -203,7 +203,7 @@ package com.macro.gUI.controls
 			}
 			else if (_style.wordWrap)
 			{
-				_recreateTextImg = true;
+				_rebuildTextImg = true;
 			}
 
 			super.resize(width, height);
@@ -223,11 +223,11 @@ package com.macro.gUI.controls
 		
 		protected override function postPaint():void
 		{
-			if (!_autoSize && _recreateTextImg)
+			if (!_autoSize && _rebuildTextImg)
 			{
 				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize);
 			}
-			_recreateTextImg = false;
+			_rebuildTextImg = false;
 			
 			if (_textImg)
 			{
@@ -249,7 +249,7 @@ package com.macro.gUI.controls
 			}
 			else
 			{
-				_recreateTextImg = true;
+				_rebuildTextImg = true;
 				paint();
 			}
 		}
