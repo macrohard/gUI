@@ -3,7 +3,7 @@ package com.macro.gUI.base.feature
 	import flash.text.TextField;
 
 	/**
-	 * 可编辑控件，主要是TextInput及TextArea控件
+	 * 可编辑控件，主要是TextInput
 	 * @author Macro776@gmail.com
 	 * 
 	 */

@@ -18,7 +18,7 @@ package com.macro.gUI.assist
 		public static const INTERNAL:int = 1;
 		
 		/**
-		 * 实时拖动，直接设置控件的x, y。注意，不能改变控件的层级
+		 * 实时拖动，直接设置控件的x, y
 		 */
 		public static const REALTIME:int = 2;
 		

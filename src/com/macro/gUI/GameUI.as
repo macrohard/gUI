@@ -9,6 +9,8 @@ package com.macro.gUI
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
+	import com.macro.gUI.managers.SkinManager;
+	import com.macro.gUI.managers.UIManager;
 
 
 	/**

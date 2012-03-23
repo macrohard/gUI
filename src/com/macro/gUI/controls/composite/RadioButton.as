@@ -185,12 +185,6 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
-		public function get focusable():Boolean
-		{
-			return true;
-		}
-		
-		
 		
 		/**
 		 * 标签文本样式

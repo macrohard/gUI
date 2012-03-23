@@ -2,17 +2,16 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-	
+
 	import com.macro.gUI.skin.ISkin;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 	import flash.utils.getTimer;
 
 
 	/**
-	 * 抽象容器，不允许实例化，几乎所有容器都继承于它。
-	 * 如果不需要完整的容器功能，可以直接实现IContainer接口
+	 * 抽象容器控件
 	 * @author Macro776@gmail.com
 	 *
 	 */
@@ -27,7 +26,7 @@ package com.macro.gUI.base
 
 
 		/**
-		 * 抽象容器
+		 * 抽象容器，不允许直接实例化
 		 * @param width 容器宽度
 		 * @param height 容器高度
 		 *
@@ -44,44 +43,58 @@ package com.macro.gUI.base
 			_children = new Vector.<IControl>();
 		}
 
-		
+
 		protected var _bitmapDataCover:BitmapData;
 
 		public function get bitmapDataCover():BitmapData
 		{
 			return _bitmapDataCover;
 		}
-		
-		
+
+
 		protected var _margin:Rectangle;
-		
+
 		public function get margin():Rectangle
 		{
 			return _margin;
 		}
-		
-		
-		protected var _children:Vector.<IControl>;
-		
+
+
+		private var _children:Vector.<IControl>;
+
 		public function get children():Vector.<IControl>
 		{
 			return _children;
 		}
-		
-		
+
+
+		/**
+		 * 获取子控件数量
+		 * @return
+		 *
+		 */
+		public function get numChildren():int
+		{
+			return _children.length;
+		}
+
+
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
-			if (_skinCover && width < _skinCover.minWidth)
+			if (_skinCover != null)
 			{
-				width = _skinCover.minWidth;
+				if (width < _skinCover.minWidth)
+				{
+					width = _skinCover.minWidth;
+				}
+				
+				if (height < _skinCover.minHeight)
+				{
+					height = _skinCover.minHeight;
+				}
 			}
-
-			if (_skinCover && height < _skinCover.minHeight)
-			{
-				height = _skinCover.minHeight;
-			}
-
+			
 			super.resize(width, height);
 		}
 
@@ -90,22 +103,23 @@ package com.macro.gUI.base
 		{
 			super.paint(rebuild);
 
-			if (rebuild || !_bitmapDataCover)
+			if (_skinCover != null && _skinCover.bitmapData != null)
 			{
-				if (_bitmapDataCover)
+				if (rebuild || _bitmapDataCover == null)
 				{
-					_bitmapDataCover.dispose();
+					if (_bitmapDataCover != null)
+					{
+						_bitmapDataCover.dispose();
+					}
+
+					_bitmapDataCover = new BitmapData(_rect.width, _rect.height, _transparent, 0);
+				}
+				else
+				{
+					_bitmapDataCover.fillRect(_bitmapDataCover.rect, 0);
 				}
 
-				_bitmapDataCover = new BitmapData(_rect.width, _rect.height, _transparent, 0);
-			}
-			else
-			{
-				_bitmapDataCover.fillRect(_bitmapDataCover.rect, 0);
-			}
 
-			if (_skinCover && _skinCover.bitmapData)
-			{
 				if (_skinCover.gridRight > _skinCover.gridLeft)
 				{
 					if (_skinCover.gridBottom > _skinCover.gridTop)
@@ -137,7 +151,7 @@ package com.macro.gUI.base
 		{
 			_children.push(child);
 
-			if (child.parent)
+			if (child.parent != null)
 			{
 				child.parent.removeChild(child);
 			}
@@ -159,7 +173,7 @@ package com.macro.gUI.base
 				_children.splice(index, 0, child);
 			}
 
-			if (child.parent)
+			if (child.parent != null)
 			{
 				child.parent.removeChild(child);
 			}
@@ -195,12 +209,12 @@ package com.macro.gUI.base
 
 			return child;
 		}
-		
+
 		/**
 		 * 移除指定范围的所有子控件
 		 * @param beginIndex 首个子控件的深度
 		 * @param endIndex 最后一个子控件的深度，如果是-1，则指向结尾
-		 * 
+		 *
 		 */
 		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
 		{
@@ -208,12 +222,12 @@ package com.macro.gUI.base
 			{
 				endIndex = _children.length;
 			}
-			
-			if (endIndex < beginIndex)
+
+			if (endIndex <= beginIndex)
 			{
-				endIndex = beginIndex;
+				return;
 			}
-			
+
 			var child:IControl;
 			for (var i:int = beginIndex; i < endIndex; i++)
 			{
@@ -225,12 +239,12 @@ package com.macro.gUI.base
 			}
 			_children.splice(beginIndex, endIndex - beginIndex);
 		}
-		
+
 		/**
 		 * 获取指定深度的控件
 		 * @param index
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function getChildAt(index:int):IControl
 		{
@@ -240,18 +254,82 @@ package com.macro.gUI.base
 			}
 			return null;
 		}
-		
+
 		/**
 		 * 获取指定控件的深度
 		 * @param child
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function getChildIndex(child:IControl):int
 		{
 			return _children.indexOf(child);
 		}
 
-		// TODO 待实现setChildIndex, swapChildren, swapChildrenAt
+		/**
+		 * 更改现有子控件的深度
+		 * @param child
+		 * @param index
+		 *
+		 */
+		public function setChildIndex(child:IControl, index:int):void
+		{
+			var p:int = _children.indexOf(child);
+			if (p == -1 || p == index)
+			{
+				return;
+			}
+
+			_children.splice(p, 1);
+			// 如果插入位置比当前位置大，由于删除该子控件后，其后所有控件会自动前移，因此需要将插入位置－１
+			if (index > p)
+			{
+				index--;
+			}
+			_children.splice(index, 0, child);
+		}
+
+		/**
+		 * 交换两个子控件的深度
+		 * @param child1
+		 * @param child2
+		 *
+		 */
+		public function swapChildren(child1:IControl, child2:IControl):void
+		{
+			var p1:int = _children.indexOf(child1);
+			var p2:int = _children.indexOf(child2);
+			swapChildrenAt(p1, p2);
+		}
+
+		/**
+		 * 交换指定深度的两个子控件
+		 * @param index1
+		 * @param index2
+		 *
+		 */
+		public function swapChildrenAt(index1:int, index2:int):void
+		{
+			if (index1 < 0 || index1 >= _children.length || index2 < 0 || index2 >= _children.length ||
+					index1 == index2)
+			{
+				return;
+			}
+
+			// 确保index2大于index1
+			if (index1 > index2)
+			{
+				var temp:int = index1;
+				index1 = index2;
+				index2 = temp;
+			}
+
+			var child1:IControl = _children[index1];
+			var child2:IControl = _children[index2];
+
+			_children.splice(index2, 1, child1);
+			_children.splice(index1, 1, child2);
+		}
+
 	}
 }

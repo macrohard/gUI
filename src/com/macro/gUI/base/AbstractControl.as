@@ -2,10 +2,10 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.skin.ISkin;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -15,8 +15,7 @@ package com.macro.gUI.base
 
 
 	/**
-	 * 抽象控件，不允许实例化，几乎所有控件都继承于它。
-	 * 如果不需要完整的控件功能，可以直接实现IControl接口
+	 * 抽象基础控件
 	 * @author Macro776@gmail.com
 	 *
 	 */
@@ -45,7 +44,7 @@ package com.macro.gUI.base
 
 
 		/**
-		 * 抽象控件，基类，不允许直接实例化
+		 * 抽象控件，不允许直接实例化
 		 * @param width 控件宽度
 		 * @param height 控件高度
 		 *
@@ -83,18 +82,6 @@ package com.macro.gUI.base
 		}
 
 
-		protected var _rect:Rectangle;
-		/**
-		 * 控件的位置、大小
-		 * @return
-		 *
-		 */
-		public function get rect():Rectangle
-		{
-			return _rect;
-		}
-
-
 		protected var _bgColor:int;
 		/**
 		 * 背景色，ARGB格式
@@ -113,6 +100,7 @@ package com.macro.gUI.base
 			}
 		}
 
+		
 		protected var _transparent:Boolean;
 		/**
 		 * 透明
@@ -131,6 +119,19 @@ package com.macro.gUI.base
 			}
 		}
 
+		
+		protected var _rect:Rectangle;
+		/**
+		 * 控件的位置、大小
+		 * @return
+		 *
+		 */
+		public function get rect():Rectangle
+		{
+			return _rect;
+		}
+		
+		
 		/**
 		 * 横坐标
 		 * @return
@@ -146,6 +147,7 @@ package com.macro.gUI.base
 			_rect.x = value;
 		}
 
+		
 		/**
 		 * 纵坐标
 		 * @return
@@ -161,6 +163,7 @@ package com.macro.gUI.base
 			_rect.y = value;
 		}
 
+		
 		/**
 		 * 控件宽度，最小宽度是1
 		 * @return
@@ -179,6 +182,7 @@ package com.macro.gUI.base
 			}
 		}
 
+		
 		/**
 		 * 控件高度，最小高度是1
 		 * @return
@@ -200,7 +204,7 @@ package com.macro.gUI.base
 		
 		private var _alpha:Number;
 		/**
-		 * 透明度，由UI体系使用
+		 * 透明度，由UI体系使用。有效值为 0（完全透明）到 1（完全不透明）。默认值为 1。
 		 * @return
 		 *
 		 */
@@ -211,7 +215,7 @@ package com.macro.gUI.base
 		
 		public function set alpha(value:Number):void
 		{
-			_alpha = value;
+			_alpha = value < 0 ? 0 : (value > 1 ? 1 : value);
 		}
 		
 		
@@ -233,16 +237,13 @@ package com.macro.gUI.base
 
 
 		private var _parent:IContainer;
-		/**
-		 * 父容器对象，由UI体系使用
-		 * @return
-		 *
-		 */
+		
 		public function get parent():IContainer
 		{
 			return _parent;
 		}
 
+		
 		/**
 		 * 设置父容器，内部行为，外部无法访问
 		 * @param container
@@ -264,7 +265,19 @@ package com.macro.gUI.base
 			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
 
-
+		
+		
+		public function localToGlobal():Point
+		{
+			var p:Point = _rect.topLeft;
+			var control:IControl = this;
+			while (control.parent != null)
+			{
+				control = control.parent;
+				p.offset(control.rect.x, control.rect.y);
+			}
+			return p;
+		}
 
 
 		/**
@@ -275,7 +288,7 @@ package com.macro.gUI.base
 		 */
 		public function resize(width:int = 0, height:int = 0):void
 		{
-			if (_skin)
+			if (_skin != null)
 			{
 				if (width < _skin.minWidth)
 				{
@@ -306,7 +319,7 @@ package com.macro.gUI.base
 		 */
 		public function setDefaultSize():void
 		{
-			if (_skin)
+			if (_skin != null)
 			{
 				resize(_skin.bitmapData.width, _skin.bitmapData.height);
 			}
@@ -335,7 +348,7 @@ package com.macro.gUI.base
 			
 			prePaint();
 
-			if (_skin && _skin.bitmapData)
+			if (_skin != null && _skin.bitmapData != null)
 			{
 				if (_skin.gridRight > _skin.gridLeft)
 				{

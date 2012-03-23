@@ -2,6 +2,8 @@ package com.macro.gUI.controls.composite
 {
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.base.AbstractComposite;
+	import com.macro.gUI.base.IControl;
+	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Cell;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
@@ -19,11 +21,13 @@ package com.macro.gUI.controls.composite
 		
 		private var _bg:Slice;
 		
-		private var _items:Vector.<Cell>;
-		
 		private var _selectItem:Cell;
 		
-		private var _scroller:VScrollBar;
+		
+		private var _itemContainer:Container;
+		
+		private var _scrollBar:VScrollBar;
+		
 		
 		/**
 		 * 列表框控件，始终完全缩放，不支持布局对齐
@@ -39,13 +43,16 @@ package com.macro.gUI.controls.composite
 			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.LIST_BG);
 			_bg = new Slice(width, height, bgSkin);
 			
-			_items = new Vector.<Cell>();
+			_itemContainer = new Container();
+			_scrollBar = new VScrollBar();
+			
+			addChild(_bg);
+			addChild(_itemContainer);
+			
 			_padding = new Rectangle(2, 2);
 			
 			_cellSkin = GameUI.skinManager.getSkin(SkinDef.CELL_BG);
 			_cellSelectedSkin = GameUI.skinManager.getSkin(SkinDef.CELL_SELECTED_BG);
-			
-			_children.push(_bg);
 			
 			resize(_rect.width, _rect.height);
 		}
@@ -116,16 +123,13 @@ package com.macro.gUI.controls.composite
 		 */
 		public function set items(value:Vector.<String>):void
 		{
-			_children.splice(0, _children.length);
-			_children.push(_bg);
-			_items.splice(0, _items.length);
+			_itemContainer.removeChildren();
 			
 			var cell:Cell;
 			for each(var s:String in value)
 			{
 				cell = new Cell(s, _cellSkin);
-				_children.push(cell);
-				_items.push(cell);
+				_itemContainer.addChild(cell);
 			}
 			
 			layout();
@@ -138,32 +142,43 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
+		
 		protected override function layout():void
 		{
 			_bg.resize(_rect.width, _rect.height);
 			
-			if (_items.length == 0)
+			if (_itemContainer.numChildren == 0)
 			{
 				return;
 			}
 			
-			var left:int = _padding.left;
-			var top:int = _padding.top;
-			var itemH:int = _items[0].height;
+			var itemH:int = (_itemContainer.getChildAt(0) as Cell).height;
 			var itemW:int = _rect.width - _padding.left - _padding.right;
 			
-			if ((itemH * _items.length + _padding.top + _padding.bottom) > _rect.height)
+			if ((itemH * _itemContainer.numChildren + _padding.top + _padding.bottom) > _rect.height)
 			{
-				
+				itemW -= _scrollBar.width;
+				_children.push(_scrollBar);
+				_scrollBar.x = _padding.left + itemW;
+				_scrollBar.y = _padding.top;
+				_scrollBar.height = _rect.height - _padding.top - _padding.bottom;
+			}
+			else
+			{
+				var p:int = _children.indexOf(_scrollBar);
+				if (p != -1)
+				{
+					_children.splice(p, 1);
+				}
 			}
 			
-			var length:int = _items.length;
+			var length:int = _itemContainer.numChildren;
 			var cell:Cell;
 			for (var i:int; i < length; i++)
 			{
-				cell = _items[i];
-				cell.x = left;
-				cell.y = top + i * itemH;
+				cell = _itemContainer.getChildAt(i) as Cell;
+				cell.x = _padding.left;
+				cell.y = _padding.top + i * itemH;
 				cell.width = itemW;
 			}
 		}
@@ -178,15 +193,14 @@ package com.macro.gUI.controls.composite
 		public function addItem(text:String, index:int = -1):void
 		{
 			var cell:Cell = new Cell(text, _cellSkin);
-			_children.push(cell);
 			
 			if (index < 0)
 			{
-				_items.push(cell);
+				_itemContainer.addChild(cell);
 			}
 			else
 			{
-				_items.splice(index, 0, cell);
+				_itemContainer.addChildAt(cell, index);
 			}
 			
 			layout();
@@ -199,17 +213,7 @@ package com.macro.gUI.controls.composite
 		 */
 		public function removeItem(index:int):void
 		{
-			if (index < 0 || index >= _items.length)
-			{
-				return;
-			}
-			
-			var cell:Cell = _items.splice(index, 1)[0];
-			var i:int = _children.indexOf(cell);
-			if (i != -1)
-			{
-				_children.splice(i, 1);
-			}
+			_itemContainer.removeChildAt(index);
 			
 			layout();
 		}
@@ -220,17 +224,17 @@ package com.macro.gUI.controls.composite
 		 */
 		public function clearItems():void
 		{
-			_children.splice(0, _children.length);
-			_children.push(_bg);
-			_items.splice(0, _items.length);
+			_itemContainer.removeChildren();
 			
 			layout();
 		}
 		
 		private function resetSkin():void
 		{
-			for each (var cell:Cell in _items)
+			var cell:Cell;
+			for each (var ic:IControl in _itemContainer.children)
 			{
+				cell = ic as Cell;
 				if (cell == _selectItem)
 				{
 					cell.skin = _cellSelectedSkin;

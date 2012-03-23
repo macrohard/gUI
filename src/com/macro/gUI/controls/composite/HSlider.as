@@ -222,12 +222,6 @@ package com.macro.gUI.controls.composite
 		}
 		
 		
-		public function get focusable():Boolean
-		{
-			return true;
-		}
-		
-		
 		public function get dragMode():int
 		{
 			if (_mouseObj == _blockBtn)

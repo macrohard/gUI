@@ -56,7 +56,7 @@ package com.macro.gUI.controls
 			
 			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.CELL_BG);
 			
-			_padding = new Rectangle(20);
+			_padding = new Rectangle();
 		}
 	}
 }

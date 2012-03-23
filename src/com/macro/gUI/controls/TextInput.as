@@ -122,12 +122,6 @@ package com.macro.gUI.controls
 		}
 		
 		
-		public function get focusable():Boolean
-		{
-			return true;
-		}
-		
-		
 		
 		/**
 		 * 设置文本样式

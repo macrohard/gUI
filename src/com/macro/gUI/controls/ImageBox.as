@@ -119,14 +119,14 @@ package com.macro.gUI.controls
 		 */
 		public function setSource(value:IBitmapDrawable, destroy:Boolean = false):void
 		{
-			if (_mc)
+			if (_mc != null)
 			{
 				_mc.removeEventListener(Event.ENTER_FRAME, onRedrawHandler);
 			}
 			
-			if (value)
+			if (value != null)
 			{
-				if (destroy && _image)
+				if (destroy && _image != null)
 				{
 					_image.dispose();
 				}
@@ -153,7 +153,7 @@ package com.macro.gUI.controls
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
-			if (_autoSize && _image)
+			if (_autoSize && _image != null)
 			{
 				width = _image.width;
 				height = _image.height;
@@ -165,7 +165,7 @@ package com.macro.gUI.controls
 
 		public override function setDefaultSize():void
 		{
-			if (_image)
+			if (_image != null)
 			{
 				resize(_image.width, _image.height);
 			}
@@ -175,7 +175,7 @@ package com.macro.gUI.controls
 
 		protected override function prePaint():void
 		{
-			if (_image)
+			if (_image != null)
 			{
 				drawFixed(_bitmapData, _rect, _align, _image);
 			}
@@ -186,7 +186,7 @@ package com.macro.gUI.controls
 		{
 			if (image is BitmapData)
 			{
-				return BitmapData(image);
+				return image as BitmapData;
 			}
 			else if (image is DisplayObject)
 			{
@@ -199,6 +199,11 @@ package com.macro.gUI.controls
 			throw new Error("Unknow IBitmapDrawable Object!");
 		}
 
+		/**
+		 * 针对MovieClip类型source的逐帧绘制句柄
+		 * @param e
+		 * 
+		 */
 		private function onRedrawHandler(e:Event):void
 		{
 			_image = getBitmapData(_mc);

@@ -16,7 +16,7 @@ package com.macro.gUI.containers
 	public class Panel extends AbstractContainer
 	{
 		/**
-		 * 面板容器
+		 * 面板容器，可视范围由底层皮肤的九切片定义来确定
 		 * @param width 容器宽度
 		 * @param height 容器高度
 		 * @param skin 底层皮肤

@@ -1,4 +1,4 @@
-package com.macro.gUI
+package com.macro.gUI.managers
 {
 	import com.macro.gUI.base.IComposite;
 	import com.macro.gUI.base.IContainer;
@@ -73,10 +73,10 @@ package com.macro.gUI
 			var rootcontainer:RContainer = new RContainer(container);
 			
 			_rootSprite = new Sprite();
-			_rootSprite.addChild(rootcontainer.canvas);
-			_rootSprite.addChild(rootcontainer.container);
-			_rootSprite.addChild(rootcontainer.mask);
-			_rootSprite.addChild(rootcontainer.cover);
+//			_rootSprite.addChild(rootcontainer.canvas);
+//			_rootSprite.addChild(rootcontainer.container);
+//			_rootSprite.addChild(rootcontainer.mask);
+//			_rootSprite.addChild(rootcontainer.cover);
 			_controlsMap[container] = rootcontainer;
 
 			render(container);
@@ -94,55 +94,55 @@ package com.macro.gUI
 		 * @param container
 		 *
 		 */
-		private function render(container:IComposite):void
+		private function render(container:IContainer):void
 		{
-			var parent:RComposite = _controlsMap[container];
-			for each (var child:IControl in container.children)
-			{
-				if (child is IContainer)
-				{
-					var subcontainer:RContainer = _controlsMap[child];
-					if (!subcontainer)
-					{
-						subcontainer = new RContainer(IContainer(child));
-						render(IContainer(child));
-						_controlsMap[child] = subcontainer;
-					}
-
-					parent.container.addChild(subcontainer.canvas);
-					parent.container.addChild(subcontainer.container);
-					parent.container.addChild(subcontainer.mask);
-					parent.container.addChild(subcontainer.cover);
-
-				}
-				else if (child is IComposite)
-				{
-					var subcomposite:RComposite = _controlsMap[child];
-					if (!subcomposite)
-					{
-						subcomposite = new RComposite(IComposite(child));
-						render(IComposite(child));
-						_controlsMap[child] = subcomposite;
-					}
-
-					parent.container.addChild(subcomposite.canvas);
-					parent.container.addChild(subcomposite.container);
-					parent.container.addChild(subcomposite.mask);
-
-				}
-				else if (child is IControl)
-				{
-					var subcontrol:RControl = _controlsMap[child];
-					if (!subcontrol)
-					{
-						subcontrol = new RControl(child);
-						_controlsMap[child] = subcontrol;
-					}
-
-					parent.container.addChild(subcontrol.canvas);
-
-				}
-			}
+//			var parent:RComposite = _controlsMap[container];
+//			for each (var child:IControl in container.children)
+//			{
+//				if (child is IContainer)
+//				{
+//					var subcontainer:RContainer = _controlsMap[child];
+//					if (!subcontainer)
+//					{
+//						subcontainer = new RContainer(IContainer(child));
+//						render(IContainer(child));
+//						_controlsMap[child] = subcontainer;
+//					}
+//
+//					parent.container.addChild(subcontainer.canvas);
+//					parent.container.addChild(subcontainer.container);
+//					parent.container.addChild(subcontainer.mask);
+//					parent.container.addChild(subcontainer.cover);
+//
+//				}
+//				else if (child is IComposite)
+//				{
+//					var subcomposite:RComposite = _controlsMap[child];
+//					if (!subcomposite)
+//					{
+//						subcomposite = new RComposite(IComposite(child));
+//						render(IComposite(child));
+//						_controlsMap[child] = subcomposite;
+//					}
+//
+//					parent.container.addChild(subcomposite.canvas);
+//					parent.container.addChild(subcomposite.container);
+//					parent.container.addChild(subcomposite.mask);
+//
+//				}
+//				else if (child is IControl)
+//				{
+//					var subcontrol:RControl = _controlsMap[child];
+//					if (!subcontrol)
+//					{
+//						subcontrol = new RControl(child);
+//						_controlsMap[child] = subcontrol;
+//					}
+//
+//					parent.container.addChild(subcontrol.canvas);
+//
+//				}
+//			}
 		}
 
 
@@ -234,10 +234,10 @@ package com.macro.gUI
 			var rcontainer:RContainer = _controlsMap[container];
 			if (rcontainer)
 			{
-				while (rcontainer.container.numChildren > 0)
-				{
-					rcontainer.container.removeChildAt(0);
-				}
+//				while (rcontainer.container.numChildren > 0)
+//				{
+//					rcontainer.container.removeChildAt(0);
+//				}
 
 				render(container);
 			}

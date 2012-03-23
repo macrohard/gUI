@@ -4,7 +4,7 @@ package com.macro.gUI.base.feature
 	
 
 	/**
-	 * 控件拥有不同的鼠标状态
+	 * 控件可以接收鼠标操作
 	 * @author Macro776@gmail.com
 	 * 
 	 */

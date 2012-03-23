@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
   <includeClasses>
-    <classEntry path="com.macro.gUI.FocusManager"/>
+    <classEntry path="com.macro.gUI.managers.FocusManager"/>
     <classEntry path="com.macro.gUI.GameUI"/>
-    <classEntry path="com.macro.gUI.InteractionManager"/>
-    <classEntry path="com.macro.gUI.PopupManager"/>
-    <classEntry path="com.macro.gUI.SkinManager"/>
-    <classEntry path="com.macro.gUI.UIManager"/>
+    <classEntry path="com.macro.gUI.managers.InteractionManager"/>
+    <classEntry path="com.macro.gUI.managers.PopupManager"/>
+    <classEntry path="com.macro.gUI.managers.SkinManager"/>
+    <classEntry path="com.macro.gUI.managers.UIManager"/>
     <classEntry path="com.macro.gUI.assist.CtrlState"/>
     <classEntry path="com.macro.gUI.assist.DragMode"/>
     <classEntry path="com.macro.gUI.assist.LayoutAlign"/>

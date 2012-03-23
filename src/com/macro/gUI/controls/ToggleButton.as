@@ -3,11 +3,10 @@ package com.macro.gUI.controls
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.TextStyle;
-	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 

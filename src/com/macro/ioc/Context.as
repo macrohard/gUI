@@ -11,11 +11,11 @@ package com.macro.ioc
 	import flash.utils.getQualifiedSuperclassName;
 
 
-	// TODO 多个Context环境之间的关联
 	/**
 	 * 简易IoC反转控制容器，兼容Parsley。<br>
 	 * 提供对[Inject], [Init], [ManagedEvents], [MessageDispatcher], [MessageHandler]等标签的支持。<br>
 	 * 如需某个类的多个实例，可采取Beans中多次声明的方式，通过name来区分，暂不支持实例工厂方式。
+	 * // TODO 多个Context环境之间的关联
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */

@@ -11,13 +11,6 @@ package com.macro.gUI.base.feature
 	{
 		
 		/**
-		 * 是否可聚焦
-		 * @return 
-		 * 
-		 */
-		function get focusable():Boolean;
-		
-		/**
 		 * 获取焦点的顺序，当用户按下Tab键时，自动聚焦到控件聚焦索引数组中下一个控件上
 		 * @return 
 		 * 

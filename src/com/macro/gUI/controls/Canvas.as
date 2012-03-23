@@ -16,7 +16,7 @@ package com.macro.gUI.controls
 		 * @param height
 		 * 
 		 */
-		public function Canvas(width:int, height:int)
+		public function Canvas(width:int = 100, height:int = 100)
 		{
 			super(width, height);
 			paint();

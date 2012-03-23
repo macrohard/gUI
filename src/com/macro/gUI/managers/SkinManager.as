@@ -1,4 +1,4 @@
-package com.macro.gUI
+package com.macro.gUI.managers
 {
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.skin.ISkin;

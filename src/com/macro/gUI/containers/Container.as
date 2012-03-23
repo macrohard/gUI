@@ -5,7 +5,7 @@ package com.macro.gUI.containers
 	import flash.geom.Rectangle;
 	
 	/**
-	 * 空容器，无皮肤定义
+	 * 空容器，无皮肤、背景定义
 	 * @author Macro776@gmail.com
 	 * 
 	 */

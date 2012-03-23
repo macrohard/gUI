@@ -76,11 +76,6 @@ package com.macro.gUI.controls
 			}
 		}
 		
-		public function get focusable():Boolean
-		{
-			return true;
-		}
-		
 		
 		public override function get normalStyle():TextStyle
 		{

@@ -18,13 +18,13 @@ package com.macro.gUI.controls
 		 * @param skin
 		 * 
 		 */
-		public function Slice(width:int = 100, height:int = 100, skin:ISkin = null)
+		public function Slice(skin:ISkin, width:int = 100, height:int = 100)
 		{
 			super(width, height);
 			
 			_skin = skin;
 			
-			paint();
+			resize(width, height);
 		}
 		
 		

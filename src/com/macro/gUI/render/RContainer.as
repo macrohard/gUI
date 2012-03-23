@@ -4,7 +4,7 @@ package com.macro.gUI.render
 	
 	import flash.display.Bitmap;
 
-	public class RContainer extends RComposite
+	public class RContainer extends RControl
 	{
 		protected var _cover:Bitmap;
 		
