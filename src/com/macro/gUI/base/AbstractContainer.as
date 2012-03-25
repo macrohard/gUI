@@ -112,7 +112,7 @@ package com.macro.gUI.base
 						_bitmapDataCover.dispose();
 					}
 
-					_bitmapDataCover = new BitmapData(_rect.width, _rect.height, _transparent, 0);
+					_bitmapDataCover = new BitmapData(_rect.width, _rect.height, true, 0);
 				}
 				else
 				{

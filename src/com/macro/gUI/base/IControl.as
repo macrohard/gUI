@@ -47,12 +47,6 @@ package com.macro.gUI.base
 		function get parent():IContainer;
 		
 		/**
-		 * 重设尺寸
-		 * 
-		 */
-		function resize(width:int, height:int):void;
-		
-		/**
 		 * 获取控件的全局坐标
 		 * @return 
 		 * 

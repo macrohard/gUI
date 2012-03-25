@@ -82,7 +82,7 @@ package com.macro.gUI.base
 		}
 
 
-		protected var _bgColor:int;
+		private var _bgColor:int;
 		/**
 		 * 背景色，ARGB格式
 		 */
@@ -101,7 +101,7 @@ package com.macro.gUI.base
 		}
 
 		
-		protected var _transparent:Boolean;
+		private var _transparent:Boolean;
 		/**
 		 * 透明
 		 */

@@ -41,7 +41,7 @@ package com.macro.gUI.controls.composite
 			super(width, height, 0x11);
 			
 			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.LIST_BG);
-			_bg = new Slice(width, height, bgSkin);
+			_bg = new Slice(bgSkin, width, height);
 			
 			_itemContainer = new Container();
 			_scrollBar = new VScrollBar();

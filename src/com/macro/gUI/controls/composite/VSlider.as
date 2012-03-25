@@ -72,7 +72,7 @@ package com.macro.gUI.controls.composite
 			_padding = new Rectangle(10, 10);
 
 			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.SLIDER_VERTICAL_BG);
-			_bg = new Slice(bgSkin.bitmapData.width, height, bgSkin);
+			_bg = new Slice(bgSkin, bgSkin.bitmapData.width, height);
 
 			blockSkin = blockSkin ? blockSkin : GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_NORMAL);
 			_blockBtn = new Button(null, null, 0x22, blockSkin);

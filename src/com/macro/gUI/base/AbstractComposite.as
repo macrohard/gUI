@@ -3,7 +3,6 @@ package com.macro.gUI.base
 	import avmplus.getQualifiedClassName;
 	
 	import flash.display.BitmapData;
-	import flash.events.EventDispatcher;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -13,11 +12,11 @@ package com.macro.gUI.base
 	 * @author Macro776@gmail.com
 	 *
 	 */
-	public class AbstractComposite extends EventDispatcher implements IComposite
+	public class AbstractComposite extends AbstractControl implements IComposite
 	{
 
 		/**
-		 * 抽象复合式控件，由一系列基础控件及容器控件组合而成，不允许直接实例化
+		 * 抽象复合式控件，不允许直接实例化。复合式控件由一系列基础控件及容器控件组合而成，
 		 * @param width
 		 * @param height
 		 * @param align 布局对齐方式，默认值为左上角对齐
@@ -54,21 +53,52 @@ package com.macro.gUI.base
 		}
 		
 		
-		protected var _container:IContainer;
+		protected var _container:AbstractControl;
 		
 		public function get container():IContainer
 		{
-			return _container;
+			if (_container is IContainer)
+			{
+				return _container as IContainer;
+			}
+			throw new Error("Unsupport Container Type!");
 		}
 		
 		
-		public function get bitmapData():BitmapData
+		/**
+		 * 复合控件无位图数据对象，此属性总是返回null
+		 * @return 
+		 * 
+		 */
+		public final override function get bitmapData():BitmapData
 		{
 			return null;
 		}
 		
 		
-		public function get rect():Rectangle
+		public override function get backgroundColor():int
+		{
+			return _container.backgroundColor;
+		}
+		
+		public override function set backgroundColor(value:int):void
+		{
+			_container.backgroundColor = value;
+		}
+		
+		
+		public override function get transparent():Boolean
+		{
+			return _container.transparent;
+		}
+		
+		public override function set transparent(value:Boolean):void
+		{
+			_container.transparent = value;
+		}
+		
+		
+		public override function get rect():Rectangle
 		{
 			return _container.rect;
 		}
@@ -79,14 +109,14 @@ package com.macro.gUI.base
 		 * @return
 		 *
 		 */
-		public function get x():int
+		public override function get x():int
 		{
-			return _container.rect.x;
+			return _container.x;
 		}
 		
-		public function set x(value:int):void
+		public override function set x(value:int):void
 		{
-			_container.rect.x = value;
+			_container.x = value;
 		}
 		
 		
@@ -95,14 +125,14 @@ package com.macro.gUI.base
 		 * @return
 		 *
 		 */
-		public function get y():int
+		public override function get y():int
 		{
-			return _container.rect.y;
+			return _container.y;
 		}
 		
-		public function set y(value:int):void
+		public override function set y(value:int):void
 		{
-			_container.rect.y = value;
+			_container.y = value;
 		}
 		
 		
@@ -111,17 +141,15 @@ package com.macro.gUI.base
 		 * @return
 		 *
 		 */
-		public function get width():int
+		public override function get width():int
 		{
-			return _container.rect.width;
+			return _container.width;
 		}
 		
-		public function set width(value:int):void
+		public override function set width(value:int):void
 		{
-			if (_container.rect.width != value && value > 0)
-			{
-				resize(value, _container.rect.height);
-			}
+			_container.width = value;
+			layout();
 		}
 		
 		
@@ -130,17 +158,15 @@ package com.macro.gUI.base
 		 * @return
 		 *
 		 */
-		public function get height():int
+		public override function get height():int
 		{
-			return _container.rect.height;
+			return _container.height
 		}
 		
-		public function set height(value:int):void
+		public override function set height(value:int):void
 		{
-			if (_container.rect.height != value && value > 0)
-			{
-				resize(_container.rect.width, value);
-			}
+			_container.height = value;
+			layout();
 		}
 		
 		
@@ -149,12 +175,12 @@ package com.macro.gUI.base
 		 * @return
 		 *
 		 */
-		public function get alpha():Number
+		public override function get alpha():Number
 		{
 			return _container.alpha;
 		}
 		
-		public function set alpha(value:Number):void
+		public override function set alpha(value:Number):void
 		{
 			_container.alpha = value;
 		}
@@ -165,18 +191,18 @@ package com.macro.gUI.base
 		 * @return
 		 *
 		 */
-		public function get visible():Boolean
+		public override function get visible():Boolean
 		{
 			return _container.visible;
 		}
 		
-		public function set visible(value:Boolean):void
+		public override function set visible(value:Boolean):void
 		{
 			_container.visible = value;
 		}
 		
 		
-		public function get parent():IContainer
+		public override function get parent():IContainer
 		{
 			return _container.parent;
 		}
@@ -187,42 +213,41 @@ package com.macro.gUI.base
 		 * @param container
 		 *
 		 */
-		internal function setParent(container:IContainer):void
+		internal override function setParent(container:IContainer):void
 		{
-			if (_container is AbstractControl)
-			{
-				(_container as AbstractControl).setParent(container);
-			}
-			else
-			{
-				throw new Error("Unknow Container Type!");
-			}
+			_container.setParent(container);
 		}
 		
 		
-		/**
-		 * 覆盖父类添加侦听器的方法，修改弱引用参数默认值为true，因为使用类成员作为侦听器的使用环境更为常见
-		 *
-		 */
-		public override function addEventListener(type:String, listener:Function, useCapture:Boolean = false,
-												  priority:int = 0, useWeakReference:Boolean = true):void
-		{
-			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-		}
-		
-		
-		public function localToGlobal():Point
+		public override function localToGlobal():Point
 		{
 			return _container.localToGlobal();
 		}
 		
 		
-		public function resize(width:int = 0, height:int = 0):void
+		public override function resize(width:int = 0, height:int = 0):void
 		{
 			_container.resize(width, height);
 			layout();
 		}
 
+		public override function setDefaultSize():void
+		{
+			_container.setDefaultSize();
+			layout();
+		}
+		
+		protected final override function paint(rebuild:Boolean=false):void
+		{
+		}
+		
+		protected final override function prePaint():void
+		{
+		}
+		
+		protected final override function postPaint():void
+		{
+		}
 
 		/**
 		 * 布局

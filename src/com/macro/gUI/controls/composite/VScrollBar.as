@@ -89,7 +89,7 @@ package com.macro.gUI.controls.composite
 			
 			
 			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BG);
-			_track = new Slice(bgSkin.bitmapData.width, height, bgSkin);
+			_track = new Slice(bgSkin, bgSkin.bitmapData.width, height);
 			
 			blockSkin = blockSkin ? blockSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_NORMAL);
 			_blockBtn = new Button(null, null, 0x22, blockSkin);

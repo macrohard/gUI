@@ -53,7 +53,7 @@ package com.macro.gUI.controls.composite
 			_mask = mask;
 
 			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_BG);
-			_bg = new Slice(width, bgSkin.bitmapData.height, bgSkin);
+			_bg = new Slice(bgSkin, width, bgSkin.bitmapData.height);
 
 			_fillingSkin = infillSkin ? infillSkin : GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
 			_canvas = new Canvas(width - bgSkin.gridLeft - bgSkin.gridRight, _fillingSkin.bitmapData.height);
