@@ -35,13 +35,13 @@
     <classEntry path="com.macro.gUI.controls.TextInput"/>
     <classEntry path="com.macro.gUI.controls.Cell"/>
     <classEntry path="com.macro.gUI.controls.ToggleButton"/>
-    <classEntry path="com.macro.gUI.controls.composite.CheckBox"/>
-    <classEntry path="com.macro.gUI.controls.composite.HScrollBar"/>
-    <classEntry path="com.macro.gUI.controls.composite.HSlider"/>
-    <classEntry path="com.macro.gUI.controls.composite.ProgressBar"/>
-    <classEntry path="com.macro.gUI.controls.composite.RadioButton"/>
-    <classEntry path="com.macro.gUI.controls.composite.VScrollBar"/>
-    <classEntry path="com.macro.gUI.controls.composite.VSlider"/>
+    <classEntry path="com.macro.gUI.composite.CheckBox"/>
+    <classEntry path="com.macro.gUI.composite.HScrollBar"/>
+    <classEntry path="com.macro.gUI.composite.HSlider"/>
+    <classEntry path="com.macro.gUI.composite.ProgressBar"/>
+    <classEntry path="com.macro.gUI.composite.RadioButton"/>
+    <classEntry path="com.macro.gUI.composite.VScrollBar"/>
+    <classEntry path="com.macro.gUI.composite.VSlider"/>
     <classEntry path="com.macro.gUI.render.RComposite"/>
     <classEntry path="com.macro.gUI.render.RContainer"/>
     <classEntry path="com.macro.gUI.render.RControl"/>
@@ -66,7 +66,7 @@
     <classEntry path="com.macro.utils.fte.TextSegment"/>
     <classEntry path="com.macro.gUI.skin.IAnimationSkin"/>
     <classEntry path="com.macro.gUI.assist.RadioButtonGroup"/>
-    <classEntry path="com.macro.gUI.controls.composite.List"/>
+    <classEntry path="com.macro.gUI.composite.List"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

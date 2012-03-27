@@ -1,4 +1,4 @@
-package com.macro.gUI.controls.composite
+package com.macro.gUI.composite
 {
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.LayoutAlign;

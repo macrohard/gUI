@@ -1,8 +1,7 @@
-package com.macro.gUI.controls.composite
+package com.macro.gUI.composite
 {
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.LayoutAlign;
-	import com.macro.gUI.assist.RadioButtonGroup;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.AbstractComposite;
 	import com.macro.gUI.base.IControl;
@@ -19,24 +18,19 @@ package com.macro.gUI.controls.composite
 
 
 	/**
-	 * 单选框控件
-	 * @author macro776@gmail.com
+	 * 复选框控件
+	 * @author Macro776@gmail.com
 	 *
 	 */
-	public class RadioButton extends AbstractComposite implements IButton, IKeyboard
+	public class CheckBox extends AbstractComposite implements IButton, IKeyboard
 	{
-		
-		/**
-		 * 单选按钮群组
-		 */
-		private static var group:RadioButtonGroup = new RadioButtonGroup();
 		
 		/**
 		 * 文本标签与图标之间的间距
 		 */
 		private static const gap:int = 5;
 
-		
+
 		private var _icon:ToggleButton;
 
 		private var _label:Label;
@@ -44,14 +38,14 @@ package com.macro.gUI.controls.composite
 
 
 		/**
-		 * 单选框控件，目前定义支持普通，禁用，选择，选择后禁用等四态皮肤
+		 * 复选框控件，目前定义支持普通，禁用，选择，选择后禁用等四态皮肤
 		 * @param text 作为文本的字符串
 		 * @param style 文本样式
-		 * @param skin 单选框图标皮肤
+		 * @param skin 复选框图标皮肤
 		 * @param align 布局对齐方式，默认左上角对齐
 		 *
 		 */
-		public function RadioButton(text:String = null, style:TextStyle = null, skin:ISkin = null, align:int = 0x11)
+		public function CheckBox(text:String = null, style:TextStyle = null, skin:ISkin = null, align:int = 0x11)
 		{
 			//默认大小
 			super(100, 20, align);
@@ -60,12 +54,12 @@ package com.macro.gUI.controls.composite
 
 			_label = new Label(text, style);
 			_icon = new ToggleButton(null, null, 0x22,
-									 skin ? skin : GameUI.skinManager.getSkin(SkinDef.RADIOBUTTON_NORMAL));
+									 skin ? skin : GameUI.skinManager.getSkin(SkinDef.CHECKBOX_NORMAL));
 			_icon.overSkin = _icon.downSkin = _icon.normalSkin;
-			_icon.disableSkin = GameUI.skinManager.getSkin(SkinDef.RADIOBUTTON_DISABLE);
-			_icon.selectedSkin = GameUI.skinManager.getSkin(SkinDef.RADIOBUTTON_SELECTED);
+			_icon.disableSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_DISABLE);
+			_icon.selectedSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_SELECTED);
 			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin;
-			_icon.selectedDisableSkin = GameUI.skinManager.getSkin(SkinDef.RADIOBUTTON_SELECTED_DISABLE);
+			_icon.selectedDisableSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_SELECTED_DISABLE);
 
 			_container = new Container();
 			_container.addChild(_icon);
@@ -98,7 +92,7 @@ package com.macro.gUI.controls.composite
 			}
 		}
 
-		
+
 		/**
 		 * 是否选中
 		 * @return
@@ -112,10 +106,6 @@ package com.macro.gUI.controls.composite
 		public function set selected(value:Boolean):void
 		{
 			_icon.selected = value;
-			if (value)
-			{
-				group.select(this);
-			}
 		}
 
 
@@ -144,24 +134,7 @@ package com.macro.gUI.controls.composite
 				}
 			}
 		}
-
 		
-		/**
-		 * 单选按钮分组标识，不允许使用0<br>
-		 * 注意，由于整个UI体系使用同一个单选按钮群组管理器，因此标识建议使用时间戳，避免重复
-		 * @return
-		 *
-		 */
-		public function get radioGroup():int
-		{
-			return group.getGroupId(this);
-		}
-
-		public function set radioGroup(value:int):void
-		{
-			group.setGroupId(this, value);
-		}
-
 		
 		private var _tabIndex:int;
 		
@@ -185,7 +158,6 @@ package com.macro.gUI.controls.composite
 		{
 			_icon.enabled = value;
 		}
-		
 		
 		
 		/**
@@ -277,8 +249,8 @@ package com.macro.gUI.controls.composite
 			_icon.selectedDisableSkin = value;
 			layout();
 		}
-
-
+		
+		
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
@@ -291,13 +263,10 @@ package com.macro.gUI.controls.composite
 			super.resize(width, height);
 		}
 
-
-
 		public override function setDefaultSize():void
 		{
 			resize(_icon.width + gap + _label.width, _icon.height > _label.height ? _icon.height : _label.height);
 		}
-
 
 		protected override function layout():void
 		{
@@ -374,5 +343,6 @@ package com.macro.gUI.controls.composite
 		public function keyUp(e:KeyboardEvent):void
 		{
 		}
+
 	}
 }

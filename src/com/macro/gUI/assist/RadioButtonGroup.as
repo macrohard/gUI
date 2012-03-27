@@ -1,6 +1,6 @@
 package com.macro.gUI.assist
 {
-	import com.macro.gUI.controls.composite.RadioButton;
+	import com.macro.gUI.composite.RadioButton;
 
 	import flash.utils.Dictionary;
 
