@@ -8,6 +8,7 @@ package com.macro.gUI.controls.composite
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IDrag;
 	import com.macro.gUI.base.feature.IKeyboard;
+	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Button;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
@@ -80,8 +81,9 @@ package com.macro.gUI.controls.composite
 			_blockBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_DOWN);
 			_blockBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);
 
-			_children.push(_bg);
-			_children.push(_blockBtn);
+			_container = new Container();
+			_container.addChild(_bg);
+			_container.addChild(_blockBtn);
 
 			resize(_rect.width);
 		}

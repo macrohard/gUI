@@ -16,7 +16,7 @@ package com.macro.gUI.base
 	{
 
 		/**
-		 * 抽象复合式控件，不允许直接实例化。复合式控件由一系列基础控件及容器控件组合而成，
+		 * 抽象复合式控件，不允许直接实例化。复合式控件内部封装一个IContainer容器，由一系列基础控件及容器控件组合而成
 		 * @param width
 		 * @param height
 		 * @param align 布局对齐方式，默认值为左上角对齐
@@ -53,7 +53,7 @@ package com.macro.gUI.base
 		}
 		
 		
-		protected var _container:AbstractControl;
+		protected var _container:AbstractContainer;
 		
 		public function get container():IContainer
 		{
@@ -117,6 +117,7 @@ package com.macro.gUI.base
 		public override function set x(value:int):void
 		{
 			_container.x = value;
+			_rect = _container.rect;
 		}
 		
 		
@@ -133,6 +134,7 @@ package com.macro.gUI.base
 		public override function set y(value:int):void
 		{
 			_container.y = value;
+			_rect = _container.rect;
 		}
 		
 		
@@ -149,6 +151,7 @@ package com.macro.gUI.base
 		public override function set width(value:int):void
 		{
 			_container.width = value;
+			_rect = _container.rect;
 			layout();
 		}
 		
@@ -166,6 +169,7 @@ package com.macro.gUI.base
 		public override function set height(value:int):void
 		{
 			_container.height = value;
+			_rect = _container.rect;
 			layout();
 		}
 		
@@ -219,32 +223,47 @@ package com.macro.gUI.base
 		}
 		
 		
-		public override function localToGlobal():Point
+		public override function globalCoord():Point
 		{
-			return _container.localToGlobal();
+			return _container.globalCoord();
 		}
 		
 		
 		public override function resize(width:int = 0, height:int = 0):void
 		{
 			_container.resize(width, height);
+			_rect = _container.rect;
 			layout();
 		}
 
 		public override function setDefaultSize():void
 		{
 			_container.setDefaultSize();
+			_rect = _container.rect;
 			layout();
 		}
 		
+		/**
+		 * 复合控件不执行绘制
+		 * @param rebuild
+		 * 
+		 */
 		protected final override function paint(rebuild:Boolean=false):void
 		{
 		}
 		
+		/**
+		 * 复合控件不执行绘制
+		 * 
+		 */
 		protected final override function prePaint():void
 		{
 		}
 		
+		/**
+		 * 复合控件不执行绘制
+		 * 
+		 */
 		protected final override function postPaint():void
 		{
 		}

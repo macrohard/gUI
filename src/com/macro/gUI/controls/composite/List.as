@@ -46,8 +46,9 @@ package com.macro.gUI.controls.composite
 			_itemContainer = new Container();
 			_scrollBar = new VScrollBar();
 			
-			addChild(_bg);
-			addChild(_itemContainer);
+			_container = new Container();
+			_container.addChild(_bg);
+			_container.addChild(_itemContainer);
 			
 			_padding = new Rectangle(2, 2);
 			
@@ -158,18 +159,14 @@ package com.macro.gUI.controls.composite
 			if ((itemH * _itemContainer.numChildren + _padding.top + _padding.bottom) > _rect.height)
 			{
 				itemW -= _scrollBar.width;
-				_children.push(_scrollBar);
+				_container.addChild(_scrollBar);
 				_scrollBar.x = _padding.left + itemW;
 				_scrollBar.y = _padding.top;
 				_scrollBar.height = _rect.height - _padding.top - _padding.bottom;
 			}
 			else
 			{
-				var p:int = _children.indexOf(_scrollBar);
-				if (p != -1)
-				{
-					_children.splice(p, 1);
-				}
+				_container.removeChild(_scrollBar);
 			}
 			
 			var length:int = _itemContainer.numChildren;

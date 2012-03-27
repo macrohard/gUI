@@ -51,7 +51,7 @@ package com.macro.gUI.base
 		 * @return 
 		 * 
 		 */
-		function localToGlobal():Point;
+		function globalCoord():Point;
 		
 	}
 }

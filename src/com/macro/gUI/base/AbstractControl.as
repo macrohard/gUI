@@ -128,7 +128,7 @@ package com.macro.gUI.base
 		 */
 		public function get rect():Rectangle
 		{
-			return _rect;
+			return _rect.clone();
 		}
 		
 		
@@ -267,7 +267,7 @@ package com.macro.gUI.base
 
 		
 		
-		public function localToGlobal():Point
+		public function globalCoord():Point
 		{
 			var p:Point = _rect.topLeft;
 			var control:IControl = this;

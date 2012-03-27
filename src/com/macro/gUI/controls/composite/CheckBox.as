@@ -7,6 +7,7 @@ package com.macro.gUI.controls.composite
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IKeyboard;
+	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Label;
 	import com.macro.gUI.controls.ToggleButton;
 	import com.macro.gUI.skin.ISkin;
@@ -60,8 +61,9 @@ package com.macro.gUI.controls.composite
 			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin;
 			_icon.selectedDisableSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_SELECTED_DISABLE);
 
-			_children.push(_icon);
-			_children.push(_label);
+			_container = new Container();
+			_container.addChild(_icon);
+			_container.addChild(_label);
 
 			resize();
 		}

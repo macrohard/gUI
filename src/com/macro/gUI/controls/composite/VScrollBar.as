@@ -9,6 +9,7 @@ package com.macro.gUI.controls.composite
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IDrag;
 	import com.macro.gUI.base.feature.IKeyboard;
+	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Button;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
@@ -110,10 +111,11 @@ package com.macro.gUI.controls.composite
 			_downBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DOWN);
 			_downBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DISABLE);
 			
-			_children.push(_track);
-			_children.push(_blockBtn);
-			_children.push(_upBtn);
-			_children.push(_downBtn);
+			_container = new Container();
+			_container.addChild(_track);
+			_container.addChild(_blockBtn);
+			_container.addChild(_upBtn);
+			_container.addChild(_downBtn);
 			
 			resize(0, _rect.height);
 		}

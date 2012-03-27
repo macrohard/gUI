@@ -3,11 +3,13 @@ package com.macro.gUI.controls.composite
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.base.AbstractComposite;
+	import com.macro.gUI.base.AbstractContainer;
+	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Canvas;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -58,8 +60,9 @@ package com.macro.gUI.controls.composite
 			_fillingSkin = infillSkin ? infillSkin : GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
 			_canvas = new Canvas(width - bgSkin.gridLeft - bgSkin.gridRight, _fillingSkin.bitmapData.height);
 
-			_children.push(_bg);
-			_children.push(_canvas);
+			_container = new Container();
+			_container.addChild(_bg);
+			_container.addChild(_canvas);
 
 			resize(_rect.width);
 		}
