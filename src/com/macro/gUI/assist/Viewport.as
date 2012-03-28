@@ -1,6 +1,6 @@
 package com.macro.gUI.assist
 {
-	import com.macro.gUI.base.IControl;
+	import com.macro.gUI.base.AbstractControl;
 	
 	import flash.geom.Rectangle;
 
@@ -19,7 +19,7 @@ package com.macro.gUI.assist
 		/**
 		 * 滚动目标
 		 */
-		public var scrollTarget:IControl;
+		public var scrollTarget:AbstractControl;
 		
 		/**
 		 * 边距，使用left, top, right, bottom定义
@@ -33,7 +33,7 @@ package com.macro.gUI.assist
 		 * @param padding 边距，使用left, top, right, bottom定义
 		 * 
 		 */
-		public function Viewport(containerRect:Rectangle, scrollTarget:IControl, padding:Rectangle = null)
+		public function Viewport(containerRect:Rectangle, scrollTarget:AbstractControl, padding:Rectangle = null)
 		{
 			this.containerRect = containerRect;
 			this.scrollTarget = scrollTarget;
@@ -47,7 +47,7 @@ package com.macro.gUI.assist
 		 */
 		public function get ratioH():Number
 		{
-			return (containerRect.width - padding.left - padding.right) / scrollTarget.rect.width;
+			return (containerRect.width - padding.left - padding.right) / scrollTarget.width;
 		}
 		
 		/**
@@ -57,7 +57,7 @@ package com.macro.gUI.assist
 		 */
 		public function get ratioV():Number
 		{
-			return (containerRect.height - padding.top - padding.bottom) / scrollTarget.rect.height;
+			return (containerRect.height - padding.top - padding.bottom) / scrollTarget.height;
 		}
 		
 		/**
@@ -68,8 +68,8 @@ package com.macro.gUI.assist
 		public function scrollH(ratio:Number):void
 		{
 			var x:int = containerRect.x + padding.left;
-			var w:int = scrollTarget.rect.width - (containerRect.width - padding.left - padding.right);
-			scrollTarget.rect.x = x - w * ratio;
+			var w:int = scrollTarget.width - (containerRect.width - padding.left - padding.right);
+			scrollTarget.x = x - w * ratio;
 		}
 		
 		/**
@@ -80,8 +80,8 @@ package com.macro.gUI.assist
 		public function scrollV(ratio:Number):void
 		{
 			var y:int = containerRect.y + padding.top;
-			var h:int = scrollTarget.rect.height - (containerRect.height - padding.top - padding.bottom);
-			scrollTarget.rect.y = y - h * ratio;
+			var h:int = scrollTarget.height - (containerRect.height - padding.top - padding.bottom);
+			scrollTarget.y = y - h * ratio;
 		}
 	}
 }

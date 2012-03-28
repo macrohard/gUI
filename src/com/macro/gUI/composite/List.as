@@ -178,6 +178,8 @@ package com.macro.gUI.composite
 				cell.y = _padding.top + i * itemH;
 				cell.width = itemW;
 			}
+			
+			_itemContainer.resize(_padding.left + itemW, _rect.height);
 		}
 		
 		
