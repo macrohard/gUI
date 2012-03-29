@@ -5,6 +5,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
+	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.skin.StyleDef;
 	
 	import flash.geom.Point;
@@ -16,7 +17,7 @@ package com.macro.gUI.controls
 	 * @author macro776@gmail.com
 	 *
 	 */
-	public class LinkButton extends Label implements IButton
+	public class LinkButton extends Label implements IButton, IFocus
 	{
 
 		protected var _styles:Dictionary;

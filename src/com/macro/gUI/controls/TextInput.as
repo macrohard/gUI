@@ -6,6 +6,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IEdit;
+	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
@@ -28,7 +29,7 @@ package com.macro.gUI.controls
 	 * @author macro776@gmail.com
 	 *
 	 */
-	public class TextInput extends Label implements IEdit
+	public class TextInput extends Label implements IEdit, IFocus
 	{
 
 		protected var _skins:Dictionary;
@@ -78,6 +79,20 @@ package com.macro.gUI.controls
 		}
 		
 		
+		
+		private var _tabIndex:int;
+		
+		public function get tabIndex():int
+		{
+			return _tabIndex;
+		}
+		
+		public function set tabIndex(value:int):void
+		{
+			_tabIndex = value;
+		}
+		
+		
 		private var _enabled:Boolean;
 		/**
 		 * 是否启用
@@ -107,19 +122,6 @@ package com.macro.gUI.controls
 				}
 				drawText();
 			}
-		}
-		
-		
-		private var _tabIndex:int;
-		
-		public function get tabIndex():int
-		{
-			return _tabIndex;
-		}
-		
-		public function set tabIndex(value:int):void
-		{
-			_tabIndex = value;
 		}
 		
 		

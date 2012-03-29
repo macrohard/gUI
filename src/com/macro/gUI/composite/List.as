@@ -5,6 +5,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IDrag;
+	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Cell;
 	import com.macro.gUI.controls.Slice;
@@ -12,6 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.skin.SkinDef;
 	
 	import flash.display.BitmapData;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
 	/**
@@ -19,7 +21,7 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
-	public class List extends AbstractComposite implements IDrag, IButton
+	public class List extends AbstractComposite implements IDrag, IButton, IFocus
 	{
 		
 		private var _bg:Slice;
@@ -154,10 +156,40 @@ package com.macro.gUI.composite
 		}
 		
 		
+		/**
+		 * 选择项索引
+		 * @return 
+		 * 
+		 */
+		public function get selectedIndex():int
+		{
+			return _itemContainer.children.indexOf(_selectItem);
+		}
+		
+		public function set selectedIndex(value:int):void
+		{
+			_selectItem = _itemContainer.getChildAt(value) as Cell;
+			resetSkin();
+		}
+		
+		
+		/**
+		 * 获取选择项文本
+		 * @return 
+		 * 
+		 */
+		public function get selectedText():String
+		{
+			return _selectItem.text;
+		}
+		
+		
+		
 		public override function set align(value:int):void
 		{
 			throw new Error("Unsupport Property!");
 		}
+		
 		
 		
 		private var _tabIndex:int;
@@ -177,6 +209,7 @@ package com.macro.gUI.composite
 		{
 			return true;
 		}
+		
 		
 		
 		public function get dragMode():int
@@ -275,6 +308,7 @@ package com.macro.gUI.composite
 			layout();
 		}
 		
+		
 		private function resetSkin():void
 		{
 			var cell:Cell;
@@ -296,33 +330,93 @@ package com.macro.gUI.composite
 		
 		public function hitTest(x:int, y:int):IControl
 		{
-			return null;
+			_mouseObj == null;
+			
+			if (_scrollBar.parent != null)
+			{
+				_mouseObj = _scrollBar.hitTest(x, y);
+			}
+			
+			// 检测是否在控件范围内
+			if (_mouseObj == null)
+			{
+				var p:Point = this.globalCoord();
+				x -= p.x;
+				y -= p.y;
+				
+				if (_bg.rect.contains(x, y))
+				{
+					_mouseObj = _bg;
+					
+					// 检测是否在列表项范围
+					x -= _padding.x;
+					y -= _padding.y;
+					
+					for each (var cell:Cell in _itemContainer.children)
+					{
+						if (cell.rect.contains(x, y))
+						{
+							_mouseObj = cell;
+						}
+					}
+				}
+			}
+			
+			return _mouseObj;
 		}
 		
 		
 		public function mouseDown():void
 		{
-			
+			if (_mouseObj == _bg)
+			{
+				return;
+			}
+			else if (_mouseObj is Cell)
+			{
+				if (_selectItem != null)
+				{
+					_selectItem.skin = _cellSkin;
+				}
+				_selectItem = _mouseObj  as Cell;
+				_selectItem.skin = _cellSelectedSkin;
+			}
+			else
+			{
+				_scrollBar.mouseDown();
+			}
 		}
 		
 		public function mouseUp():void
 		{
-			
+			if (_mouseObj != _bg && !(_mouseObj is Cell))
+			{
+				_scrollBar.mouseUp();
+			}
 		}
 		
 		public function mouseOut():void
 		{
-			
+			if (_mouseObj != _bg && !(_mouseObj is Cell))
+			{
+				_scrollBar.mouseOut();
+			}
 		}
 		
 		public function mouseOver():void
 		{
-			
+			if (_mouseObj != _bg && !(_mouseObj is Cell))
+			{
+				_scrollBar.mouseOver();
+			}
 		}
 		
 		public function setDragPos(x:int, y:int):void
 		{
-			
+			if (_mouseObj != _bg && !(_mouseObj is Cell))
+			{
+				_scrollBar.setDragPos(x, y);
+			}
 		}
 		
 		public function getDragImage():BitmapData

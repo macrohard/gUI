@@ -8,6 +8,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IDrag;
+	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Button;
@@ -29,7 +30,7 @@ package com.macro.gUI.composite
 	 * @author Macro776@gmail.com
 	 *
 	 */
-	public class HScrollBar extends AbstractComposite implements IKeyboard, IDrag, IButton
+	public class HScrollBar extends AbstractComposite implements IKeyboard, IDrag, IButton, IFocus
 	{
 
 		private var _track:Slice;
@@ -278,6 +279,20 @@ package com.macro.gUI.composite
 			_value = value < _minimum ? _minimum : (value > _maximum ? _maximum : value);
 			relocateBlock();
 		}
+		
+		
+		
+		private var _tabIndex:int;
+		
+		public function get tabIndex():int
+		{
+			return _tabIndex;
+		}
+		
+		public function set tabIndex(value:int):void
+		{
+			_tabIndex = value;
+		}
 
 
 		public function get enabled():Boolean
@@ -293,6 +308,7 @@ package com.macro.gUI.composite
 		}
 
 
+		
 		public function get dragMode():int
 		{
 			if (_mouseObj == _blockBtn)
@@ -303,18 +319,6 @@ package com.macro.gUI.composite
 			return DragMode.NONE;
 		}
 
-
-		private var _tabIndex:int;
-
-		public function get tabIndex():int
-		{
-			return _tabIndex;
-		}
-
-		public function set tabIndex(value:int):void
-		{
-			_tabIndex = value;
-		}
 
 
 		public function get blockNormalSkin():ISkin
@@ -571,6 +575,7 @@ package com.macro.gUI.composite
 			x -= p.x;
 			y -= p.y;
 			
+			_mouseObj = null;
 			_mouseX = x;
 			_blockX = _blockBtn.x;
 
@@ -589,10 +594,6 @@ package com.macro.gUI.composite
 			else if (_track.rect.contains(x, y))
 			{
 				_mouseObj = _track;
-			}
-			else
-			{
-				_mouseObj = null;
 			}
 
 			return _mouseObj;

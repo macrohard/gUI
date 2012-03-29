@@ -6,6 +6,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.base.AbstractComposite;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
+	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Label;
@@ -23,7 +24,7 @@ package com.macro.gUI.composite
 	 * @author Macro776@gmail.com
 	 *
 	 */
-	public class CheckBox extends AbstractComposite implements IButton, IKeyboard
+	public class CheckBox extends AbstractComposite implements IButton, IKeyboard, IFocus
 	{
 		
 		/**
@@ -137,6 +138,7 @@ package com.macro.gUI.composite
 		}
 		
 		
+		
 		private var _tabIndex:int;
 		
 		public function get tabIndex():int
@@ -159,6 +161,7 @@ package com.macro.gUI.composite
 		{
 			_icon.enabled = value;
 		}
+		
 		
 		
 		/**

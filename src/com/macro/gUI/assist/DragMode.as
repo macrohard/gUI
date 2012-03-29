@@ -18,13 +18,13 @@ package com.macro.gUI.assist
 		public static const INTERNAL:int = 1;
 		
 		/**
-		 * 实时拖动，直接设置控件的x, y
-		 */
-		public static const REALTIME:int = 2;
-		
-		/**
 		 * 拖动替代图像，替代图像显示在最上层。调用控件的getDragImage接口来获取替代图像
 		 */
-		public static const COPY:int = 3;
+		public static const AVATAR:int = 2;
+		
+		/**
+		 * 实时拖动，直接设置控件的x, y
+		 */
+		public static const DIRECT:int = 3;
 	}
 }

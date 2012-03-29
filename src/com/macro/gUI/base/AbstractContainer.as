@@ -68,11 +68,6 @@ package com.macro.gUI.base
 		}
 
 
-		/**
-		 * 获取子控件数量
-		 * @return
-		 *
-		 */
 		public function get numChildren():int
 		{
 			return _children.length;
@@ -210,12 +205,6 @@ package com.macro.gUI.base
 			return child;
 		}
 
-		/**
-		 * 移除指定范围的所有子控件
-		 * @param beginIndex 首个子控件的深度
-		 * @param endIndex 最后一个子控件的深度，如果是-1，则指向结尾
-		 *
-		 */
 		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
 		{
 			if (endIndex == -1)
@@ -240,12 +229,6 @@ package com.macro.gUI.base
 			_children.splice(beginIndex, endIndex - beginIndex);
 		}
 
-		/**
-		 * 获取指定深度的控件
-		 * @param index
-		 * @return
-		 *
-		 */
 		public function getChildAt(index:int):IControl
 		{
 			if (index >= 0 && index < _children.length)
@@ -255,23 +238,11 @@ package com.macro.gUI.base
 			return null;
 		}
 
-		/**
-		 * 获取指定控件的深度
-		 * @param child
-		 * @return
-		 *
-		 */
 		public function getChildIndex(child:IControl):int
 		{
 			return _children.indexOf(child);
 		}
 
-		/**
-		 * 更改现有子控件的深度
-		 * @param child
-		 * @param index
-		 *
-		 */
 		public function setChildIndex(child:IControl, index:int):void
 		{
 			var p:int = _children.indexOf(child);
@@ -289,12 +260,6 @@ package com.macro.gUI.base
 			_children.splice(index, 0, child);
 		}
 
-		/**
-		 * 交换两个子控件的深度
-		 * @param child1
-		 * @param child2
-		 *
-		 */
 		public function swapChildren(child1:IControl, child2:IControl):void
 		{
 			var p1:int = _children.indexOf(child1);
@@ -302,12 +267,6 @@ package com.macro.gUI.base
 			swapChildrenAt(p1, p2);
 		}
 
-		/**
-		 * 交换指定深度的两个子控件
-		 * @param index1
-		 * @param index2
-		 *
-		 */
 		public function swapChildrenAt(index1:int, index2:int):void
 		{
 			if (index1 < 0 || index1 >= _children.length || index2 < 0 || index2 >= _children.length ||

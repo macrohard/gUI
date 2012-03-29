@@ -34,6 +34,13 @@ package com.macro.gUI.base
 		function get children():Vector.<IControl>;
 		
 		/**
+		 * 获取子控件数量
+		 * @return
+		 *
+		 */
+		function get numChildren():int;
+		
+		/**
 		 * 添加子控件
 		 * @param child
 		 * 
@@ -62,5 +69,53 @@ package com.macro.gUI.base
 		 * 
 		 */
 		function removeChildAt(index:int):IControl;
+		
+		/**
+		 * 移除指定范围的所有子控件
+		 * @param beginIndex 首个子控件的深度
+		 * @param endIndex 最后一个子控件的深度，如果是-1，则指向结尾
+		 *
+		 */
+		function removeChildren(beginIndex:int = 0, endIndex:int = -1):void;
+		
+		/**
+		 * 获取指定深度的控件
+		 * @param index
+		 * @return
+		 *
+		 */
+		function getChildAt(index:int):IControl;
+		
+		/**
+		 * 获取指定控件的深度
+		 * @param child
+		 * @return
+		 *
+		 */
+		function getChildIndex(child:IControl):int;
+		
+		/**
+		 * 更改现有子控件的深度
+		 * @param child
+		 * @param index
+		 *
+		 */
+		function setChildIndex(child:IControl, index:int):void;
+		
+		/**
+		 * 交换两个子控件的深度
+		 * @param child1
+		 * @param child2
+		 *
+		 */
+		function swapChildren(child1:IControl, child2:IControl):void;
+		
+		/**
+		 * 交换指定深度的两个子控件
+		 * @param index1
+		 * @param index2
+		 *
+		 */
+		function swapChildrenAt(index1:int, index2:int):void;
 	}
 }

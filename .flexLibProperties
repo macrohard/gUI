@@ -17,7 +17,6 @@
     <classEntry path="com.macro.gUI.base.feature.IButton"/>
     <classEntry path="com.macro.gUI.base.feature.IDrag"/>
     <classEntry path="com.macro.gUI.base.feature.IEdit"/>
-    <classEntry path="com.macro.gUI.base.feature.IFocus"/>
     <classEntry path="com.macro.gUI.base.feature.IKeyboard"/>
     <classEntry path="com.macro.gUI.containers.Container"/>
     <classEntry path="com.macro.gUI.containers.Panel"/>

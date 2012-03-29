@@ -71,11 +71,7 @@ package com.macro.gUI.base
 
 
 		protected var _bitmapData:BitmapData;
-		/**
-		 * 控件的位图数据对象
-		 * @return
-		 *
-		 */
+		
 		public function get bitmapData():BitmapData
 		{
 			return _bitmapData;
@@ -103,7 +99,7 @@ package com.macro.gUI.base
 		
 		private var _transparent:Boolean;
 		/**
-		 * 透明
+		 * 是否背景透明
 		 */
 		public function get transparent():Boolean
 		{
@@ -121,11 +117,7 @@ package com.macro.gUI.base
 
 		
 		protected var _rect:Rectangle;
-		/**
-		 * 控件的位置、大小
-		 * @return
-		 *
-		 */
+		
 		public function get rect():Rectangle
 		{
 			return _rect.clone();
@@ -203,11 +195,7 @@ package com.macro.gUI.base
 		
 		
 		private var _alpha:Number;
-		/**
-		 * 透明度，由UI体系使用。有效值为 0（完全透明）到 1（完全不透明）。默认值为 1。
-		 * @return
-		 *
-		 */
+		
 		public function get alpha():Number
 		{
 			return _alpha;
@@ -220,11 +208,7 @@ package com.macro.gUI.base
 		
 		
 		private var _visible:Boolean;
-		/**
-		 * 可见性，由UI体系使用
-		 * @return
-		 *
-		 */
+		
 		public function get visible():Boolean
 		{
 			return _visible;
@@ -233,6 +217,19 @@ package com.macro.gUI.base
 		public function set visible(value:Boolean):void
 		{
 			_visible = value;
+		}
+		
+		
+		private var _enabled:Boolean;
+		
+		public function get enabled():Boolean
+		{
+			return _enabled;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			_enabled = value;
 		}
 
 
@@ -255,18 +252,6 @@ package com.macro.gUI.base
 		}
 
 
-		/**
-		 * 覆盖父类添加侦听器的方法，修改弱引用参数默认值为true，因为使用类成员作为侦听器的使用环境更为常见
-		 *
-		 */
-		public override function addEventListener(type:String, listener:Function, useCapture:Boolean = false,
-												  priority:int = 0, useWeakReference:Boolean = true):void
-		{
-			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-		}
-
-		
-		
 		public function globalCoord():Point
 		{
 			var p:Point = _rect.topLeft;
@@ -278,6 +263,34 @@ package com.macro.gUI.base
 			}
 			return p;
 		}
+		
+		
+		public function hitTest(x:int, y:int):IControl
+		{
+			var p:Point = globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
+			if (_rect.contains(x, y))
+			{
+				return this;
+			}
+			
+			return null;
+		}
+		
+		
+		
+		/**
+		 * 覆盖父类添加侦听器的方法，修改弱引用参数默认值为true，因为使用类成员作为侦听器的使用环境更为常见
+		 *
+		 */
+		public override function addEventListener(type:String, listener:Function, useCapture:Boolean = false,
+												  priority:int = 0, useWeakReference:Boolean = true):void
+		{
+			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		}
+		
 
 
 		/**
@@ -378,6 +391,14 @@ package com.macro.gUI.base
 		}
 
 		/**
+		 * 皮肤绘制之前
+		 *
+		 */
+		protected function prePaint():void
+		{
+		}
+		
+		/**
 		 * 皮肤绘制之后
 		 *
 		 */
@@ -385,19 +406,10 @@ package com.macro.gUI.base
 		{
 		}
 
-		/**
-		 * 皮肤绘制之前
-		 *
-		 */
-		protected function prePaint():void
-		{
-		}
-
 
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 		// 静态绘图方法，由子类使用
-
 
 		/**
 		 * 按完全缩放方式绘图制皮肤

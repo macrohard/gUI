@@ -7,7 +7,7 @@ package com.macro.gUI.base.feature
 	 * @author macro776@gmail.com
 	 * 
 	 */
-	public interface IDrag extends IFocus
+	public interface IDrag
 	{
 		/**
 		 * 拖动方式，参见DragMode枚举
@@ -17,7 +17,7 @@ package com.macro.gUI.base.feature
 		function get dragMode():int;
 		
 		/**
-		 * DragMode为COPY时调用，获取拖动图像
+		 * DragMode为AVATAR时调用，获取拖动图像
 		 * @return 返回null时，放弃拖动操作
 		 * 
 		 */

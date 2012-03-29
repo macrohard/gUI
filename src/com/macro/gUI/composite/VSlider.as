@@ -7,6 +7,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IDrag;
+	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Button;
@@ -26,7 +27,7 @@ package com.macro.gUI.composite
 	 * @author Macro776@gmail.com
 	 *
 	 */
-	public class VSlider extends AbstractComposite implements IKeyboard, IDrag, IButton
+	public class VSlider extends AbstractComposite implements IKeyboard, IDrag, IButton, IFocus
 	{
 
 		private var _bg:Slice;
@@ -214,26 +215,6 @@ package com.macro.gUI.composite
 		}
 
 		
-		public function get enabled():Boolean
-		{
-			return _blockBtn.enabled;
-		}
-		
-		public function set enabled(value:Boolean):void
-		{
-			_blockBtn.enabled = value;
-		}
-		
-		
-		public function get dragMode():int
-		{
-			if (_mouseObj == _blockBtn)
-			{
-				return DragMode.INTERNAL;
-			}
-			return DragMode.NONE;
-		}
-		
 		
 		private var _tabIndex:int;
 		
@@ -246,6 +227,29 @@ package com.macro.gUI.composite
 		{
 			_tabIndex = value;
 		}
+		
+		
+		public function get enabled():Boolean
+		{
+			return _blockBtn.enabled;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			_blockBtn.enabled = value;
+		}
+		
+		
+		
+		public function get dragMode():int
+		{
+			if (_mouseObj == _blockBtn)
+			{
+				return DragMode.INTERNAL;
+			}
+			return DragMode.NONE;
+		}
+		
 		
 		
 		public function get blockNormalSkin():ISkin
@@ -366,6 +370,7 @@ package com.macro.gUI.composite
 			x -= p.x;
 			y -= p.y;
 			
+			_mouseObj = null;
 			if (_blockBtn.rect.contains(x, y))
 			{
 				_mouseObj = _blockBtn;
@@ -373,10 +378,6 @@ package com.macro.gUI.composite
 			else if (_bg.rect.contains(x, y))
 			{
 				_mouseObj = _bg;
-			}
-			else
-			{
-				_mouseObj = null;
 			}
 
 			return _mouseObj;

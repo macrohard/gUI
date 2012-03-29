@@ -1,14 +1,12 @@
 package com.macro.gUI.base.feature
 {
-	import com.macro.gUI.base.feature.IFocus;
-	
 
 	/**
 	 * 控件可以接收鼠标操作
 	 * @author Macro776@gmail.com
 	 * 
 	 */
-	public interface IButton extends IFocus
+	public interface IButton
 	{
 		
 		/**

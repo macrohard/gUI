@@ -174,11 +174,6 @@ package com.macro.gUI.base
 		}
 		
 		
-		/**
-		 * 透明度，由UI体系使用。有效值为 0（完全透明）到 1（完全不透明）。默认值为 1。
-		 * @return
-		 *
-		 */
 		public override function get alpha():Number
 		{
 			return _container.alpha;
@@ -190,11 +185,6 @@ package com.macro.gUI.base
 		}
 		
 		
-		/**
-		 * 可见性，由UI体系使用
-		 * @return
-		 *
-		 */
 		public override function get visible():Boolean
 		{
 			return _container.visible;
@@ -203,6 +193,17 @@ package com.macro.gUI.base
 		public override function set visible(value:Boolean):void
 		{
 			_container.visible = value;
+		}
+		
+		
+		public override function get enabled():Boolean
+		{
+			return _container.enabled;
+		}
+		
+		public override function set enabled(value:Boolean):void
+		{
+			_container.enabled;
 		}
 		
 		
@@ -229,6 +230,12 @@ package com.macro.gUI.base
 		}
 		
 		
+		public override function hitTest(x:int, y:int):IControl
+		{
+			return _container.hitTest(x, y);
+		}
+		
+		
 		public override function resize(width:int = 0, height:int = 0):void
 		{
 			_container.resize(width, height);
@@ -242,6 +249,7 @@ package com.macro.gUI.base
 			_rect = _container.rect;
 			layout();
 		}
+		
 		
 		/**
 		 * 复合控件不执行绘制
@@ -268,6 +276,7 @@ package com.macro.gUI.base
 		{
 		}
 
+		
 		/**
 		 * 布局
 		 *
