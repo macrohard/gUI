@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
   <includeClasses>
+    <classEntry path="com.macro.gUI.managers.FocusManager"/>
     <classEntry path="com.macro.gUI.GameUI"/>
+    <classEntry path="com.macro.gUI.managers.InteractionManager"/>
+    <classEntry path="com.macro.gUI.managers.PopupManager"/>
+    <classEntry path="com.macro.gUI.managers.SkinManager"/>
+    <classEntry path="com.macro.gUI.managers.UIManager"/>
     <classEntry path="com.macro.gUI.assist.CtrlState"/>
     <classEntry path="com.macro.gUI.assist.DragMode"/>
     <classEntry path="com.macro.gUI.assist.LayoutAlign"/>
-    <classEntry path="com.macro.gUI.assist.RadioButtonGroup"/>
     <classEntry path="com.macro.gUI.assist.TextStyle"/>
     <classEntry path="com.macro.gUI.assist.Viewport"/>
     <classEntry path="com.macro.gUI.base.AbstractComposite"/>
@@ -22,23 +26,24 @@
     <classEntry path="com.macro.gUI.containers.Panel"/>
     <classEntry path="com.macro.gUI.controls.Button"/>
     <classEntry path="com.macro.gUI.controls.Canvas"/>
-    <classEntry path="com.macro.gUI.controls.Cell"/>
     <classEntry path="com.macro.gUI.controls.IconButton"/>
     <classEntry path="com.macro.gUI.controls.ImageBox"/>
     <classEntry path="com.macro.gUI.controls.Label"/>
     <classEntry path="com.macro.gUI.controls.LinkButton"/>
     <classEntry path="com.macro.gUI.controls.Slice"/>
     <classEntry path="com.macro.gUI.controls.TextInput"/>
+    <classEntry path="com.macro.gUI.controls.Cell"/>
     <classEntry path="com.macro.gUI.controls.ToggleButton"/>
-    <classEntry path="com.macro.gUI.managers.FocusManager"/>
-    <classEntry path="com.macro.gUI.managers.InteractionManager"/>
-    <classEntry path="com.macro.gUI.managers.PopupManager"/>
-    <classEntry path="com.macro.gUI.managers.SkinManager"/>
-    <classEntry path="com.macro.gUI.managers.UIManager"/>
+    <classEntry path="com.macro.gUI.composite.CheckBox"/>
+    <classEntry path="com.macro.gUI.composite.HScrollBar"/>
+    <classEntry path="com.macro.gUI.composite.HSlider"/>
+    <classEntry path="com.macro.gUI.composite.ProgressBar"/>
+    <classEntry path="com.macro.gUI.composite.RadioButton"/>
+    <classEntry path="com.macro.gUI.composite.VScrollBar"/>
+    <classEntry path="com.macro.gUI.composite.VSlider"/>
     <classEntry path="com.macro.gUI.render.RComposite"/>
     <classEntry path="com.macro.gUI.render.RContainer"/>
     <classEntry path="com.macro.gUI.render.RControl"/>
-    <classEntry path="com.macro.gUI.skin.IAnimationSkin"/>
     <classEntry path="com.macro.gUI.skin.ISkin"/>
     <classEntry path="com.macro.gUI.skin.SkinDef"/>
     <classEntry path="com.macro.gUI.skin.StyleDef"/>
@@ -47,7 +52,6 @@
     <classEntry path="com.macro.gUI.skin.impl.SWFProxy"/>
     <classEntry path="com.macro.gUI.skin.impl.SerialFrames"/>
     <classEntry path="com.macro.gUI.skin.impl.SpriteSkin"/>
-    <classEntry path="com.macro.ioc.HandlerInfo"/>
     <classEntry path="com.macro.logging.IAppender"/>
     <classEntry path="com.macro.logging.LogFilter"/>
     <classEntry path="com.macro.logging.LogLevel"/>
@@ -55,9 +59,14 @@
     <classEntry path="com.macro.logging.SOSAppender"/>
     <classEntry path="com.macro.logging.TraceAppender"/>
     <classEntry path="com.macro.utils.StrUtil"/>
+    <classEntry path="com.macro.ioc.HandlerInfo"/>
     <classEntry path="com.macro.utils.WordFilterUtil"/>
-    <classEntry path="com.macro.utils.fte.TextSegment"/>
     <classEntry path="com.macro.utils.fte.TextUtil"/>
+    <classEntry path="com.macro.utils.fte.TextSegment"/>
+    <classEntry path="com.macro.gUI.skin.IAnimationSkin"/>
+    <classEntry path="com.macro.gUI.assist.RadioButtonGroup"/>
+    <classEntry path="com.macro.gUI.composite.List"/>
+    <classEntry path="com.macro.gUI.base.feature.IFocus"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

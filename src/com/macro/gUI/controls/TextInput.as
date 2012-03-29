@@ -7,19 +7,16 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IEdit;
 	import com.macro.gUI.base.feature.IFocus;
-	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 	
 	import flash.events.Event;
-	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFieldType;
-	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
 
 
@@ -93,18 +90,7 @@ package com.macro.gUI.controls
 		}
 		
 		
-		private var _enabled:Boolean;
-		/**
-		 * 是否启用
-		 * @return
-		 *
-		 */
-		public function get enabled():Boolean
-		{
-			return _enabled;
-		}
-		
-		public function set enabled(value:Boolean):void
+		public override function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
 			{
@@ -245,21 +231,6 @@ package com.macro.gUI.controls
 			_padding = new Rectangle(10);
 		}
 
-
-
-		public function hitTest(x:int, y:int):IControl
-		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
-			
-			if (_textDrawRect && _textDrawRect.contains(x, y))
-			{
-				return this;
-			}
-
-			return null;
-		}
 
 
 		/**

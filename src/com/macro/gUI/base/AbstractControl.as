@@ -220,7 +220,7 @@ package com.macro.gUI.base
 		}
 		
 		
-		private var _enabled:Boolean;
+		protected var _enabled:Boolean;
 		
 		public function get enabled():Boolean
 		{
@@ -231,8 +231,8 @@ package com.macro.gUI.base
 		{
 			_enabled = value;
 		}
-
-
+		
+		
 		private var _parent:IContainer;
 		
 		public function get parent():IContainer

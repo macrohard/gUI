@@ -3,10 +3,12 @@ package com.macro.gUI.controls
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.AbstractControl;
+	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.utils.StrUtil;
 	
 	import flash.display.BitmapData;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -28,12 +30,12 @@ package com.macro.gUI.controls
 		/**
 		 * 文本图像区域
 		 */
-		protected var _textDrawRect:Rectangle;
+		private var _textDrawRect:Rectangle;
 
 		/**
 		 * 是否重绘文本
 		 */
-		protected var _rebuildTextImg:Boolean;
+		private var _rebuildTextImg:Boolean;
 
 
 
@@ -191,6 +193,20 @@ package com.macro.gUI.controls
 		protected function init():void
 		{
 			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.NORMAL);
+		}
+		
+		
+		public override function hitTest(x:int, y:int):IControl
+		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
+			if (_textDrawRect && _textDrawRect.contains(x, y))
+			{
+				return this;
+			}
+			return null;
 		}
 
 		

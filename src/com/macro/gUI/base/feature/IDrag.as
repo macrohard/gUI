@@ -3,7 +3,7 @@ package com.macro.gUI.base.feature
 	import flash.display.BitmapData;
 
 	/**
-	 * 控件可以拖动
+	 * 控件支持拖动
 	 * @author macro776@gmail.com
 	 * 
 	 */

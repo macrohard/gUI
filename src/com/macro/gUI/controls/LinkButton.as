@@ -6,18 +6,20 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IFocus;
+	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.StyleDef;
 	
+	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
-
+	
 
 	/**
 	 * 链接按钮
 	 * @author macro776@gmail.com
 	 *
 	 */
-	public class LinkButton extends Label implements IButton, IFocus
+	public class LinkButton extends Label implements IButton, IKeyboard, IFocus
 	{
 
 		protected var _styles:Dictionary;
@@ -53,14 +55,7 @@ package com.macro.gUI.controls
 		}
 		
 		
-		protected var _enabled:Boolean;
-		
-		public function get enabled():Boolean
-		{
-			return _enabled;
-		}
-		
-		public function set enabled(value:Boolean):void
+		public override function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
 			{
@@ -162,19 +157,6 @@ package com.macro.gUI.controls
 		}
 
 
-		public function hitTest(x:int, y:int):IControl
-		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
-			
-			if (_textDrawRect && _textDrawRect.contains(x, y))
-			{
-				return this;
-			}
-			return null;
-		}
-
 		public function mouseDown():void
 		{
 			if (!_enabled)
@@ -220,6 +202,17 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.NORMAL];
 				drawText();
 			}
+		}
+		
+		
+		public function keyDown(e:KeyboardEvent):void
+		{
+			mouseDown();
+		}
+		
+		public function keyUp(e:KeyboardEvent):void
+		{
+			mouseOut();
 		}
 	}
 }

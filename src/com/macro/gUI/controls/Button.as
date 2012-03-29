@@ -48,7 +48,7 @@ package com.macro.gUI.controls
 		
 		protected var _precise:Boolean;
 		/**
-		 * 是否精确测试，如果为true，则按像素来判断HitTest，否则只考虑范围矩形。默认值是false
+		 * 是否精确测试，如果为true，则按像素来判断，否则只考虑范围矩形。默认值是false
 		 * @return
 		 *
 		 */
