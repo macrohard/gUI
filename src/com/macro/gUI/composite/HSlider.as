@@ -16,6 +16,7 @@ package com.macro.gUI.composite
 	
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.ui.Keyboard;
 
@@ -364,6 +365,10 @@ package com.macro.gUI.composite
 
 		public function hitTest(x:int, y:int):IControl
 		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
 			if (_blockBtn.rect.contains(x, y))
 			{
 				_mouseObj = _blockBtn;
@@ -443,6 +448,10 @@ package com.macro.gUI.composite
 			{
 				return;
 			}
+			
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
 
 			var w:int = _rect.width - _padding.right - _padding.left;
 			var d:int = x - _padding.left;

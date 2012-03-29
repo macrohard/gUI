@@ -3,12 +3,15 @@ package com.macro.gUI.composite
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.base.AbstractComposite;
 	import com.macro.gUI.base.IControl;
+	import com.macro.gUI.base.feature.IButton;
+	import com.macro.gUI.base.feature.IDrag;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Cell;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	
+	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 	
 	/**
@@ -16,17 +19,31 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
-	public class List extends AbstractComposite
+	public class List extends AbstractComposite implements IDrag, IButton
 	{
 		
 		private var _bg:Slice;
 		
-		private var _selectItem:Cell;
 		
-		
+		/**
+		 * 列表项容器
+		 */
 		private var _itemContainer:Container;
 		
+		/**
+		 * 垂直滚动条
+		 */
 		private var _scrollBar:VScrollBar;
+		
+		/**
+		 * 鼠标点击的对象
+		 */
+		private var _mouseObj:IControl;
+		
+		/**
+		 * 选中的列表项
+		 */
+		private var _selectItem:Cell;
 		
 		
 		/**
@@ -143,6 +160,31 @@ package com.macro.gUI.composite
 		}
 		
 		
+		private var _tabIndex:int;
+		
+		public function get tabIndex():int
+		{
+			return _tabIndex;
+		}
+		
+		public function set tabIndex(value:int):void
+		{
+			_tabIndex = value;
+		}
+		
+		
+		public function get enabled():Boolean
+		{
+			return true;
+		}
+		
+		
+		public function get dragMode():int
+		{
+			return _scrollBar.dragMode;
+		}
+		
+		
 		
 		protected override function layout():void
 		{
@@ -153,33 +195,38 @@ package com.macro.gUI.composite
 				return;
 			}
 			
+			_itemContainer.x = _padding.left;
+			_itemContainer.y = _padding.top;
+			
 			var itemH:int = (_itemContainer.getChildAt(0) as Cell).height;
 			var itemW:int = _rect.width - _padding.left - _padding.right;
 			
-			if ((itemH * _itemContainer.numChildren + _padding.top + _padding.bottom) > _rect.height)
+			var h:int = _rect.height - _padding.top - _padding.bottom;
+			
+			if (itemH * _itemContainer.numChildren > h)
 			{
 				itemW -= _scrollBar.width;
+				
 				_container.addChild(_scrollBar);
 				_scrollBar.x = _padding.left + itemW;
 				_scrollBar.y = _padding.top;
-				_scrollBar.height = _rect.height - _padding.top - _padding.bottom;
+				_scrollBar.height = h;
 			}
 			else
 			{
 				_container.removeChild(_scrollBar);
 			}
 			
+			_itemContainer.resize(itemW, h);
+			
 			var length:int = _itemContainer.numChildren;
 			var cell:Cell;
 			for (var i:int; i < length; i++)
 			{
 				cell = _itemContainer.getChildAt(i) as Cell;
-				cell.x = _padding.left;
-				cell.y = _padding.top + i * itemH;
+				cell.y = i * itemH;
 				cell.width = itemW;
 			}
-			
-			_itemContainer.resize(_padding.left + itemW, _rect.height);
 		}
 		
 		
@@ -243,6 +290,44 @@ package com.macro.gUI.composite
 					cell.skin = _cellSkin;
 				}
 			}
+		}
+		
+		
+		
+		public function hitTest(x:int, y:int):IControl
+		{
+			return null;
+		}
+		
+		
+		public function mouseDown():void
+		{
+			
+		}
+		
+		public function mouseUp():void
+		{
+			
+		}
+		
+		public function mouseOut():void
+		{
+			
+		}
+		
+		public function mouseOver():void
+		{
+			
+		}
+		
+		public function setDragPos(x:int, y:int):void
+		{
+			
+		}
+		
+		public function getDragImage():BitmapData
+		{
+			return null;
 		}
 	}
 }

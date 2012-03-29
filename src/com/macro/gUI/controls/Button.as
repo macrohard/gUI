@@ -8,6 +8,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 	
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 
@@ -171,6 +172,10 @@ package com.macro.gUI.controls
 
 		public override function hitTest(x:int, y:int):IControl
 		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
 			if (_precise)
 			{
 				if (_bitmapData.getPixel32(x, y) != 0)

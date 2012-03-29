@@ -25,8 +25,8 @@ package com.macro.gUI.base.feature
 		
 		/**
 		 * DragMode为INTERNAL时调用，由控件内部自行实现拖放操作
-		 * @param x 基于控件坐标体系的横坐标
-		 * @param y 基于控件坐标体系的纵坐标
+		 * @param x 全局坐标
+		 * @param y 全局坐标
 		 * 
 		 */
 		function setDragPos(x:int, y:int):void;

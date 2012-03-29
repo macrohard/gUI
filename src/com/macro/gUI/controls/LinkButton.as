@@ -7,6 +7,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.skin.StyleDef;
 	
+	import flash.geom.Point;
 	import flash.utils.Dictionary;
 
 
@@ -162,6 +163,10 @@ package com.macro.gUI.controls
 
 		public function hitTest(x:int, y:int):IControl
 		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
 			if (_textDrawRect && _textDrawRect.contains(x, y))
 			{
 				return this;

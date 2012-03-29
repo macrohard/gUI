@@ -13,6 +13,7 @@ package com.macro.gUI.controls
 	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -246,6 +247,10 @@ package com.macro.gUI.controls
 
 		public function hitTest(x:int, y:int):IControl
 		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
 			if (_textDrawRect && _textDrawRect.contains(x, y))
 			{
 				return this;
@@ -345,8 +350,10 @@ package com.macro.gUI.controls
 			{
 				_editBox.autoSize = TextFieldAutoSize.LEFT;
 			}
+			
+			var p:Point = this.globalCoord();
 
-			var ox:int = _rect.x + (_padding ? _padding.left : 0);
+			var ox:int = p.x + (_padding ? _padding.left : 0);
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
 				ox += (w - txtW) >> 1;
@@ -356,7 +363,7 @@ package com.macro.gUI.controls
 				ox += w - txtW;
 			}
 
-			var oy:int = _rect.y + (_padding ? _padding.top : 0);
+			var oy:int = p.y + (_padding ? _padding.top : 0);
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
 				oy += (h - txtH) >> 1;

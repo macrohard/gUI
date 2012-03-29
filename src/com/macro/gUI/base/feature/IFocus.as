@@ -26,6 +26,8 @@ package com.macro.gUI.base.feature
 		
 		/**
 		 * 测试坐标是否在控件范围内
+		 * @param x 全局坐标
+		 * @param y 全局坐标
 		 * @return 返回点击位置所在的控件，如果返回的是一个IButton，则坐标在控件范围内，且是热区；
 		 * 如果返回的是非null，则坐标在控件范围内；如果返回的是null，则在控件范围外。
 		 * 

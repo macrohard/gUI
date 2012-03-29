@@ -17,6 +17,7 @@ package com.macro.gUI.composite
 	
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.ui.Keyboard;
 	import flash.utils.clearInterval;
@@ -566,6 +567,10 @@ package com.macro.gUI.composite
 
 		public function hitTest(x:int, y:int):IControl
 		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
 			_mouseX = x;
 			_blockX = _blockBtn.x;
 
@@ -730,13 +735,17 @@ package com.macro.gUI.composite
 			{
 				return;
 			}
-
-			var p:int = _blockX + (x - _mouseX);
-			var max:int = _track.x + _track.width - _blockBtn.width;
-			p = p < _track.x ? _track.x : (p > max ? max : p);
-			_blockBtn.x = p;
 			
-			var ratio:Number = (p - _track.x) / (_track.width - _blockBtn.width);
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+
+			var j:int = _blockX + (x - _mouseX);
+			var max:int = _track.x + _track.width - _blockBtn.width;
+			j = j < _track.x ? _track.x : (j > max ? max : j);
+			_blockBtn.x = j;
+			
+			var ratio:Number = (j - _track.x) / (_track.width - _blockBtn.width);
 			if (isNaN(ratio) || ratio < 0)
 			{
 				ratio = 0;

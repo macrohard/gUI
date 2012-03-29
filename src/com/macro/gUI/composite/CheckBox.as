@@ -14,6 +14,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.skin.SkinDef;
 	
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
 	import flash.ui.Keyboard;
 
 
@@ -307,6 +308,10 @@ package com.macro.gUI.composite
 
 		public function hitTest(x:int, y:int):IControl
 		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
 			if (_label.rect.contains(x, y) || _icon.rect.contains(x, y))
 			{
 				return _icon;
