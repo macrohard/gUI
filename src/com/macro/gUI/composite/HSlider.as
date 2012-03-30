@@ -248,17 +248,6 @@ package com.macro.gUI.composite
 
 
 
-		public function get dragMode():int
-		{
-			if (_mouseObj == _blockBtn)
-			{
-				return DragMode.INTERNAL;
-			}
-			return DragMode.NONE;
-		}
-
-
-
 		public function get blockNormalSkin():ISkin
 		{
 			return _blockBtn.normalSkin;
@@ -445,13 +434,23 @@ package com.macro.gUI.composite
 		{
 		}
 
+		
+		
+		public function getDragMode():int
+		{
+			if (_mouseObj == _blockBtn)
+			{
+				return DragMode.DIRECT;
+			}
+			return DragMode.NONE;
+		}
 
 		public function getDragImage():BitmapData
 		{
 			return null;
 		}
 
-		public function setDragPos(x:int, y:int):void
+		public function setDragCoord(x:int, y:int):void
 		{
 			if (_mouseObj != _blockBtn || !_blockBtn.enabled)
 			{

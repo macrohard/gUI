@@ -1,6 +1,7 @@
 package com.macro.gUI.composite
 {
 	import com.macro.gUI.GameUI;
+	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.Viewport;
 	import com.macro.gUI.base.AbstractComposite;
 	import com.macro.gUI.base.IControl;
@@ -173,13 +174,6 @@ package com.macro.gUI.composite
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
-		}
-
-
-
-		public function get dragMode():int
-		{
-			return _scrollBar.dragMode;
 		}
 
 
@@ -376,11 +370,21 @@ package com.macro.gUI.composite
 		}
 
 
-		public function setDragPos(x:int, y:int):void
+
+		public function getDragMode():int
 		{
 			if (_mouseObj != this && !(_mouseObj is Cell))
 			{
-				_scrollBar.setDragPos(x, y);
+				return _scrollBar.getDragMode();
+			}
+			return DragMode.NONE;
+		}
+
+		public function setDragCoord(x:int, y:int):void
+		{
+			if (_mouseObj != this && !(_mouseObj is Cell))
+			{
+				_scrollBar.setDragCoord(x, y);
 			}
 		}
 

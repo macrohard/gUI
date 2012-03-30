@@ -15,18 +15,14 @@ package com.macro.gUI.assist
 		public static const NONE:int = 0
 
 		/**
-		 * 内部实现，将调用控件的setDragPos接口
+		 * 内部实现，将调用控件的setDragCoord接口
 		 */
-		public static const INTERNAL:int = 1;
+		public static const DIRECT:int = 1;
 
 		/**
-		 * 拖动替代图像，替代图像显示在最上层。调用控件的getDragImage接口来获取替代图像
+		 * 拖动替身图像，替身图像显示在最上层。调用控件的getDragImage接口来获取替身图像
 		 */
 		public static const AVATAR:int = 2;
 
-		/**
-		 * 实时拖动，直接设置控件的x, y
-		 */
-		public static const DIRECT:int = 3;
 	}
 }

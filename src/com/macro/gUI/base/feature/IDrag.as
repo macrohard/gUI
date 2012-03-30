@@ -15,7 +15,7 @@ package com.macro.gUI.base.feature
 		 * @return
 		 *
 		 */
-		function get dragMode():int;
+		function getDragMode():int;
 
 		/**
 		 * DragMode为AVATAR时调用，获取拖动图像
@@ -25,12 +25,12 @@ package com.macro.gUI.base.feature
 		function getDragImage():BitmapData;
 
 		/**
-		 * DragMode为INTERNAL时调用，由控件内部自行实现拖放操作
+		 * DragMode为DIRECT时调用，由控件内部自行实现拖放操作
 		 * @param x 全局坐标
 		 * @param y 全局坐标
 		 *
 		 */
-		function setDragPos(x:int, y:int):void;
+		function setDragCoord(x:int, y:int):void;
 
 	}
 }
