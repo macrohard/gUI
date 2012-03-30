@@ -17,8 +17,8 @@ package com.macro.gUI.controls
 	{
 		
 		/**
-		 * 单元格控件，有文本及背景皮肤。它即可以作为List, ComboBox, Grid等控件的单元格使用，
-		 * 也可以作为TitleBar等使用
+		 * 单元格控件，有文本及背景皮肤。
+		 * 它即可以作为List, ComboBox, Grid等控件的单元格使用，也可以作为TitleBar来使用
 		 * @param text 作为文本的字符串
 		 * @param skin 背景皮肤
 		 * @param style 文本样式

@@ -11,7 +11,9 @@ package com.macro.gUI.controls
 	{
 		/**
 		 * 画布控件，没有皮肤定义，提供bitmapData对象以供绘制。
-		 * 注意，resize时，bitmapData将被重建
+		 * 可以将画布用于序列帧的播放，遂帧替换bitmapData。
+		 * // TODO 扩展此类，实现BitBlt或顶点索引
+		 * 注意，resize时，bitmapData将被自动重建
 		 * @param width
 		 * @param height
 		 * 

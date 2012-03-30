@@ -138,6 +138,17 @@ package com.macro.gUI.composite
 		}
 		
 		
+		public override function get enabled():Boolean
+		{
+			return _icon.enabled;
+		}
+		
+		public override function set enabled(value:Boolean):void
+		{
+			_icon.enabled = value;
+		}
+		
+		
 		
 		private var _tabIndex:int;
 		
@@ -149,17 +160,6 @@ package com.macro.gUI.composite
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
-		}
-		
-		
-		public function get enabled():Boolean
-		{
-			return _icon.enabled;
-		}
-		
-		public function set enabled(value:Boolean):void
-		{
-			_icon.enabled = value;
 		}
 		
 		
@@ -255,6 +255,22 @@ package com.macro.gUI.composite
 		}
 		
 		
+		
+		public override function hitTest(x:int, y:int):IControl
+		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
+			if (_label.rect.contains(x, y) || _icon.rect.contains(x, y))
+			{
+				return _icon;
+			}
+			
+			return null;
+		}
+		
+		
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
@@ -308,20 +324,6 @@ package com.macro.gUI.composite
 		}
 
 
-
-		public function hitTest(x:int, y:int):IControl
-		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
-			
-			if (_label.rect.contains(x, y) || _icon.rect.contains(x, y))
-			{
-				return _icon;
-			}
-
-			return null;
-		}
 
 		public function mouseDown():void
 		{

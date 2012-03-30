@@ -26,7 +26,15 @@ package com.macro.gUI.base
 		function get rect():Rectangle;
 		
 		/**
+		 * 是否启用
+		 * @return 
+		 * 
+		 */
+		function get enabled():Boolean;
+		
+		/**
 		 * 透明度。有效值为 0（完全透明）到 1（完全不透明），默认值为 1。
+		 * Alpha的控制将通过渲染过程实现，控件实现类无须关心
 		 * @return 
 		 * 
 		 */
@@ -34,17 +42,11 @@ package com.macro.gUI.base
 		
 		/**
 		 * 控件是否可见
+		 * 可见性的控制将通过渲染过程实现，控件实现类无须关心
 		 * @return 
 		 * 
 		 */
 		function get visible():Boolean;
-		
-		/**
-		 * 是否启用
-		 * @return 
-		 * 
-		 */
-		function get enabled():Boolean;
 		
 		/**
 		 * 获取父级容器

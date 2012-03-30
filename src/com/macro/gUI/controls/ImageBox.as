@@ -23,11 +23,10 @@ package com.macro.gUI.controls
 
 		private var _image:BitmapData;
 		
-		private var _mc:MovieClip;
-		
 		
 		/**
 		 * 图片框控件，支持边框
+		 * // TODO 实现BitBlt或顶点索引
 		 * @param source 要显示的可绘制对象
 		 * @param autoSize 是否自动根据显示内容设置尺寸
 		 * @param align 显示内容的对齐方式，默认左上角对齐
@@ -119,11 +118,6 @@ package com.macro.gUI.controls
 		 */
 		public function setSource(value:IBitmapDrawable, destroy:Boolean = false):void
 		{
-			if (_mc != null)
-			{
-				_mc.removeEventListener(Event.ENTER_FRAME, onRedrawHandler);
-			}
-			
 			if (value != null)
 			{
 				if (destroy && _image != null)
@@ -139,12 +133,6 @@ package com.macro.gUI.controls
 				else
 				{
 					paint();
-				}
-				
-				if (value is MovieClip)
-				{
-					_mc = value as MovieClip;
-					_mc.addEventListener(Event.ENTER_FRAME, onRedrawHandler, false, 0, true);
 				}
 			}
 		}
@@ -197,24 +185,6 @@ package com.macro.gUI.controls
 			}
 			
 			throw new Error("Unknow IBitmapDrawable Object!");
-		}
-
-		/**
-		 * 针对MovieClip类型source的逐帧绘制句柄
-		 * @param e
-		 * 
-		 */
-		private function onRedrawHandler(e:Event):void
-		{
-			_image = getBitmapData(_mc);
-			if (_autoSize)
-			{
-				resize();
-			}
-			else
-			{
-				paint();
-			}
 		}
 	}
 }

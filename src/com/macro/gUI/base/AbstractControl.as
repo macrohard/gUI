@@ -35,8 +35,7 @@ package com.macro.gUI.base
 		protected var _skin:ISkin;
 
 		/**
-		 * 皮肤绘制范围<br/><br/>
-		 * 未直接曝露，支持此属性的子类自行提供访问器
+		 * 皮肤绘制范围
 		 */
 		protected var _skinDrawRect:Rectangle;
 
@@ -67,14 +66,6 @@ package com.macro.gUI.base
 
 			//默认尺寸
 			_rect = new Rectangle(0, 0, width, height);
-		}
-
-
-		protected var _bitmapData:BitmapData;
-		
-		public function get bitmapData():BitmapData
-		{
-			return _bitmapData;
 		}
 
 
@@ -114,6 +105,14 @@ package com.macro.gUI.base
 				paint(true);
 			}
 		}
+		
+		
+		protected var _bitmapData:BitmapData;
+		
+		public function get bitmapData():BitmapData
+		{
+			return _bitmapData;
+		}
 
 		
 		protected var _rect:Rectangle;
@@ -121,6 +120,19 @@ package com.macro.gUI.base
 		public function get rect():Rectangle
 		{
 			return _rect.clone();
+		}
+		
+		
+		protected var _enabled:Boolean;
+		
+		public function get enabled():Boolean
+		{
+			return _enabled;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			_enabled = value;
 		}
 		
 		
@@ -219,18 +231,6 @@ package com.macro.gUI.base
 			_visible = value;
 		}
 		
-		
-		protected var _enabled:Boolean;
-		
-		public function get enabled():Boolean
-		{
-			return _enabled;
-		}
-		
-		public function set enabled(value:Boolean):void
-		{
-			_enabled = value;
-		}
 		
 		
 		private var _parent:IContainer;

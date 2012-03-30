@@ -22,7 +22,7 @@ package com.macro.gUI.controls
 
 	/**
 	 * 文本输入框
-	 * // TODO 应调用InteractiveManager的结束编辑接口
+	 * // TODO 应调用InteractiveManager的结束编辑接口，通过tab键获取焦点时，自动进入编辑状态
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */

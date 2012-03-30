@@ -12,7 +12,7 @@ package com.macro.gUI.controls
 	public class Slice extends AbstractControl
 	{
 		/**
-		 * 九切片控件，基本显示单元，最简单的皮肤显示控件
+		 * 九切片控件，基本显示单元，常用于背景皮肤显示
 		 * @param width
 		 * @param height
 		 * @param skin

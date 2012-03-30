@@ -216,6 +216,18 @@ package com.macro.gUI.composite
 		
 		
 		
+		public override function get enabled():Boolean
+		{
+			return _blockBtn.enabled;
+		}
+		
+		public override function set enabled(value:Boolean):void
+		{
+			_blockBtn.enabled = value;
+		}
+		
+		
+		
 		private var _tabIndex:int;
 		
 		public function get tabIndex():int
@@ -226,17 +238,6 @@ package com.macro.gUI.composite
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
-		}
-
-		
-		public function get enabled():Boolean
-		{
-			return _blockBtn.enabled;
-		}
-		
-		public function set enabled(value:Boolean):void
-		{
-			_blockBtn.enabled = value;
 		}
 		
 		
@@ -308,6 +309,27 @@ package com.macro.gUI.composite
 			layout();
 		}
 		
+		
+		
+		public override function hitTest(x:int, y:int):IControl
+		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
+			_mouseObj = null;
+			if (_blockBtn.rect.contains(x, y))
+			{
+				_mouseObj = _blockBtn;
+			}
+			else if (_bg.rect.contains(x, y))
+			{
+				_mouseObj = _bg;
+			}
+			
+			return _mouseObj;
+		}
+		
 
 
 		public override function resize(width:int = 0, height:int = 0):void
@@ -365,25 +387,6 @@ package com.macro.gUI.composite
 		}
 
 
-
-		public function hitTest(x:int, y:int):IControl
-		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
-			
-			_mouseObj = null;
-			if (_blockBtn.rect.contains(x, y))
-			{
-				_mouseObj = _blockBtn;
-			}
-			else if (_bg.rect.contains(x, y))
-			{
-				_mouseObj = _bg;
-			}
-
-			return _mouseObj;
-		}
 
 		public function mouseDown():void
 		{

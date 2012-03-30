@@ -185,13 +185,6 @@ package com.macro.gUI.composite
 		
 		
 		
-		public override function set align(value:int):void
-		{
-			throw new Error("Unsupport Property!");
-		}
-		
-		
-		
 		private var _tabIndex:int;
 		
 		public function get tabIndex():int
@@ -205,16 +198,49 @@ package com.macro.gUI.composite
 		}
 		
 		
-		public function get enabled():Boolean
-		{
-			return true;
-		}
-		
-		
 		
 		public function get dragMode():int
 		{
 			return _scrollBar.dragMode;
+		}
+		
+		
+		
+		public override function hitTest(x:int, y:int):IControl
+		{
+			_mouseObj == null;
+			
+			if (_scrollBar.parent != null)
+			{
+				_mouseObj = _scrollBar.hitTest(x, y);
+			}
+			
+			// 检测是否在控件范围内
+			if (_mouseObj == null)
+			{
+				var p:Point = this.globalCoord();
+				x -= p.x;
+				y -= p.y;
+				
+				if (_bg.rect.contains(x, y))
+				{
+					_mouseObj = _bg;
+					
+					// 检测是否在列表项范围
+					x -= _padding.x;
+					y -= _padding.y;
+					
+					for each (var cell:Cell in _itemContainer.children)
+					{
+						if (cell.rect.contains(x, y))
+						{
+							_mouseObj = cell;
+						}
+					}
+				}
+			}
+			
+			return _mouseObj;
 		}
 		
 		
@@ -328,44 +354,6 @@ package com.macro.gUI.composite
 		
 		
 		
-		public function hitTest(x:int, y:int):IControl
-		{
-			_mouseObj == null;
-			
-			if (_scrollBar.parent != null)
-			{
-				_mouseObj = _scrollBar.hitTest(x, y);
-			}
-			
-			// 检测是否在控件范围内
-			if (_mouseObj == null)
-			{
-				var p:Point = this.globalCoord();
-				x -= p.x;
-				y -= p.y;
-				
-				if (_bg.rect.contains(x, y))
-				{
-					_mouseObj = _bg;
-					
-					// 检测是否在列表项范围
-					x -= _padding.x;
-					y -= _padding.y;
-					
-					for each (var cell:Cell in _itemContainer.children)
-					{
-						if (cell.rect.contains(x, y))
-						{
-							_mouseObj = cell;
-						}
-					}
-				}
-			}
-			
-			return _mouseObj;
-		}
-		
-		
 		public function mouseDown():void
 		{
 			if (_mouseObj == _bg)
@@ -410,6 +398,7 @@ package com.macro.gUI.composite
 				_scrollBar.mouseOver();
 			}
 		}
+		
 		
 		public function setDragPos(x:int, y:int):void
 		{

@@ -4,14 +4,9 @@ package com.macro.gUI.managers
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.gUI.skin.impl.BitmapSkin;
-	import com.macro.gUI.skin.impl.MovieClipSkin;
-	import com.macro.gUI.skin.impl.SWFProxy;
-	import com.macro.gUI.skin.impl.SerialFrames;
 	import com.macro.gUI.skin.impl.SpriteSkin;
 	
 	import flash.display.BitmapData;
-	import flash.display.Loader;
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
 	import flash.text.TextFormatAlign;
@@ -38,16 +33,15 @@ package com.macro.gUI.managers
 		/**
 		 * 注册皮肤
 		 * @param id 皮肤定义关键字
-		 * @param value 皮肤图元，目前支持BitmapData, Sprite, MovieClip, Loader以及Vector.<BitmapData>序列帧等格式
+		 * @param value 皮肤图元，目前支持BitmapData, Sprite等格式
 		 * @param grid 九切片中心区域矩形。注意，缩放将使用此矩形的left, top, right, bottom值，而不是width, height。
 		 * 当right大于left时，皮肤可以水平缩放，当bottom大于top时皮肤可以垂直缩放
 		 * @param align 皮肤对齐方式，仅在使用非完全缩放的皮肤时有效。
 		 * 请使用LayoutAlign枚举，可按此方式设置左上角对齐：LayoutAlign.LEFT | LayoutAlign.TOP
-		 * @param framerate 序列帧、MovieClip、Loader等格式时，可指定帧率来绘制动画皮肤
 		 * @return 
 		 * 
 		 */
-		public function registerSkin(id:String, value:Object, grid:Rectangle = null, align:int = 0x11, framerate:int = 20):ISkin
+		public function registerSkin(id:String, value:Object, grid:Rectangle = null, align:int = 0x11):ISkin
 		{
 			if (!grid)
 			{
@@ -58,18 +52,6 @@ package com.macro.gUI.managers
 			if (value is BitmapData)
 			{
 				s = new BitmapSkin(BitmapData(value), grid, align);
-			}
-			else if (value is Vector.<BitmapData>)
-			{
-				s = new SerialFrames(Vector.<BitmapData>(value), framerate, grid, align);
-			}
-			else if (value is Loader)
-			{
-				s = new SWFProxy(Loader(value), framerate, grid, align);
-			}
-			else if (value is MovieClip)
-			{
-				s = new MovieClipSkin(MovieClip(value), framerate, grid, align);
 			}
 			else if (value is Sprite)
 			{

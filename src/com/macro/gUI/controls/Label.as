@@ -40,7 +40,7 @@ package com.macro.gUI.controls
 
 
 		/**
-		 * 文本标签，无皮肤定义
+		 * 文本标签控件，无皮肤定义
 		 * @param text 用以显示的文本字符串
 		 * @param style 文本样式
 		 * @param align 文本对齐方式，默认左上角对齐

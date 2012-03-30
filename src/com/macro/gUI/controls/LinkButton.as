@@ -11,11 +11,12 @@ package com.macro.gUI.controls
 	
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
+	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
 	
 
 	/**
-	 * 链接按钮
+	 * 文本链接按钮
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
@@ -25,7 +26,7 @@ package com.macro.gUI.controls
 		protected var _styles:Dictionary;
 
 		/**
-		 * 链接按钮，支持四态样式定义
+		 * 文本链接按钮，支持四态样式定义，
 		 * @param text 作为文本的字符串
 		 * @param style 文本样式，如果为null，则使用StyleDef中的定义
 		 * @param align 文本对齐方式，默认左上角对齐
@@ -207,12 +208,18 @@ package com.macro.gUI.controls
 		
 		public function keyDown(e:KeyboardEvent):void
 		{
-			mouseDown();
+			if (e.keyCode == Keyboard.SPACE)
+			{
+				mouseDown();
+			}
 		}
 		
 		public function keyUp(e:KeyboardEvent):void
 		{
-			mouseOut();
+			if (e.keyCode == Keyboard.SPACE)
+			{
+				mouseUp();
+			}
 		}
 	}
 }

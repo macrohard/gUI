@@ -57,23 +57,9 @@ package com.macro.gUI.base
 		
 		public function get container():IContainer
 		{
-			if (_container is IContainer)
-			{
-				return _container as IContainer;
-			}
-			throw new Error("Unsupport Container Type!");
+			return _container;
 		}
 		
-		
-		/**
-		 * 复合控件无位图数据对象，此属性总是返回null
-		 * @return 
-		 * 
-		 */
-		public final override function get bitmapData():BitmapData
-		{
-			return null;
-		}
 		
 		
 		public override function get backgroundColor():int
@@ -98,9 +84,31 @@ package com.macro.gUI.base
 		}
 		
 		
+		/**
+		 * 复合控件无位图数据对象，此属性总是返回null
+		 * @return 
+		 * 
+		 */
+		public final override function get bitmapData():BitmapData
+		{
+			return null;
+		}
+		
+		
 		public override function get rect():Rectangle
 		{
 			return _container.rect;
+		}
+		
+		
+		public override function get enabled():Boolean
+		{
+			return _container.enabled;
+		}
+		
+		public override function set enabled(value:Boolean):void
+		{
+			_container.enabled;
 		}
 		
 		
@@ -117,7 +125,7 @@ package com.macro.gUI.base
 		public override function set x(value:int):void
 		{
 			_container.x = value;
-			_rect = _container.rect;
+			_rect.x = value;
 		}
 		
 		
@@ -134,7 +142,7 @@ package com.macro.gUI.base
 		public override function set y(value:int):void
 		{
 			_container.y = value;
-			_rect = _container.rect;
+			_rect.y = value;
 		}
 		
 		
@@ -150,8 +158,7 @@ package com.macro.gUI.base
 		
 		public override function set width(value:int):void
 		{
-			_container.width = value;
-			_rect = _container.rect;
+			_rect.width = _container.width = value;
 			layout();
 		}
 		
@@ -168,8 +175,7 @@ package com.macro.gUI.base
 		
 		public override function set height(value:int):void
 		{
-			_container.height = value;
-			_rect = _container.rect;
+			_rect.height = _container.height = value;
 			layout();
 		}
 		
@@ -193,17 +199,6 @@ package com.macro.gUI.base
 		public override function set visible(value:Boolean):void
 		{
 			_container.visible = value;
-		}
-		
-		
-		public override function get enabled():Boolean
-		{
-			return _container.enabled;
-		}
-		
-		public override function set enabled(value:Boolean):void
-		{
-			_container.enabled;
 		}
 		
 		

@@ -282,6 +282,20 @@ package com.macro.gUI.composite
 		
 		
 		
+		public override function get enabled():Boolean
+		{
+			return _blockBtn.enabled;
+		}
+
+		public override function set enabled(value:Boolean):void
+		{
+			_blockBtn.enabled = value;
+			_leftBtn.enabled = value;
+			_rightBtn.enabled = value;
+		}
+		
+		
+		
 		private var _tabIndex:int;
 		
 		public function get tabIndex():int
@@ -292,19 +306,6 @@ package com.macro.gUI.composite
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
-		}
-
-
-		public function get enabled():Boolean
-		{
-			return _blockBtn.enabled;
-		}
-
-		public function set enabled(value:Boolean):void
-		{
-			_blockBtn.enabled = value;
-			_leftBtn.enabled = value;
-			_rightBtn.enabled = value;
 		}
 
 
@@ -465,6 +466,38 @@ package com.macro.gUI.composite
 			_track.height = value.bitmapData.height;
 			layout();
 		}
+		
+		
+		
+		public override function hitTest(x:int, y:int):IControl
+		{
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
+			_mouseObj = null;
+			_mouseX = x;
+			_blockX = _blockBtn.x;
+			
+			if (_blockBtn.rect.contains(x, y))
+			{
+				_mouseObj = _blockBtn;
+			}
+			else if (_leftBtn.rect.contains(x, y))
+			{
+				_mouseObj = _leftBtn;
+			}
+			else if (_rightBtn.rect.contains(x, y))
+			{
+				_mouseObj = _rightBtn;
+			}
+			else if (_track.rect.contains(x, y))
+			{
+				_mouseObj = _track;
+			}
+			
+			return _mouseObj;
+		}
 
 
 
@@ -569,36 +602,7 @@ package com.macro.gUI.composite
 		}
 
 
-		public function hitTest(x:int, y:int):IControl
-		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
-			
-			_mouseObj = null;
-			_mouseX = x;
-			_blockX = _blockBtn.x;
-
-			if (_blockBtn.rect.contains(x, y))
-			{
-				_mouseObj = _blockBtn;
-			}
-			else if (_leftBtn.rect.contains(x, y))
-			{
-				_mouseObj = _leftBtn;
-			}
-			else if (_rightBtn.rect.contains(x, y))
-			{
-				_mouseObj = _rightBtn;
-			}
-			else if (_track.rect.contains(x, y))
-			{
-				_mouseObj = _track;
-			}
-
-			return _mouseObj;
-		}
-
+		
 		public function mouseDown():void
 		{
 			if (!_blockBtn.enabled)
