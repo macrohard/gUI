@@ -4,7 +4,7 @@ package com.macro.gUI.skin
 
 	/**
 	 * 皮肤样式定义
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class SkinDef

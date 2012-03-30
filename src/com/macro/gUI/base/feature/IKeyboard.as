@@ -4,7 +4,7 @@ package com.macro.gUI.base.feature
 
 	/**
 	 * 控件可以接收键盘操作
-	 * @author macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public interface IKeyboard

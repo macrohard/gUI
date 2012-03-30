@@ -5,7 +5,7 @@ package com.macro.gUI.base
 
 	/**
 	 * 容器
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public interface IContainer extends IControl

@@ -6,7 +6,7 @@ package com.macro.gUI.containers
 	
 	/**
 	 * 空容器，无皮肤、背景定义
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class Container extends AbstractContainer

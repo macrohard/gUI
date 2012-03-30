@@ -24,7 +24,7 @@ package com.macro.gUI.composite
 
 	/**
 	 * 垂直滑槽
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class VSlider extends AbstractComposite implements IKeyboard, IDrag, IButton, IFocus

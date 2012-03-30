@@ -8,7 +8,7 @@ package com.macro.gUI.managers
 	 * 交互管理器，通过协同UIManager工作，监听RootSprite的键盘、鼠标操作，
 	 * 然后定位到正确的IControl，设置其相应的状态，并通过它派发事件<br/>
 	 * 首先根据控件的rect定义递归搜索直到具体的IControl，再通过hitTest测试找到真正的IControl
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class InteractionManager

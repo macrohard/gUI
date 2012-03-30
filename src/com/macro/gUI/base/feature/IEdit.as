@@ -4,7 +4,7 @@ package com.macro.gUI.base.feature
 
 	/**
 	 * 控件可编辑，主要是TextInput
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public interface IEdit

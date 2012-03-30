@@ -17,7 +17,7 @@ package com.macro.gUI.managers
 	 * 分散渲染时，只需要关注Resize事件中的BitmapData重建，其它情况下，直接更新BitmapData会自动实现显示更新；
 	 * 合并渲染时，由于每帧强制重绘，就无须关心BitmapData的重建或重绘问题。
 	 * 使用Stage3D时，需要分散渲染，否则从内存上传位图数据到显存会带来巨大开销。
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class UIManager

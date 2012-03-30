@@ -4,7 +4,7 @@ package com.macro.gUI.assist
 
 	/**
 	 * 布局对齐方式
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class LayoutAlign

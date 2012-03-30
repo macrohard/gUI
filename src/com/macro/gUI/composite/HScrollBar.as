@@ -27,7 +27,7 @@ package com.macro.gUI.composite
 
 	/**
 	 * 水平滚动条
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class HScrollBar extends AbstractComposite implements IKeyboard, IDrag, IButton, IFocus

@@ -16,7 +16,7 @@ package com.macro.gUI.base
 
 	/**
 	 * 抽象基础控件
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class AbstractControl extends EventDispatcher implements IControl

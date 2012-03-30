@@ -27,7 +27,7 @@ package com.macro.gUI.composite
 	
 	/**
 	 * 垂直滚动条
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class VScrollBar extends AbstractComposite implements IKeyboard, IDrag, IButton, IFocus

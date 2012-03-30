@@ -3,7 +3,7 @@ package com.macro.gUI.base.feature
 
 	/**
 	 * 控件具有鼠标状态
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public interface IButton

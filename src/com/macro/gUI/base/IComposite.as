@@ -4,7 +4,7 @@ package com.macro.gUI.base
 
 	/**
 	 * 复合式控件，由一系列基础控件及容器控件组合而成
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public interface IComposite extends IControl

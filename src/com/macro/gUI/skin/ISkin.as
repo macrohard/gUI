@@ -5,7 +5,7 @@ package com.macro.gUI.skin
 
 	/**
 	 * 皮肤。
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public interface ISkin

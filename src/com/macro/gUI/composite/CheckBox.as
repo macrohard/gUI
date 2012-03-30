@@ -21,7 +21,7 @@ package com.macro.gUI.composite
 
 	/**
 	 * 复选框控件
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class CheckBox extends AbstractComposite implements IButton, IKeyboard, IFocus

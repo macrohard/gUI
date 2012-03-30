@@ -24,7 +24,7 @@ package com.macro.gUI.composite
 
 	/**
 	 * 水平滑槽
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class HSlider extends AbstractComposite implements IKeyboard, IDrag, IButton, IFocus

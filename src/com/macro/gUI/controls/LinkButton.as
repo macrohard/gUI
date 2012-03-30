@@ -16,7 +16,7 @@ package com.macro.gUI.controls
 
 	/**
 	 * 链接按钮
-	 * @author macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class LinkButton extends Label implements IButton, IKeyboard, IFocus

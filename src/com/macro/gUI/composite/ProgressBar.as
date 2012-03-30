@@ -17,7 +17,7 @@ package com.macro.gUI.composite
 
 	/**
 	 * 水平进度条
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class ProgressBar extends AbstractComposite

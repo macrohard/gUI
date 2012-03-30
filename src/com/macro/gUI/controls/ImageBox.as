@@ -15,7 +15,7 @@ package com.macro.gUI.controls
 
 	/**
 	 * 图片框
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class ImageBox extends AbstractControl

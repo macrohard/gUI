@@ -4,7 +4,7 @@ package com.macro.gUI.controls
 	
 	/**
 	 * 画布
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class Canvas extends AbstractControl

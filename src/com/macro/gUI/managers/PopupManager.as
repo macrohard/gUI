@@ -13,7 +13,7 @@ package com.macro.gUI.managers
 
 	/**
 	 * 最上层窗口管理器，包括弹出菜单及浮动窗口，协同UIManager工作
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class PopupManager extends Container

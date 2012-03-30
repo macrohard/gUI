@@ -11,7 +11,7 @@ package com.macro.logging
 	
 	/**
 	 * 日志工具
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class Logger

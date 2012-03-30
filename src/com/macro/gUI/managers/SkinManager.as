@@ -19,7 +19,7 @@ package com.macro.gUI.managers
 
 	/**
 	 * 皮肤管理器
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class SkinManager

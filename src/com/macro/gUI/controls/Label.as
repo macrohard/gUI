@@ -16,7 +16,7 @@ package com.macro.gUI.controls
 
 	/**
 	 * 文本标签控件
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class Label extends AbstractControl

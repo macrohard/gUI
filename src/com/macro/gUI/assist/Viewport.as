@@ -6,7 +6,7 @@ package com.macro.gUI.assist
 
 	/**
 	 * 滚动条控制的视口
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class Viewport

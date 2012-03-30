@@ -12,7 +12,7 @@ package com.macro.gUI.base
 
 	/**
 	 * 抽象容器控件
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class AbstractContainer extends AbstractControl implements IContainer

@@ -10,7 +10,7 @@ package com.macro.gUI.containers
 
 	/**
 	 * 面板容器
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class Panel extends AbstractContainer

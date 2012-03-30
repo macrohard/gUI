@@ -2,7 +2,7 @@ package com.macro.gUI.assist
 {
 	/**
 	 * 拖动模式
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class DragMode

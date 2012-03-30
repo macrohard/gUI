@@ -5,7 +5,7 @@ package com.macro.gUI.assist
 
 	/**
 	 * 文本样式，派生自TextFormat，一次性设置有利于优化文本类控件的重绘次数
-	 * @author macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class TextStyle extends TextFormat

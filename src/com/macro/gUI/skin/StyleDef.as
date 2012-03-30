@@ -2,7 +2,7 @@ package com.macro.gUI.skin
 {
 	/**
 	 * 文本样式定义
-	 * @author macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class StyleDef

@@ -23,7 +23,7 @@ package com.macro.gUI.controls
 	/**
 	 * 文本输入框
 	 * // TODO 应调用InteractiveManager的结束编辑接口
-	 * @author macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class TextInput extends Label implements IEdit, IFocus

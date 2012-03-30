@@ -6,7 +6,7 @@ package com.macro.gUI.base
 
 	/**
 	 * 控件
-	 * @author Macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public interface IControl

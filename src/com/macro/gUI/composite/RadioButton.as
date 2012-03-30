@@ -22,7 +22,7 @@ package com.macro.gUI.composite
 
 	/**
 	 * 单选框控件
-	 * @author macro776@gmail.com
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class RadioButton extends AbstractComposite implements IButton, IKeyboard, IFocus
