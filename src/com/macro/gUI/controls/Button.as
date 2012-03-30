@@ -7,7 +7,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
@@ -16,7 +16,7 @@ package com.macro.gUI.controls
 	/**
 	 * 按钮
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class Button extends LinkButton
 	{
@@ -44,9 +44,10 @@ package com.macro.gUI.controls
 				resize();
 			}
 		}
-		
-		
+
+
 		protected var _precise:Boolean;
+
 		/**
 		 * 是否精确测试，如果为true，则按像素来判断，否则只考虑范围矩形。默认值是false
 		 * @return
@@ -56,13 +57,13 @@ package com.macro.gUI.controls
 		{
 			return _precise;
 		}
-		
+
 		public function set precise(value:Boolean):void
 		{
 			_precise = value;
 		}
-		
-		
+
+
 		public override function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
@@ -82,13 +83,13 @@ package com.macro.gUI.controls
 				drawText();
 			}
 		}
-		
-		
+
+
 		public function get normalSkin():ISkin
 		{
 			return _skins[CtrlState.NORMAL];
 		}
-		
+
 		public function set normalSkin(value:ISkin):void
 		{
 			if (_skin == _skins[CtrlState.NORMAL])
@@ -96,35 +97,35 @@ package com.macro.gUI.controls
 				_skin = value;
 				paint();
 			}
-			
+
 			_skins[CtrlState.NORMAL] = value;
 		}
-		
+
 		public function get overSkin():ISkin
 		{
 			return _skins[CtrlState.OVER];
 		}
-		
+
 		public function set overSkin(value:ISkin):void
 		{
 			_skins[CtrlState.OVER] = value;
 		}
-		
+
 		public function get downSkin():ISkin
 		{
 			return _skins[CtrlState.DOWN];
 		}
-		
+
 		public function set downSkin(value:ISkin):void
 		{
 			_skins[CtrlState.DOWN] = value;
 		}
-		
+
 		public function get disableSkin():ISkin
 		{
 			return _skins[CtrlState.DISABLE];
 		}
-		
+
 		public function set disableSkin(value:ISkin):void
 		{
 			if (_skin == _skins[CtrlState.DISABLE])
@@ -132,12 +133,12 @@ package com.macro.gUI.controls
 				_skin = value;
 				paint();
 			}
-			
+
 			_skins[CtrlState.DISABLE] = value;
 		}
-		
 
-		
+
+
 		protected override function init():void
 		{
 			_styles = new Dictionary();
@@ -159,7 +160,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function resize(width:int=0, height:int=0):void
+		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize && _skin && (!text || text.length == 0))
 			{
@@ -168,14 +169,14 @@ package com.macro.gUI.controls
 			}
 			super.resize(width, height);
 		}
-		
+
 
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = this.globalCoord();
 			x -= p.x;
 			y -= p.y;
-			
+
 			if (_precise)
 			{
 				if (_bitmapData.getPixel32(x, y) != 0)
@@ -193,7 +194,7 @@ package com.macro.gUI.controls
 			return null;
 		}
 
-		
+
 		public override function mouseDown():void
 		{
 			if (!_enabled)

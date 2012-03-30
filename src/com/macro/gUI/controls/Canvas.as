@@ -1,11 +1,12 @@
 package com.macro.gUI.controls
 {
 	import com.macro.gUI.base.AbstractControl;
-	
+
+
 	/**
 	 * 画布
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class Canvas extends AbstractControl
 	{
@@ -16,7 +17,7 @@ package com.macro.gUI.controls
 		 * 注意，resize时，bitmapData将被自动重建
 		 * @param width
 		 * @param height
-		 * 
+		 *
 		 */
 		public function Canvas(width:int = 100, height:int = 100)
 		{

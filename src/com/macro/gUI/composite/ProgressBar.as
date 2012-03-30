@@ -9,7 +9,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -27,7 +27,7 @@ package com.macro.gUI.composite
 		 * 是否使用遮罩
 		 */
 		private var _mask:Boolean;
-		
+
 		private var _canvas:Canvas;
 
 		private var _bg:Slice;

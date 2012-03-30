@@ -13,7 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.ToggleButton;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -26,7 +26,7 @@ package com.macro.gUI.composite
 	 */
 	public class CheckBox extends AbstractComposite implements IButton, IKeyboard, IFocus
 	{
-		
+
 		/**
 		 * 文本标签与图标之间的间距
 		 */
@@ -72,6 +72,7 @@ package com.macro.gUI.composite
 
 
 		private var _autoSize:Boolean;
+
 		/**
 		 * 自动设置尺寸
 		 * @return
@@ -136,34 +137,34 @@ package com.macro.gUI.composite
 				}
 			}
 		}
-		
-		
+
+
 		public override function get enabled():Boolean
 		{
 			return _icon.enabled;
 		}
-		
+
 		public override function set enabled(value:Boolean):void
 		{
 			_icon.enabled = value;
 		}
-		
-		
-		
+
+
+
 		private var _tabIndex:int;
-		
+
 		public function get tabIndex():int
 		{
 			return _tabIndex;
 		}
-		
+
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
 		}
-		
-		
-		
+
+
+
 		/**
 		 * 标签文本样式
 		 * @return
@@ -173,7 +174,7 @@ package com.macro.gUI.composite
 		{
 			return _label.normalStyle;
 		}
-		
+
 		public function set labelStyle(value:TextStyle):void
 		{
 			if (value)
@@ -189,7 +190,7 @@ package com.macro.gUI.composite
 				}
 			}
 		}
-		
+
 		/**
 		 * 常态皮肤
 		 * @return
@@ -199,13 +200,13 @@ package com.macro.gUI.composite
 		{
 			return _icon.normalSkin;
 		}
-		
+
 		public function set normalSkin(value:ISkin):void
 		{
 			_icon.overSkin = _icon.downSkin = _icon.normalSkin = value;
 			layout();
 		}
-		
+
 		/**
 		 * 禁用态皮肤
 		 * @return
@@ -215,13 +216,13 @@ package com.macro.gUI.composite
 		{
 			return _icon.disableSkin;
 		}
-		
+
 		public function set disableSkin(value:ISkin):void
 		{
 			_icon.disableSkin = value;
 			layout();
 		}
-		
+
 		/**
 		 * 选中态皮肤
 		 * @return
@@ -231,13 +232,13 @@ package com.macro.gUI.composite
 		{
 			return _icon.selectedSkin;
 		}
-		
+
 		public function set selectedSkin(value:ISkin):void
 		{
 			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = value;
 			layout();
 		}
-		
+
 		/**
 		 * 选中禁用态皮肤
 		 * @return
@@ -247,30 +248,30 @@ package com.macro.gUI.composite
 		{
 			return _icon.selectedDisableSkin;
 		}
-		
+
 		public function set selectedDisableSkin(value:ISkin):void
 		{
 			_icon.selectedDisableSkin = value;
 			layout();
 		}
-		
-		
-		
+
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = this.globalCoord();
 			x -= p.x;
 			y -= p.y;
-			
+
 			if (_label.rect.contains(x, y) || _icon.rect.contains(x, y))
 			{
 				return _icon;
 			}
-			
+
 			return null;
 		}
-		
-		
+
+
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{

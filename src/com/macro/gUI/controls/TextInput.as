@@ -10,7 +10,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -32,11 +32,11 @@ package com.macro.gUI.controls
 		protected var _skins:Dictionary;
 
 		protected var _styles:Dictionary;
-		
-		
+
+
 		private var _editBox:TextField;
 
-		
+
 		/**
 		 * 文本输入框，支持背景皮肤定义，有常态及禁用态
 		 * @param text 默认文本
@@ -57,9 +57,10 @@ package com.macro.gUI.controls
 
 			super(text, style, align);
 		}
-		
-		
+
+
 		private var _editable:Boolean;
+
 		/**
 		 * 是否可编辑
 		 * @return
@@ -69,27 +70,27 @@ package com.macro.gUI.controls
 		{
 			return _editable;
 		}
-		
+
 		public function set editable(value:Boolean):void
 		{
 			_editable = value;
 		}
-		
-		
-		
+
+
+
 		private var _tabIndex:int;
-		
+
 		public function get tabIndex():int
 		{
 			return _tabIndex;
 		}
-		
+
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
 		}
-		
-		
+
+
 		public override function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
@@ -109,9 +110,9 @@ package com.macro.gUI.controls
 				drawText();
 			}
 		}
-		
-		
-		
+
+
+
 		/**
 		 * 设置文本样式
 		 * @return
@@ -121,23 +122,23 @@ package com.macro.gUI.controls
 		{
 			return _styles[CtrlState.NORMAL];
 		}
-		
+
 		public override function set normalStyle(value:TextStyle):void
 		{
 			if (!value)
 			{
 				return;
 			}
-			
+
 			if (_style == _styles[CtrlState.NORMAL])
 			{
 				_style = value;
 				drawText();
 			}
-			
+
 			_styles[CtrlState.NORMAL] = value;
 		}
-		
+
 		/**
 		 * 设置禁用文本样式
 		 * @return
@@ -147,23 +148,23 @@ package com.macro.gUI.controls
 		{
 			return _styles[CtrlState.DISABLE];
 		}
-		
+
 		public function set disableStyle(value:TextStyle):void
 		{
 			if (!value)
 			{
 				return;
 			}
-			
+
 			if (_style == _styles[CtrlState.DISABLE])
 			{
 				_style = value;
 				drawText();
 			}
-			
+
 			_styles[CtrlState.DISABLE] = value;
 		}
-		
+
 		/**
 		 * 设置普通皮肤样式
 		 * @return
@@ -173,7 +174,7 @@ package com.macro.gUI.controls
 		{
 			return _skins[CtrlState.NORMAL];
 		}
-		
+
 		public function set normalSkin(value:ISkin):void
 		{
 			if (_skin == _skins[CtrlState.NORMAL])
@@ -181,10 +182,10 @@ package com.macro.gUI.controls
 				_skin = value;
 				paint();
 			}
-			
+
 			_skins[CtrlState.NORMAL] = value;
 		}
-		
+
 		/**
 		 * 设置禁用皮肤样式
 		 * @return
@@ -194,7 +195,7 @@ package com.macro.gUI.controls
 		{
 			return _skins[CtrlState.DISABLE];
 		}
-		
+
 		public function set disableSkin(value:ISkin):void
 		{
 			if (_skin == _skins[CtrlState.DISABLE])
@@ -202,10 +203,10 @@ package com.macro.gUI.controls
 				_skin = value;
 				paint();
 			}
-			
+
 			_skins[CtrlState.DISABLE] = value;
 		}
-		
+
 
 
 		/**
@@ -215,7 +216,7 @@ package com.macro.gUI.controls
 		protected override function init():void
 		{
 			_autoSize = false;
-			
+
 			_styles = new Dictionary();
 			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.TEXTINPUT);
 			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.DISABLE);
@@ -227,7 +228,7 @@ package com.macro.gUI.controls
 
 			_style = _styles[CtrlState.NORMAL];
 			_skin = _skins[CtrlState.NORMAL];
-			
+
 			_padding = new Rectangle(10);
 		}
 
@@ -306,7 +307,7 @@ package com.macro.gUI.controls
 
 			var txtW:int = _editBox.textWidth + 4 + _style.leftMargin + _style.rightMargin + _style.indent + _style.blockIndent;
 			var txtH:int = _editBox.textHeight + 4;
-			
+
 			var w:int = getTextWidth();
 			var h:int = getTextHeight();
 
@@ -323,7 +324,7 @@ package com.macro.gUI.controls
 			{
 				_editBox.autoSize = TextFieldAutoSize.LEFT;
 			}
-			
+
 			var p:Point = this.globalCoord();
 
 			var ox:int = p.x + (_padding ? _padding.left : 0);

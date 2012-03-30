@@ -7,7 +7,7 @@ package com.macro.utils.serialize
 	/**
 	 * MovieClip转换后的帧，包含对应的BitmapData及OffsetPoint偏移量
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class Frame extends BitmapData
 	{

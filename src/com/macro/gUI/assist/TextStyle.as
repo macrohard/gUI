@@ -10,7 +10,7 @@ package com.macro.gUI.assist
 	 */
 	public class TextStyle extends TextFormat
 	{
-		
+
 		/**
 		 * 多行文本
 		 */
@@ -20,12 +20,12 @@ package com.macro.gUI.assist
 		 * 自动转行
 		 */
 		public var wordWrap:Boolean;
-		
+
 		/**
 		 * 显示为密码
 		 */
 		public var displayAsPassword:Boolean;
-		
+
 		/**
 		 * 最大字符数，仅限定用户可以输入多少文本，直接赋值时不受此限制
 		 */
@@ -80,7 +80,7 @@ package com.macro.gUI.assist
 			style.leading = this.leading;
 			style.kerning = this.kerning;
 			style.letterSpacing = this.letterSpacing;
-			
+
 			style.multiline = this.multiline;
 			style.wordWrap = this.wordWrap;
 			style.displayAsPassword = this.displayAsPassword;
@@ -89,10 +89,10 @@ package com.macro.gUI.assist
 
 			return style;
 		}
-		
-		
+
+
 		// 以下属性不予支持
-		
+
 		public override function set bullet(value:Object):void
 		{
 			throw new Error("Unsupport text style!");

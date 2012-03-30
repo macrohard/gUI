@@ -23,13 +23,11 @@ package com.macro.gUI.containers
 		 * @param skinCover 封面皮肤
 		 *
 		 */
-		public function Panel(width:int = 100, height:int = 100, skin:ISkin = null, skinCover:ISkin = null)
+		public function Panel(width:int = 100, height:int = 100, skin:ISkin = null)
 		{
 			super(width, height);
 
 			_skin = skin;
-
-			_skinCover = skinCover;
 
 			init();
 
@@ -48,18 +46,7 @@ package com.macro.gUI.containers
 			paint();
 		}
 
-		public function get skinCover():ISkin
-		{
-			return _skinCover;
-		}
 
-		public function set skinCover(value:ISkin):void
-		{
-			_skinCover = value;
-			paint();
-		}
-		
-		
 		/**
 		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
 		 *
@@ -67,8 +54,7 @@ package com.macro.gUI.containers
 		protected function init():void
 		{
 			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
-			_skinCover = _skinCover ? _skinCover : GameUI.skinManager.getSkin(SkinDef.PANEL_COVER);
-			
+
 			_margin = new Rectangle();
 			_margin.left = _skin.gridLeft;
 			_margin.top = _skin.gridTop;

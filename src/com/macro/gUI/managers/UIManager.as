@@ -6,7 +6,7 @@ package com.macro.gUI.managers
 	import com.macro.gUI.render.RComposite;
 	import com.macro.gUI.render.RContainer;
 	import com.macro.gUI.render.RControl;
-	
+
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
@@ -27,25 +27,25 @@ package com.macro.gUI.managers
 		private var _popupManager:PopupManager;
 
 
-		
+
 		private var _controlsMap:Dictionary;
-		
-		
+
+
 
 		private var _rootContainer:IContainer;
 
 		private var _rootSprite:Sprite;
-		
-		
-		
-		
+
+
+
+
 
 
 		public function UIManager()
 		{
 			_interactionManager = new InteractionManager(this);
 			_popupManager = new PopupManager();
-			
+
 			_controlsMap = new Dictionary(true);
 		}
 
@@ -71,7 +71,7 @@ package com.macro.gUI.managers
 				disposeRootSprite();
 
 			var rootcontainer:RContainer = new RContainer(container);
-			
+
 			_rootSprite = new Sprite();
 //			_rootSprite.addChild(rootcontainer.canvas);
 //			_rootSprite.addChild(rootcontainer.container);
@@ -84,7 +84,7 @@ package com.macro.gUI.managers
 			_rootContainer = container;
 			_interactionManager.init();
 			_popupManager.init();
-			
+
 			return _rootSprite;
 		}
 
@@ -160,7 +160,7 @@ package com.macro.gUI.managers
 			_controlsMap = new Dictionary(true);
 			_rootContainer = null;
 			_rootSprite = null;
-			
+
 			_popupManager.disposePopupSprite();
 		}
 
@@ -248,7 +248,7 @@ package com.macro.gUI.managers
 		 * 添加弹出窗口
 		 * @param window
 		 * @param modal 是否模态
-		 * 
+		 *
 		 */
 		public function addPopupWindow(window:IContainer, modal:Boolean = true):void
 		{

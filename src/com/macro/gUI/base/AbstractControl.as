@@ -27,7 +27,7 @@ package com.macro.gUI.base
 		 */
 		public static var smoothing:Boolean = true;
 
-		
+
 		/**
 		 * 皮肤。<br/><br/>
 		 * 未直接曝露，支持此属性的子类自行提供访问器
@@ -70,6 +70,7 @@ package com.macro.gUI.base
 
 
 		private var _bgColor:int;
+
 		/**
 		 * 背景色，ARGB格式
 		 */
@@ -87,8 +88,9 @@ package com.macro.gUI.base
 			}
 		}
 
-		
+
 		private var _transparent:Boolean;
+
 		/**
 		 * 是否背景透明
 		 */
@@ -105,37 +107,37 @@ package com.macro.gUI.base
 				paint(true);
 			}
 		}
-		
-		
+
+
 		protected var _bitmapData:BitmapData;
-		
+
 		public function get bitmapData():BitmapData
 		{
 			return _bitmapData;
 		}
 
-		
+
 		protected var _rect:Rectangle;
-		
+
 		public function get rect():Rectangle
 		{
 			return _rect.clone();
 		}
-		
-		
+
+
 		protected var _enabled:Boolean;
-		
+
 		public function get enabled():Boolean
 		{
 			return _enabled;
 		}
-		
+
 		public function set enabled(value:Boolean):void
 		{
 			_enabled = value;
 		}
-		
-		
+
+
 		/**
 		 * 横坐标
 		 * @return
@@ -151,7 +153,7 @@ package com.macro.gUI.base
 			_rect.x = value;
 		}
 
-		
+
 		/**
 		 * 纵坐标
 		 * @return
@@ -167,7 +169,7 @@ package com.macro.gUI.base
 			_rect.y = value;
 		}
 
-		
+
 		/**
 		 * 控件宽度，最小宽度是1
 		 * @return
@@ -186,7 +188,7 @@ package com.macro.gUI.base
 			}
 		}
 
-		
+
 		/**
 		 * 控件高度，最小高度是1
 		 * @return
@@ -204,43 +206,43 @@ package com.macro.gUI.base
 				resize(_rect.width, value);
 			}
 		}
-		
-		
+
+
 		private var _alpha:Number;
-		
+
 		public function get alpha():Number
 		{
 			return _alpha;
 		}
-		
+
 		public function set alpha(value:Number):void
 		{
 			_alpha = value < 0 ? 0 : (value > 1 ? 1 : value);
 		}
-		
-		
+
+
 		private var _visible:Boolean;
-		
+
 		public function get visible():Boolean
 		{
 			return _visible;
 		}
-		
+
 		public function set visible(value:Boolean):void
 		{
 			_visible = value;
 		}
-		
-		
-		
+
+
+
 		private var _parent:IContainer;
-		
+
 		public function get parent():IContainer
 		{
 			return _parent;
 		}
 
-		
+
 		/**
 		 * 设置父容器，内部行为，外部无法访问
 		 * @param container
@@ -255,32 +257,32 @@ package com.macro.gUI.base
 		public function globalCoord():Point
 		{
 			var p:Point = _rect.topLeft;
-			var control:IControl = this;
-			while (control.parent != null)
+			var container:IContainer = this.parent;
+			while (container != null)
 			{
-				control = control.parent;
-				p.offset(control.rect.x, control.rect.y);
+				p.offset(container.rect.x + container.margin.x, container.rect.y + container.margin.y);
+				container = container.parent;
 			}
 			return p;
 		}
-		
-		
+
+
 		public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalCoord();
 			x -= p.x;
 			y -= p.y;
-			
-			if (_rect.contains(x, y))
+
+			if (x >= 0 && x <= _rect.width && y >= 0 && y <= _rect.height)
 			{
 				return this;
 			}
-			
+
 			return null;
 		}
-		
-		
-		
+
+
+
 		/**
 		 * 覆盖父类添加侦听器的方法，修改弱引用参数默认值为true，因为使用类成员作为侦听器的使用环境更为常见
 		 *
@@ -290,7 +292,7 @@ package com.macro.gUI.base
 		{
 			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
-		
+
 
 
 		/**
@@ -307,7 +309,7 @@ package com.macro.gUI.base
 				{
 					width = _skin.minWidth;
 				}
-				
+
 				if (height < _skin.minHeight)
 				{
 					height = _skin.minHeight;
@@ -358,7 +360,7 @@ package com.macro.gUI.base
 			{
 				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
 			}
-			
+
 			prePaint();
 
 			if (_skin != null && _skin.bitmapData != null)
@@ -397,7 +399,7 @@ package com.macro.gUI.base
 		protected function prePaint():void
 		{
 		}
-		
+
 		/**
 		 * 皮肤绘制之后
 		 *
@@ -464,7 +466,8 @@ package com.macro.gUI.base
 
 			matrix.translate(rect.width - skin.bitmapData.width, 0);
 			canvas.draw(skin.bitmapData, matrix, null, null,
-						new Rectangle(rect.width - skin.paddingRight, skin.gridTop, skin.paddingRight, scaleH), smoothing);
+						new Rectangle(rect.width - skin.paddingRight, skin.gridTop, skin.paddingRight, scaleH),
+						smoothing);
 
 			//绘制中心
 			matrix = new Matrix();
@@ -619,6 +622,5 @@ package com.macro.gUI.base
 
 			return t;
 		}
-
 	}
 }

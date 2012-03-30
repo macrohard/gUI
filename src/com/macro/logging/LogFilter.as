@@ -6,7 +6,7 @@ package com.macro.logging
 	/**
 	 * 日志过滤器
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class LogFilter
 	{
@@ -17,8 +17,8 @@ package com.macro.logging
 
 		/**
 		 * 日志输出总阀
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get rootLevel():int
 		{
@@ -28,7 +28,7 @@ package com.macro.logging
 		/**
 		 * 日志输出总阀
 		 * @param value
-		 * 
+		 *
 		 */
 		public function set rootLevel(value:int):void
 		{
@@ -46,7 +46,7 @@ package com.macro.logging
 		 * 添加对应类路径的过滤级别
 		 * @param category
 		 * @param level
-		 * 
+		 *
 		 */
 		public function addLogLevel(category:String, level:int):void
 		{
@@ -56,7 +56,7 @@ package com.macro.logging
 		/**
 		 * 移除对应类路径的过滤级别
 		 * @param category
-		 * 
+		 *
 		 */
 		public function removeLogLevel(category:String):void
 		{
@@ -91,7 +91,7 @@ package com.macro.logging
 			{
 				return _logLevels[category];
 			}
-			
+
 			var p:String = getParentPath(category);
 			if (p)
 			{
@@ -102,7 +102,7 @@ package com.macro.logging
 				return _rootLevel;
 			}
 		}
-		
+
 		private function getParentPath(path:String):String
 		{
 			var idx:int = path.lastIndexOf(".");

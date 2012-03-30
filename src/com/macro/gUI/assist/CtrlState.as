@@ -5,7 +5,7 @@ package com.macro.gUI.assist
 	/**
 	 * 控件状态
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class CtrlState
 	{
@@ -29,10 +29,10 @@ package com.macro.gUI.assist
 		 */
 		public static const DISABLE:int = 0x04;
 
-		
-		
+
+
 		// 以下常用于切换按钮、复选框、单选按钮等
-		
+
 		/**
 		 * 选中态
 		 */

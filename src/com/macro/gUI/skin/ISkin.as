@@ -16,12 +16,12 @@ package com.macro.gUI.skin
 		 *
 		 */
 		function get bitmapData():BitmapData;
-		
-		
+
+
 		/**
 		 * 皮肤对齐方式
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		function get align():int;
 

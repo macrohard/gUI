@@ -1,13 +1,14 @@
 package com.macro.gUI.assist
 {
 	import com.macro.gUI.base.AbstractControl;
-	
+
 	import flash.geom.Rectangle;
+
 
 	/**
 	 * 滚动条控制的视口
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class Viewport
 	{
@@ -15,23 +16,23 @@ package com.macro.gUI.assist
 		 * 可视区域
 		 */
 		public var containerRect:Rectangle;
-		
+
 		/**
 		 * 滚动目标
 		 */
 		public var scrollTarget:AbstractControl;
-		
+
 		/**
 		 * 边距，使用left, top, right, bottom定义
 		 */
 		public var padding:Rectangle;
-		
+
 		/**
 		 * 滚动条控制的视口，由ScrollBar控件使用。
 		 * @param containerRect 可视区域
 		 * @param scrollTarget 滚动目标
 		 * @param padding 边距，使用left, top, right, bottom定义
-		 * 
+		 *
 		 */
 		public function Viewport(containerRect:Rectangle, scrollTarget:AbstractControl, padding:Rectangle = null)
 		{
@@ -39,31 +40,31 @@ package com.macro.gUI.assist
 			this.scrollTarget = scrollTarget;
 			this.padding = padding ? padding : new Rectangle();
 		}
-		
+
 		/**
 		 * 可卷动区域与目标的宽度比
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get ratioH():Number
 		{
 			return (containerRect.width - padding.left - padding.right) / scrollTarget.width;
 		}
-		
+
 		/**
 		 * 可卷动区域与目标的高度比
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get ratioV():Number
 		{
 			return (containerRect.height - padding.top - padding.bottom) / scrollTarget.height;
 		}
-		
+
 		/**
 		 * 水平卷动
 		 * @param ratio
-		 * 
+		 *
 		 */
 		public function scrollH(ratio:Number):void
 		{
@@ -71,11 +72,11 @@ package com.macro.gUI.assist
 			var w:int = scrollTarget.width - (containerRect.width - padding.left - padding.right);
 			scrollTarget.x = x - w * ratio;
 		}
-		
+
 		/**
 		 * 垂直卷动
 		 * @param ratio
-		 * 
+		 *
 		 */
 		public function scrollV(ratio:Number):void
 		{

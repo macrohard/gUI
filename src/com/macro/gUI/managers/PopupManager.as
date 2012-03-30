@@ -7,27 +7,28 @@ package com.macro.gUI.managers
 	import com.macro.gUI.render.RComposite;
 	import com.macro.gUI.render.RContainer;
 	import com.macro.gUI.render.RControl;
-	
+
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
+
 
 	/**
 	 * 最上层窗口管理器，包括弹出菜单及浮动窗口，协同UIManager工作
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class PopupManager extends Container
 	{
 		private var _popupControlsMap:Dictionary;
-		
+
 		private var _popupContainer:IContainer;
-		
+
 		private var _popupSprite:Sprite;
-		
-		
+
+
 		private var _modal:Boolean;
-		
-		
+
+
 		public function PopupManager()
 		{
 			_popupControlsMap = new Dictionary(true);
@@ -38,12 +39,12 @@ package com.macro.gUI.managers
 			return _modal;
 		}
 
-		
+
 		public function init():void
 		{
-			
+
 		}
-		
+
 		/**
 		 * 渲染控件
 		 * @param container
@@ -99,7 +100,7 @@ package com.macro.gUI.managers
 //				}
 //			}
 		}
-		
+
 		/**
 		 * 销毁弹出容器
 		 *
@@ -107,25 +108,25 @@ package com.macro.gUI.managers
 		public function disposePopupSprite():void
 		{
 			for each (var child:RControl in _popupControlsMap)
-			child.dispose();
-			
+				child.dispose();
+
 			_popupControlsMap = new Dictionary(true);
 			_popupContainer = null;
 			_popupSprite = null;
 		}
-		
-		
+
+
 		/**
 		 * 添加弹出窗口
 		 * @param window
 		 * @param modal 是否模态
-		 * 
+		 *
 		 */
 		public function addPopupWindow(window:IContainer, modal:Boolean):void
 		{
-			
+
 		}
-		
+
 		/**
 		 * 添加弹出菜单
 		 * @param menu
@@ -133,9 +134,9 @@ package com.macro.gUI.managers
 		 */
 		public function addPopupMenu(menu:IControl):void
 		{
-			
+
 		}
-		
+
 		/**
 		 * 移除弹出菜单或窗口
 		 * @param popupItem
@@ -143,7 +144,7 @@ package com.macro.gUI.managers
 		 */
 		public function removePopup(popupItem:IControl):void
 		{
-			
+
 		}
 	}
 }

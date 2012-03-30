@@ -2,9 +2,9 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
 	import com.macro.gUI.skin.ISkin;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 	import flash.utils.getTimer;
@@ -17,13 +17,6 @@ package com.macro.gUI.base
 	 */
 	public class AbstractContainer extends AbstractControl implements IContainer
 	{
-
-		/**
-		 * 顶层皮肤<br/><br/>
-		 * 未直接曝露，支持此属性的子类自行提供访问器
-		 */
-		protected var _skinCover:ISkin;
-
 
 		/**
 		 * 抽象容器，不允许直接实例化
@@ -44,19 +37,32 @@ package com.macro.gUI.base
 		}
 
 
-		protected var _bitmapDataCover:BitmapData;
-
-		public function get bitmapDataCover():BitmapData
-		{
-			return _bitmapDataCover;
-		}
-
-
 		protected var _margin:Rectangle;
 
 		public function get margin():Rectangle
 		{
 			return _margin;
+		}
+		
+		
+		/**
+		 * 可视范围宽度
+		 * @return 
+		 * 
+		 */
+		public function get contentWidth():int
+		{
+			return _rect.width - _margin.left - _margin.right;
+		}
+		
+		/**
+		 * 可视范围高度
+		 * @return 
+		 * 
+		 */
+		public function get contentHeight():int
+		{
+			return _rect.height - _margin.top - _margin.bottom;
 		}
 
 
@@ -71,73 +77,6 @@ package com.macro.gUI.base
 		public function get numChildren():int
 		{
 			return _children.length;
-		}
-
-
-
-		public override function resize(width:int = 0, height:int = 0):void
-		{
-			if (_skinCover != null)
-			{
-				if (width < _skinCover.minWidth)
-				{
-					width = _skinCover.minWidth;
-				}
-				
-				if (height < _skinCover.minHeight)
-				{
-					height = _skinCover.minHeight;
-				}
-			}
-			
-			super.resize(width, height);
-		}
-
-
-		protected override function paint(rebuild:Boolean = false):void
-		{
-			super.paint(rebuild);
-
-			if (_skinCover != null && _skinCover.bitmapData != null)
-			{
-				if (rebuild || _bitmapDataCover == null)
-				{
-					if (_bitmapDataCover != null)
-					{
-						_bitmapDataCover.dispose();
-					}
-
-					_bitmapDataCover = new BitmapData(_rect.width, _rect.height, true, 0);
-				}
-				else
-				{
-					_bitmapDataCover.fillRect(_bitmapDataCover.rect, 0);
-				}
-
-
-				if (_skinCover.gridRight > _skinCover.gridLeft)
-				{
-					if (_skinCover.gridBottom > _skinCover.gridTop)
-					{
-						drawFull(_bitmapDataCover, _rect, _skinCover);
-					}
-					else
-					{
-						drawHorizontal(_bitmapDataCover, _rect, _skinCover);
-					}
-				}
-				else
-				{
-					if (_skinCover.gridBottom > _skinCover.gridTop)
-					{
-						drawVertical(_bitmapDataCover, _rect, _skinCover);
-					}
-					else
-					{
-						drawFixed(_bitmapDataCover, _rect, _skinCover.align, _skinCover.bitmapData);
-					}
-				}
-			}
 		}
 
 

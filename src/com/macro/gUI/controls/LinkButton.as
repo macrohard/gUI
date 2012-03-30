@@ -8,12 +8,12 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
-	
+
 
 	/**
 	 * 文本链接按钮
@@ -41,21 +41,21 @@ package com.macro.gUI.controls
 
 			super(text, style, align);
 		}
-		
-		
+
+
 		protected var _tabIndex:int;
-		
+
 		public function get tabIndex():int
 		{
 			return _tabIndex;
 		}
-		
+
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
 		}
-		
-		
+
+
 		public override function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
@@ -69,38 +69,38 @@ package com.macro.gUI.controls
 				{
 					_style = _styles[CtrlState.DISABLE];
 				}
-				
+
 				drawText();
 			}
 		}
-		
-		
+
+
 		public override function get normalStyle():TextStyle
 		{
 			return _styles[CtrlState.NORMAL];
 		}
-		
+
 		public override function set normalStyle(value:TextStyle):void
 		{
 			if (!value)
 			{
 				return;
 			}
-			
+
 			if (_style == _styles[CtrlState.NORMAL])
 			{
 				_style = value;
 				drawText();
 			}
-			
+
 			_styles[CtrlState.NORMAL] = value;
 		}
-		
+
 		public function get overStyle():TextStyle
 		{
 			return _styles[CtrlState.OVER];
 		}
-		
+
 		public function set overStyle(value:TextStyle):void
 		{
 			if (value)
@@ -108,12 +108,12 @@ package com.macro.gUI.controls
 				_styles[CtrlState.OVER] = value;
 			}
 		}
-		
+
 		public function get downStyle():TextStyle
 		{
 			return _styles[CtrlState.DOWN];
 		}
-		
+
 		public function set downStyle(value:TextStyle):void
 		{
 			if (value)
@@ -121,30 +121,30 @@ package com.macro.gUI.controls
 				_styles[CtrlState.DOWN] = value;
 			}
 		}
-		
+
 		public function get disableStyle():TextStyle
 		{
 			return _styles[CtrlState.DISABLE];
 		}
-		
+
 		public function set disableStyle(value:TextStyle):void
 		{
 			if (!value)
 			{
 				return;
 			}
-			
+
 			if (_style == _styles[CtrlState.DISABLE])
 			{
 				_style = value;
 				drawText();
 			}
-			
+
 			_styles[CtrlState.DISABLE] = value;
 		}
-		
-		
-		
+
+
+
 
 		protected override function init():void
 		{
@@ -204,8 +204,8 @@ package com.macro.gUI.controls
 				drawText();
 			}
 		}
-		
-		
+
+
 		public function keyDown(e:KeyboardEvent):void
 		{
 			if (e.keyCode == Keyboard.SPACE)
@@ -213,7 +213,7 @@ package com.macro.gUI.controls
 				mouseDown();
 			}
 		}
-		
+
 		public function keyUp(e:KeyboardEvent):void
 		{
 			if (e.keyCode == Keyboard.SPACE)

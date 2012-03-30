@@ -15,7 +15,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -124,6 +124,7 @@ package com.macro.gUI.composite
 
 
 		private var _autoSize:Boolean;
+
 		/**
 		 * 自动设置高度
 		 * @return
@@ -148,8 +149,9 @@ package com.macro.gUI.composite
 
 
 		private var _padding:Rectangle;
+
 		/**
-		 * 滑槽与四周的边距
+		 * 滑槽与四周的边距。注意，不是显示内容与四周的边距，设置不精确时，会导致显示内容被裁剪
 		 * @return
 		 *
 		 */
@@ -176,6 +178,7 @@ package com.macro.gUI.composite
 
 
 		private var _viewport:Viewport;
+
 		/**
 		 * 由滚动条控制的视口
 		 * @return
@@ -194,6 +197,7 @@ package com.macro.gUI.composite
 
 
 		private var _stepSize:int;
+
 		/**
 		 * 步长
 		 * @return
@@ -211,6 +215,7 @@ package com.macro.gUI.composite
 
 
 		private var _pageSize:int;
+
 		/**
 		 * 按翻页键以及点击滑槽背景时的滚动步长
 		 * @return
@@ -228,6 +233,7 @@ package com.macro.gUI.composite
 
 
 		private var _minimum:int;
+
 		/**
 		 * 最小值
 		 * @return
@@ -246,6 +252,7 @@ package com.macro.gUI.composite
 
 
 		private var _maximum:int;
+
 		/**
 		 * 最大值
 		 * @return
@@ -264,6 +271,7 @@ package com.macro.gUI.composite
 
 
 		private var _value:Number;
+
 		/**
 		 * 当前值
 		 * @return
@@ -279,9 +287,9 @@ package com.macro.gUI.composite
 			_value = value < _minimum ? _minimum : (value > _maximum ? _maximum : value);
 			relocateBlock();
 		}
-		
-		
-		
+
+
+
 		public override function get enabled():Boolean
 		{
 			return _blockBtn.enabled;
@@ -293,23 +301,23 @@ package com.macro.gUI.composite
 			_leftBtn.enabled = value;
 			_rightBtn.enabled = value;
 		}
-		
-		
-		
+
+
+
 		private var _tabIndex:int;
-		
+
 		public function get tabIndex():int
 		{
 			return _tabIndex;
 		}
-		
+
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
 		}
 
 
-		
+
 		public function get dragMode():int
 		{
 			if (_mouseObj == _blockBtn)
@@ -466,19 +474,19 @@ package com.macro.gUI.composite
 			_track.height = value.bitmapData.height;
 			layout();
 		}
-		
-		
-		
+
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = this.globalCoord();
 			x -= p.x;
 			y -= p.y;
-			
+
 			_mouseObj = null;
 			_mouseX = x;
 			_blockX = _blockBtn.x;
-			
+
 			if (_blockBtn.rect.contains(x, y))
 			{
 				_mouseObj = _blockBtn;
@@ -495,7 +503,7 @@ package com.macro.gUI.composite
 			{
 				_mouseObj = _track;
 			}
-			
+
 			return _mouseObj;
 		}
 
@@ -587,11 +595,11 @@ package com.macro.gUI.composite
 			_blockBtn.x = _track.x + ratio * (_track.width - _blockBtn.width);
 			scrollViewport(ratio);
 		}
-		
+
 		/**
 		 * 卷动视口
 		 * @param ratio
-		 * 
+		 *
 		 */
 		private function scrollViewport(ratio:Number):void
 		{
@@ -602,7 +610,7 @@ package com.macro.gUI.composite
 		}
 
 
-		
+
 		public function mouseDown():void
 		{
 			if (!_blockBtn.enabled)
@@ -740,7 +748,7 @@ package com.macro.gUI.composite
 			{
 				return;
 			}
-			
+
 			var p:Point = this.globalCoord();
 			x -= p.x;
 			y -= p.y;
@@ -749,14 +757,14 @@ package com.macro.gUI.composite
 			var max:int = _track.x + _track.width - _blockBtn.width;
 			j = j < _track.x ? _track.x : (j > max ? max : j);
 			_blockBtn.x = j;
-			
+
 			var ratio:Number = (j - _track.x) / (_track.width - _blockBtn.width);
 			if (isNaN(ratio) || ratio < 0)
 			{
 				ratio = 0;
 			}
 			_value = ratio * (_maximum - _minimum) + _minimum;
-			
+
 			scrollViewport(ratio);
 		}
 

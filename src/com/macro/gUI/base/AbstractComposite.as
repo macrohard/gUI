@@ -1,7 +1,7 @@
 package com.macro.gUI.base
 {
 	import avmplus.getQualifiedClassName;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -36,6 +36,7 @@ package com.macro.gUI.base
 
 
 		protected var _align:int;
+
 		/**
 		 * 布局对齐方式
 		 * @return
@@ -51,67 +52,67 @@ package com.macro.gUI.base
 			_align = value;
 			layout();
 		}
-		
-		
+
+
 		protected var _container:AbstractContainer;
-		
+
 		public function get container():IContainer
 		{
 			return _container;
 		}
-		
-		
-		
+
+
+
 		public override function get backgroundColor():int
 		{
 			return _container.backgroundColor;
 		}
-		
+
 		public override function set backgroundColor(value:int):void
 		{
 			_container.backgroundColor = value;
 		}
-		
-		
+
+
 		public override function get transparent():Boolean
 		{
 			return _container.transparent;
 		}
-		
+
 		public override function set transparent(value:Boolean):void
 		{
 			_container.transparent = value;
 		}
-		
-		
+
+
 		/**
 		 * 复合控件无位图数据对象，此属性总是返回null
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public final override function get bitmapData():BitmapData
 		{
 			return null;
 		}
-		
-		
+
+
 		public override function get rect():Rectangle
 		{
 			return _container.rect;
 		}
-		
-		
+
+
 		public override function get enabled():Boolean
 		{
 			return _container.enabled;
 		}
-		
+
 		public override function set enabled(value:Boolean):void
 		{
 			_container.enabled;
 		}
-		
-		
+
+
 		/**
 		 * 横坐标
 		 * @return
@@ -121,14 +122,14 @@ package com.macro.gUI.base
 		{
 			return _container.x;
 		}
-		
+
 		public override function set x(value:int):void
 		{
 			_container.x = value;
 			_rect.x = value;
 		}
-		
-		
+
+
 		/**
 		 * 纵坐标
 		 * @return
@@ -138,14 +139,14 @@ package com.macro.gUI.base
 		{
 			return _container.y;
 		}
-		
+
 		public override function set y(value:int):void
 		{
 			_container.y = value;
 			_rect.y = value;
 		}
-		
-		
+
+
 		/**
 		 * 控件宽度，最小宽度是1
 		 * @return
@@ -155,14 +156,14 @@ package com.macro.gUI.base
 		{
 			return _container.width;
 		}
-		
+
 		public override function set width(value:int):void
 		{
 			_rect.width = _container.width = value;
 			layout();
 		}
-		
-		
+
+
 		/**
 		 * 控件高度，最小高度是1
 		 * @return
@@ -172,42 +173,42 @@ package com.macro.gUI.base
 		{
 			return _container.height
 		}
-		
+
 		public override function set height(value:int):void
 		{
 			_rect.height = _container.height = value;
 			layout();
 		}
-		
-		
+
+
 		public override function get alpha():Number
 		{
 			return _container.alpha;
 		}
-		
+
 		public override function set alpha(value:Number):void
 		{
 			_container.alpha = value;
 		}
-		
-		
+
+
 		public override function get visible():Boolean
 		{
 			return _container.visible;
 		}
-		
+
 		public override function set visible(value:Boolean):void
 		{
 			_container.visible = value;
 		}
-		
-		
+
+
 		public override function get parent():IContainer
 		{
 			return _container.parent;
 		}
-		
-		
+
+
 		/**
 		 * 设置父容器，内部行为，外部无法访问
 		 * @param container
@@ -217,20 +218,20 @@ package com.macro.gUI.base
 		{
 			_container.setParent(container);
 		}
-		
-		
+
+
 		public override function globalCoord():Point
 		{
 			return _container.globalCoord();
 		}
-		
-		
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
 			return _container.hitTest(x, y);
 		}
-		
-		
+
+
 		public override function resize(width:int = 0, height:int = 0):void
 		{
 			_container.resize(width, height);
@@ -244,34 +245,34 @@ package com.macro.gUI.base
 			_rect = _container.rect;
 			layout();
 		}
-		
-		
+
+
 		/**
 		 * 复合控件不执行绘制
 		 * @param rebuild
-		 * 
+		 *
 		 */
-		protected final override function paint(rebuild:Boolean=false):void
+		protected final override function paint(rebuild:Boolean = false):void
 		{
 		}
-		
+
 		/**
 		 * 复合控件不执行绘制
-		 * 
+		 *
 		 */
 		protected final override function prePaint():void
 		{
 		}
-		
+
 		/**
 		 * 复合控件不执行绘制
-		 * 
+		 *
 		 */
 		protected final override function postPaint():void
 		{
 		}
 
-		
+
 		/**
 		 * 布局
 		 *

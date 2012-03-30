@@ -14,7 +14,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -38,7 +38,7 @@ package com.macro.gUI.composite
 		 * 鼠标点击的对象
 		 */
 		private var _mouseObj:IControl;
-		
+
 
 		/**
 		 * 移动区域的最左侧位置
@@ -92,6 +92,7 @@ package com.macro.gUI.composite
 
 
 		private var _autoSize:Boolean;
+
 		/**
 		 * 自动设置高度
 		 * @return
@@ -114,12 +115,13 @@ package com.macro.gUI.composite
 			}
 		}
 
-		
+
 		private var _padding:Rectangle;
+
 		/**
-		 * 滑槽与四周的边距
-		 * @return 
-		 * 
+		 * 滑槽与四周的边距。注意，不是显示内容与四周的边距，设置不精确时，会导致显示内容被裁剪
+		 * @return
+		 *
 		 */
 		public function get padding():Rectangle
 		{
@@ -142,12 +144,13 @@ package com.macro.gUI.composite
 			}
 		}
 
-		
+
 		private var _stepSize:int;
+
 		/**
 		 * 步长
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get stepSize():int
 		{
@@ -159,12 +162,13 @@ package com.macro.gUI.composite
 			_stepSize = value;
 		}
 
-		
+
 		private var _minimum:int;
+
 		/**
 		 * 最小值
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get minimum():int
 		{
@@ -177,12 +181,13 @@ package com.macro.gUI.composite
 			this.value = _value;
 		}
 
-		
+
 		private var _maximum:int;
+
 		/**
 		 * 最大值
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get maximum():int
 		{
@@ -195,12 +200,13 @@ package com.macro.gUI.composite
 			this.value = _value;
 		}
 
-		
+
 		private var _value:int;
+
 		/**
 		 * 当前值
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get value():int
 		{
@@ -213,35 +219,35 @@ package com.macro.gUI.composite
 			_value = value < _minimum ? _minimum : (value > _maximum ? _maximum : value);
 			relocateBlock();
 		}
-		
-		
-		
+
+
+
 		public override function get enabled():Boolean
 		{
 			return _blockBtn.enabled;
 		}
-		
+
 		public override function set enabled(value:Boolean):void
 		{
 			_blockBtn.enabled = value;
 		}
-		
-		
-		
+
+
+
 		private var _tabIndex:int;
-		
+
 		public function get tabIndex():int
 		{
 			return _tabIndex;
 		}
-		
+
 		public function set tabIndex(value:int):void
 		{
 			_tabIndex = value;
 		}
-		
-		
-		
+
+
+
 		public function get dragMode():int
 		{
 			if (_mouseObj == _blockBtn)
@@ -250,73 +256,73 @@ package com.macro.gUI.composite
 			}
 			return DragMode.NONE;
 		}
-		
-		
-		
+
+
+
 		public function get blockNormalSkin():ISkin
 		{
 			return _blockBtn.normalSkin;
 		}
-		
+
 		public function set blockNormalSkin(value:ISkin):void
 		{
 			_blockBtn.normalSkin = value;
 			layout();
 		}
-		
+
 		public function get blockOverSkin():ISkin
 		{
 			return _blockBtn.overSkin;
 		}
-		
+
 		public function set blockOverSkin(value:ISkin):void
 		{
 			_blockBtn.overSkin = value;
 			layout();
 		}
-		
+
 		public function get blockDownSkin():ISkin
 		{
 			return _blockBtn.downSkin;
 		}
-		
+
 		public function set blockDownSkin(value:ISkin):void
 		{
 			_blockBtn.downSkin = value;
 			layout();
 		}
-		
+
 		public function get blockDisableSkin():ISkin
 		{
 			return _blockBtn.disableSkin;
 		}
-		
+
 		public function set blockDisableSkin(value:ISkin):void
 		{
 			_blockBtn.disableSkin = value;
 			layout();
 		}
-		
+
 		public function get bgSkin():ISkin
 		{
 			return _bg.skin;
 		}
-		
+
 		public function set bgSkin(value:ISkin):void
 		{
 			_bg.skin = value;
 			_bg.height = value.bitmapData.height;
 			layout();
 		}
-		
-		
-		
+
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = this.globalCoord();
 			x -= p.x;
 			y -= p.y;
-			
+
 			_mouseObj = null;
 			if (_blockBtn.rect.contains(x, y))
 			{
@@ -326,10 +332,10 @@ package com.macro.gUI.composite
 			{
 				_mouseObj = _bg;
 			}
-			
+
 			return _mouseObj;
 		}
-		
+
 
 
 		public override function resize(width:int = 0, height:int = 0):void
@@ -378,7 +384,7 @@ package com.macro.gUI.composite
 
 		/**
 		 * 定位滑块的位置
-		 * 
+		 *
 		 */
 		private function relocateBlock():void
 		{
@@ -451,7 +457,7 @@ package com.macro.gUI.composite
 			{
 				return;
 			}
-			
+
 			var p:Point = this.globalCoord();
 			x -= p.x;
 			y -= p.y;

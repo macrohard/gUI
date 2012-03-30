@@ -1,22 +1,23 @@
 package com.macro.utils
 {
 
+
 	/**
 	 * 敏感词过滤
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class WordFilterUtil
 	{
 		public static var lawlessWord:String;
-		
+
 		public static const CYPHER_TEXT:String = "********************";
 
 		/**
 		 * 按消息逐字过滤处理，而不是按字典逐条处理
 		 * @param msg
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public static function filter(msg:String):String
 		{
@@ -35,7 +36,7 @@ package com.macro.utils
 						{
 							j++;
 						}
-						
+
 						var s:String = lawlessWord.substring(index, j);
 						j = j - index;
 						if (msg.substr(i, j) == s)

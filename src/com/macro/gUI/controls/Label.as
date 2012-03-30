@@ -6,7 +6,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.utils.StrUtil;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -64,8 +64,9 @@ package com.macro.gUI.controls
 			this.text = text;
 		}
 
-		
+
 		protected var _align:int;
+
 		/**
 		 * 文本对齐方式<br/>
 		 * 请使用LayoutAlign枚举，可按如下方式设置左上角对齐：<br/>
@@ -91,6 +92,7 @@ package com.macro.gUI.controls
 
 
 		protected var _autoSize:Boolean;
+
 		/**
 		 * 自动根据文字内容设置控件宽高，如果是多行文本，则根据现有宽度来自动设置高度
 		 * @return
@@ -115,6 +117,7 @@ package com.macro.gUI.controls
 
 
 		protected var _text:String;
+
 		/**
 		 * 作为当前文本的字符串
 		 * @return
@@ -136,6 +139,7 @@ package com.macro.gUI.controls
 
 
 		protected var _padding:Rectangle;
+
 		/**
 		 * 定义文本与四周的边距。注意，将使用left, top, right, bottom定义。 为赋值简便，可以使用如下语法：<br/>
 		 * new Rectangle(5, 8, 12 - 5, 5 - 8)<br/>
@@ -160,9 +164,10 @@ package com.macro.gUI.controls
 				paint();
 			}
 		}
-		
-		
+
+
 		protected var _style:TextStyle;
+
 		/**
 		 * 设置文本样式
 		 * @return
@@ -172,20 +177,20 @@ package com.macro.gUI.controls
 		{
 			return _style;
 		}
-		
+
 		public function set normalStyle(value:TextStyle):void
 		{
 			if (!value)
 			{
 				return;
 			}
-			
+
 			_style = value;
 			drawText();
 		}
 
-		
-		
+
+
 		/**
 		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
 		 *
@@ -194,14 +199,14 @@ package com.macro.gUI.controls
 		{
 			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.NORMAL);
 		}
-		
-		
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = this.globalCoord();
 			x -= p.x;
 			y -= p.y;
-			
+
 			if (_textDrawRect && _textDrawRect.contains(x, y))
 			{
 				return this;
@@ -209,7 +214,7 @@ package com.macro.gUI.controls
 			return null;
 		}
 
-		
+
 		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize && _textImg)
@@ -225,7 +230,7 @@ package com.macro.gUI.controls
 			super.resize(width, height);
 		}
 
-		
+
 		public override function setDefaultSize():void
 		{
 			if (_textImg)
@@ -235,8 +240,8 @@ package com.macro.gUI.controls
 			}
 			super.setDefaultSize();
 		}
-		
-		
+
+
 		protected override function postPaint():void
 		{
 			if (!_autoSize && _rebuildTextImg)
@@ -244,17 +249,17 @@ package com.macro.gUI.controls
 				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize);
 			}
 			_rebuildTextImg = false;
-			
+
 			if (_textImg)
 			{
 				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _padding);
 			}
 		}
-		
-		
+
+
 		/**
 		 * 绘制文本
-		 * 
+		 *
 		 */
 		protected function drawText():void
 		{
@@ -269,8 +274,8 @@ package com.macro.gUI.controls
 				paint();
 			}
 		}
-		
-		
+
+
 		protected function getTextWidth():int
 		{
 			if (_padding)
@@ -289,7 +294,7 @@ package com.macro.gUI.controls
 			return _rect.height;
 		}
 
-		
+
 		/**
 		 * 创建文本图形
 		 * @param text 作为图形的文本
@@ -306,12 +311,12 @@ package com.macro.gUI.controls
 			{
 				return null;
 			}
-			
+
 			if (!style.multiline)
 			{
 				text = StrUtil.trimLines(text);
 			}
-			
+
 			var tf:TextField = new TextField();
 			tf.autoSize = TextFieldAutoSize.LEFT;
 			tf.displayAsPassword = style.displayAsPassword;
@@ -319,13 +324,13 @@ package com.macro.gUI.controls
 			tf.filters = style.filters;
 			tf.defaultTextFormat = style;
 			tf.text = text;
-			
+
 			if (!autoSize && tf.width > width)
 			{
 				tf.wordWrap = style.wordWrap;
 				tf.width = width;
 			}
-			
+
 			var img:BitmapData = new BitmapData(tf.width, tf.height, true, 0);
 			img.draw(tf, null, null, null, null, smoothing);
 			return img;
