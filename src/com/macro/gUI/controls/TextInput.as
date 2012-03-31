@@ -47,9 +47,6 @@ package com.macro.gUI.controls
 		 */
 		public function TextInput(text:String = null, style:TextStyle = null, align:int = 0x21, skin:ISkin = null)
 		{
-			//默认控件可用
-			_enabled = true;
-
 			//默认可编辑
 			_editable = true;
 

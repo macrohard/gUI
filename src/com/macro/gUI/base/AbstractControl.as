@@ -63,6 +63,9 @@ package com.macro.gUI.base
 
 			//默认透明
 			_transparent = true;
+			
+			//默认控件可用
+			_enabled = true;
 
 			//默认尺寸
 			_rect = new Rectangle(0, 0, width, height);

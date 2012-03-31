@@ -180,7 +180,7 @@ package com.macro.gUI.composite
 
 		public override function hitTest(x:int, y:int):IControl
 		{
-			_mouseObj == null;
+			_mouseObj = null;
 
 			if (_scrollBar.parent != null)
 			{
@@ -196,7 +196,7 @@ package com.macro.gUI.composite
 
 				if (x >= 0 && x <= _rect.width && y >= 0 && y <= _rect.height)
 				{
-					_mouseObj = this;
+					_mouseObj = _container;
 
 					// 检测是否在列表项范围
 					x -= _container.margin.x;
@@ -204,6 +204,7 @@ package com.macro.gUI.composite
 					
 					if (x >= 0 && x <= _container.contentWidth && y >= 0 && y <= _container.contentHeight)
 					{
+						y -= _itemContainer.y;
 						for each (var cell:Cell in _itemContainer.children)
 						{
 							if (cell.rect.contains(x, y))

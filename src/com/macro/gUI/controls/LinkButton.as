@@ -34,9 +34,6 @@ package com.macro.gUI.controls
 		 */
 		public function LinkButton(text:String = null, style:TextStyle = null, align:int = 0x11)
 		{
-			//默认控件可用
-			_enabled = true;
-
 			_style = style;
 
 			super(text, style, align);
