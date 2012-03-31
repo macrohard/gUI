@@ -22,6 +22,7 @@ package com.macro.gUI.controls
 		public function Canvas(width:int = 100, height:int = 100)
 		{
 			super(width, height);
+			
 			paint();
 		}
 	}

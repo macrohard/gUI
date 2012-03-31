@@ -26,16 +26,12 @@ package com.macro.gUI.controls
 		/**
 		 * 按钮
 		 * @param text 作为文本的字符串
-		 * @param style 文本样式，如果为null，则使用StyleDef中的定义
 		 * @param align 文本对齐方式，默认居中对齐
-		 * @param skin 皮肤，如果为null，则使用SkinDef中的定义
 		 *
 		 */
-		public function Button(text:String = null, style:TextStyle = null, align:int = 0x22, skin:ISkin = null)
+		public function Button(text:String = null, align:int = 0x22)
 		{
-			_skin = skin;
-
-			super(text, style, align);
+			super(text, align);
 
 			//如果未设置文本，那么父类Label不会产生进行绘制，
 			//因此需要调用一下绘制接口，以便绘制按钮的皮肤
@@ -92,6 +88,11 @@ package com.macro.gUI.controls
 
 		public function set normalSkin(value:ISkin):void
 		{
+			if (_skins[CtrlState.NORMAL] == value)
+			{
+				return;
+			}
+			
 			if (_skin == _skins[CtrlState.NORMAL])
 			{
 				_skin = value;
@@ -128,6 +129,11 @@ package com.macro.gUI.controls
 
 		public function set disableSkin(value:ISkin):void
 		{
+			if (_skins[CtrlState.DISABLE] == value)
+			{
+				return;
+			}
+			
 			if (_skin == _skins[CtrlState.DISABLE])
 			{
 				_skin = value;
@@ -142,13 +148,13 @@ package com.macro.gUI.controls
 		protected override function init():void
 		{
 			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.BUTTON_NORMAL);
+			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.BUTTON_NORMAL);
 			_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.BUTTON_OVER);
 			_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DOWN);
 			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DISABLE);
 
 			_skins = new Dictionary();
-			_skins[CtrlState.NORMAL] = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.BUTTON_NORMAL);
+			_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.BUTTON_NORMAL);
 			_skins[CtrlState.OVER] = GameUI.skinManager.getSkin(SkinDef.BUTTON_OVER);
 			_skins[CtrlState.DOWN] = GameUI.skinManager.getSkin(SkinDef.BUTTON_DOWN);
 			_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.BUTTON_DISABLE);

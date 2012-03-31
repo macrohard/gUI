@@ -21,14 +21,12 @@ package com.macro.gUI.controls
 		/**
 		 * 切换按钮控件
 		 * @param text 作为文本的字符串
-		 * @param style 文本样式，如果为null，则使用StyleDef中的定义
 		 * @param align 文本对齐方式，默认居中对齐
-		 * @param skin 皮肤，如果为null，则使用SkinDef中的定义
 		 *
 		 */
-		public function ToggleButton(text:String = null, style:TextStyle = null, align:int = 0x22, skin:ISkin = null)
+		public function ToggleButton(text:String = null, align:int = 0x22)
 		{
-			super(text, style, align, skin);
+			super(text, align);
 		}
 
 
@@ -100,7 +98,7 @@ package com.macro.gUI.controls
 
 		public function set selectedStyle(value:TextStyle):void
 		{
-			if (!value)
+			if (value == null || value == _styles[CtrlState.SELECTED])
 			{
 				return;
 			}
@@ -141,7 +139,7 @@ package com.macro.gUI.controls
 
 		public function set selectedDisableStyle(value:TextStyle):void
 		{
-			if (!value)
+			if (value == null || value == _styles[CtrlState.SELECTED_DISABLE])
 			{
 				return;
 			}
@@ -164,6 +162,11 @@ package com.macro.gUI.controls
 
 		public function set selectedSkin(value:ISkin):void
 		{
+			if (_skins[CtrlState.SELECTED] == value)
+			{
+				return;
+			}
+			
 			if (_skin == _skins[CtrlState.SELECTED])
 			{
 				_skin = value;
@@ -200,6 +203,11 @@ package com.macro.gUI.controls
 
 		public function set selectedDisableSkin(value:ISkin):void
 		{
+			if (_skins[CtrlState.SELECTED_DISABLE] == value)
+			{
+				return;
+			}
+			
 			if (_skin == _skins[CtrlState.SELECTED_DISABLE])
 			{
 				_skin = value;
@@ -214,7 +222,7 @@ package com.macro.gUI.controls
 		protected override function init():void
 		{
 			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.BUTTON_NORMAL);
+			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.BUTTON_NORMAL);
 			_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.BUTTON_OVER);
 			_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DOWN);
 			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DISABLE);
@@ -224,7 +232,7 @@ package com.macro.gUI.controls
 			_styles[CtrlState.SELECTED_DISABLE] = GameUI.skinManager.getStyle(StyleDef.TOGGLEBUTTON_SELECTED_DISABLE);
 
 			_skins = new Dictionary();
-			_skins[CtrlState.NORMAL] = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_NORMAL);
+			_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_NORMAL);
 			_skins[CtrlState.OVER] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_OVER);
 			_skins[CtrlState.DOWN] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_DOWN);
 			_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_DISABLE);

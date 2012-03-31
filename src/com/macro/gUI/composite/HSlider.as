@@ -56,11 +56,9 @@ package com.macro.gUI.composite
 		 * 然后根据滑块和背景的皮肤九切片定义来定位滑块及背景的位置
 		 * @param width 宽度
 		 * @param align 布局对齐方式，默认垂直居中
-		 * @param blockSkin 滑块皮肤
-		 * @param bgSkin 背景皮肤
 		 *
 		 */
-		public function HSlider(width:int = 100, align:int = 0x20, blockSkin:ISkin = null, bgSkin:ISkin = null)
+		public function HSlider(width:int = 100, align:int = 0x20)
 		{
 			super(width, 20, align);
 
@@ -74,11 +72,11 @@ package com.macro.gUI.composite
 			//四周边距均默认为10
 			_padding = new Rectangle(10, 10);
 
-			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.SLIDER_HORIZONTAL_BG);
-			_bg = new Slice(bgSkin, width, bgSkin.bitmapData.height);
+			var skin:ISkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_HORIZONTAL_BG);
+			_bg = new Slice(skin, width, skin.bitmapData.height);
 
-			blockSkin = blockSkin ? blockSkin : GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_NORMAL);
-			_blockBtn = new Button(null, null, 0x22, blockSkin);
+			_blockBtn = new Button();
+			_blockBtn.normalSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_NORMAL);
 			_blockBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_OVER);
 			_blockBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_DOWN);
 			_blockBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);
@@ -248,56 +246,29 @@ package com.macro.gUI.composite
 
 
 
-		public function get blockNormalSkin():ISkin
+		/**
+		 * 设置滑块皮肤
+		 * @param normalSkin 常态皮肤
+		 * @param disableSkin 禁用态皮肤
+		 * @param selectedSkin 选中态皮肤
+		 * @param selectedDisableSkin 选中禁用态皮肤
+		 * 
+		 */
+		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			return _blockBtn.normalSkin;
-		}
-
-		public function set blockNormalSkin(value:ISkin):void
-		{
-			_blockBtn.normalSkin = value;
+			_blockBtn.normalSkin = normalSkin;
+			_blockBtn.overSkin = overSkin;
+			_blockBtn.downSkin = downSkin;
+			_blockBtn.disableSkin = disableSkin;
 			layout();
 		}
 
-		public function get blockOverSkin():ISkin
-		{
-			return _blockBtn.overSkin;
-		}
-
-		public function set blockOverSkin(value:ISkin):void
-		{
-			_blockBtn.overSkin = value;
-			layout();
-		}
-
-		public function get blockDownSkin():ISkin
-		{
-			return _blockBtn.downSkin;
-		}
-
-		public function set blockDownSkin(value:ISkin):void
-		{
-			_blockBtn.downSkin = value;
-			layout();
-		}
-
-		public function get blockDisableSkin():ISkin
-		{
-			return _blockBtn.disableSkin;
-		}
-
-		public function set blockDisableSkin(value:ISkin):void
-		{
-			_blockBtn.disableSkin = value;
-			layout();
-		}
-
-		public function get bgSkin():ISkin
-		{
-			return _bg.skin;
-		}
-
-		public function set bgSkin(value:ISkin):void
+		/**
+		 * 设置滑槽背景皮肤
+		 * @param value
+		 * 
+		 */
+		public function setTrackSkin(value:ISkin):void
 		{
 			_bg.skin = value;
 			_bg.height = value.bitmapData.height;

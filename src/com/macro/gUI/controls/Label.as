@@ -42,12 +42,11 @@ package com.macro.gUI.controls
 		/**
 		 * 文本标签控件，无皮肤定义
 		 * @param text 用以显示的文本字符串
-		 * @param style 文本样式
-		 * @param align 文本对齐方式，默认左上角对齐
 		 * @param autosize 自动设置尺寸，默认为true
+		 * @param align 文本对齐方式，默认左上角对齐
 		 *
 		 */
-		public function Label(text:String = null, style:TextStyle = null, align:int = 0x11, autoSize:Boolean = true)
+		public function Label(text:String = null, autoSize:Boolean = true, align:int = 0x11)
 		{
 			//默认大小
 			super(100, 20);
@@ -56,8 +55,6 @@ package com.macro.gUI.controls
 			_autoSize = autoSize;
 
 			_align = align;
-
-			_style = style;
 
 			init();
 
@@ -180,7 +177,7 @@ package com.macro.gUI.controls
 
 		public function set normalStyle(value:TextStyle):void
 		{
-			if (!value)
+			if (value == null || value == _style)
 			{
 				return;
 			}
@@ -197,7 +194,7 @@ package com.macro.gUI.controls
 		 */
 		protected function init():void
 		{
-			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.NORMAL);
+			_style = GameUI.skinManager.getStyle(StyleDef.NORMAL);
 		}
 
 

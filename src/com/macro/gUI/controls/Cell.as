@@ -21,16 +21,12 @@ package com.macro.gUI.controls
 		 * 单元格控件，有文本及背景皮肤。
 		 * 它即可以作为List, ComboBox, Grid等控件的单元格使用，也可以作为TitleBar来使用
 		 * @param text 作为文本的字符串
-		 * @param skin 背景皮肤
-		 * @param style 文本样式
-		 * @param align 文本对齐方式
+		 * @param align 文本对齐方式，默认居中对齐
 		 *
 		 */
-		public function Cell(text:String = null, skin:ISkin = null, style:TextStyle = null, align:int = 0x22)
+		public function Cell(text:String = null, align:int = 0x22)
 		{
-			_skin = skin;
-
-			super(text, style, align, false);
+			super(text, true, align);
 		}
 
 
@@ -46,16 +42,19 @@ package com.macro.gUI.controls
 
 		public function set skin(value:ISkin):void
 		{
-			_skin = value;
-			paint();
+			if (_skin != value)
+			{
+				_skin = value;
+				paint();
+			}
 		}
 
 
 		protected override function init():void
 		{
-			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.CELL);
+			_style = GameUI.skinManager.getStyle(StyleDef.CELL);
 
-			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.CELL_BG);
+			_skin = GameUI.skinManager.getSkin(SkinDef.CELL_BG);
 
 			_padding = new Rectangle();
 		}

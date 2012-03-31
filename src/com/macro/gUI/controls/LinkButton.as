@@ -28,15 +28,12 @@ package com.macro.gUI.controls
 		/**
 		 * 文本链接按钮，支持四态样式定义，
 		 * @param text 作为文本的字符串
-		 * @param style 文本样式，如果为null，则使用StyleDef中的定义
 		 * @param align 文本对齐方式，默认左上角对齐
 		 *
 		 */
-		public function LinkButton(text:String = null, style:TextStyle = null, align:int = 0x11)
+		public function LinkButton(text:String = null, align:int = 0x11)
 		{
-			_style = style;
-
-			super(text, style, align);
+			super(text, true, align);
 		}
 
 
@@ -79,7 +76,7 @@ package com.macro.gUI.controls
 
 		public override function set normalStyle(value:TextStyle):void
 		{
-			if (!value)
+			if (value == null || value == _styles[CtrlState.NORMAL])
 			{
 				return;
 			}
@@ -100,7 +97,7 @@ package com.macro.gUI.controls
 
 		public function set overStyle(value:TextStyle):void
 		{
-			if (value)
+			if (value != null)
 			{
 				_styles[CtrlState.OVER] = value;
 			}
@@ -113,7 +110,7 @@ package com.macro.gUI.controls
 
 		public function set downStyle(value:TextStyle):void
 		{
-			if (value)
+			if (value != null)
 			{
 				_styles[CtrlState.DOWN] = value;
 			}
@@ -126,7 +123,7 @@ package com.macro.gUI.controls
 
 		public function set disableStyle(value:TextStyle):void
 		{
-			if (!value)
+			if (value == null || value == _styles[CtrlState.DISABLE])
 			{
 				return;
 			}
@@ -146,7 +143,7 @@ package com.macro.gUI.controls
 		protected override function init():void
 		{
 			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
+			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
 			_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
 			_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
 			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);

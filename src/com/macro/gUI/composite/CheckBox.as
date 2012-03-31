@@ -13,7 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.ToggleButton;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -42,25 +42,21 @@ package com.macro.gUI.composite
 		/**
 		 * 复选框控件，目前定义支持普通，禁用，选择，选择后禁用等四态皮肤
 		 * @param text 作为文本的字符串
-		 * @param style 文本样式
-		 * @param skin 复选框图标皮肤
 		 * @param align 布局对齐方式，默认左上角对齐
 		 *
 		 */
-		public function CheckBox(text:String = null, style:TextStyle = null, skin:ISkin = null, align:int = 0x11)
+		public function CheckBox(text:String = null, align:int = 0x11)
 		{
 			//默认大小
 			super(100, 20, align);
 
 			_autoSize = true;
 
-			_label = new Label(text, style);
-			_icon = new ToggleButton(null, null, 0x22,
-									 skin ? skin : GameUI.skinManager.getSkin(SkinDef.CHECKBOX_NORMAL));
-			_icon.overSkin = _icon.downSkin = _icon.normalSkin;
+			_label = new Label(text);
+			_icon = new ToggleButton(null, 0x22);
+			_icon.overSkin = _icon.downSkin = _icon.normalSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_NORMAL);
 			_icon.disableSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_DISABLE);
-			_icon.selectedSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_SELECTED);
-			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin;
+			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_SELECTED);
 			_icon.selectedDisableSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_SELECTED_DISABLE);
 
 			_container = new Container();
@@ -167,19 +163,14 @@ package com.macro.gUI.composite
 
 		/**
 		 * 标签文本样式
-		 * @return
-		 *
+		 * @param style 
+		 * 
 		 */
-		public function get labelStyle():TextStyle
+		public function setLabelStyle(style:TextStyle):void
 		{
-			return _label.normalStyle;
-		}
-
-		public function set labelStyle(value:TextStyle):void
-		{
-			if (value)
+			if (style)
 			{
-				_label.normalStyle = value;
+				_label.normalStyle = style;
 				if (_autoSize)
 				{
 					resize();
@@ -190,68 +181,22 @@ package com.macro.gUI.composite
 				}
 			}
 		}
-
+		
 		/**
-		 * 常态皮肤
-		 * @return
-		 *
+		 * 设置按钮皮肤
+		 * @param normalSkin 常态皮肤
+		 * @param disableSkin 禁用态皮肤
+		 * @param selectedSkin 选中态皮肤
+		 * @param selectedDisableSkin 选中禁用态皮肤
+		 * 
 		 */
-		public function get normalSkin():ISkin
+		public function setSkins(normalSkin:ISkin, disableSkin:ISkin, selectedSkin:ISkin, selectedDisableSkin:ISkin):void
 		{
-			return _icon.normalSkin;
-		}
-
-		public function set normalSkin(value:ISkin):void
-		{
-			_icon.overSkin = _icon.downSkin = _icon.normalSkin = value;
-			layout();
-		}
-
-		/**
-		 * 禁用态皮肤
-		 * @return
-		 *
-		 */
-		public function get disableSkin():ISkin
-		{
-			return _icon.disableSkin;
-		}
-
-		public function set disableSkin(value:ISkin):void
-		{
-			_icon.disableSkin = value;
-			layout();
-		}
-
-		/**
-		 * 选中态皮肤
-		 * @return
-		 *
-		 */
-		public function get selectedSkin():ISkin
-		{
-			return _icon.selectedSkin;
-		}
-
-		public function set selectedSkin(value:ISkin):void
-		{
-			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = value;
-			layout();
-		}
-
-		/**
-		 * 选中禁用态皮肤
-		 * @return
-		 *
-		 */
-		public function get selectedDisableSkin():ISkin
-		{
-			return _icon.selectedDisableSkin;
-		}
-
-		public function set selectedDisableSkin(value:ISkin):void
-		{
-			_icon.selectedDisableSkin = value;
+			_icon.overSkin = _icon.downSkin = _icon.normalSkin = normalSkin;
+			_icon.disableSkin = disableSkin;
+			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = selectedSkin;
+			_icon.selectedDisableSkin = selectedDisableSkin;
+			
 			layout();
 		}
 

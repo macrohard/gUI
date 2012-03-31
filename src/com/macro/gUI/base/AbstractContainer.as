@@ -44,6 +44,15 @@ package com.macro.gUI.base
 			return _margin;
 		}
 		
+		public function set margin(value:Rectangle):void
+		{
+			if (value != null)
+			{
+				_margin = value;
+				paint();
+			}
+		}
+		
 		
 		/**
 		 * 可视范围宽度

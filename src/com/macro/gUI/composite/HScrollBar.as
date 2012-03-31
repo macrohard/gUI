@@ -15,7 +15,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -68,14 +68,9 @@ package com.macro.gUI.composite
 		 * 然后根据滑块和背景的皮肤九切片定义来定位滑块及背景的位置
 		 * @param width 宽度
 		 * @param align 布局对齐方式，默认垂直居中
-		 * @param blockSkin 滑块皮肤
-		 * @param bgSkin 背景皮肤
-		 * @param leftBtnSkin 左滚动按钮皮肤
-		 * @param rightBtnSkin 右滚动按钮皮肤
 		 *
 		 */
-		public function HScrollBar(width:int = 100, align:int = 0x20, blockSkin:ISkin = null, bgSkin:ISkin = null,
-								   leftBtnSkin:ISkin = null, rightBtnSkin:ISkin = null)
+		public function HScrollBar(width:int = 100, align:int = 0x20)
 		{
 			super(width, 20, align);
 
@@ -91,24 +86,24 @@ package com.macro.gUI.composite
 			_padding = new Rectangle(10, 10);
 
 
-			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BG);
-			_track = new Slice(bgSkin, width, bgSkin.bitmapData.height);
+			var skin:ISkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BG);
+			_track = new Slice(skin, width, skin.bitmapData.height);
 
-			blockSkin = blockSkin ? blockSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BLOCK_NORMAL);
-			_blockBtn = new Button(null, null, 0x22, blockSkin);
+			_blockBtn = new Button();
+			_blockBtn.normalSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BLOCK_NORMAL);
 			_blockBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BLOCK_OVER);
 			_blockBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BLOCK_DOWN);
 			_blockBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_HORIZONTAL_BLOCK_DISABLE);
 			_blockBtn.autoSize = false;
 
-			leftBtnSkin = leftBtnSkin ? leftBtnSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_LEFT_NORMAL);
-			_leftBtn = new Button(null, null, 0x22, leftBtnSkin);
+			_leftBtn = new Button();
+			_leftBtn.normalSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_LEFT_NORMAL);
 			_leftBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_LEFT_OVER);
 			_leftBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_LEFT_DOWN);
 			_leftBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_LEFT_DISABLE);
 
-			rightBtnSkin = rightBtnSkin ? rightBtnSkin : GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_RIGHT_NORMAL);
-			_rightBtn = new Button(null, null, 0x22, rightBtnSkin);
+			_rightBtn = new Button();
+			_rightBtn.normalSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_RIGHT_NORMAL);
 			_rightBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_RIGHT_OVER);
 			_rightBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_RIGHT_DOWN);
 			_rightBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_RIGHT_DISABLE);
@@ -317,146 +312,64 @@ package com.macro.gUI.composite
 		}
 
 
-
-		public function get blockNormalSkin():ISkin
+		
+		/**
+		 * 设置滑块皮肤
+		 * @param normalSkin 常态皮肤
+		 * @param disableSkin 禁用态皮肤
+		 * @param selectedSkin 选中态皮肤
+		 * @param selectedDisableSkin 选中禁用态皮肤
+		 * 
+		 */
+		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			return _blockBtn.normalSkin;
-		}
-
-		public function set blockNormalSkin(value:ISkin):void
-		{
-			_blockBtn.normalSkin = value;
+			_blockBtn.normalSkin = normalSkin;
+			_blockBtn.overSkin = overSkin;
+			_blockBtn.downSkin = downSkin;
+			_blockBtn.disableSkin = disableSkin;
 			layout();
 		}
-
-		public function get blockOverSkin():ISkin
+		
+		/**
+		 * 设置左按钮皮肤
+		 * @param normalSkin 常态皮肤
+		 * @param disableSkin 禁用态皮肤
+		 * @param selectedSkin 选中态皮肤
+		 * @param selectedDisableSkin 选中禁用态皮肤
+		 * 
+		 */
+		public function setLeftButtonSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			return _blockBtn.overSkin;
-		}
-
-		public function set blockOverSkin(value:ISkin):void
-		{
-			_blockBtn.overSkin = value;
+			_leftBtn.normalSkin = normalSkin;
+			_leftBtn.overSkin = overSkin;
+			_leftBtn.downSkin = downSkin;
+			_leftBtn.disableSkin = disableSkin;
 			layout();
 		}
-
-		public function get blockDownSkin():ISkin
+		
+		/**
+		 * 设置右按钮皮肤
+		 * @param normalSkin 常态皮肤
+		 * @param disableSkin 禁用态皮肤
+		 * @param selectedSkin 选中态皮肤
+		 * @param selectedDisableSkin 选中禁用态皮肤
+		 * 
+		 */
+		public function setRightButtonSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			return _blockBtn.downSkin;
-		}
-
-		public function set blockDownSkin(value:ISkin):void
-		{
-			_blockBtn.downSkin = value;
+			_rightBtn.normalSkin = normalSkin;
+			_rightBtn.overSkin = overSkin;
+			_rightBtn.downSkin = downSkin;
+			_rightBtn.disableSkin = disableSkin;
 			layout();
 		}
-
-		public function get blockDisableSkin():ISkin
-		{
-			return _blockBtn.disableSkin;
-		}
-
-		public function set blockDisableSkin(value:ISkin):void
-		{
-			_blockBtn.disableSkin = value;
-			layout();
-		}
-
-
-		public function get leftNormalSkin():ISkin
-		{
-			return _leftBtn.normalSkin;
-		}
-
-		public function set leftNormalSkin(value:ISkin):void
-		{
-			_leftBtn.normalSkin = value;
-			layout();
-		}
-
-		public function get leftOverSkin():ISkin
-		{
-			return _leftBtn.overSkin;
-		}
-
-		public function set leftOverSkin(value:ISkin):void
-		{
-			_leftBtn.overSkin = value;
-			layout();
-		}
-
-		public function get leftDownSkin():ISkin
-		{
-			return _leftBtn.downSkin;
-		}
-
-		public function set leftDownSkin(value:ISkin):void
-		{
-			_leftBtn.downSkin = value;
-			layout();
-		}
-
-		public function get leftDisableSkin():ISkin
-		{
-			return _leftBtn.disableSkin;
-		}
-
-		public function set leftDisableSkin(value:ISkin):void
-		{
-			_leftBtn.disableSkin = value;
-			layout();
-		}
-
-		public function get rightNormalSkin():ISkin
-		{
-			return _rightBtn.normalSkin;
-		}
-
-		public function set rightNormalSkin(value:ISkin):void
-		{
-			_rightBtn.normalSkin = value;
-			layout();
-		}
-
-		public function get rightOverSkin():ISkin
-		{
-			return _rightBtn.overSkin;
-		}
-
-		public function set rightOverSkin(value:ISkin):void
-		{
-			_rightBtn.overSkin = value;
-			layout();
-		}
-
-		public function get rightDownSkin():ISkin
-		{
-			return _rightBtn.downSkin;
-		}
-
-		public function set rightDownSkin(value:ISkin):void
-		{
-			_rightBtn.downSkin = value;
-			layout();
-		}
-
-		public function get rightDisableSkin():ISkin
-		{
-			return _rightBtn.disableSkin;
-		}
-
-		public function set rightDisableSkin(value:ISkin):void
-		{
-			_rightBtn.disableSkin = value;
-			layout();
-		}
-
-		public function get bgSkin():ISkin
-		{
-			return _track.skin;
-		}
-
-		public function set bgSkin(value:ISkin):void
+		
+		/**
+		 * 设置滑槽背景皮肤
+		 * @param value
+		 * 
+		 */
+		public function setTrackSkin(value:ISkin):void
 		{
 			_track.skin = value;
 			_track.height = value.bitmapData.height;

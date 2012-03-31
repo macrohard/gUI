@@ -41,8 +41,11 @@ package com.macro.gUI.controls
 
 		public function set skin(value:ISkin):void
 		{
-			_skin = value;
-			paint();
+			if (_skin != value)
+			{
+				_skin = value;
+				paint();
+			}
 		}
 	}
 }

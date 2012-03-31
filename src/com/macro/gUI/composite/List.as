@@ -47,70 +47,40 @@ package com.macro.gUI.composite
 		 * 选中的列表项
 		 */
 		private var _selectItem:Cell;
+		
+		
+		/**
+		 * 列表项背景皮肤
+		 */
+		private var _cellSkin:ISkin;
+		
+		/**
+		 * 列表项选中状态时的背景皮肤
+		 */
+		private var _cellSelectedSkin:ISkin;
 
 
 		/**
 		 * 列表框控件，始终完全缩放，不支持布局对齐
-		 * @param bgSkin 背景皮肤
 		 * @param width 宽度，默认100
 		 * @param height 高度，默认100
 		 *
 		 */
-		public function List(bgSkin:ISkin = null, width:int = 100, height:int = 100)
+		public function List(width:int = 100, height:int = 100)
 		{
 			super(width, height, 0x11);
-
-			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.LIST_BG);
 
 			_itemContainer = new Container();
 			_scrollBar = new VScrollBar();
 
-			_container = new Panel(width, height, bgSkin);
+			_container = new Panel(width, height);
+			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.LIST_BG);
 			_container.addChild(_itemContainer);
 
 			_cellSkin = GameUI.skinManager.getSkin(SkinDef.CELL_BG);
 			_cellSelectedSkin = GameUI.skinManager.getSkin(SkinDef.CELL_SELECTED_BG);
 
 			resize(_rect.width, _rect.height);
-		}
-
-
-
-		private var _cellSkin:ISkin;
-
-		/**
-		 * 列表项背景皮肤
-		 * @return
-		 *
-		 */
-		public function get cellSkin():ISkin
-		{
-			return _cellSkin;
-		}
-
-		public function set cellSkin(value:ISkin):void
-		{
-			_cellSkin = value;
-			resetSkin();
-		}
-
-
-		private var _cellSelectedSkin:ISkin;
-
-		/**
-		 *列表项选中时的背景皮肤
-		 * @return
-		 *
-		 */
-		public function get cellSelectedSkin():ISkin
-		{
-			return _cellSelectedSkin;
-		}
-
-		public function set cellSelectedSkin(value:ISkin):void
-		{
-			_cellSelectedSkin = value;
-			resetSkin();
 		}
 
 
@@ -127,7 +97,8 @@ package com.macro.gUI.composite
 			var cell:Cell;
 			for each (var s:String in value)
 			{
-				cell = new Cell(s, _cellSkin);
+				cell = new Cell(s);
+				cell.skin = _cellSkin;
 				_itemContainer.addChild(cell);
 			}
 
@@ -177,6 +148,32 @@ package com.macro.gUI.composite
 		}
 
 
+		
+		/**
+		 * 设置列表框背景皮肤
+		 * @param bgSkin
+		 * 
+		 */
+		public function setBgSkin(bgSkin:ISkin):void
+		{
+			(_container as Panel).skin = bgSkin;
+		}
+		
+		
+		/**
+		 * 设置列表项皮肤
+		 * @param cellSkin
+		 * @param cellSelectedSkin
+		 * 
+		 */
+		public function setItemSkin(cellSkin:ISkin, cellSelectedSkin:ISkin):void
+		{
+			_cellSkin = cellSkin;
+			_cellSelectedSkin = cellSelectedSkin;
+			resetSkin();
+		}
+		
+		
 
 		public override function hitTest(x:int, y:int):IControl
 		{
@@ -268,7 +265,8 @@ package com.macro.gUI.composite
 		 */
 		public function addItem(text:String, index:int = -1):void
 		{
-			var cell:Cell = new Cell(text, _cellSkin);
+			var cell:Cell = new Cell(text);
+			cell.skin = _cellSkin;
 
 			if (index < 0)
 			{

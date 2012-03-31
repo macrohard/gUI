@@ -38,15 +38,12 @@ package com.macro.gUI.composite
 		/**
 		 * 水平进度条控件。根据填充物的九切片定义来确定是平铺填充，还是缩放填充。<br/>
 		 * 缩放填充时可以使用遮罩，使用遮罩时，将首先用填充物填满，然后使用遮罩来显示进度。
-		 * @param bgSkin 背景皮肤。注意将使用此皮肤的gridLeft和gridTop来定位填充物左上角坐标
-		 * @param infillSkin 填充物
 		 * @param width 宽度
 		 * @param align 布局对齐方式
 		 * @param maskMode 使用遮罩
 		 *
 		 */
-		public function ProgressBar(bgSkin:ISkin = null, infillSkin:ISkin = null, width:int = 200, align:int = 0x20,
-									mask:Boolean = false)
+		public function ProgressBar(width:int = 200, align:int = 0x20, mask:Boolean = false)
 		{
 			super(width, 20, align);
 
@@ -54,11 +51,11 @@ package com.macro.gUI.composite
 
 			_mask = mask;
 
-			bgSkin = bgSkin ? bgSkin : GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_BG);
-			_bg = new Slice(bgSkin, width, bgSkin.bitmapData.height);
+			var skin:ISkin = GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_BG);
+			_bg = new Slice(skin, width, skin.bitmapData.height);
 
-			_fillingSkin = infillSkin ? infillSkin : GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
-			_canvas = new Canvas(width - bgSkin.gridLeft - bgSkin.gridRight, _fillingSkin.bitmapData.height);
+			_fillingSkin = GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
+			_canvas = new Canvas(width - skin.gridLeft - skin.gridRight, _fillingSkin.bitmapData.height);
 
 			_container = new Container();
 			_container.addChild(_bg);
@@ -116,42 +113,21 @@ package com.macro.gUI.composite
 		}
 
 
+		
 		/**
-		 * 背景皮肤
-		 * @return
-		 *
+		 * 设置皮肤
+		 * @param bgSkin 背景皮肤。注意将使用此皮肤的gridLeft和gridTop来定位填充物左上角坐标
+		 * @param fillingSkin 填充物皮肤
+		 * 
 		 */
-		public function get bgSkin():ISkin
+		public function setSkins(bgSkin:ISkin, fillingSkin:ISkin):void
 		{
-			return _bg.skin;
-		}
-
-		public function set bgSkin(value:ISkin):void
-		{
-			_bg.skin = value;
-			_bg.height = value.bitmapData.height;
+			_bg.skin = bgSkin;
+			_bg.height = bgSkin.bitmapData.height;
+			_fillingSkin = fillingSkin;
+			_canvas.height = fillingSkin.bitmapData.height;
 			layout();
 		}
-
-
-		/**
-		 * 填充物皮肤
-		 * @return
-		 *
-		 */
-		public function get fillingSkin():ISkin
-		{
-			return _fillingSkin;
-		}
-
-		public function set fillingSkin(value:ISkin):void
-		{
-			_fillingSkin = value;
-			_canvas.height = value.bitmapData.height;
-			layout();
-		}
-
-
 
 
 

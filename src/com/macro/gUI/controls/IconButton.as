@@ -23,17 +23,14 @@ package com.macro.gUI.controls
 		/**
 		 * 图标按钮
 		 * @param text 作为文本的字符串
-		 * @param style 文本样式，如果为null，则使用StyleDef中的定义
 		 * @param alignText 文本对齐方式，默认右下角对齐
-		 * @param skin 皮肤，如果为null，则使用SkinDef中的定义
 		 * @param alignIcon 图标对齐方式，默认居中对齐
 		 *
 		 */
-		public function IconButton(text:String = null, style:TextStyle = null, alignText:int = 0x44, skin:ISkin = null,
-								   alignIcon:int = 0x22)
+		public function IconButton(text:String = null, alignText:int = 0x44, alignIcon:int = 0x22)
 		{
 			_alignIcon = alignIcon;
-			super(text, style, alignText, skin);
+			super(text, alignText);
 		}
 
 
@@ -93,12 +90,12 @@ package com.macro.gUI.controls
 		protected override function init():void
 		{
 			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.ICONBUTTON);
+			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.ICONBUTTON);
 			_styles[CtrlState.OVER] = _styles[CtrlState.DOWN] = _styles[CtrlState.NORMAL];
 			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.ICONBUTTON_DISABLE);
 
 			_skins = new Dictionary();
-			_skins[CtrlState.NORMAL] = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_NORMAL);
+			_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_NORMAL);
 			_skins[CtrlState.OVER] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_OVER);
 			_skins[CtrlState.DOWN] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_DOWN);
 			_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_DISABLE);

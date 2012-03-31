@@ -40,19 +40,15 @@ package com.macro.gUI.controls
 		/**
 		 * 文本输入框，支持背景皮肤定义，有常态及禁用态
 		 * @param text 默认文本
-		 * @param style 文本样式
 		 * @param align 文本对齐方式，默认左中对齐
-		 * @param skin 皮肤样式，如果为null，使用SkinDef中的定义
 		 *
 		 */
-		public function TextInput(text:String = null, style:TextStyle = null, align:int = 0x21, skin:ISkin = null)
+		public function TextInput(text:String = null, align:int = 0x21)
 		{
 			//默认可编辑
 			_editable = true;
 
-			_skin = skin;
-
-			super(text, style, align);
+			super(text, true, align);
 		}
 
 
@@ -122,7 +118,7 @@ package com.macro.gUI.controls
 
 		public override function set normalStyle(value:TextStyle):void
 		{
-			if (!value)
+			if (value == null || value == _styles[CtrlState.NORMAL])
 			{
 				return;
 			}
@@ -148,7 +144,7 @@ package com.macro.gUI.controls
 
 		public function set disableStyle(value:TextStyle):void
 		{
-			if (!value)
+			if (value == null || value == _styles[CtrlState.DISABLE])
 			{
 				return;
 			}
@@ -174,6 +170,11 @@ package com.macro.gUI.controls
 
 		public function set normalSkin(value:ISkin):void
 		{
+			if (_skins[CtrlState.NORMAL] == value)
+			{
+				return;
+			}
+			
 			if (_skin == _skins[CtrlState.NORMAL])
 			{
 				_skin = value;
@@ -195,6 +196,11 @@ package com.macro.gUI.controls
 
 		public function set disableSkin(value:ISkin):void
 		{
+			if (_skins[CtrlState.DISABLE] == value)
+			{
+				return;
+			}
+			
 			if (_skin == _skins[CtrlState.DISABLE])
 			{
 				_skin = value;
@@ -215,12 +221,12 @@ package com.macro.gUI.controls
 			_autoSize = false;
 
 			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = _style ? _style : GameUI.skinManager.getStyle(StyleDef.TEXTINPUT);
+			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.TEXTINPUT);
 			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.DISABLE);
 
 			//背景皮肤
 			_skins = new Dictionary();
-			_skins[CtrlState.NORMAL] = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_NORMAL);
+			_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_NORMAL);
 			_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_DISABLE);
 
 			_style = _styles[CtrlState.NORMAL];
