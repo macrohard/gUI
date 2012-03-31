@@ -3,9 +3,9 @@ package com.macro.gUI.managers
 	import com.macro.gUI.base.IComposite;
 	import com.macro.gUI.base.IContainer;
 	import com.macro.gUI.base.IControl;
-	import com.macro.gUI.render.RComposite;
-	import com.macro.gUI.render.RContainer;
-	import com.macro.gUI.render.RControl;
+	import com.macro.gUI.managers.render.RComposite;
+	import com.macro.gUI.managers.render.RContainer;
+	import com.macro.gUI.managers.render.RControl;
 
 	import flash.display.Bitmap;
 	import flash.display.Sprite;

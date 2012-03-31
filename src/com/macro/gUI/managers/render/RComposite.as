@@ -1,4 +1,4 @@
-package com.macro.gUI.render
+package com.macro.gUI.managers.render
 {
 	import com.macro.gUI.base.IComposite;
 	import com.macro.gUI.base.IControl;

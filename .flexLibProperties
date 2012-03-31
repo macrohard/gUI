@@ -44,9 +44,9 @@
     <classEntry path="com.macro.gUI.managers.PopupManager"/>
     <classEntry path="com.macro.gUI.managers.SkinManager"/>
     <classEntry path="com.macro.gUI.managers.UIManager"/>
-    <classEntry path="com.macro.gUI.render.RComposite"/>
-    <classEntry path="com.macro.gUI.render.RContainer"/>
-    <classEntry path="com.macro.gUI.render.RControl"/>
+    <classEntry path="com.macro.gUI.managers.render.RComposite"/>
+    <classEntry path="com.macro.gUI.managers.render.RContainer"/>
+    <classEntry path="com.macro.gUI.managers.render.RControl"/>
     <classEntry path="com.macro.gUI.skin.ISkin"/>
     <classEntry path="com.macro.gUI.skin.SkinDef"/>
     <classEntry path="com.macro.gUI.skin.StyleDef"/>
