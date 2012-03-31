@@ -299,13 +299,23 @@ package com.macro.gUI.base
 
 
 		/**
-		 * 重设尺寸，如果没有皮肤定义且使用此方法的默认参数，将产生无效调用
+		 * 重设尺寸
 		 * @param width
 		 * @param height
 		 *
 		 */
 		public function resize(width:int = 0, height:int = 0):void
 		{
+			if (width == 0)
+			{
+				width = _rect.width;
+			}
+			
+			if (height == 0)
+			{
+				height = _rect.height;
+			}
+			
 			if (_skin != null)
 			{
 				if (width < _skin.minWidth)
@@ -319,7 +329,7 @@ package com.macro.gUI.base
 				}
 			}
 
-			if (width > 0 && height > 0 && (_rect.width != width || _rect.height != height))
+			if (_rect.width != width || _rect.height != height)
 			{
 				_rect.width = width;
 				_rect.height = height;

@@ -3,14 +3,12 @@ package com.macro.gUI.controls
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.TextStyle;
-	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.events.KeyboardEvent;
-	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
 
@@ -76,11 +74,6 @@ package com.macro.gUI.controls
 
 		public override function set normalStyle(value:TextStyle):void
 		{
-			if (value == null || value == _styles[CtrlState.NORMAL])
-			{
-				return;
-			}
-
 			if (_style == _styles[CtrlState.NORMAL])
 			{
 				_style = value;
@@ -97,10 +90,7 @@ package com.macro.gUI.controls
 
 		public function set overStyle(value:TextStyle):void
 		{
-			if (value != null)
-			{
-				_styles[CtrlState.OVER] = value;
-			}
+			_styles[CtrlState.OVER] = value;
 		}
 
 		public function get downStyle():TextStyle
@@ -110,10 +100,7 @@ package com.macro.gUI.controls
 
 		public function set downStyle(value:TextStyle):void
 		{
-			if (value != null)
-			{
-				_styles[CtrlState.DOWN] = value;
-			}
+			_styles[CtrlState.DOWN] = value;
 		}
 
 		public function get disableStyle():TextStyle
@@ -123,11 +110,6 @@ package com.macro.gUI.controls
 
 		public function set disableStyle(value:TextStyle):void
 		{
-			if (value == null || value == _styles[CtrlState.DISABLE])
-			{
-				return;
-			}
-
 			if (_style == _styles[CtrlState.DISABLE])
 			{
 				_style = value;

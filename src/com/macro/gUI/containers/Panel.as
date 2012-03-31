@@ -25,15 +25,10 @@ package com.macro.gUI.containers
 		{
 			super(width, height);
 
-			_skin = GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
-			
 			_margin = new Rectangle();
-			_margin.left = _skin.gridLeft;
-			_margin.top = _skin.gridTop;
-			_margin.right = _skin.paddingRight;
-			_margin.bottom = _skin.paddingBottom;
+			this.skin = GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
 
-			paint();
+			resize();
 		}
 
 
@@ -44,10 +39,16 @@ package com.macro.gUI.containers
 
 		public function set skin(value:ISkin):void
 		{
-			if (_skin != value)
+			if (_skin != value && value != null)
 			{
 				_skin = value;
-				paint();
+				
+				_margin.left = _skin.gridLeft;
+				_margin.top = _skin.gridTop;
+				_margin.right = _skin.paddingRight;
+				_margin.bottom = _skin.paddingBottom;
+				
+				resize();
 			}
 		}
 		

@@ -80,7 +80,7 @@ package com.macro.gUI.composite
 			_cellSkin = GameUI.skinManager.getSkin(SkinDef.CELL_BG);
 			_cellSelectedSkin = GameUI.skinManager.getSkin(SkinDef.CELL_SELECTED_BG);
 
-			resize(_rect.width, _rect.height);
+			resize();
 		}
 
 
@@ -97,8 +97,7 @@ package com.macro.gUI.composite
 			var cell:Cell;
 			for each (var s:String in value)
 			{
-				cell = new Cell(s);
-				cell.skin = _cellSkin;
+				cell = new Cell(s, _cellSkin);
 				_itemContainer.addChild(cell);
 			}
 
@@ -265,8 +264,7 @@ package com.macro.gUI.composite
 		 */
 		public function addItem(text:String, index:int = -1):void
 		{
-			var cell:Cell = new Cell(text);
-			cell.skin = _cellSkin;
+			var cell:Cell = new Cell(text, _cellSkin);
 
 			if (index < 0)
 			{

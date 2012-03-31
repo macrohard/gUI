@@ -1,6 +1,5 @@
 package com.macro.gUI.controls
 {
-	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.AbstractControl;
 	import com.macro.gUI.skin.ISkin;
 
@@ -25,7 +24,7 @@ package com.macro.gUI.controls
 
 			_skin = skin;
 
-			resize(width, height);
+			resize();
 		}
 
 
@@ -44,7 +43,7 @@ package com.macro.gUI.controls
 			if (_skin != value)
 			{
 				_skin = value;
-				paint();
+				resize();
 			}
 		}
 	}

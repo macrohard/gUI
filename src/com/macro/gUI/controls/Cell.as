@@ -1,11 +1,10 @@
 package com.macro.gUI.controls
 {
 	import com.macro.gUI.GameUI;
-	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Rectangle;
 
 
@@ -19,14 +18,16 @@ package com.macro.gUI.controls
 
 		/**
 		 * 单元格控件，有文本及背景皮肤。
-		 * 它即可以作为List, ComboBox, Grid等控件的单元格使用，也可以作为TitleBar来使用
 		 * @param text 作为文本的字符串
+		 * @param skin 皮肤
+		 * @param autosize 自动设置尺寸，默认为false
 		 * @param align 文本对齐方式，默认居中对齐
 		 *
 		 */
-		public function Cell(text:String = null, align:int = 0x22)
+		public function Cell(text:String = null, skin:ISkin = null, autoSize:Boolean = false, align:int = 0x22)
 		{
-			super(text, true, align);
+			_skin = skin;
+			super(text, autoSize, align);
 		}
 
 
@@ -45,7 +46,7 @@ package com.macro.gUI.controls
 			if (_skin != value)
 			{
 				_skin = value;
-				paint();
+				resize();
 			}
 		}
 
@@ -54,7 +55,7 @@ package com.macro.gUI.controls
 		{
 			_style = GameUI.skinManager.getStyle(StyleDef.CELL);
 
-			_skin = GameUI.skinManager.getSkin(SkinDef.CELL_BG);
+			_skin = _skin ? _skin : GameUI.skinManager.getSkin(SkinDef.CELL_BG);
 
 			_padding = new Rectangle();
 		}

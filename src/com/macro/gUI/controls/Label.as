@@ -177,11 +177,6 @@ package com.macro.gUI.controls
 
 		public function set normalStyle(value:TextStyle):void
 		{
-			if (value == null || value == _style)
-			{
-				return;
-			}
-
 			_style = value;
 			drawText();
 		}

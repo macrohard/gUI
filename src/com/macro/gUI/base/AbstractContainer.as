@@ -49,7 +49,6 @@ package com.macro.gUI.base
 			if (value != null)
 			{
 				_margin = value;
-				paint();
 			}
 		}
 		

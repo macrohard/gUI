@@ -98,11 +98,6 @@ package com.macro.gUI.controls
 
 		public function set selectedStyle(value:TextStyle):void
 		{
-			if (value == null || value == _styles[CtrlState.SELECTED])
-			{
-				return;
-			}
-
 			if (_style == _styles[CtrlState.SELECTED])
 			{
 				_style = value;
@@ -139,11 +134,6 @@ package com.macro.gUI.controls
 
 		public function set selectedDisableStyle(value:TextStyle):void
 		{
-			if (value == null || value == _styles[CtrlState.SELECTED_DISABLE])
-			{
-				return;
-			}
-
 			if (_style == _styles[CtrlState.SELECTED_DISABLE])
 			{
 				_style = value;
@@ -170,7 +160,14 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.SELECTED])
 			{
 				_skin = value;
-				paint();
+				if (_autoSize)
+				{
+					resize();
+				}
+				else
+				{
+					paint();
+				}
 			}
 
 			_skins[CtrlState.SELECTED] = value;
@@ -211,7 +208,14 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.SELECTED_DISABLE])
 			{
 				_skin = value;
-				paint();
+				if (_autoSize)
+				{
+					resize();
+				}
+				else
+				{
+					paint();
+				}
 			}
 
 			_skins[CtrlState.SELECTED_DISABLE] = value;

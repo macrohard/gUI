@@ -2,12 +2,11 @@ package com.macro.gUI.controls
 {
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.CtrlState;
-	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
@@ -96,7 +95,14 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.NORMAL])
 			{
 				_skin = value;
-				paint();
+				if (_autoSize)
+				{
+					resize();
+				}
+				else
+				{
+					paint();
+				}
 			}
 
 			_skins[CtrlState.NORMAL] = value;
@@ -137,7 +143,14 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.DISABLE])
 			{
 				_skin = value;
-				paint();
+				if (_autoSize)
+				{
+					resize();
+				}
+				else
+				{
+					paint();
+				}
 			}
 
 			_skins[CtrlState.DISABLE] = value;
@@ -168,7 +181,7 @@ package com.macro.gUI.controls
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
-			if (_autoSize && _skin && (!text || text.length == 0))
+			if (_autoSize && _skin && (text == null || text.length == 0))
 			{
 				width = _skin.minWidth;
 				height = _skin.minHeight;

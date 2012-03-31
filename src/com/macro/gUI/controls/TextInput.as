@@ -4,13 +4,12 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.TextStyle;
-	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IEdit;
 	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -118,11 +117,6 @@ package com.macro.gUI.controls
 
 		public override function set normalStyle(value:TextStyle):void
 		{
-			if (value == null || value == _styles[CtrlState.NORMAL])
-			{
-				return;
-			}
-
 			if (_style == _styles[CtrlState.NORMAL])
 			{
 				_style = value;
@@ -144,11 +138,6 @@ package com.macro.gUI.controls
 
 		public function set disableStyle(value:TextStyle):void
 		{
-			if (value == null || value == _styles[CtrlState.DISABLE])
-			{
-				return;
-			}
-
 			if (_style == _styles[CtrlState.DISABLE])
 			{
 				_style = value;
@@ -178,7 +167,14 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.NORMAL])
 			{
 				_skin = value;
-				paint();
+				if (_autoSize)
+				{
+					resize();
+				}
+				else
+				{
+					paint();
+				}
 			}
 
 			_skins[CtrlState.NORMAL] = value;
@@ -204,7 +200,14 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.DISABLE])
 			{
 				_skin = value;
-				paint();
+				if (_autoSize)
+				{
+					resize();
+				}
+				else
+				{
+					paint();
+				}
 			}
 
 			_skins[CtrlState.DISABLE] = value;

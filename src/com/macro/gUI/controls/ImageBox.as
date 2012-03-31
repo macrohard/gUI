@@ -30,9 +30,10 @@ package com.macro.gUI.controls
 		 * @param source 要显示的可绘制对象
 		 * @param autoSize 是否自动根据显示内容设置尺寸
 		 * @param align 显示内容的对齐方式，默认左上角对齐
+		 * @param skin 边框皮肤
 		 *
 		 */
-		public function ImageBox(source:IBitmapDrawable = null, autoSize:Boolean = true, align:int = 0x11)
+		public function ImageBox(source:IBitmapDrawable = null, autoSize:Boolean = true, align:int = 0x11, skin:ISkin = null)
 		{
 			// 默认大小
 			super(100, 100);
@@ -41,7 +42,7 @@ package com.macro.gUI.controls
 
 			_autoSize = autoSize;
 
-			init();
+			_skin = skin ? skin : GameUI.skinManager.getSkin(SkinDef.IMAGEBOX_BORDER);
 
 			setSource(source);
 		}
@@ -113,20 +114,17 @@ package com.macro.gUI.controls
 			if (_skin != value)
 			{
 				_skin = value;
-				paint();
+				if (_autoSize)
+				{
+					resize();
+				}
+				else
+				{
+					paint();
+				}
 			}
 		}
 
-
-
-		/**
-		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
-		 *
-		 */
-		protected function init():void
-		{
-			_skin = GameUI.skinManager.getSkin(SkinDef.IMAGEBOX_BORDER);
-		}
 
 
 		/**
