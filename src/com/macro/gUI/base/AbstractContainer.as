@@ -34,6 +34,7 @@ package com.macro.gUI.base
 			}
 
 			_children = new Vector.<IControl>();
+			_margin = new Rectangle();
 		}
 
 

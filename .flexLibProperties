@@ -62,6 +62,7 @@
     <classEntry path="com.macro.utils.WordFilterUtil"/>
     <classEntry path="com.macro.utils.fte.TextSegment"/>
     <classEntry path="com.macro.utils.fte.TextUtil"/>
+    <classEntry path="com.macro.gUI.composite.TextArea"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -6,6 +6,11 @@ package com.macro.gUI.skin.impl
 	import flash.geom.Rectangle;
 
 
+	/**
+	 * 位图皮肤
+	 * @author Macro <macro776@gmail.com>
+	 * 
+	 */
 	public class BitmapSkin implements ISkin
 	{
 		private var _bitmapData:BitmapData;
@@ -29,7 +34,7 @@ package com.macro.gUI.skin.impl
 		private var _minHeight:int;
 
 		/**
-		 * 位图皮肤。九切片默认参数均为0，表示位图不支持九切片缩放
+		 * 位图皮肤。九切片默认参数均为0，表示不支持九切片缩放
 		 * @param bitmapData 图源
 		 * @param grid 九切片中心区域矩形。注意，缩放将使用此矩形的left, top, right, bottom值，而不是width, height。
 		 * 当right大于left时，皮肤可以水平缩放，当bottom大于top时皮肤可以垂直缩放
@@ -39,9 +44,9 @@ package com.macro.gUI.skin.impl
 		 */
 		public function BitmapSkin(bitmapData:BitmapData, grid:Rectangle, align:int)
 		{
-			if (!bitmapData)
+			if (bitmapData == null)
 			{
-				throw new Error("Invalid bitmapdata!");
+				throw new Error("Invalid BitmapData!");
 			}
 
 			_bitmapData = bitmapData;

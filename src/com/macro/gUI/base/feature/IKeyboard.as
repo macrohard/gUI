@@ -4,11 +4,11 @@ package com.macro.gUI.base.feature
 
 
 	/**
-	 * 控件可以接收键盘操作
+	 * 控件可以接收键盘操作，前提条件是控件可以获取焦点
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public interface IKeyboard
+	public interface IKeyboard extends IFocus
 	{
 
 		/**

@@ -7,11 +7,9 @@ package com.macro.gUI.composite
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IDrag;
-	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.containers.Panel;
 	import com.macro.gUI.controls.Cell;
-	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	
@@ -25,7 +23,7 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class List extends AbstractComposite implements IDrag, IButton, IFocus
+	public class List extends AbstractComposite implements IDrag, IButton
 	{
 
 		/**
@@ -80,7 +78,7 @@ package com.macro.gUI.composite
 			_cellSkin = GameUI.skinManager.getSkin(SkinDef.CELL_BG);
 			_cellSelectedSkin = GameUI.skinManager.getSkin(SkinDef.CELL_SELECTED_BG);
 
-			resize();
+			layout();
 		}
 
 
@@ -134,20 +132,6 @@ package com.macro.gUI.composite
 
 
 
-		private var _tabIndex:int;
-
-		public function get tabIndex():int
-		{
-			return _tabIndex;
-		}
-
-		public function set tabIndex(value:int):void
-		{
-			_tabIndex = value;
-		}
-
-
-		
 		/**
 		 * 设置列表框背景皮肤
 		 * @param bgSkin

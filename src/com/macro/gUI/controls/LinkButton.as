@@ -4,7 +4,6 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.feature.IButton;
-	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.StyleDef;
 	
@@ -18,7 +17,7 @@ package com.macro.gUI.controls
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class LinkButton extends Label implements IButton, IKeyboard, IFocus
+	public class LinkButton extends Label implements IButton, IKeyboard
 	{
 
 		protected var _styles:Dictionary;

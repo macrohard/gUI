@@ -16,9 +16,10 @@ package com.macro.gUI.skin
 		public static const TEXTINPUT:String = "textinput";
 
 
+		public static const TEXTAREA:String = "textarea";
+		
 
 		public static const CELL:String = "cell";
-
 
 
 		public static const LINKBUTTON_NORMAL:String = "linkbutton.normal";

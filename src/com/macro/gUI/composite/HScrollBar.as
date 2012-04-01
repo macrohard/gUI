@@ -8,7 +8,6 @@ package com.macro.gUI.composite
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IDrag;
-	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Button;
@@ -30,7 +29,7 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class HScrollBar extends AbstractComposite implements IKeyboard, IDrag, IButton, IFocus
+	public class HScrollBar extends AbstractComposite implements IKeyboard, IDrag, IButton
 	{
 
 		private var _track:Slice;

@@ -7,14 +7,13 @@ package com.macro.gUI.composite
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IDrag;
-	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Button;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -27,7 +26,7 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class HSlider extends AbstractComposite implements IKeyboard, IDrag, IButton, IFocus
+	public class HSlider extends AbstractComposite implements IKeyboard, IDrag, IButton
 	{
 
 		private var _bg:Slice;

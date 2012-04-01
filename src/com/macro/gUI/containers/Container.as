@@ -16,7 +16,6 @@ package com.macro.gUI.containers
 		public function Container(width:int = 100, height:int = 100)
 		{
 			super(width, height);
-			_margin = new Rectangle();
 		}
 
 		/**

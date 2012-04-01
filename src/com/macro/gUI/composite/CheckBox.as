@@ -6,7 +6,6 @@ package com.macro.gUI.composite
 	import com.macro.gUI.base.AbstractComposite;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
-	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Label;
@@ -24,7 +23,7 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class CheckBox extends AbstractComposite implements IButton, IKeyboard, IFocus
+	public class CheckBox extends AbstractComposite implements IButton, IKeyboard
 	{
 
 		/**

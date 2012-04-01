@@ -116,8 +116,16 @@ package com.macro.gUI.managers
 			s = new TextStyle();
 			s.color = 0x999999;
 			_style[StyleDef.DISABLE] = s;
+			
+			//文本块样式
+			s = new TextStyle();
+			s.size = 14;
+			s.color = 0xFFFFFF;
+			s.multiline = true;
+			s.wordWrap = true;
+			_style[StyleDef.TEXTAREA] = s;
 
-			//标题文本样式
+			//单元格文本样式
 			s = new TextStyle();
 			s.size = 14;
 			s.bold = true;

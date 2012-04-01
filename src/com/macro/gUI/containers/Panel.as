@@ -25,7 +25,6 @@ package com.macro.gUI.containers
 		{
 			super(width, height);
 
-			_margin = new Rectangle();
 			this.skin = skin ? skin : GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
 
 			resize();

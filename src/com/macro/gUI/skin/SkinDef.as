@@ -18,6 +18,9 @@ package com.macro.gUI.skin
 		public static const CELL_SELECTED_BG:String = "cell.selected.background";
 
 		public static const LIST_BG:String = "list.background";
+		
+		
+		public static const TEXTAREA_BG:String = "textarea.backgroud";
 
 
 
