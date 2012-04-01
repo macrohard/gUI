@@ -22,11 +22,6 @@ package com.macro.gUI.assist
 		public var wordWrap:Boolean;
 
 		/**
-		 * 显示为密码
-		 */
-		public var displayAsPassword:Boolean;
-
-		/**
 		 * 最大字符数，仅限定用户可以输入多少文本，直接赋值时不受此限制
 		 */
 		public var maxChars:int;
@@ -83,7 +78,6 @@ package com.macro.gUI.assist
 
 			style.multiline = this.multiline;
 			style.wordWrap = this.wordWrap;
-			style.displayAsPassword = this.displayAsPassword;
 			style.maxChars = this.maxChars;
 			style.filters = this.filters;
 

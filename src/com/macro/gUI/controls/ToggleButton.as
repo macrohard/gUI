@@ -26,6 +26,37 @@ package com.macro.gUI.controls
 		 */
 		public function ToggleButton(text:String = null, align:int = 0x22)
 		{
+			if (_styles == null)
+			{
+			_styles = new Dictionary();
+			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.BUTTON_NORMAL);
+			_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.BUTTON_OVER);
+			_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DOWN);
+			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DISABLE);
+			_styles[CtrlState.SELECTED] = GameUI.skinManager.getStyle(StyleDef.TOGGLEBUTTON_SELECTED);
+			_styles[CtrlState.SELECTED_OVER] = GameUI.skinManager.getStyle(StyleDef.TOGGLEBUTTON_SELECTED_OVER);
+			_styles[CtrlState.SELECTED_DOWN] = GameUI.skinManager.getStyle(StyleDef.TOGGLEBUTTON_SELECTED_DOWN);
+			_styles[CtrlState.SELECTED_DISABLE] = GameUI.skinManager.getStyle(StyleDef.TOGGLEBUTTON_SELECTED_DISABLE);
+			}
+			
+			if (_skins == null)
+			{
+			_skins = new Dictionary();
+			_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_NORMAL);
+			_skins[CtrlState.OVER] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_OVER);
+			_skins[CtrlState.DOWN] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_DOWN);
+			_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_DISABLE);
+			_skins[CtrlState.SELECTED] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED);
+			_skins[CtrlState.SELECTED_OVER] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED_OVER);
+			_skins[CtrlState.SELECTED_DOWN] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED_DOWN);
+			_skins[CtrlState.SELECTED_DISABLE] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED_DISABLE);
+			}
+			
+			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+			_style = _style ? _style : _styles[CtrlState.NORMAL];
+			
+			_padding = _padding ? _padding : new Rectangle(10);
+			
 			super(text, align);
 		}
 
@@ -219,36 +250,6 @@ package com.macro.gUI.controls
 			}
 
 			_skins[CtrlState.SELECTED_DISABLE] = value;
-		}
-
-
-
-		protected override function init():void
-		{
-			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.BUTTON_NORMAL);
-			_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.BUTTON_OVER);
-			_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DOWN);
-			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DISABLE);
-			_styles[CtrlState.SELECTED] = GameUI.skinManager.getStyle(StyleDef.TOGGLEBUTTON_SELECTED);
-			_styles[CtrlState.SELECTED_OVER] = GameUI.skinManager.getStyle(StyleDef.TOGGLEBUTTON_SELECTED_OVER);
-			_styles[CtrlState.SELECTED_DOWN] = GameUI.skinManager.getStyle(StyleDef.TOGGLEBUTTON_SELECTED_DOWN);
-			_styles[CtrlState.SELECTED_DISABLE] = GameUI.skinManager.getStyle(StyleDef.TOGGLEBUTTON_SELECTED_DISABLE);
-
-			_skins = new Dictionary();
-			_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_NORMAL);
-			_skins[CtrlState.OVER] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_OVER);
-			_skins[CtrlState.DOWN] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_DOWN);
-			_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_DISABLE);
-			_skins[CtrlState.SELECTED] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED);
-			_skins[CtrlState.SELECTED_OVER] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED_OVER);
-			_skins[CtrlState.SELECTED_DOWN] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED_DOWN);
-			_skins[CtrlState.SELECTED_DISABLE] = GameUI.skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED_DISABLE);
-
-			_skin = _skins[CtrlState.NORMAL];
-			_style = _styles[CtrlState.NORMAL];
-
-			_padding = new Rectangle(10);
 		}
 
 

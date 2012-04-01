@@ -30,14 +30,30 @@ package com.macro.gUI.controls
 		 */
 		public function Button(text:String = null, align:int = 0x22)
 		{
-			super(text, align);
-
-			//如果未设置文本，那么父类Label不会产生进行绘制，
-			//因此需要调用一下绘制接口，以便绘制按钮的皮肤
-			if (!text || text.length == 0)
+			if (_styles == null)
 			{
-				resize();
+				_styles = new Dictionary();
+				_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.BUTTON_NORMAL);
+				_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.BUTTON_OVER);
+				_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DOWN);
+				_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DISABLE);
 			}
+			
+			if (_skins == null)
+			{
+				_skins = new Dictionary();
+				_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.BUTTON_NORMAL);
+				_skins[CtrlState.OVER] = GameUI.skinManager.getSkin(SkinDef.BUTTON_OVER);
+				_skins[CtrlState.DOWN] = GameUI.skinManager.getSkin(SkinDef.BUTTON_DOWN);
+				_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.BUTTON_DISABLE);
+			}
+			
+			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+			_style = _style ? _style : _styles[CtrlState.NORMAL];
+			
+			_padding = _padding ? _padding : new Rectangle(10);
+			
+			super(text, align);
 		}
 
 
@@ -158,27 +174,6 @@ package com.macro.gUI.controls
 
 
 
-		protected override function init():void
-		{
-			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.BUTTON_NORMAL);
-			_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.BUTTON_OVER);
-			_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DOWN);
-			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.BUTTON_DISABLE);
-
-			_skins = new Dictionary();
-			_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.BUTTON_NORMAL);
-			_skins[CtrlState.OVER] = GameUI.skinManager.getSkin(SkinDef.BUTTON_OVER);
-			_skins[CtrlState.DOWN] = GameUI.skinManager.getSkin(SkinDef.BUTTON_DOWN);
-			_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.BUTTON_DISABLE);
-
-			_skin = _skins[CtrlState.NORMAL];
-			_style = _styles[CtrlState.NORMAL];
-
-			_padding = new Rectangle(10);
-		}
-
-
 		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize && _skin && (text == null || text.length == 0))
@@ -206,6 +201,11 @@ package com.macro.gUI.controls
 			else
 			{
 				if (_skinDrawRect && _skinDrawRect.contains(x, y))
+				{
+					return this;
+				}
+				
+				if (_textDrawRect && _textDrawRect.contains(x, y))
 				{
 					return this;
 				}

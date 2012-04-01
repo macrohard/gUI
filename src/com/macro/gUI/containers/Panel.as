@@ -21,12 +21,12 @@ package com.macro.gUI.containers
 		 * @param height 容器高度
 		 *
 		 */
-		public function Panel(width:int = 100, height:int = 100)
+		public function Panel(width:int = 100, height:int = 100, skin:ISkin = null)
 		{
 			super(width, height);
 
 			_margin = new Rectangle();
-			this.skin = GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
+			this.skin = skin ? skin : GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
 
 			resize();
 		}

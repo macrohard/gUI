@@ -4,6 +4,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.TextStyle;
+	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IEdit;
 	import com.macro.gUI.base.feature.IFocus;
 	import com.macro.gUI.skin.ISkin;
@@ -46,8 +47,28 @@ package com.macro.gUI.controls
 		{
 			//默认可编辑
 			_editable = true;
+			
+			if (_style == null)
+			{
+				_styles = new Dictionary();
+				_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.TEXTINPUT);
+				_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.DISABLE);
+			}
+			
+			//背景皮肤
+			if (_skins == null)
+			{
+				_skins = new Dictionary();
+				_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_NORMAL);
+				_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_DISABLE);
+			}
+			
+			_style = _style ? _style : _styles[CtrlState.NORMAL];
+			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+			
+			_padding = _padding ? _padding : new Rectangle(10, 0 -10);
 
-			super(text, true, align);
+			super(text, false, align);
 		}
 
 
@@ -67,8 +88,8 @@ package com.macro.gUI.controls
 		{
 			_editable = value;
 		}
-
-
+		
+		
 
 		private var _tabIndex:int;
 
@@ -212,30 +233,26 @@ package com.macro.gUI.controls
 
 			_skins[CtrlState.DISABLE] = value;
 		}
-
-
-
-		/**
-		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
-		 *
-		 */
-		protected override function init():void
+		
+		
+		
+		public override function hitTest(x:int, y:int):IControl
 		{
-			_autoSize = false;
-
-			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.TEXTINPUT);
-			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.DISABLE);
-
-			//背景皮肤
-			_skins = new Dictionary();
-			_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_NORMAL);
-			_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_DISABLE);
-
-			_style = _styles[CtrlState.NORMAL];
-			_skin = _skins[CtrlState.NORMAL];
-
-			_padding = new Rectangle(10);
+			var p:Point = this.globalCoord();
+			x -= p.x;
+			y -= p.y;
+			
+			if (_skinDrawRect && _skinDrawRect.contains(x, y))
+			{
+				return this;
+			}
+			
+			if (_textDrawRect && _textDrawRect.contains(x, y))
+			{
+				return this;
+			}
+			
+			return null;
 		}
 
 
@@ -245,116 +262,11 @@ package com.macro.gUI.controls
 		 * @return
 		 *
 		 */
-		public function beginEdit():TextField
+		public function beginEdit():void
 		{
-			if (!_enabled)
-			{
-				return null;
-			}
-
-			if (_editBox)
-			{
-				return _editBox;
-			}
-
+			_text = null;
 			_textImg = null;
 			paint();
-
-			_editBox = new TextField();
-			_editBox.autoSize = TextFieldAutoSize.LEFT;
-			_editBox.displayAsPassword = _style.displayAsPassword;
-			_editBox.maxChars = _style.maxChars;
-			_editBox.filters = _style.filters;
-			_editBox.defaultTextFormat = _style;
-			_editBox.text = _text;
-
-			_editBox.addEventListener(Event.CHANGE, onTextChange);
-			relocateEditBox();
-
-			if (_editable)
-			{
-				_editBox.type = TextFieldType.INPUT;
-			}
-
-			return _editBox;
-		}
-
-		/**
-		 * 结束编辑
-		 *
-		 */
-		public function endEdit():void
-		{
-			if (_editBox)
-			{
-				_text = _editBox.text;
-				drawText();
-
-				_editBox.removeEventListener(Event.CHANGE, onTextChange);
-				_editBox = null;
-			}
-		}
-
-		private function onTextChange(e:Event):void
-		{
-			relocateEditBox();
-		}
-
-		/**
-		 * 重新定位编辑框
-		 *
-		 */
-		private function relocateEditBox():void
-		{
-			if (!_editBox)
-			{
-				return;
-			}
-
-			var txtW:int = _editBox.textWidth + 4 + _style.leftMargin + _style.rightMargin + _style.indent + _style.blockIndent;
-			var txtH:int = _editBox.textHeight + 4;
-
-			var w:int = getTextWidth();
-			var h:int = getTextHeight();
-
-			if (txtW > w)
-			{
-				_editBox.autoSize = TextFieldAutoSize.NONE;
-				_editBox.multiline = _style.multiline;
-				_editBox.wordWrap = _style.wordWrap;
-				txtW = w;
-				_editBox.width = txtW + 2;
-				txtH = _editBox.textHeight + 4;
-			}
-			else
-			{
-				_editBox.autoSize = TextFieldAutoSize.LEFT;
-			}
-
-			var p:Point = this.globalCoord();
-
-			var ox:int = p.x + (_padding ? _padding.left : 0);
-			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
-			{
-				ox += (w - txtW) >> 1;
-			}
-			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
-			{
-				ox += w - txtW;
-			}
-
-			var oy:int = p.y + (_padding ? _padding.top : 0);
-			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
-			{
-				oy += (h - txtH) >> 1;
-			}
-			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
-			{
-				oy += h - txtH;
-			}
-
-			_editBox.x = ox;
-			_editBox.y = oy;
 		}
 	}
 }

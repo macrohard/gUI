@@ -133,7 +133,7 @@ package com.macro.gUI.managers
 			//图标按钮文本样式
 			s = new TextStyle();
 			s.color = 0xFFFFFF;
-			s.size = 8;
+			s.size = 10;
 			s.align = TextFormatAlign.RIGHT;
 			_style[StyleDef.ICONBUTTON] = s;
 

@@ -31,6 +31,17 @@ package com.macro.gUI.controls
 		 */
 		public function LinkButton(text:String = null, align:int = 0x11)
 		{
+			if (_styles == null)
+			{
+				_styles = new Dictionary();
+				_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
+				_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
+				_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
+				_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);
+			}
+			
+			_style = _style ? _style : _styles[CtrlState.NORMAL];
+			
 			super(text, true, align);
 		}
 
@@ -119,19 +130,6 @@ package com.macro.gUI.controls
 			_styles[CtrlState.DISABLE] = value;
 		}
 
-
-
-
-		protected override function init():void
-		{
-			_styles = new Dictionary();
-			_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
-			_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
-			_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
-			_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);
-
-			_style = _styles[CtrlState.NORMAL];
-		}
 
 
 		public function mouseDown():void

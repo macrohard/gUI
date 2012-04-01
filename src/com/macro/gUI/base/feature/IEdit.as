@@ -23,12 +23,7 @@ package com.macro.gUI.base.feature
 		 * @return
 		 *
 		 */
-		function beginEdit():TextField;
+		function beginEdit():void;
 
-		/**
-		 * 结束编辑
-		 *
-		 */
-		function endEdit():void;
 	}
 }

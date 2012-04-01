@@ -30,7 +30,7 @@ package com.macro.gUI.controls
 		/**
 		 * 文本图像区域
 		 */
-		private var _textDrawRect:Rectangle;
+		protected var _textDrawRect:Rectangle;
 
 		/**
 		 * 是否重绘文本
@@ -56,9 +56,11 @@ package com.macro.gUI.controls
 
 			_align = align;
 
-			init();
+			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.NORMAL);
 
-			this.text = text;
+			_text = text;
+			
+			drawText();
 		}
 
 
@@ -127,11 +129,29 @@ package com.macro.gUI.controls
 
 		public function set text(value:String):void
 		{
-			if (value && value.length > 0 && _text != value)
+			if (value != null && value.length > 0 && _text != value)
 			{
 				_text = value;
 				drawText();
 			}
+		}
+		
+		
+		protected var _displayAsPassword:Boolean;
+		
+		/**
+		 * 显示为密码
+		 * @return 
+		 * 
+		 */
+		public function get displayAsPassword():Boolean
+		{
+			return _displayAsPassword;
+		}
+		
+		public function set displayAsPassword(value:Boolean):void
+		{
+			_displayAsPassword = value;
 		}
 
 
@@ -183,16 +203,6 @@ package com.macro.gUI.controls
 
 
 
-		/**
-		 * 初始化控件属性，子类可以在此方法中覆盖父类定义
-		 *
-		 */
-		protected function init():void
-		{
-			_style = GameUI.skinManager.getStyle(StyleDef.NORMAL);
-		}
-
-
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = this.globalCoord();
@@ -238,7 +248,7 @@ package com.macro.gUI.controls
 		{
 			if (!_autoSize && _rebuildTextImg)
 			{
-				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize);
+				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize, _displayAsPassword);
 			}
 			_rebuildTextImg = false;
 
@@ -257,7 +267,7 @@ package com.macro.gUI.controls
 		{
 			if (_autoSize)
 			{
-				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize);
+				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize, _displayAsPassword);
 				resize();
 			}
 			else
@@ -268,7 +278,7 @@ package com.macro.gUI.controls
 		}
 
 
-		protected function getTextWidth():int
+		private function getTextWidth():int
 		{
 			if (_padding)
 			{
@@ -277,14 +287,6 @@ package com.macro.gUI.controls
 			return _rect.width;
 		}
 
-		protected function getTextHeight():int
-		{
-			if (_padding)
-			{
-				return _rect.height - _padding.top - _padding.bottom;
-			}
-			return _rect.height;
-		}
 
 
 		/**
@@ -297,7 +299,7 @@ package com.macro.gUI.controls
 		 *
 		 */
 		protected static function createTextImage(text:String, style:TextStyle, width:int,
-												  autoSize:Boolean = true):BitmapData
+												  autoSize:Boolean, displayAsPassword:Boolean):BitmapData
 		{
 			if (!text || text.length == 0 || !style)
 			{
@@ -311,7 +313,7 @@ package com.macro.gUI.controls
 
 			var tf:TextField = new TextField();
 			tf.autoSize = TextFieldAutoSize.LEFT;
-			tf.displayAsPassword = style.displayAsPassword;
+			tf.displayAsPassword = displayAsPassword;
 			tf.maxChars = style.maxChars;
 			tf.filters = style.filters;
 			tf.defaultTextFormat = style;
