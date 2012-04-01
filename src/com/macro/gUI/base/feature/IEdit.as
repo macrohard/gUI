@@ -1,6 +1,5 @@
 package com.macro.gUI.base.feature
 {
-	import flash.text.TextField;
 
 
 	/**
