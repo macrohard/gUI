@@ -24,7 +24,7 @@ package com.macro.gUI.controls
 
 			_skin = skin;
 
-			resize();
+			paint();
 		}
 
 
@@ -43,7 +43,7 @@ package com.macro.gUI.controls
 			if (_skin != value)
 			{
 				_skin = value;
-				resize();
+				paint();
 			}
 		}
 	}

@@ -27,7 +27,7 @@ package com.macro.gUI.containers
 
 			this.skin = skin ? skin : GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
 
-			resize();
+			paint();
 		}
 
 
@@ -47,7 +47,7 @@ package com.macro.gUI.containers
 				_margin.right = _skin.paddingRight;
 				_margin.bottom = _skin.paddingBottom;
 				
-				resize();
+				paint();
 			}
 		}
 		

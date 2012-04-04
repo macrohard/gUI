@@ -401,23 +401,13 @@ package com.macro.gUI.base
 					}
 				}
 			}
-
-			postPaint();
 		}
 
 		/**
-		 * 皮肤绘制之前
+		 * 画布重建之后，皮肤绘制之前
 		 *
 		 */
 		protected function prePaint():void
-		{
-		}
-
-		/**
-		 * 皮肤绘制之后
-		 *
-		 */
-		protected function postPaint():void
 		{
 		}
 

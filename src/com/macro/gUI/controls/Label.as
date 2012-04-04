@@ -32,12 +32,6 @@ package com.macro.gUI.controls
 		 */
 		protected var _textDrawRect:Rectangle;
 
-		/**
-		 * 是否重绘文本
-		 */
-		private var _rebuildTextImg:Boolean;
-
-
 
 		/**
 		 * 文本标签控件，无皮肤定义
@@ -51,7 +45,6 @@ package com.macro.gUI.controls
 			//默认大小
 			super(100, 20);
 
-			//默认自动设置尺寸
 			_autoSize = autoSize;
 
 			_align = align;
@@ -60,7 +53,7 @@ package com.macro.gUI.controls
 
 			_text = text;
 			
-			drawText();
+			autoResize();
 		}
 
 
@@ -109,7 +102,7 @@ package com.macro.gUI.controls
 				_autoSize = value;
 				if (_autoSize)
 				{
-					drawText();
+					resize();
 				}
 			}
 		}
@@ -132,7 +125,7 @@ package com.macro.gUI.controls
 			if (value != null && value.length > 0 && _text != value)
 			{
 				_text = value;
-				drawText();
+				autoResize();
 			}
 		}
 		
@@ -172,14 +165,7 @@ package com.macro.gUI.controls
 		public function set padding(value:Rectangle):void
 		{
 			_padding = value;
-			if (_autoSize)
-			{
-				resize();
-			}
-			else
-			{
-				paint();
-			}
+			autoResize();
 		}
 
 
@@ -198,7 +184,7 @@ package com.macro.gUI.controls
 		public function set style(value:TextStyle):void
 		{
 			_style = value;
-			drawText();
+			autoResize();
 		}
 
 
@@ -219,17 +205,57 @@ package com.macro.gUI.controls
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
+			if (width == 0)
+			{
+				width = _rect.width;
+			}
+			
+			if (height == 0)
+			{
+				height = _rect.height;
+			}
+			
+			if (_skin != null)
+			{
+				if (width < _skin.minWidth)
+				{
+					width = _skin.minWidth;
+				}
+				
+				if (height < _skin.minHeight)
+				{
+					height = _skin.minHeight;
+				}
+			}
+			
+			var textWidth:int = _padding ? _rect.width - _padding.left - _padding.right : _rect.width;
+			
 			if (_autoSize && _textImg)
 			{
+				_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword);
 				width = _textImg.width + (_padding ? _padding.left + _padding.right : 0);
 				height = _textImg.height + (_padding ? _padding.top + _padding.bottom : 0);
 			}
 			else if (_style.wordWrap)
 			{
-				_rebuildTextImg = true;
+				_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword);
 			}
-
-			super.resize(width, height);
+			
+			if (_rect.width != width || _rect.height != height)
+			{
+				_rect.width = width;
+				_rect.height = height;
+				paint(true);
+			}
+			else
+			{
+				paint();
+			}
+			
+			if (_textImg)
+			{
+				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _padding);
+			}
 		}
 
 
@@ -244,62 +270,31 @@ package com.macro.gUI.controls
 		}
 
 
-		protected override function postPaint():void
-		{
-			if (!_autoSize && _rebuildTextImg)
-			{
-				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize, _displayAsPassword);
-			}
-			_rebuildTextImg = false;
-
-			if (_textImg)
-			{
-				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _padding);
-			}
-		}
-
-
-		/**
-		 * 绘制文本
-		 *
-		 */
-		protected function drawText():void
+		
+		protected function autoResize():void
 		{
 			if (_autoSize)
 			{
-				_textImg = createTextImage(_text, _style, getTextWidth(), _autoSize, _displayAsPassword);
 				resize();
 			}
 			else
 			{
-				_rebuildTextImg = true;
 				paint();
 			}
 		}
-
-
-		private function getTextWidth():int
-		{
-			if (_padding)
-			{
-				return _rect.width - _padding.left - _padding.right;
-			}
-			return _rect.width;
-		}
-
-
+		
+		
 
 		/**
 		 * 创建文本图形
 		 * @param text 作为图形的文本
 		 * @param style 文本样式
 		 * @param width 文本框宽度
-		 * @param autoSize 根据文本自动设置尺寸
+		 * @param displayAsPassword 是否显示为密码
 		 * @return
 		 *
 		 */
-		protected static function createTextImage(text:String, style:TextStyle, width:int,
-												  autoSize:Boolean, displayAsPassword:Boolean):BitmapData
+		protected static function createTextImage(text:String, style:TextStyle, width:int, displayAsPassword:Boolean):BitmapData
 		{
 			if (!text || text.length == 0 || !style)
 			{
@@ -319,9 +314,9 @@ package com.macro.gUI.controls
 			tf.defaultTextFormat = style;
 			tf.text = text;
 
-			if (!autoSize && tf.width > width)
+			if (style.wordWrap && tf.width > width)
 			{
-				tf.wordWrap = style.wordWrap;
+				tf.wordWrap = true;
 				tf.width = width;
 			}
 

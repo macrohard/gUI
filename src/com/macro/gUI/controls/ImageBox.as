@@ -114,14 +114,7 @@ package com.macro.gUI.controls
 			if (_skin != value)
 			{
 				_skin = value;
-				if (_autoSize)
-				{
-					resize();
-				}
-				else
-				{
-					paint();
-				}
+				autoResize();
 			}
 		}
 
@@ -143,14 +136,7 @@ package com.macro.gUI.controls
 				}
 
 				_image = getBitmapData(value);
-				if (_autoSize)
-				{
-					resize();
-				}
-				else
-				{
-					paint();
-				}
+				autoResize();
 			}
 		}
 
@@ -202,6 +188,18 @@ package com.macro.gUI.controls
 			}
 
 			throw new Error("Unknow IBitmapDrawable Object!");
+		}
+		
+		private function autoResize():void
+		{
+			if (_autoSize)
+			{
+				resize();
+			}
+			else
+			{
+				paint();
+			}
 		}
 	}
 }

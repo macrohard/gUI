@@ -264,14 +264,6 @@ package com.macro.gUI.base
 		{
 		}
 
-		/**
-		 * 复合控件不执行绘制
-		 *
-		 */
-		protected final override function postPaint():void
-		{
-		}
-
 
 		/**
 		 * 布局

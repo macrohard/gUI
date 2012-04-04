@@ -116,7 +116,7 @@ package com.macro.gUI.controls
 						_style = _styles[CtrlState.DISABLE];
 					}
 				}
-				drawText();
+				autoResize();
 			}
 		}
 
@@ -132,7 +132,7 @@ package com.macro.gUI.controls
 			if (_style == _styles[CtrlState.SELECTED])
 			{
 				_style = value;
-				drawText();
+				autoResize();
 			}
 
 			_styles[CtrlState.SELECTED] = value;
@@ -168,7 +168,7 @@ package com.macro.gUI.controls
 			if (_style == _styles[CtrlState.SELECTED_DISABLE])
 			{
 				_style = value;
-				drawText();
+				autoResize();
 			}
 
 			_styles[CtrlState.SELECTED_DISABLE] = value;
@@ -191,14 +191,7 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.SELECTED])
 			{
 				_skin = value;
-				if (_autoSize)
-				{
-					resize();
-				}
-				else
-				{
-					paint();
-				}
+				autoResize();
 			}
 
 			_skins[CtrlState.SELECTED] = value;
@@ -239,14 +232,7 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.SELECTED_DISABLE])
 			{
 				_skin = value;
-				if (_autoSize)
-				{
-					resize();
-				}
-				else
-				{
-					paint();
-				}
+				autoResize();
 			}
 
 			_skins[CtrlState.SELECTED_DISABLE] = value;
@@ -283,7 +269,7 @@ package com.macro.gUI.controls
 				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.DOWN];
 			}
-			drawText();
+			autoResize();
 		}
 
 		public override function mouseOut():void
@@ -313,7 +299,7 @@ package com.macro.gUI.controls
 				_skin = _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.NORMAL];
 			}
-			drawText();
+			autoResize();
 		}
 
 		public override function mouseOver():void
@@ -345,7 +331,7 @@ package com.macro.gUI.controls
 				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.OVER];
 			}
-			drawText();
+			autoResize();
 		}
 
 		public override function mouseUp():void
