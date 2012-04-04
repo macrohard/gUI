@@ -66,7 +66,7 @@ package com.macro.gUI.composite
 			_hScrollBar = new HScrollBar();
 			
 			_label = new Label(null, false);
-			_label.normalStyle = GameUI.skinManager.getStyle(StyleDef.TEXTAREA);
+			_label.style = GameUI.skinManager.getStyle(StyleDef.TEXTAREA);
 			
 			_contentContainer = new Container();
 			_contentContainer.addChild(_label);
@@ -103,14 +103,14 @@ package com.macro.gUI.composite
 		 */
 		public function get wordWrap():Boolean
 		{
-			return _label.normalStyle.wordWrap;
+			return _label.style.wordWrap;
 		}
 		
 		public function set wordWrap(value:Boolean):void
 		{
-			var style:TextStyle = _label.normalStyle;
+			var style:TextStyle = _label.style;
 			style.wordWrap = value;
-			_label.normalStyle = style;
+			_label.style = style;
 			_label.autoSize = !value;
 			layout();
 		}

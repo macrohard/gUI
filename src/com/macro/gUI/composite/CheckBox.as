@@ -53,7 +53,7 @@ package com.macro.gUI.composite
 
 			_label = new Label(text);
 			_icon = new ToggleButton(null, 0x22);
-			_icon.overSkin = _icon.downSkin = _icon.normalSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_NORMAL);
+			_icon.overSkin = _icon.downSkin = _icon.skin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_NORMAL);
 			_icon.disableSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_DISABLE);
 			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_SELECTED);
 			_icon.selectedDisableSkin = GameUI.skinManager.getSkin(SkinDef.CHECKBOX_SELECTED_DISABLE);
@@ -169,7 +169,7 @@ package com.macro.gUI.composite
 		{
 			if (style)
 			{
-				_label.normalStyle = style;
+				_label.style = style;
 				if (_autoSize)
 				{
 					resize();
@@ -191,7 +191,7 @@ package com.macro.gUI.composite
 		 */
 		public function setSkins(normalSkin:ISkin, disableSkin:ISkin, selectedSkin:ISkin, selectedDisableSkin:ISkin):void
 		{
-			_icon.overSkin = _icon.downSkin = _icon.normalSkin = normalSkin;
+			_icon.overSkin = _icon.downSkin = _icon.skin = normalSkin;
 			_icon.disableSkin = disableSkin;
 			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = selectedSkin;
 			_icon.selectedDisableSkin = selectedDisableSkin;

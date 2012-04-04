@@ -77,12 +77,12 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function get normalStyle():TextStyle
+		public override function get style():TextStyle
 		{
 			return _styles[CtrlState.NORMAL];
 		}
 
-		public override function set normalStyle(value:TextStyle):void
+		public override function set style(value:TextStyle):void
 		{
 			if (_style == _styles[CtrlState.NORMAL])
 			{

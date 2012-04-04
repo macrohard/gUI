@@ -96,12 +96,12 @@ package com.macro.gUI.controls
 		}
 
 
-		public function get normalSkin():ISkin
+		public function get skin():ISkin
 		{
 			return _skins[CtrlState.NORMAL];
 		}
 
-		public function set normalSkin(value:ISkin):void
+		public function set skin(value:ISkin):void
 		{
 			if (_skins[CtrlState.NORMAL] == value)
 			{

@@ -130,12 +130,12 @@ package com.macro.gUI.controls
 		 * @return
 		 *
 		 */
-		public override function get normalStyle():TextStyle
+		public override function get style():TextStyle
 		{
 			return _styles[CtrlState.NORMAL];
 		}
 
-		public override function set normalStyle(value:TextStyle):void
+		public override function set style(value:TextStyle):void
 		{
 			if (_style == _styles[CtrlState.NORMAL])
 			{
@@ -168,16 +168,16 @@ package com.macro.gUI.controls
 		}
 
 		/**
-		 * 设置普通皮肤样式
+		 * 设置皮肤样式
 		 * @return
 		 *
 		 */
-		public function get normalSkin():ISkin
+		public function get skin():ISkin
 		{
 			return _skins[CtrlState.NORMAL];
 		}
 
-		public function set normalSkin(value:ISkin):void
+		public function set skin(value:ISkin):void
 		{
 			if (_skins[CtrlState.NORMAL] == value)
 			{

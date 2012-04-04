@@ -75,7 +75,7 @@ package com.macro.gUI.composite
 			_bg = new Slice(skin, width, skin.bitmapData.height);
 
 			_blockBtn = new Button();
-			_blockBtn.normalSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_NORMAL);
+			_blockBtn.skin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_NORMAL);
 			_blockBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_OVER);
 			_blockBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_DOWN);
 			_blockBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);
@@ -255,7 +255,7 @@ package com.macro.gUI.composite
 		 */
 		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_blockBtn.normalSkin = normalSkin;
+			_blockBtn.skin = normalSkin;
 			_blockBtn.overSkin = overSkin;
 			_blockBtn.downSkin = downSkin;
 			_blockBtn.disableSkin = disableSkin;
@@ -334,9 +334,9 @@ package com.macro.gUI.composite
 			_bg.y = oy - _bg.skin.gridTop;
 			_bg.width = _rect.width - _padding.right + _bg.skin.paddingRight - _bg.x;
 
-			_minX = _padding.left - _blockBtn.normalSkin.gridLeft;
-			_maxX = _rect.width - _padding.right - _blockBtn.normalSkin.gridLeft;
-			_blockBtn.y = oy - _blockBtn.normalSkin.gridTop;
+			_minX = _padding.left - _blockBtn.skin.gridLeft;
+			_maxX = _rect.width - _padding.right - _blockBtn.skin.gridLeft;
+			_blockBtn.y = oy - _blockBtn.skin.gridTop;
 
 			relocateBlock();
 		}

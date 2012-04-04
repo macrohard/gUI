@@ -190,12 +190,12 @@ package com.macro.gUI.controls
 		 * @return
 		 *
 		 */
-		public function get normalStyle():TextStyle
+		public function get style():TextStyle
 		{
 			return _style;
 		}
 
-		public function set normalStyle(value:TextStyle):void
+		public function set style(value:TextStyle):void
 		{
 			_style = value;
 			drawText();
