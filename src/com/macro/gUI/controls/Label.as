@@ -6,7 +6,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.utils.StrUtil;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -215,42 +215,15 @@ package com.macro.gUI.controls
 				height = _rect.height;
 			}
 			
-			if (_skin != null)
+			var textWidth:int = _padding ? width - _padding.left - _padding.right : width;
+			_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword);
+			if (_autoSize && _textImg != null)
 			{
-				if (width < _skin.minWidth)
-				{
-					width = _skin.minWidth;
-				}
-				
-				if (height < _skin.minHeight)
-				{
-					height = _skin.minHeight;
-				}
+				width = _padding ? _textImg.width + _padding.left + _padding.right : _textImg.width;
+				height = _padding ? _textImg.height + _padding.top + _padding.bottom : _textImg.height;
 			}
 			
-			var textWidth:int = _padding ? _rect.width - _padding.left - _padding.right : _rect.width;
-			
-			if (_autoSize && _textImg)
-			{
-				_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword);
-				width = _textImg.width + (_padding ? _padding.left + _padding.right : 0);
-				height = _textImg.height + (_padding ? _padding.top + _padding.bottom : 0);
-			}
-			else if (_style.wordWrap)
-			{
-				_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword);
-			}
-			
-			if (_rect.width != width || _rect.height != height)
-			{
-				_rect.width = width;
-				_rect.height = height;
-				paint(true);
-			}
-			else
-			{
-				paint();
-			}
+			super.resize(width, height);
 			
 			if (_textImg)
 			{

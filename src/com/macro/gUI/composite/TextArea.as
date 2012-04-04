@@ -65,7 +65,7 @@ package com.macro.gUI.composite
 			_vScrollBar = new VScrollBar();
 			_hScrollBar = new HScrollBar();
 			
-			_label = new Label(null, false);
+			_label = new Label();
 			_label.style = GameUI.skinManager.getStyle(StyleDef.TEXTAREA);
 			
 			_contentContainer = new Container();
@@ -111,7 +111,6 @@ package com.macro.gUI.composite
 			var style:TextStyle = _label.style;
 			style.wordWrap = value;
 			_label.style = style;
-			_label.autoSize = !value;
 			layout();
 		}
 		
