@@ -72,7 +72,7 @@ package com.macro.gUI.controls
 					_style = _styles[CtrlState.DISABLE];
 				}
 
-				autoResize();
+				update(true);
 			}
 		}
 
@@ -87,7 +87,7 @@ package com.macro.gUI.controls
 			if (_style == _styles[CtrlState.NORMAL])
 			{
 				_style = value;
-				autoResize();
+				update(true);
 			}
 
 			_styles[CtrlState.NORMAL] = value;
@@ -123,7 +123,7 @@ package com.macro.gUI.controls
 			if (_style == _styles[CtrlState.DISABLE])
 			{
 				_style = value;
-				autoResize();
+				update(true);
 			}
 
 			_styles[CtrlState.DISABLE] = value;
@@ -141,7 +141,7 @@ package com.macro.gUI.controls
 			if (_style != _styles[CtrlState.DOWN])
 			{
 				_style = _styles[CtrlState.DOWN];
-				autoResize();
+				update(true);
 			}
 		}
 
@@ -160,7 +160,7 @@ package com.macro.gUI.controls
 			if (_style != _styles[CtrlState.OVER])
 			{
 				_style = _styles[CtrlState.OVER];
-				autoResize();
+				update(true);
 			}
 		}
 
@@ -174,7 +174,7 @@ package com.macro.gUI.controls
 			if (_style != _styles[CtrlState.NORMAL])
 			{
 				_style = _styles[CtrlState.NORMAL];
-				autoResize();
+				update(true);
 			}
 		}
 

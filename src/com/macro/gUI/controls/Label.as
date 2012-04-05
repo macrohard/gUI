@@ -53,7 +53,7 @@ package com.macro.gUI.controls
 
 			_text = text;
 			
-			autoResize();
+			update(true);
 		}
 
 
@@ -125,7 +125,7 @@ package com.macro.gUI.controls
 			if (value != null && value.length > 0 && _text != value)
 			{
 				_text = value;
-				autoResize();
+				update(true);
 			}
 		}
 		
@@ -165,7 +165,7 @@ package com.macro.gUI.controls
 		public function set padding(value:Rectangle):void
 		{
 			_padding = value;
-			autoResize();
+			update(false);
 		}
 
 
@@ -184,7 +184,7 @@ package com.macro.gUI.controls
 		public function set style(value:TextStyle):void
 		{
 			_style = value;
-			autoResize();
+			update(true);
 		}
 
 
@@ -203,6 +203,12 @@ package com.macro.gUI.controls
 		}
 
 
+		/**
+		 * 重设尺寸，且重建文本
+		 * @param width
+		 * @param height
+		 * 
+		 */
 		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (width == 0)
@@ -215,8 +221,7 @@ package com.macro.gUI.controls
 				height = _rect.height;
 			}
 			
-			var textWidth:int = _padding ? width - _padding.left - _padding.right : width;
-			_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword);
+			drawText(width);
 			if (_autoSize && _textImg != null)
 			{
 				width = _padding ? _textImg.width + _padding.left + _padding.right : _textImg.width;
@@ -224,11 +229,6 @@ package com.macro.gUI.controls
 			}
 			
 			super.resize(width, height);
-			
-			if (_textImg)
-			{
-				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _padding);
-			}
 		}
 
 
@@ -241,10 +241,32 @@ package com.macro.gUI.controls
 			}
 			super.setDefaultSize();
 		}
+		
+		
+		protected override function postPaint():void
+		{
+			if (_textImg)
+			{
+				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _padding);
+			}
+		}
+		
+		
+		
+		private function drawText(w:int):void
+		{
+			var textWidth:int = _padding ? w - _padding.left - _padding.right : w;
+			_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword);
+		}
 
 
 		
-		protected function autoResize():void
+		/**
+		 * 更新显示
+		 * @param isRebuildTextImg 是否重建文本
+		 * 
+		 */
+		protected function update(isRebuildTextImg:Boolean):void
 		{
 			if (_autoSize)
 			{
@@ -252,6 +274,10 @@ package com.macro.gUI.controls
 			}
 			else
 			{
+				if (isRebuildTextImg)
+				{
+					drawText(_rect.width);
+				}
 				paint();
 			}
 		}

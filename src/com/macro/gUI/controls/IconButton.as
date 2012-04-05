@@ -94,7 +94,7 @@ package com.macro.gUI.controls
 		public function set icon(value:BitmapData):void
 		{
 			_icon = value;
-			autoResize();
+			update(false);
 		}
 
 

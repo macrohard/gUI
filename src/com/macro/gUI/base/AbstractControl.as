@@ -401,6 +401,8 @@ package com.macro.gUI.base
 					}
 				}
 			}
+			
+			postPaint();
 		}
 
 		/**
@@ -408,6 +410,15 @@ package com.macro.gUI.base
 		 *
 		 */
 		protected function prePaint():void
+		{
+		}
+		
+		
+		/**
+		 * 绘制之后
+		 * 
+		 */
+		protected function postPaint():void
 		{
 		}
 

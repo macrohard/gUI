@@ -263,6 +263,14 @@ package com.macro.gUI.base
 		protected final override function prePaint():void
 		{
 		}
+		
+		/**
+		 * 复合控件不执行绘制
+		 * 
+		 */
+		protected final override function postPaint():void
+		{
+		}
 
 
 		/**
