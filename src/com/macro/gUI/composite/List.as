@@ -54,14 +54,14 @@ package com.macro.gUI.composite
 
 
 		/**
-		 * 列表框控件，始终完全缩放，不支持布局对齐
+		 * 列表框控件
 		 * @param width 宽度，默认100
 		 * @param height 高度，默认100
 		 *
 		 */
 		public function List(width:int = 100, height:int = 100)
 		{
-			super(width, height, 0x11);
+			super(width, height);
 
 			_itemContainer = new Container();
 			_scrollBar = new VScrollBar();

@@ -29,6 +29,7 @@ package com.macro.gUI.assist
 
 		/**
 		 * 滚动条控制的视口，由ScrollBar控件使用。
+		 * 当滚动目标的高宽大于可视区域时，滚动条才会起作用
 		 * @param containerRect 可视区域
 		 * @param scrollTarget 滚动目标
 		 * @param padding 边距，使用left, top, right, bottom定义

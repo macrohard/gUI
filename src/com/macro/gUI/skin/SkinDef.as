@@ -10,6 +10,8 @@ package com.macro.gUI.skin
 	public class SkinDef
 	{
 		public static const PANEL_BG:String = "panel.background";
+		
+		public static const SCROLLPANEL_BG:String = "scrollpanel.background";
 
 
 

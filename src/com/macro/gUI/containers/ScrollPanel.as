@@ -1,39 +1,38 @@
-package com.macro.gUI.composite
+package com.macro.gUI.containers
 {
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.DragMode;
-	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.assist.Viewport;
 	import com.macro.gUI.base.AbstractComposite;
+	import com.macro.gUI.base.IContainer;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IDrag;
-	import com.macro.gUI.containers.Container;
-	import com.macro.gUI.containers.Panel;
-	import com.macro.gUI.controls.Label;
+	import com.macro.gUI.composite.HScrollBar;
+	import com.macro.gUI.composite.VScrollBar;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	import com.macro.gUI.skin.StyleDef;
 	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	/**
-	 * 文本块控件
+	 * 带滚动条的面板容器
 	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
-	public class TextArea extends AbstractComposite implements IDrag, IButton
+	public class ScrollPanel extends AbstractComposite implements IContainer, IDrag, IButton
 	{
-		/**
-		 * 文本对象
-		 */
-		private var _label:Label;
-		
 		/**
 		 * 显示容器
 		 */
 		private var _displayContainer:Container;
+		
+		/**
+		 * 内容容器
+		 */
+		private var _contentContainer:Container;
 		
 		/**
 		 * 水平滚动条
@@ -45,67 +44,50 @@ package com.macro.gUI.composite
 		 */
 		private var _vScrollBar:VScrollBar;
 		
+		
 		/**
-		 * 文本块控件
+		 * 带滚动条的面板容器
 		 * @param width
 		 * @param height
-		 * @param align
 		 * 
 		 */
-		public function TextArea(width:int = 100, height:int = 100)
+		public function ScrollPanel(width:int = 100, height:int = 100)
 		{
 			super(width, height);
 			
 			_vScrollBar = new VScrollBar();
 			_hScrollBar = new HScrollBar();
 			
-			_label = new Label();
-			_label.style = GameUI.skinManager.getStyle(StyleDef.TEXTAREA);
-			
 			_displayContainer = new Container();
-			_displayContainer.addChild(_label);
+			_contentContainer = new Container();
+			_displayContainer.addChild(_contentContainer);
 			
 			_container = new Panel(width, height);
-			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.TEXTAREA_BG);
+			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.SCROLLPANEL_BG);
 			_container.addChild(_displayContainer);
 			
 			layout();
 		}
 		
-		
-		/**
-		 * 文本
-		 * @return 
-		 * 
-		 */
-		public function get text():String
+		public function get margin():Rectangle
 		{
-			return _label.text;
+			return _container.margin;
 		}
 		
-		public function set text(value:String):void
+		public function set margin(value:Rectangle):void
 		{
-			_label.text = value;
-			layout();
+			_container.margin = value;
 		}
 		
 		
-		/**
-		 * 自动转行
-		 * @return 
-		 * 
-		 */
-		public function get wordWrap():Boolean
+		public function get children():Vector.<IControl>
 		{
-			return _label.style.wordWrap;
+			return _contentContainer.children;
 		}
 		
-		public function set wordWrap(value:Boolean):void
+		public function get numChildren():int
 		{
-			var style:TextStyle = _label.style;
-			style.wordWrap = value;
-			_label.style = style;
-			layout();
+			return _contentContainer.numChildren;
 		}
 		
 		
@@ -159,45 +141,46 @@ package com.macro.gUI.composite
 		
 		protected override function layout():void
 		{
+			if (_contentContainer.numChildren == 0)
+			{
+				return;
+			}
+			
 			var maxW:int = _container.contentWidth;
 			var maxH:int = _container.contentHeight;
 			var minW:int = maxW - _vScrollBar.width;
 			var minH:int = maxH - _hScrollBar.height;
 			
-			_label.resize(maxW);
+			// 取得所有控件的完整大小
+			var length:int = _contentContainer.numChildren;
+			var rect:Rectangle = _contentContainer.getChildAt(0).rect;
+			for (var i:int = 1; i < length; i++)
+			{
+				rect = rect.union(_contentContainer.getChildAt(i).rect);
+			}
+			
+			_contentContainer.resize(rect.right, rect.bottom);
 			
 			// 0表示没有滚动条，1表示出现水平滚动条，2表示出现垂直滚动条，3表示同时出现两者
 			var scrollVisible:int;
 			
-			if (_label.style.wordWrap)
+			if (_contentContainer.width > maxW)
 			{
-				if (_label.height > maxH)
-				{
-					_label.resize(minW);
-					scrollVisible = 2;
-				}
-			}
-			else
-			{
-				if (_label.width > maxW)
-				{
-					scrollVisible |= 1;
-					if (_label.height > minH)
-					{
-						scrollVisible |= 2;
-					}
-				}
-				
-				if (_label.height > maxH)
+				scrollVisible |= 1;
+				if (_contentContainer.height > minH)
 				{
 					scrollVisible |= 2;
-					if (_label.width > minW)
-					{
-						scrollVisible |= 1;
-					}
 				}
 			}
 			
+			if (_contentContainer.height > maxH)
+			{
+				scrollVisible |= 2;
+				if (_contentContainer.width > minW)
+				{
+					scrollVisible |= 1;
+				}
+			}
 			
 			if (scrollVisible == 0)
 			{
@@ -212,7 +195,7 @@ package com.macro.gUI.composite
 				_displayContainer.resize(maxW, minH);
 				_hScrollBar.y = minH;
 				_hScrollBar.width = maxW;
-				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _label);
+				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _contentContainer);
 			}
 			else if (scrollVisible == 2)
 			{
@@ -221,7 +204,7 @@ package com.macro.gUI.composite
 				_displayContainer.resize(minW, maxH);
 				_vScrollBar.x = minW;
 				_vScrollBar.height = maxH;
-				_vScrollBar.viewport = new Viewport(_displayContainer.rect, _label);
+				_vScrollBar.viewport = new Viewport(_displayContainer.rect, _contentContainer);
 			}
 			else
 			{
@@ -233,7 +216,7 @@ package com.macro.gUI.composite
 				_vScrollBar.x = minW;
 				_vScrollBar.height = minH;
 				
-				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _label);
+				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _contentContainer);
 				_vScrollBar.viewport = _hScrollBar.viewport;
 			}
 		}
@@ -320,5 +303,60 @@ package com.macro.gUI.composite
 		
 		
 		
+		public function addChild(child:IControl):void
+		{
+			_contentContainer.addChild(child);
+			layout();
+		}
+		
+		public function addChildAt(child:IControl, index:int):void
+		{
+			_contentContainer.addChildAt(child, index);
+			layout();
+		}
+		
+		public function removeChild(child:IControl):void
+		{
+			_contentContainer.removeChild(child);
+			layout();
+		}
+		
+		public function removeChildAt(index:int):IControl
+		{
+			var c:IControl = _contentContainer.removeChildAt(index);
+			layout();
+			return c;
+		}
+		
+		public function removeChildren(beginIndex:int=0, endIndex:int=-1):void
+		{
+			_contentContainer.removeChildren(beginIndex, endIndex);
+			layout();
+		}
+		
+		public function getChildAt(index:int):IControl
+		{
+			return _contentContainer.getChildAt(index);
+		}
+		
+		public function getChildIndex(child:IControl):int
+		{
+			return _contentContainer.getChildIndex(child);
+		}
+		
+		public function setChildIndex(child:IControl, index:int):void
+		{
+			_contentContainer.setChildIndex(child, index);
+		}
+		
+		public function swapChildren(child1:IControl, child2:IControl):void
+		{
+			_contentContainer.swapChildren(child1, child2);
+		}
+		
+		public function swapChildrenAt(index1:int, index2:int):void
+		{
+			_contentContainer.swapChildrenAt(index1, index2);
+		}
 	}
 }
