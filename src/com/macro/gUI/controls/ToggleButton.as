@@ -3,10 +3,11 @@ package com.macro.gUI.controls
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.TextStyle;
+	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 
@@ -78,7 +79,7 @@ package com.macro.gUI.controls
 			if (_selected != value)
 			{
 				_selected = value;
-				mouseOut();
+				mouseOut(this);
 			}
 		}
 
@@ -240,13 +241,8 @@ package com.macro.gUI.controls
 
 
 
-		public override function mouseDown():void
+		public override function mouseDown(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			if (_selected)
 			{
 				if (_skin == _skins[CtrlState.SELECTED_DOWN] && _style == _styles[CtrlState.SELECTED_DOWN])
@@ -272,13 +268,8 @@ package com.macro.gUI.controls
 			update(true);
 		}
 
-		public override function mouseOut():void
+		public override function mouseOut(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			if (_selected)
 			{
 				if (_skin == _skins[CtrlState.SELECTED] && _style == _styles[CtrlState.SELECTED])
@@ -302,13 +293,8 @@ package com.macro.gUI.controls
 			update(true);
 		}
 
-		public override function mouseOver():void
+		public override function mouseOver(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			if (_selected)
 			{
 				if (_skin == _skins[CtrlState.SELECTED_OVER] && _style == _styles[CtrlState.SELECTED_OVER])
@@ -334,15 +320,10 @@ package com.macro.gUI.controls
 			update(true);
 		}
 
-		public override function mouseUp():void
+		public override function mouseUp(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			_selected = !_selected;
-			mouseOver();
+			mouseOver(target);
 		}
 	}
 }

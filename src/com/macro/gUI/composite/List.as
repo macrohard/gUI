@@ -37,11 +37,6 @@ package com.macro.gUI.composite
 		private var _scrollBar:VScrollBar;
 
 		/**
-		 * 鼠标点击的对象
-		 */
-		private var _mouseObj:IControl;
-
-		/**
 		 * 选中的列表项
 		 */
 		private var _selectItem:Cell;
@@ -160,43 +155,44 @@ package com.macro.gUI.composite
 
 		public override function hitTest(x:int, y:int):IControl
 		{
-			_mouseObj = null;
+			var target:IControl;
 
 			if (_scrollBar.parent != null)
 			{
-				_mouseObj = _scrollBar.hitTest(x, y);
+				target = _scrollBar.hitTest(x, y);
+				if (target != null)
+				{
+					return target;
+				}
 			}
 
 			// 检测是否在控件范围内
-			if (_mouseObj == null)
+			var p:Point = _container.globalCoord();
+			x -= p.x;
+			y -= p.y;
+
+			if (x >= 0 && x <= _rect.width && y >= 0 && y <= _rect.height)
 			{
-				var p:Point = _container.globalCoord();
-				x -= p.x;
-				y -= p.y;
+				target = _container;
 
-				if (x >= 0 && x <= _rect.width && y >= 0 && y <= _rect.height)
+				// 检测是否在列表项范围
+				x -= _container.margin.x;
+				y -= _container.margin.y;
+				
+				if (x >= 0 && x <= _container.contentWidth && y >= 0 && y <= _container.contentHeight)
 				{
-					_mouseObj = _container;
-
-					// 检测是否在列表项范围
-					x -= _container.margin.x;
-					y -= _container.margin.y;
-					
-					if (x >= 0 && x <= _container.contentWidth && y >= 0 && y <= _container.contentHeight)
+					y -= _itemContainer.y;
+					for each (var cell:Cell in _itemContainer.children)
 					{
-						y -= _itemContainer.y;
-						for each (var cell:Cell in _itemContainer.children)
+						if (cell.rect.contains(x, y))
 						{
-							if (cell.rect.contains(x, y))
-							{
-								_mouseObj = cell;
-							}
+							target = cell;
 						}
 					}
 				}
 			}
 
-			return _mouseObj;
+			return target;
 		}
 
 
@@ -305,68 +301,61 @@ package com.macro.gUI.composite
 
 
 
-		public function mouseDown():void
+		public function mouseDown(target:IControl):void
 		{
-			if (_mouseObj == this)
-			{
-				return;
-			}
-			else if (_mouseObj is Cell)
+			if (target is Cell)
 			{
 				if (_selectItem != null)
 				{
 					_selectItem.skin = _cellSkin;
 				}
-				_selectItem = _mouseObj as Cell;
+				_selectItem = target as Cell;
 				_selectItem.skin = _cellSelectedSkin;
 			}
-			else
+			else if (target.parent == _scrollBar.container)
 			{
-				_scrollBar.mouseDown();
+				_scrollBar.mouseDown(target);
 			}
 		}
 
-		public function mouseUp():void
+		public function mouseUp(target:IControl):void
 		{
-			if (_mouseObj != this && !(_mouseObj is Cell))
+			if (target.parent == _scrollBar.container)
 			{
-				_scrollBar.mouseUp();
+				_scrollBar.mouseUp(target);
 			}
 		}
 
-		public function mouseOut():void
+		public function mouseOut(target:IControl):void
 		{
-			if (_mouseObj != this && !(_mouseObj is Cell))
+			if (target.parent == _scrollBar.container)
 			{
-				_scrollBar.mouseOut();
+				_scrollBar.mouseOut(target);
 			}
 		}
 
-		public function mouseOver():void
+		public function mouseOver(target:IControl):void
 		{
-			if (_mouseObj != this && !(_mouseObj is Cell))
+			if (target.parent == _scrollBar.container)
 			{
-				_scrollBar.mouseOver();
+				_scrollBar.mouseOver(target);
 			}
 		}
 
 
 
-		public function getDragMode():int
+		public function getDragMode(target:IControl):int
 		{
-			if (_mouseObj != this && !(_mouseObj is Cell))
+			if (target.parent == _scrollBar.container)
 			{
-				return _scrollBar.getDragMode();
+				return _scrollBar.getDragMode(target);
 			}
 			return DragMode.NONE;
 		}
 
-		public function setDragCoord(x:int, y:int):void
+		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
-			if (_mouseObj != this && !(_mouseObj is Cell))
-			{
-				_scrollBar.setDragCoord(x, y);
-			}
+			_scrollBar.setDragCoord(target, x, y);
 		}
 
 		public function getDragImage():BitmapData

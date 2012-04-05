@@ -3,6 +3,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.TextStyle;
+	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.StyleDef;
@@ -131,13 +132,8 @@ package com.macro.gUI.controls
 
 
 
-		public function mouseDown():void
+		public function mouseDown(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			if (_style != _styles[CtrlState.DOWN])
 			{
 				_style = _styles[CtrlState.DOWN];
@@ -145,18 +141,13 @@ package com.macro.gUI.controls
 			}
 		}
 
-		public function mouseUp():void
+		public function mouseUp(target:IControl):void
 		{
-			mouseOver();
+			mouseOver(target);
 		}
 
-		public function mouseOver():void
+		public function mouseOver(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			if (_style != _styles[CtrlState.OVER])
 			{
 				_style = _styles[CtrlState.OVER];
@@ -164,13 +155,8 @@ package com.macro.gUI.controls
 			}
 		}
 
-		public function mouseOut():void
+		public function mouseOut(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			if (_style != _styles[CtrlState.NORMAL])
 			{
 				_style = _styles[CtrlState.NORMAL];
@@ -183,7 +169,7 @@ package com.macro.gUI.controls
 		{
 			if (e.keyCode == Keyboard.SPACE)
 			{
-				mouseDown();
+				mouseDown(this);
 			}
 		}
 
@@ -191,7 +177,7 @@ package com.macro.gUI.controls
 		{
 			if (e.keyCode == Keyboard.SPACE)
 			{
-				mouseUp();
+				mouseUp(this);
 			}
 		}
 	}

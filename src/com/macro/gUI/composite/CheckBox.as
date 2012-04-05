@@ -270,20 +270,20 @@ package com.macro.gUI.composite
 
 
 
-		public function mouseDown():void
+		public function mouseDown(target:IControl):void
 		{
 		}
 
-		public function mouseUp():void
+		public function mouseUp(target:IControl):void
 		{
-			_icon.mouseUp();
+			_icon.mouseUp(target);
 		}
 
-		public function mouseOver():void
+		public function mouseOver(target:IControl):void
 		{
 		}
 
-		public function mouseOut():void
+		public function mouseOut(target:IControl):void
 		{
 		}
 

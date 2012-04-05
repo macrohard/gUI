@@ -34,12 +34,6 @@ package com.macro.gUI.composite
 		private var _blockBtn:Button;
 
 		/**
-		 * 鼠标点击的对象
-		 */
-		private var _mouseObj:IControl;
-
-
-		/**
 		 * 移动区域的顶部位置
 		 */
 		private var _minY:int;
@@ -284,17 +278,17 @@ package com.macro.gUI.composite
 			x -= p.x;
 			y -= p.y;
 
-			_mouseObj = null;
+			var target:IControl;
 			if (_blockBtn.rect.contains(x, y))
 			{
-				_mouseObj = _blockBtn;
+				target = _blockBtn;
 			}
 			else if (_bg.rect.contains(x, y))
 			{
-				_mouseObj = _bg;
+				target = _bg;
 			}
 
-			return _mouseObj;
+			return target;
 		}
 
 
@@ -353,43 +347,41 @@ package com.macro.gUI.composite
 
 
 
-		public function mouseDown():void
+		public function mouseDown(target:IControl):void
 		{
-			if (_mouseObj == _blockBtn)
+			if (target == _blockBtn)
 			{
-				_blockBtn.mouseDown();
+				_blockBtn.mouseDown(target);
 			}
 		}
 
-		public function mouseOut():void
+		public function mouseOut(target:IControl):void
 		{
-			_blockBtn.mouseOut();
-		}
-
-		public function mouseOver():void
-		{
-			if (_mouseObj == _blockBtn)
+			if (target == _blockBtn)
 			{
-				_blockBtn.mouseOver();
+				_blockBtn.mouseOut(target);
 			}
 		}
 
-		public function mouseUp():void
+		public function mouseOver(target:IControl):void
 		{
-			if (_mouseObj == _blockBtn)
+			if (target == _blockBtn)
 			{
-				_blockBtn.mouseUp();
+				_blockBtn.mouseOver(target);
+			}
+		}
+
+		public function mouseUp(target:IControl):void
+		{
+			if (target == _blockBtn)
+			{
+				_blockBtn.mouseUp(target);
 			}
 		}
 
 
 		public function keyDown(e:KeyboardEvent):void
 		{
-			if (!_blockBtn.enabled)
-			{
-				return;
-			}
-
 			if (e.keyCode == Keyboard.UP)
 			{
 				this.value -= this.stepSize;
@@ -406,9 +398,9 @@ package com.macro.gUI.composite
 
 
 		
-		public function getDragMode():int
+		public function getDragMode(target:IControl):int
 		{
-			if (_mouseObj == _blockBtn)
+			if (target == _blockBtn)
 			{
 				return DragMode.DIRECT;
 			}
@@ -420,13 +412,8 @@ package com.macro.gUI.composite
 			return null;
 		}
 
-		public function setDragCoord(x:int, y:int):void
+		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
-			if (_mouseObj != _blockBtn || !_blockBtn.enabled)
-			{
-				return;
-			}
-
 			var p:Point = this.globalCoord();
 			x -= p.x;
 			y -= p.y;

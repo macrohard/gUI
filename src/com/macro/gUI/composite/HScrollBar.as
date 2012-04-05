@@ -42,11 +42,6 @@ package com.macro.gUI.composite
 
 
 		/**
-		 * 鼠标点击的对象
-		 */
-		private var _mouseObj:IControl;
-
-		/**
 		 * 鼠标点击时的坐标位置
 		 */
 		private var _mouseX:int;
@@ -383,28 +378,28 @@ package com.macro.gUI.composite
 			x -= p.x;
 			y -= p.y;
 
-			_mouseObj = null;
+			var target:IControl;
 			_mouseX = x;
 			_blockX = _blockBtn.x;
 
 			if (_blockBtn.rect.contains(x, y))
 			{
-				_mouseObj = _blockBtn;
+				target = _blockBtn;
 			}
 			else if (_leftBtn.rect.contains(x, y))
 			{
-				_mouseObj = _leftBtn;
+				target = _leftBtn;
 			}
 			else if (_rightBtn.rect.contains(x, y))
 			{
-				_mouseObj = _rightBtn;
+				target = _rightBtn;
 			}
 			else if (_track.rect.contains(x, y))
 			{
-				_mouseObj = _track;
+				target = _track;
 			}
 
-			return _mouseObj;
+			return target;
 		}
 
 
@@ -511,36 +506,31 @@ package com.macro.gUI.composite
 
 
 
-		public function mouseDown():void
+		public function mouseDown(target:IControl):void
 		{
-			if (!_blockBtn.enabled)
+			if (target == _blockBtn)
 			{
-				return;
+				_blockBtn.mouseDown(target);
 			}
-
-			if (_mouseObj == _blockBtn)
+			else if (target == _leftBtn)
 			{
-				_blockBtn.mouseDown();
-			}
-			else if (_mouseObj == _leftBtn)
-			{
-				_leftBtn.mouseDown();
+				_leftBtn.mouseDown(target);
 				if (_blockBtn.width < _track.width)
 				{
 					this.value -= _stepSize;
 					_timerId = setInterval(autoleft, 50);
 				}
 			}
-			else if (_mouseObj == _rightBtn)
+			else if (target == _rightBtn)
 			{
-				_rightBtn.mouseDown();
+				_rightBtn.mouseDown(target);
 				if (_blockBtn.width < _track.width)
 				{
 					this.value += _stepSize;
 					_timerId = setInterval(autoright, 50);
 				}
 			}
-			else if (_mouseObj == _track)
+			else if (target == _track)
 			{
 				if (_mouseX > _blockBtn.x)
 				{
@@ -553,54 +543,53 @@ package com.macro.gUI.composite
 			}
 		}
 
-		public function mouseUp():void
+		public function mouseUp(target:IControl):void
 		{
 			clearInterval(_timerId);
-			if (!_blockBtn.enabled)
+			if (target == _blockBtn)
 			{
-				return;
+				_blockBtn.mouseUp(target);
 			}
-
-			if (_mouseObj == _blockBtn)
+			else if (target == _leftBtn)
 			{
-				_blockBtn.mouseUp();
+				_leftBtn.mouseUp(target);
 			}
-			else if (_mouseObj == _leftBtn)
+			else if (target == _rightBtn)
 			{
-				_leftBtn.mouseUp();
-			}
-			else if (_mouseObj == _rightBtn)
-			{
-				_rightBtn.mouseUp();
+				_rightBtn.mouseUp(target);
 			}
 		}
 
-		public function mouseOut():void
+		public function mouseOut(target:IControl):void
 		{
 			clearInterval(_timerId);
-			_blockBtn.mouseOut();
-			_leftBtn.mouseOut();
-			_rightBtn.mouseOut();
+			if (target == _blockBtn)
+			{
+				_blockBtn.mouseOut(target);
+			}
+			else if (target == _leftBtn)
+			{
+				_leftBtn.mouseOut(target);
+			}
+			else if (target == _rightBtn)
+			{
+				_rightBtn.mouseOut(target);
+			}
 		}
 
-		public function mouseOver():void
+		public function mouseOver(target:IControl):void
 		{
-			if (!_blockBtn.enabled)
+			if (target == _blockBtn)
 			{
-				return;
+				_blockBtn.mouseOver(target);
 			}
-
-			if (_mouseObj == _blockBtn)
+			else if (target == _leftBtn)
 			{
-				_blockBtn.mouseOver();
+				_leftBtn.mouseOver(target);
 			}
-			else if (_mouseObj == _leftBtn)
+			else if (target == _rightBtn)
 			{
-				_leftBtn.mouseOver();
-			}
-			else if (_mouseObj == _rightBtn)
-			{
-				_rightBtn.mouseOver();
+				_rightBtn.mouseOver(target);
 			}
 		}
 
@@ -617,11 +606,6 @@ package com.macro.gUI.composite
 
 		public function keyDown(e:KeyboardEvent):void
 		{
-			if (!_blockBtn.enabled)
-			{
-				return;
-			}
-
 			if (e.keyCode == Keyboard.LEFT)
 			{
 				this.value -= _stepSize;
@@ -638,9 +622,9 @@ package com.macro.gUI.composite
 
 		
 		
-		public function getDragMode():int
+		public function getDragMode(target:IControl):int
 		{
-			if (_mouseObj == _blockBtn)
+			if (target == _blockBtn)
 			{
 				return DragMode.DIRECT;
 			}
@@ -653,13 +637,8 @@ package com.macro.gUI.composite
 			return null;
 		}
 
-		public function setDragCoord(x:int, y:int):void
+		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
-			if (_mouseObj != _blockBtn || !_blockBtn.enabled)
-			{
-				return;
-			}
-
 			var p:Point = this.globalCoord();
 			x -= p.x;
 			y -= p.y;

@@ -201,13 +201,8 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function mouseDown():void
+		public override function mouseDown(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			if (_skin != _skins[CtrlState.DOWN] || _style != _styles[CtrlState.DOWN])
 			{
 				_skin = _skins[CtrlState.DOWN];
@@ -217,13 +212,8 @@ package com.macro.gUI.controls
 			}
 		}
 
-		public override function mouseOut():void
+		public override function mouseOut(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			if (_skin != _skins[CtrlState.NORMAL] || _style != _styles[CtrlState.NORMAL])
 			{
 				_skin = _skins[CtrlState.NORMAL];
@@ -232,13 +222,8 @@ package com.macro.gUI.controls
 			}
 		}
 
-		public override function mouseOver():void
+		public override function mouseOver(target:IControl):void
 		{
-			if (!_enabled)
-			{
-				return;
-			}
-
 			if (_skin != _skins[CtrlState.OVER] || _style != _styles[CtrlState.OVER])
 			{
 				_skin = _skins[CtrlState.OVER];

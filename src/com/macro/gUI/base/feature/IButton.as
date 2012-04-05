@@ -1,5 +1,6 @@
 package com.macro.gUI.base.feature
 {
+	import com.macro.gUI.base.IControl;
 
 
 	/**
@@ -12,27 +13,31 @@ package com.macro.gUI.base.feature
 
 		/**
 		 * 鼠标按下
-		 *
+		 * @param target 点击的目标控件，基本控件或复合控件的内部控件
+		 * 
 		 */
-		function mouseDown():void;
+		function mouseDown(target:IControl):void;
 
 		/**
 		 * 鼠标松开
+		 * @param target 点击的目标控件，基本控件或复合控件的内部控件
 		 *
 		 */
-		function mouseUp():void;
+		function mouseUp(target:IControl):void;
 
 		/**
 		 * 鼠标移入
+		 * @param target 点击的目标控件，基本控件或复合控件的内部控件
 		 *
 		 */
-		function mouseOver():void;
+		function mouseOver(target:IControl):void;
 
 		/**
 		 * 鼠标移出
+		 * @param target 点击的目标控件，基本控件或复合控件的内部控件
 		 *
 		 */
-		function mouseOut():void;
+		function mouseOut(target:IControl):void;
 
 	}
 }
