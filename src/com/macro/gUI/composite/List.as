@@ -223,6 +223,7 @@ package com.macro.gUI.composite
 			else
 			{
 				_container.removeChild(_scrollBar);
+				_itemContainer.y = 0;
 			}
 
 			var length:int = _itemContainer.numChildren;

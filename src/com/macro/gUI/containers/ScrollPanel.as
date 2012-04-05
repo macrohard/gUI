@@ -187,6 +187,7 @@ package com.macro.gUI.containers
 				_container.removeChild(_vScrollBar);
 				_container.removeChild(_hScrollBar);
 				_displayContainer.resize(maxW, maxH);
+				_contentContainer.x = _contentContainer.y = 0;
 			}
 			else if (scrollVisible == 1)
 			{
@@ -196,6 +197,7 @@ package com.macro.gUI.containers
 				_hScrollBar.y = minH;
 				_hScrollBar.width = maxW;
 				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _contentContainer);
+				_contentContainer.y = 0;
 			}
 			else if (scrollVisible == 2)
 			{
@@ -205,6 +207,7 @@ package com.macro.gUI.containers
 				_vScrollBar.x = minW;
 				_vScrollBar.height = maxH;
 				_vScrollBar.viewport = new Viewport(_displayContainer.rect, _contentContainer);
+				_contentContainer.x = 0;
 			}
 			else
 			{
