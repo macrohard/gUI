@@ -13,7 +13,7 @@ package com.macro.gUI.controls
 
 
 	/**
-	 * 切换按钮控件
+	 * 切换按钮控件。默认自动设置尺寸
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */

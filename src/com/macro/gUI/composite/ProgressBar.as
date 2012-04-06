@@ -37,7 +37,8 @@ package com.macro.gUI.composite
 
 		/**
 		 * 水平进度条控件。根据填充物的九切片定义来确定是平铺填充，还是缩放填充。<br/>
-		 * 缩放填充时可以使用遮罩，使用遮罩时，将首先用填充物填满，然后使用遮罩来显示进度。
+		 * 缩放填充时可以使用遮罩，使用遮罩时，将首先用填充物填满，然后使用遮罩来显示进度。<br/>
+		 * 默认自动设置尺寸
 		 * @param width 宽度
 		 * @param align 布局对齐方式
 		 * @param maskMode 使用遮罩
@@ -45,10 +46,10 @@ package com.macro.gUI.composite
 		 */
 		public function ProgressBar(width:int = 200, align:int = 0x20, mask:Boolean = false)
 		{
-			super(width, 20, align);
+			//复选框控件默认是自动设置尺寸的，稍后resize时会重设为标准大小
+			super(width, 1, align);
 
 			_autoSize = true;
-
 			_mask = mask;
 
 			var skin:ISkin = GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_BG);

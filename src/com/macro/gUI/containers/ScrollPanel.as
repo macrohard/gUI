@@ -66,8 +66,10 @@ package com.macro.gUI.containers
 			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.SCROLLPANEL_BG);
 			_container.addChild(_displayContainer);
 			
+			_rect = _container.rect;
 			layout();
 		}
+		
 		
 		public function get margin():Rectangle
 		{
@@ -92,7 +94,7 @@ package com.macro.gUI.containers
 		
 		
 		/**
-		 * 设置文本块背景皮肤
+		 * 设置背景皮肤
 		 * @param bgSkin
 		 * 
 		 */

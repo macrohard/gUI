@@ -69,6 +69,7 @@ package com.macro.gUI.composite
 			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.TEXTAREA_BG);
 			_container.addChild(_displayContainer);
 			
+			_rect = _container.rect;
 			layout();
 		}
 		
@@ -110,7 +111,7 @@ package com.macro.gUI.composite
 		
 		
 		/**
-		 * 设置文本块背景皮肤
+		 * 设置背景皮肤
 		 * @param bgSkin
 		 * 
 		 */

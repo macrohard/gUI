@@ -18,7 +18,7 @@ package com.macro.gUI.controls
 	public class IconButton extends Button
 	{
 		/**
-		 * 图标按钮
+		 * 图标按钮。默认自动设置尺寸
 		 * @param text 作为文本的字符串
 		 * @param alignText 文本对齐方式，默认右下角对齐
 		 * @param alignIcon 图标对齐方式，默认居中对齐

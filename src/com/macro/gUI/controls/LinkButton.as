@@ -24,7 +24,8 @@ package com.macro.gUI.controls
 		protected var _styles:Dictionary;
 
 		/**
-		 * 文本链接按钮，支持四态样式定义，
+		 * 文本链接按钮，支持四态样式定义<br/>
+		 * 默认自动设置尺寸
 		 * @param text 作为文本的字符串
 		 * @param align 文本对齐方式，默认左上角对齐
 		 *

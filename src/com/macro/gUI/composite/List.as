@@ -73,9 +73,9 @@ package com.macro.gUI.composite
 			_cellSkin = GameUI.skinManager.getSkin(SkinDef.CELL_BG);
 			_cellSelectedSkin = GameUI.skinManager.getSkin(SkinDef.CELL_SELECTED_BG);
 
+			_rect = _container.rect;
 			layout();
 		}
-
 
 
 		/**
@@ -128,7 +128,7 @@ package com.macro.gUI.composite
 
 
 		/**
-		 * 设置列表框背景皮肤
+		 * 设置背景皮肤
 		 * @param bgSkin
 		 * 
 		 */

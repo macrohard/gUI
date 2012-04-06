@@ -45,15 +45,16 @@ package com.macro.gUI.composite
 
 
 		/**
-		 * 单选框控件，目前定义支持普通，禁用，选择，选择后禁用等四态皮肤
+		 * 单选框控件，目前定义支持普通，禁用，选择，选择后禁用等四态皮肤<br/>
+		 * 默认自动设置尺寸
 		 * @param text 作为文本的字符串
 		 * @param align 布局对齐方式，默认左上角对齐
 		 *
 		 */
 		public function RadioButton(text:String = null, align:int = 0x11)
 		{
-			//默认大小
-			super(100, 20, align);
+			//稍后resize时会重设为标准大小
+			super(1, 1, align);
 
 			_autoSize = true;
 

@@ -59,18 +59,18 @@ package com.macro.gUI.composite
 
 		/**
 		 * 水平滚动条控件。利用边距属性定义滑槽的位置，
-		 * 然后根据滑块和背景的皮肤九切片定义来定位滑块及背景的位置
+		 * 再根据滑槽来定位滑块、背景和按钮的位置。<br/>
+		 * 默认自动设置尺寸
 		 * @param width 宽度
 		 * @param align 布局对齐方式，默认垂直居中
 		 *
 		 */
 		public function HScrollBar(width:int = 100, align:int = 0x20)
 		{
-			super(width, 20, align);
+			//稍后resize时会重设为标准大小
+			super(width, 1, align);
 
-			//默认自动设置高度
 			_autoSize = true;
-
 			_value = 0;
 			_stepSize = 1;
 			_pageSize = 10;

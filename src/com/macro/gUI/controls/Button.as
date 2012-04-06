@@ -23,7 +23,7 @@ package com.macro.gUI.controls
 		protected var _skins:Dictionary;
 
 		/**
-		 * 按钮
+		 * 按钮。默认自动设置尺寸
 		 * @param text 作为文本的字符串
 		 * @param align 文本对齐方式，默认居中对齐
 		 *

@@ -37,7 +37,8 @@ package com.macro.gUI.controls
 
 
 		/**
-		 * 文本输入框，支持背景皮肤定义，有常态及禁用态
+		 * 文本输入框，支持背景皮肤定义，有常态及禁用态<br/>
+		 * 默认关闭自动设置尺寸
 		 * @param text 默认文本
 		 * @param align 文本对齐方式，默认左中对齐
 		 *
