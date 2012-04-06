@@ -14,14 +14,15 @@ package com.macro.gUI.composite
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
-	
+
+
 	/**
 	 * 文本块控件
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class TextArea extends AbstractComposite implements IDrag, IButton
 	{
@@ -29,78 +30,78 @@ package com.macro.gUI.composite
 		 * 文本对象
 		 */
 		private var _label:Label;
-		
+
 		/**
 		 * 显示容器
 		 */
 		private var _displayContainer:Container;
-		
+
 		/**
 		 * 水平滚动条
 		 */
 		private var _hScrollBar:HScrollBar;
-		
+
 		/**
 		 * 垂直滚动条
 		 */
 		private var _vScrollBar:VScrollBar;
-		
+
 		/**
 		 * 文本块控件
 		 * @param width
 		 * @param height
 		 * @param align
-		 * 
+		 *
 		 */
 		public function TextArea(width:int = 100, height:int = 100)
 		{
 			super(width, height);
-			
+
 			_vScrollBar = new VScrollBar();
 			_hScrollBar = new HScrollBar();
-			
+
 			_label = new Label();
 			_label.style = GameUI.skinManager.getStyle(StyleDef.TEXTAREA);
-			
+
 			_displayContainer = new Container();
 			_displayContainer.addChild(_label);
-			
+
 			_container = new Panel(width, height);
 			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.TEXTAREA_BG);
 			_container.addChild(_displayContainer);
-			
+
 			_rect = _container.rect;
 			layout();
 		}
-		
-		
+
+
 		/**
 		 * 文本
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get text():String
 		{
 			return _label.text;
 		}
-		
+
 		public function set text(value:String):void
 		{
 			_label.text = value;
 			layout();
 		}
-		
-		
+
+
 		/**
 		 * 自动转行
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get wordWrap():Boolean
 		{
 			return _label.style.wordWrap;
 		}
-		
+
 		public function set wordWrap(value:Boolean):void
 		{
 			var style:TextStyle = _label.style;
@@ -108,24 +109,24 @@ package com.macro.gUI.composite
 			_label.style = style;
 			layout();
 		}
-		
-		
+
+
 		/**
 		 * 设置背景皮肤
 		 * @param bgSkin
-		 * 
+		 *
 		 */
 		public function setBgSkin(bgSkin:ISkin):void
 		{
 			(_container as Panel).skin = bgSkin;
 		}
-		
-		
-		
+
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var target:IControl;
-			
+
 			if (_vScrollBar.parent != null)
 			{
 				target = _vScrollBar.hitTest(x, y);
@@ -134,7 +135,7 @@ package com.macro.gUI.composite
 					return target;
 				}
 			}
-			
+
 			if (_hScrollBar.parent != null)
 			{
 				target = _hScrollBar.hitTest(x, y);
@@ -143,33 +144,31 @@ package com.macro.gUI.composite
 					return target;
 				}
 			}
-			
+
 			// 检测是否在控件范围内
-			var p:Point = _container.globalCoord();
-			x -= p.x;
-			y -= p.y;
-			
-			if (x >= 0 && x <= _rect.width && y >= 0 && y <= _rect.height)
+			var p:Point = _container.globalToLocal(x, y);
+
+			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
 			{
 				target = _container;
 			}
-			
+
 			return target;
 		}
-		
-		
+
+
 		protected override function layout():void
 		{
 			var maxW:int = _container.contentWidth;
 			var maxH:int = _container.contentHeight;
 			var minW:int = maxW - _vScrollBar.width;
 			var minH:int = maxH - _hScrollBar.height;
-			
+
 			_label.resize(maxW);
-			
+
 			// 0表示没有滚动条，1表示出现水平滚动条，2表示出现垂直滚动条，3表示同时出现两者
 			var scrollVisible:int;
-			
+
 			if (_label.style.wordWrap)
 			{
 				if (_label.height > maxH)
@@ -188,7 +187,7 @@ package com.macro.gUI.composite
 						scrollVisible |= 2;
 					}
 				}
-				
+
 				if (_label.height > maxH)
 				{
 					scrollVisible |= 2;
@@ -198,8 +197,8 @@ package com.macro.gUI.composite
 					}
 				}
 			}
-			
-			
+
+
 			if (scrollVisible == 0)
 			{
 				_container.removeChild(_vScrollBar);
@@ -236,14 +235,14 @@ package com.macro.gUI.composite
 				_hScrollBar.width = minW;
 				_vScrollBar.x = minW;
 				_vScrollBar.height = minH;
-				
+
 				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _label);
 				_vScrollBar.viewport = _hScrollBar.viewport;
 			}
 		}
-		
-		
-		
+
+
+
 		public function mouseDown(target:IControl):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -255,7 +254,7 @@ package com.macro.gUI.composite
 				_hScrollBar.mouseDown(target);
 			}
 		}
-		
+
 		public function mouseOut(target:IControl):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -267,7 +266,7 @@ package com.macro.gUI.composite
 				_hScrollBar.mouseOut(target);
 			}
 		}
-		
+
 		public function mouseOver(target:IControl):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -279,7 +278,7 @@ package com.macro.gUI.composite
 				_hScrollBar.mouseOver(target);
 			}
 		}
-		
+
 		public function mouseUp(target:IControl):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -291,12 +290,12 @@ package com.macro.gUI.composite
 				_hScrollBar.mouseUp(target);
 			}
 		}
-		
+
 		public function getDragImage():BitmapData
 		{
 			return null;
 		}
-		
+
 		public function getDragMode(target:IControl):int
 		{
 			if (target.parent == _vScrollBar.container)
@@ -309,7 +308,7 @@ package com.macro.gUI.composite
 			}
 			return DragMode.NONE;
 		}
-		
+
 		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -321,8 +320,8 @@ package com.macro.gUI.composite
 				return _hScrollBar.setDragCoord(target, x, y);
 			}
 		}
-		
-		
-		
+
+
+
 	}
 }

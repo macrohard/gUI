@@ -12,7 +12,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Cell;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -40,13 +40,13 @@ package com.macro.gUI.composite
 		 * 选中的列表项
 		 */
 		private var _selectItem:Cell;
-		
-		
+
+
 		/**
 		 * 列表项背景皮肤
 		 */
 		private var _cellSkin:ISkin;
-		
+
 		/**
 		 * 列表项选中状态时的背景皮肤
 		 */
@@ -130,19 +130,19 @@ package com.macro.gUI.composite
 		/**
 		 * 设置背景皮肤
 		 * @param bgSkin
-		 * 
+		 *
 		 */
 		public function setBgSkin(bgSkin:ISkin):void
 		{
 			(_container as Panel).skin = bgSkin;
 		}
-		
-		
+
+
 		/**
 		 * 设置列表项皮肤
 		 * @param cellSkin
 		 * @param cellSelectedSkin
-		 * 
+		 *
 		 */
 		public function setItemSkin(cellSkin:ISkin, cellSelectedSkin:ISkin):void
 		{
@@ -150,8 +150,8 @@ package com.macro.gUI.composite
 			_cellSelectedSkin = cellSelectedSkin;
 			resetSkin();
 		}
-		
-		
+
+
 
 		public override function hitTest(x:int, y:int):IControl
 		{
@@ -167,24 +167,22 @@ package com.macro.gUI.composite
 			}
 
 			// 检测是否在控件范围内
-			var p:Point = _container.globalCoord();
-			x -= p.x;
-			y -= p.y;
+			var p:Point = _container.globalToLocal(x, y);
 
-			if (x >= 0 && x <= _rect.width && y >= 0 && y <= _rect.height)
+			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
 			{
 				target = _container;
 
 				// 检测是否在列表项范围
-				x -= _container.margin.x;
-				y -= _container.margin.y;
-				
-				if (x >= 0 && x <= _container.contentWidth && y >= 0 && y <= _container.contentHeight)
+				p.x -= _container.margin.x;
+				p.y -= _container.margin.y;
+
+				if (p.x >= 0 && p.x <= _container.contentWidth && p.y >= 0 && p.y <= _container.contentHeight)
 				{
-					y -= _itemContainer.y;
+					p.y -= _itemContainer.y;
 					for each (var cell:Cell in _itemContainer.children)
 					{
-						if (cell.rect.contains(x, y))
+						if (cell.rect.containsPoint(p))
 						{
 							target = cell;
 						}
@@ -210,7 +208,7 @@ package com.macro.gUI.composite
 			var totalH:int = itemH * _itemContainer.numChildren;
 
 			_itemContainer.resize(w, totalH);
-			
+
 			if (totalH > h)
 			{
 				w -= _scrollBar.width;

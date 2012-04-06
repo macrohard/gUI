@@ -5,7 +5,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -31,7 +31,7 @@ package com.macro.gUI.controls
 			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.CELL);
 			_skin = skin ? skin : GameUI.skinManager.getSkin(SkinDef.CELL_BG);
 			_padding = _padding ? _padding : new Rectangle();
-			
+
 			super(text, autoSize, align);
 		}
 
@@ -54,24 +54,22 @@ package com.macro.gUI.controls
 				update(false);
 			}
 		}
-		
-		
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
-			
-			if (_skinDrawRect && _skinDrawRect.contains(x, y))
+			var p:Point = globalToLocal(x, y);
+
+			if (_skinDrawRect && _skinDrawRect.containsPoint(p))
 			{
 				return this;
 			}
-			
-			if (_textDrawRect && _textDrawRect.contains(x, y))
+
+			if (_textDrawRect && _textDrawRect.containsPoint(p))
 			{
 				return this;
 			}
-				
+
 			return null;
 		}
 	}

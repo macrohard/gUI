@@ -14,6 +14,8 @@ package com.macro.gUI.managers
 
 	/**
 	 * 最上层窗口管理器，包括弹出菜单及浮动窗口，协同UIManager工作
+	 * 它是一个特殊控件，派生自Container，此控件保持与RootContainer相同大小，
+	 * 并且在子控件数量大于1且模态时，设置背景色为半透明黑色
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */

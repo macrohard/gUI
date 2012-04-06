@@ -2,10 +2,10 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-	
+
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.skin.ISkin;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -63,7 +63,7 @@ package com.macro.gUI.base
 
 			//默认透明
 			_transparent = true;
-			
+
 			//默认控件可用
 			_enabled = true;
 
@@ -213,12 +213,12 @@ package com.macro.gUI.base
 
 		private var _alpha:Number;
 
-		public function get alpha():Number
+		public final function get alpha():Number
 		{
 			return _alpha;
 		}
 
-		public function set alpha(value:Number):void
+		public final function set alpha(value:Number):void
 		{
 			_alpha = value < 0 ? 0 : (value > 1 ? 1 : value);
 		}
@@ -226,12 +226,12 @@ package com.macro.gUI.base
 
 		private var _visible:Boolean;
 
-		public function get visible():Boolean
+		public final function get visible():Boolean
 		{
 			return _visible;
 		}
 
-		public function set visible(value:Boolean):void
+		public final function set visible(value:Boolean):void
 		{
 			_visible = value;
 		}
@@ -270,13 +270,27 @@ package com.macro.gUI.base
 		}
 
 
-		public function hitTest(x:int, y:int):IControl
+		/**
+		 * 将全局坐标转换为本地坐标
+		 * @param x
+		 * @param y
+		 * @return
+		 *
+		 */
+		public function globalToLocal(x:int, y:int):Point
 		{
 			var p:Point = globalCoord();
-			x -= p.x;
-			y -= p.y;
+			p.x = x - p.x;
+			p.y = y - p.y;
+			return p;
+		}
 
-			if (x >= 0 && x <= _rect.width && y >= 0 && y <= _rect.height)
+
+		public function hitTest(x:int, y:int):IControl
+		{
+			var p:Point = globalToLocal(x, y);
+
+			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
 			{
 				return this;
 			}
@@ -310,12 +324,12 @@ package com.macro.gUI.base
 			{
 				width = _rect.width;
 			}
-			
+
 			if (height == 0)
 			{
 				height = _rect.height;
 			}
-			
+
 			if (_skin != null)
 			{
 				if (width < _skin.minWidth)
@@ -401,7 +415,7 @@ package com.macro.gUI.base
 					}
 				}
 			}
-			
+
 			postPaint();
 		}
 
@@ -412,11 +426,11 @@ package com.macro.gUI.base
 		protected function prePaint():void
 		{
 		}
-		
-		
+
+
 		/**
 		 * 绘制之后
-		 * 
+		 *
 		 */
 		protected function postPaint():void
 		{

@@ -13,7 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -246,7 +246,7 @@ package com.macro.gUI.composite
 		 * @param disableSkin 禁用态皮肤
 		 * @param selectedSkin 选中态皮肤
 		 * @param selectedDisableSkin 选中禁用态皮肤
-		 * 
+		 *
 		 */
 		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
@@ -256,11 +256,11 @@ package com.macro.gUI.composite
 			_blockBtn.disableSkin = disableSkin;
 			layout();
 		}
-		
+
 		/**
 		 * 设置滑槽背景皮肤
 		 * @param value
-		 * 
+		 *
 		 */
 		public function setTrackSkin(value:ISkin):void
 		{
@@ -273,21 +273,18 @@ package com.macro.gUI.composite
 
 		public override function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
+			var p:Point = globalToLocal(x, y);
 
-			var target:IControl;
-			if (_blockBtn.rect.contains(x, y))
+			if (_blockBtn.rect.containsPoint(p))
 			{
-				target = _blockBtn;
+				return _blockBtn;
 			}
-			else if (_bg.rect.contains(x, y))
+			else if (_bg.rect.containsPoint(p))
 			{
-				target = _bg;
+				return _bg;
 			}
 
-			return target;
+			return null;
 		}
 
 
@@ -396,7 +393,7 @@ package com.macro.gUI.composite
 		}
 
 
-		
+
 		public function getDragMode(target:IControl):int
 		{
 			if (target == _blockBtn)
@@ -413,12 +410,10 @@ package com.macro.gUI.composite
 
 		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
+			var p:Point = globalToLocal(x, y);
 
 			var h:int = _rect.height - _padding.top - _padding.bottom;
-			var d:int = y - _padding.top;
+			var d:int = p.y - _padding.top;
 			this.value = Math.round(d / h * (_maximum - _minimum)) + _minimum;
 		}
 

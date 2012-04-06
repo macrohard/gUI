@@ -4,7 +4,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.base.AbstractContainer;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.geom.Rectangle;
 
 
@@ -41,15 +41,15 @@ package com.macro.gUI.containers
 			if (_skin != value && value != null)
 			{
 				_skin = value;
-				
+
 				_margin.left = _skin.gridLeft;
 				_margin.top = _skin.gridTop;
 				_margin.right = _skin.paddingRight;
 				_margin.bottom = _skin.paddingBottom;
-				
+
 				paint();
 			}
 		}
-		
+
 	}
 }

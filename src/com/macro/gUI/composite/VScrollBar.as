@@ -14,7 +14,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -313,7 +313,7 @@ package com.macro.gUI.composite
 		 * @param disableSkin 禁用态皮肤
 		 * @param selectedSkin 选中态皮肤
 		 * @param selectedDisableSkin 选中禁用态皮肤
-		 * 
+		 *
 		 */
 		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
@@ -323,14 +323,14 @@ package com.macro.gUI.composite
 			_blockBtn.disableSkin = disableSkin;
 			layout();
 		}
-		
+
 		/**
 		 * 设置上按钮皮肤
 		 * @param normalSkin 常态皮肤
 		 * @param disableSkin 禁用态皮肤
 		 * @param selectedSkin 选中态皮肤
 		 * @param selectedDisableSkin 选中禁用态皮肤
-		 * 
+		 *
 		 */
 		public function setLeftButtonSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
@@ -340,14 +340,14 @@ package com.macro.gUI.composite
 			_upBtn.disableSkin = disableSkin;
 			layout();
 		}
-		
+
 		/**
 		 * 设置下按钮皮肤
 		 * @param normalSkin 常态皮肤
 		 * @param disableSkin 禁用态皮肤
 		 * @param selectedSkin 选中态皮肤
 		 * @param selectedDisableSkin 选中禁用态皮肤
-		 * 
+		 *
 		 */
 		public function setRightButtonSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
@@ -357,11 +357,11 @@ package com.macro.gUI.composite
 			_downBtn.disableSkin = disableSkin;
 			layout();
 		}
-		
+
 		/**
 		 * 设置滑槽背景皮肤
 		 * @param value
-		 * 
+		 *
 		 */
 		public function setTrackSkin(value:ISkin):void
 		{
@@ -374,32 +374,29 @@ package com.macro.gUI.composite
 
 		public override function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
+			var p:Point = globalToLocal(x, y);
 
-			var target:IControl;
-			_mouseY = y;
+			_mouseY = p.y;
 			_blockY = _blockBtn.y;
 
-			if (_blockBtn.rect.contains(x, y))
+			if (_blockBtn.rect.containsPoint(p))
 			{
-				target = _blockBtn;
+				return _blockBtn;
 			}
-			else if (_upBtn.rect.contains(x, y))
+			else if (_upBtn.rect.containsPoint(p))
 			{
-				target = _upBtn;
+				return _upBtn;
 			}
-			else if (_downBtn.rect.contains(x, y))
+			else if (_downBtn.rect.containsPoint(p))
 			{
-				target = _downBtn;
+				return _downBtn;
 			}
-			else if (_track.rect.contains(x, y))
+			else if (_track.rect.containsPoint(p))
 			{
-				target = _track;
+				return _track;
 			}
 
-			return target;
+			return null;
 		}
 
 
@@ -628,7 +625,7 @@ package com.macro.gUI.composite
 			{
 				return DragMode.DIRECT;
 			}
-			
+
 			return DragMode.NONE;
 		}
 
@@ -639,11 +636,9 @@ package com.macro.gUI.composite
 
 		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
+			var p:Point = globalToLocal(x, y);
 
-			var j:int = _blockY + (y - _mouseY);
+			var j:int = _blockY + (p.y - _mouseY);
 			var max:int = _track.y + _track.height - _blockBtn.height;
 			j = j < _track.y ? _track.y : (j > max ? max : j);
 			_blockBtn.y = j;

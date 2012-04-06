@@ -181,27 +181,6 @@ package com.macro.gUI.base
 		}
 
 
-		public override function get alpha():Number
-		{
-			return _container.alpha;
-		}
-
-		public override function set alpha(value:Number):void
-		{
-			_container.alpha = value;
-		}
-
-
-		public override function get visible():Boolean
-		{
-			return _container.visible;
-		}
-
-		public override function set visible(value:Boolean):void
-		{
-			_container.visible = value;
-		}
-
 
 		public override function get parent():IContainer
 		{
@@ -263,10 +242,10 @@ package com.macro.gUI.base
 		protected final override function prePaint():void
 		{
 		}
-		
+
 		/**
 		 * 复合控件不执行绘制
-		 * 
+		 *
 		 */
 		protected final override function postPaint():void
 		{

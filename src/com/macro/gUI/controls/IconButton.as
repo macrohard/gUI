@@ -4,7 +4,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
@@ -33,7 +33,7 @@ package com.macro.gUI.controls
 				_styles[CtrlState.OVER] = _styles[CtrlState.DOWN] = _styles[CtrlState.NORMAL];
 				_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.ICONBUTTON_DISABLE);
 			}
-			
+
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
@@ -42,13 +42,13 @@ package com.macro.gUI.controls
 				_skins[CtrlState.DOWN] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_DOWN);
 				_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_DISABLE);
 			}
-			
+
 			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 			_style = _style ? _style : _styles[CtrlState.NORMAL];
-			
+
 			_padding = _padding ? _padding : new Rectangle(3, 3);
 			_alignIcon = alignIcon;
-			
+
 			super(text, alignText);
 		}
 

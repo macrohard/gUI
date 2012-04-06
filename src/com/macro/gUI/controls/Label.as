@@ -6,7 +6,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.utils.StrUtil;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -52,7 +52,7 @@ package com.macro.gUI.controls
 			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.NORMAL);
 
 			_text = text;
-			
+
 			update(true);
 		}
 
@@ -128,20 +128,20 @@ package com.macro.gUI.controls
 				update(true);
 			}
 		}
-		
-		
+
+
 		protected var _displayAsPassword:Boolean;
-		
+
 		/**
 		 * 显示为密码
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get displayAsPassword():Boolean
 		{
 			return _displayAsPassword;
 		}
-		
+
 		public function set displayAsPassword(value:Boolean):void
 		{
 			_displayAsPassword = value;
@@ -191,11 +191,9 @@ package com.macro.gUI.controls
 
 		public override function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
+			var p:Point = globalToLocal(x, y);
 
-			if (_textDrawRect && _textDrawRect.contains(x, y))
+			if (_textDrawRect && _textDrawRect.containsPoint(p))
 			{
 				return this;
 			}
@@ -207,7 +205,7 @@ package com.macro.gUI.controls
 		 * 重设尺寸，且重建文本
 		 * @param width
 		 * @param height
-		 * 
+		 *
 		 */
 		public override function resize(width:int = 0, height:int = 0):void
 		{
@@ -215,19 +213,19 @@ package com.macro.gUI.controls
 			{
 				width = _rect.width;
 			}
-			
+
 			if (height == 0)
 			{
 				height = _rect.height;
 			}
-			
+
 			drawText(width);
 			if (_autoSize && _textImg != null)
 			{
 				width = _padding ? _textImg.width + _padding.left + _padding.right : _textImg.width;
 				height = _padding ? _textImg.height + _padding.top + _padding.bottom : _textImg.height;
 			}
-			
+
 			super.resize(width, height);
 		}
 
@@ -241,8 +239,8 @@ package com.macro.gUI.controls
 			}
 			super.setDefaultSize();
 		}
-		
-		
+
+
 		protected override function postPaint():void
 		{
 			if (_textImg)
@@ -250,9 +248,9 @@ package com.macro.gUI.controls
 				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _padding);
 			}
 		}
-		
-		
-		
+
+
+
 		private function drawText(w:int):void
 		{
 			var textWidth:int = _padding ? w - _padding.left - _padding.right : w;
@@ -260,11 +258,11 @@ package com.macro.gUI.controls
 		}
 
 
-		
+
 		/**
 		 * 更新显示
 		 * @param isRebuildTextImg 是否重建文本
-		 * 
+		 *
 		 */
 		protected function update(isRebuildTextImg:Boolean):void
 		{
@@ -281,8 +279,8 @@ package com.macro.gUI.controls
 				paint();
 			}
 		}
-		
-		
+
+
 
 		/**
 		 * 创建文本图形
@@ -293,7 +291,8 @@ package com.macro.gUI.controls
 		 * @return
 		 *
 		 */
-		protected static function createTextImage(text:String, style:TextStyle, width:int, displayAsPassword:Boolean):BitmapData
+		protected static function createTextImage(text:String, style:TextStyle, width:int,
+												  displayAsPassword:Boolean):BitmapData
 		{
 			if (!text || text.length == 0 || !style)
 			{

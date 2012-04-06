@@ -2,12 +2,11 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-	
-	import com.macro.gUI.skin.ISkin;
-	
-	import flash.display.BitmapData;
+
+	import com.macro.gUI.assist.NULL;
+
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	import flash.utils.getTimer;
 
 
 	/**
@@ -44,7 +43,7 @@ package com.macro.gUI.base
 		{
 			return _margin;
 		}
-		
+
 		public function set margin(value:Rectangle):void
 		{
 			if (value != null)
@@ -52,22 +51,22 @@ package com.macro.gUI.base
 				_margin = value;
 			}
 		}
-		
-		
+
+
 		/**
 		 * 可视范围宽度
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get contentWidth():int
 		{
 			return _rect.width - _margin.left - _margin.right;
 		}
-		
+
 		/**
 		 * 可视范围高度
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		public function get contentHeight():int
 		{
@@ -86,6 +85,25 @@ package com.macro.gUI.base
 		public function get numChildren():int
 		{
 			return _children.length;
+		}
+
+
+
+		public override function hitTest(x:int, y:int):IControl
+		{
+			var p:Point = globalToLocal(x, y);
+
+			if (p.x >= _margin.left && p.x <= _rect.width - _margin.right && p.y >= _margin.top &&
+					p.y <= _rect.height - _margin.bottom)
+			{
+				return this;
+			}
+			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
+			{
+				return new NULL();
+			}
+
+			return null;
 		}
 
 

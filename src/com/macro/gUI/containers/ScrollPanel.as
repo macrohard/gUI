@@ -2,6 +2,7 @@ package com.macro.gUI.containers
 {
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.DragMode;
+	import com.macro.gUI.assist.NULL;
 	import com.macro.gUI.assist.Viewport;
 	import com.macro.gUI.base.AbstractComposite;
 	import com.macro.gUI.base.IContainer;
@@ -12,15 +13,16 @@ package com.macro.gUI.containers
 	import com.macro.gUI.composite.VScrollBar;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	
+
+
 	/**
 	 * 带滚动条的面板容器
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class ScrollPanel extends AbstractComposite implements IContainer, IDrag, IButton
 	{
@@ -28,87 +30,87 @@ package com.macro.gUI.containers
 		 * 显示容器
 		 */
 		private var _displayContainer:Container;
-		
+
 		/**
 		 * 内容容器
 		 */
 		private var _contentContainer:Container;
-		
+
 		/**
 		 * 水平滚动条
 		 */
 		private var _hScrollBar:HScrollBar;
-		
+
 		/**
 		 * 垂直滚动条
 		 */
 		private var _vScrollBar:VScrollBar;
-		
-		
+
+
 		/**
 		 * 带滚动条的面板容器
 		 * @param width
 		 * @param height
-		 * 
+		 *
 		 */
 		public function ScrollPanel(width:int = 100, height:int = 100)
 		{
 			super(width, height);
-			
+
 			_vScrollBar = new VScrollBar();
 			_hScrollBar = new HScrollBar();
-			
+
 			_displayContainer = new Container();
 			_contentContainer = new Container();
 			_displayContainer.addChild(_contentContainer);
-			
+
 			_container = new Panel(width, height);
 			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.SCROLLPANEL_BG);
 			_container.addChild(_displayContainer);
-			
+
 			_rect = _container.rect;
 			layout();
 		}
-		
-		
+
+
 		public function get margin():Rectangle
 		{
 			return _container.margin;
 		}
-		
+
 		public function set margin(value:Rectangle):void
 		{
 			_container.margin = value;
 		}
-		
-		
+
+
 		public function get children():Vector.<IControl>
 		{
 			return _contentContainer.children;
 		}
-		
+
 		public function get numChildren():int
 		{
 			return _contentContainer.numChildren;
 		}
-		
-		
+
+
 		/**
 		 * 设置背景皮肤
 		 * @param bgSkin
-		 * 
+		 *
 		 */
 		public function setBgSkin(bgSkin:ISkin):void
 		{
 			(_container as Panel).skin = bgSkin;
 		}
-		
-		
-		
+
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var target:IControl;
-			
+
 			if (_vScrollBar.parent != null)
 			{
 				target = _vScrollBar.hitTest(x, y);
@@ -117,7 +119,7 @@ package com.macro.gUI.containers
 					return target;
 				}
 			}
-			
+
 			if (_hScrollBar.parent != null)
 			{
 				target = _hScrollBar.hitTest(x, y);
@@ -126,33 +128,36 @@ package com.macro.gUI.containers
 					return target;
 				}
 			}
-			
+
 			// 检测是否在控件范围内
-			var p:Point = _container.globalCoord();
-			x -= p.x;
-			y -= p.y;
-			
-			if (x >= 0 && x <= _rect.width && y >= 0 && y <= _rect.height)
+			var p:Point = _container.globalToLocal(x, y);
+
+			var m:Rectangle = _container.margin;
+			if (p.x >= m.left && p.x <= _rect.width - m.right && p.y >= m.top && p.y <= _rect.height - m.bottom)
 			{
 				target = _container;
 			}
-			
+			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
+			{
+				target = new NULL();
+			}
+
 			return target;
 		}
-		
-		
+
+
 		protected override function layout():void
 		{
 			if (_contentContainer.numChildren == 0)
 			{
 				return;
 			}
-			
+
 			var maxW:int = _container.contentWidth;
 			var maxH:int = _container.contentHeight;
 			var minW:int = maxW - _vScrollBar.width;
 			var minH:int = maxH - _hScrollBar.height;
-			
+
 			// 取得所有控件的完整大小
 			var length:int = _contentContainer.numChildren;
 			var rect:Rectangle = _contentContainer.getChildAt(0).rect;
@@ -160,12 +165,12 @@ package com.macro.gUI.containers
 			{
 				rect = rect.union(_contentContainer.getChildAt(i).rect);
 			}
-			
+
 			_contentContainer.resize(rect.right, rect.bottom);
-			
+
 			// 0表示没有滚动条，1表示出现水平滚动条，2表示出现垂直滚动条，3表示同时出现两者
 			var scrollVisible:int;
-			
+
 			if (_contentContainer.width > maxW)
 			{
 				scrollVisible |= 1;
@@ -174,7 +179,7 @@ package com.macro.gUI.containers
 					scrollVisible |= 2;
 				}
 			}
-			
+
 			if (_contentContainer.height > maxH)
 			{
 				scrollVisible |= 2;
@@ -183,7 +188,7 @@ package com.macro.gUI.containers
 					scrollVisible |= 1;
 				}
 			}
-			
+
 			if (scrollVisible == 0)
 			{
 				_container.removeChild(_vScrollBar);
@@ -220,14 +225,14 @@ package com.macro.gUI.containers
 				_hScrollBar.width = minW;
 				_vScrollBar.x = minW;
 				_vScrollBar.height = minH;
-				
+
 				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _contentContainer);
 				_vScrollBar.viewport = _hScrollBar.viewport;
 			}
 		}
-		
-		
-		
+
+
+
 		public function mouseDown(target:IControl):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -239,7 +244,7 @@ package com.macro.gUI.containers
 				_hScrollBar.mouseDown(target);
 			}
 		}
-		
+
 		public function mouseOut(target:IControl):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -251,7 +256,7 @@ package com.macro.gUI.containers
 				_hScrollBar.mouseOut(target);
 			}
 		}
-		
+
 		public function mouseOver(target:IControl):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -263,7 +268,7 @@ package com.macro.gUI.containers
 				_hScrollBar.mouseOver(target);
 			}
 		}
-		
+
 		public function mouseUp(target:IControl):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -275,12 +280,12 @@ package com.macro.gUI.containers
 				_hScrollBar.mouseUp(target);
 			}
 		}
-		
+
 		public function getDragImage():BitmapData
 		{
 			return null;
 		}
-		
+
 		public function getDragMode(target:IControl):int
 		{
 			if (target.parent == _vScrollBar.container)
@@ -293,7 +298,7 @@ package com.macro.gUI.containers
 			}
 			return DragMode.NONE;
 		}
-		
+
 		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
 			if (target.parent == _vScrollBar.container)
@@ -305,60 +310,60 @@ package com.macro.gUI.containers
 				return _hScrollBar.setDragCoord(target, x, y);
 			}
 		}
-		
-		
-		
+
+
+
 		public function addChild(child:IControl):void
 		{
 			_contentContainer.addChild(child);
 			layout();
 		}
-		
+
 		public function addChildAt(child:IControl, index:int):void
 		{
 			_contentContainer.addChildAt(child, index);
 			layout();
 		}
-		
+
 		public function removeChild(child:IControl):void
 		{
 			_contentContainer.removeChild(child);
 			layout();
 		}
-		
+
 		public function removeChildAt(index:int):IControl
 		{
 			var c:IControl = _contentContainer.removeChildAt(index);
 			layout();
 			return c;
 		}
-		
-		public function removeChildren(beginIndex:int=0, endIndex:int=-1):void
+
+		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
 		{
 			_contentContainer.removeChildren(beginIndex, endIndex);
 			layout();
 		}
-		
+
 		public function getChildAt(index:int):IControl
 		{
 			return _contentContainer.getChildAt(index);
 		}
-		
+
 		public function getChildIndex(child:IControl):int
 		{
 			return _contentContainer.getChildIndex(child);
 		}
-		
+
 		public function setChildIndex(child:IControl, index:int):void
 		{
 			_contentContainer.setChildIndex(child, index);
 		}
-		
+
 		public function swapChildren(child1:IControl, child2:IControl):void
 		{
 			_contentContainer.swapChildren(child1, child2);
 		}
-		
+
 		public function swapChildrenAt(index1:int, index2:int):void
 		{
 			_contentContainer.swapChildrenAt(index1, index2);

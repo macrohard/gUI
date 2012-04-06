@@ -33,7 +33,8 @@ package com.macro.gUI.controls
 		 * @param skin 边框皮肤
 		 *
 		 */
-		public function ImageBox(source:IBitmapDrawable = null, autoSize:Boolean = true, align:int = 0x11, skin:ISkin = null)
+		public function ImageBox(source:IBitmapDrawable = null, autoSize:Boolean = true, align:int = 0x11,
+								 skin:ISkin = null)
 		{
 			// 默认大小
 			super(100, 100);

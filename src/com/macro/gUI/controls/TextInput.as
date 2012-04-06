@@ -10,7 +10,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -47,14 +47,14 @@ package com.macro.gUI.controls
 		{
 			//默认可编辑
 			_editable = true;
-			
+
 			if (_style == null)
 			{
 				_styles = new Dictionary();
 				_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.TEXTINPUT);
 				_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.DISABLE);
 			}
-			
+
 			//背景皮肤
 			if (_skins == null)
 			{
@@ -62,11 +62,11 @@ package com.macro.gUI.controls
 				_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_NORMAL);
 				_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_DISABLE);
 			}
-			
+
 			_style = _style ? _style : _styles[CtrlState.NORMAL];
 			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
-			
-			_padding = _padding ? _padding : new Rectangle(10, 0 -10);
+
+			_padding = _padding ? _padding : new Rectangle(10, 0 - 10);
 
 			super(text, false, align);
 		}
@@ -88,8 +88,8 @@ package com.macro.gUI.controls
 		{
 			_editable = value;
 		}
-		
-		
+
+
 
 		private var _tabIndex:int;
 
@@ -184,7 +184,7 @@ package com.macro.gUI.controls
 			{
 				return;
 			}
-			
+
 			if (_skin == _skins[CtrlState.NORMAL])
 			{
 				_skin = value;
@@ -210,7 +210,7 @@ package com.macro.gUI.controls
 			{
 				return;
 			}
-			
+
 			if (_skin == _skins[CtrlState.DISABLE])
 			{
 				_skin = value;
@@ -219,25 +219,23 @@ package com.macro.gUI.controls
 
 			_skins[CtrlState.DISABLE] = value;
 		}
-		
-		
-		
+
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
-			
-			if (_skinDrawRect && _skinDrawRect.contains(x, y))
+			var p:Point = globalToLocal(x, y);
+
+			if (_skinDrawRect && _skinDrawRect.containsPoint(p))
 			{
 				return this;
 			}
-			
-			if (_textDrawRect && _textDrawRect.contains(x, y))
+
+			if (_textDrawRect && _textDrawRect.containsPoint(p))
 			{
 				return this;
 			}
-			
+
 			return null;
 		}
 

@@ -7,7 +7,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
@@ -40,9 +40,9 @@ package com.macro.gUI.controls
 				_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
 				_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);
 			}
-			
+
 			_style = _style ? _style : _styles[CtrlState.NORMAL];
-			
+
 			super(text, true, align);
 		}
 

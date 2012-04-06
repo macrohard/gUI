@@ -13,7 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.ToggleButton;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -191,8 +191,8 @@ package com.macro.gUI.composite
 
 		/**
 		 * 标签文本样式
-		 * @param style 
-		 * 
+		 * @param style
+		 *
 		 */
 		public function setLabelStyle(style:TextStyle):void
 		{
@@ -209,16 +209,17 @@ package com.macro.gUI.composite
 				}
 			}
 		}
-		
+
 		/**
 		 * 设置按钮皮肤
 		 * @param normalSkin 常态皮肤
 		 * @param disableSkin 禁用态皮肤
 		 * @param selectedSkin 选中态皮肤
 		 * @param selectedDisableSkin 选中禁用态皮肤
-		 * 
+		 *
 		 */
-		public function setSkins(normalSkin:ISkin, disableSkin:ISkin, selectedSkin:ISkin, selectedDisableSkin:ISkin):void
+		public function setSkins(normalSkin:ISkin, disableSkin:ISkin, selectedSkin:ISkin,
+								 selectedDisableSkin:ISkin):void
 		{
 			_icon.overSkin = _icon.downSkin = _icon.skin = normalSkin;
 			_icon.disableSkin = disableSkin;
@@ -231,11 +232,9 @@ package com.macro.gUI.composite
 
 		public override function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = this.globalCoord();
-			x -= p.x;
-			y -= p.y;
+			var p:Point = globalToLocal(x, y);
 
-			if (_label.rect.contains(x, y) || _icon.rect.contains(x, y))
+			if (_label.rect.containsPoint(p) || _icon.rect.containsPoint(p))
 			{
 				return _icon;
 			}

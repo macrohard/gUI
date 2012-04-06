@@ -64,6 +64,8 @@
     <classEntry path="com.macro.utils.fte.TextUtil"/>
     <classEntry path="com.macro.gUI.composite.TextArea"/>
     <classEntry path="com.macro.gUI.containers.ScrollPanel"/>
+    <classEntry path="com.macro.gUI.containers.Window"/>
+    <classEntry path="com.macro.gUI.assist.NULL"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
