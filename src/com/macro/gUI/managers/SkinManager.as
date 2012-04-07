@@ -44,7 +44,7 @@ package com.macro.gUI.managers
 		 */
 		public function registerSkin(id:String, value:Object, grid:Rectangle = null, align:int = 0x11):ISkin
 		{
-			if (!grid)
+			if (grid == null)
 			{
 				grid = new Rectangle();
 			}
@@ -119,7 +119,6 @@ package com.macro.gUI.managers
 			
 			//文本块样式
 			s = new TextStyle();
-			s.size = 14;
 			s.color = 0xFFFFFF;
 			s.multiline = true;
 			s.wordWrap = true;
@@ -127,10 +126,16 @@ package com.macro.gUI.managers
 
 			//单元格文本样式
 			s = new TextStyle();
-			s.size = 14;
 			s.bold = true;
 			s.color = 0xFFFFFF;
 			_style[StyleDef.CELL] = s;
+			
+			//窗口标题栏文本样式
+			s = new TextStyle();
+			s.size = 14;
+			s.bold = false;
+			s.color = 0xFFFFFF;
+			_style[StyleDef.WINDOW_TITLE] = s;
 
 			//输入文本框样式
 			s = new TextStyle();

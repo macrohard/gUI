@@ -174,8 +174,8 @@ package com.macro.gUI.composite
 				target = _container;
 
 				// 检测是否在列表项范围
-				p.x -= _container.margin.x;
-				p.y -= _container.margin.y;
+				p.x -= _container.margin.left;
+				p.y -= _container.margin.top;
 
 				if (p.x >= 0 && p.x <= _container.contentWidth && p.y >= 0 && p.y <= _container.contentHeight)
 				{

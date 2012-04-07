@@ -263,7 +263,7 @@ package com.macro.gUI.base
 			var container:IContainer = this.parent;
 			while (container != null)
 			{
-				p.offset(container.rect.x + container.margin.x, container.rect.y + container.margin.y);
+				p.offset(container.rect.x + container.margin.left, container.rect.y + container.margin.top);
 				container = container.parent;
 			}
 			return p;

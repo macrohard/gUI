@@ -147,11 +147,11 @@ package com.macro.gUI.base
 			if (p != -1)
 			{
 				_children.splice(p, 1);
-			}
-
-			if (child is AbstractControl)
-			{
-				(child as AbstractControl).setParent(null);
+				
+				if (child is AbstractControl)
+				{
+					(child as AbstractControl).setParent(null);
+				}
 			}
 		}
 

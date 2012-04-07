@@ -30,7 +30,7 @@ package com.macro.gUI.assist
 		
 		public function get enabled():Boolean
 		{
-			return false;
+			return true;
 		}
 		
 		public function get alpha():Number

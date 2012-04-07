@@ -196,7 +196,6 @@ package com.macro.gUI.skin
 		
 		public static const CLOSE_BUTTON_DOWN:String = "close.button.down";
 		
-		public static const CLOSE_BUTTON_DISABLE:String = "close.button.disable";
 
 	}
 }
