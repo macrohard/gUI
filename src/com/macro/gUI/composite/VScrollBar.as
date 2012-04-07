@@ -1,6 +1,5 @@
 package com.macro.gUI.composite
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Viewport;
@@ -14,7 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -80,27 +79,27 @@ package com.macro.gUI.composite
 			_padding = new Rectangle(10, 10);
 
 
-			var skin:ISkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BG);
+			var skin:ISkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BG);
 			_track = new Slice(skin, skin.bitmapData.width, height);
 
 			_blockBtn = new Button();
-			_blockBtn.skin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_NORMAL);
-			_blockBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_OVER);
-			_blockBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DOWN);
-			_blockBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DISABLE);
+			_blockBtn.skin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_NORMAL);
+			_blockBtn.overSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_OVER);
+			_blockBtn.downSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DOWN);
+			_blockBtn.disableSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DISABLE);
 			_blockBtn.autoSize = false;
 
 			_upBtn = new Button();
-			_upBtn.skin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_UP_NORMAL);
-			_upBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_UP_OVER);
-			_upBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_UP_DOWN);
-			_upBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_UP_DISABLE);
+			_upBtn.skin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_NORMAL);
+			_upBtn.overSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_OVER);
+			_upBtn.downSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_DOWN);
+			_upBtn.disableSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_DISABLE);
 
 			_downBtn = new Button();
-			_downBtn.skin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_NORMAL);
-			_downBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_OVER);
-			_downBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DOWN);
-			_downBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DISABLE);
+			_downBtn.skin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_NORMAL);
+			_downBtn.overSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_OVER);
+			_downBtn.downSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DOWN);
+			_downBtn.disableSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DISABLE);
 
 			_container = new Container();
 			_container.addChild(_track);

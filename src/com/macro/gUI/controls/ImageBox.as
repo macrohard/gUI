@@ -1,15 +1,12 @@
 package com.macro.gUI.controls
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.base.AbstractControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.IBitmapDrawable;
-	import flash.display.MovieClip;
-	import flash.events.Event;
 	import flash.geom.Rectangle;
 
 
@@ -43,7 +40,7 @@ package com.macro.gUI.controls
 
 			_autoSize = autoSize;
 
-			_skin = skin ? skin : GameUI.skinManager.getSkin(SkinDef.IMAGEBOX_BORDER);
+			_skin = skin ? skin : skinManager.getSkin(SkinDef.IMAGEBOX_BORDER);
 
 			setSource(source);
 		}

@@ -2,10 +2,14 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
+	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.LayoutAlign;
+	import com.macro.gUI.managers.PopupManager;
+	import com.macro.gUI.managers.SkinManager;
+	import com.macro.gUI.managers.UIManager;
 	import com.macro.gUI.skin.ISkin;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -26,6 +30,20 @@ package com.macro.gUI.base
 		 * 平滑绘制
 		 */
 		public static var smoothing:Boolean = true;
+		
+		
+		
+		/**
+		 * 界面管理器
+		 */
+		protected var uiManager:UIManager;
+		
+		/**
+		 * 皮肤管理器
+		 */
+		protected var skinManager:SkinManager;
+		
+		
 
 
 		/**
@@ -54,7 +72,8 @@ package com.macro.gUI.base
 			{
 				throw new Error("Abstract class can not be constructed!");
 			}
-
+			
+			
 			//默认透明度
 			_alpha = 1;
 
@@ -69,6 +88,11 @@ package com.macro.gUI.base
 
 			//默认尺寸
 			_rect = new Rectangle(0, 0, width, height);
+			
+			
+			uiManager = GameUI.uiManager;
+			
+			skinManager = GameUI.skinManager;
 		}
 
 

@@ -1,11 +1,10 @@
 package com.macro.gUI.controls
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -28,8 +27,8 @@ package com.macro.gUI.controls
 		 */
 		public function Cell(text:String = null, skin:ISkin = null, autoSize:Boolean = false, align:int = 0x22)
 		{
-			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.CELL);
-			_skin = skin ? skin : GameUI.skinManager.getSkin(SkinDef.CELL_BG);
+			_style = _style ? _style : skinManager.getStyle(StyleDef.CELL);
+			_skin = skin ? skin : skinManager.getSkin(SkinDef.CELL_BG);
 			_padding = _padding ? _padding : new Rectangle();
 
 			super(text, autoSize, align);

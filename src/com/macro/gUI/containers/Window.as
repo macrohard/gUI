@@ -1,6 +1,5 @@
 package com.macro.gUI.containers
 {
-    import com.macro.gUI.GameUI;
     import com.macro.gUI.assist.DragMode;
     import com.macro.gUI.assist.LayoutAlign;
     import com.macro.gUI.assist.NULL;
@@ -10,7 +9,6 @@ package com.macro.gUI.containers
     import com.macro.gUI.base.IControl;
     import com.macro.gUI.base.feature.IButton;
     import com.macro.gUI.base.feature.IDrag;
-    import com.macro.gUI.base.feature.IKeyboard;
     import com.macro.gUI.controls.Button;
     import com.macro.gUI.controls.Label;
     import com.macro.gUI.controls.Slice;
@@ -19,7 +17,6 @@ package com.macro.gUI.containers
     import com.macro.gUI.skin.StyleDef;
     
     import flash.display.BitmapData;
-    import flash.events.KeyboardEvent;
     import flash.geom.Point;
     import flash.geom.Rectangle;
 
@@ -132,29 +129,29 @@ package com.macro.gUI.containers
             _buttonLayout = buttonLayout;
             _buttonStyle = buttonVisible;
 			
-			var skin:ISkin = GameUI.skinManager.getSkin(SkinDef.WINDOW_BG);
+			var skin:ISkin = skinManager.getSkin(SkinDef.WINDOW_BG);
 			_bg = new Slice(skin, width, height);
 			_margin = new Rectangle(skin.gridLeft, skin.gridTop, skin.paddingRight - skin.gridLeft, skin.paddingBottom - skin.gridTop);
 			
 			_title = new Label(title);
-			_title.style = GameUI.skinManager.getStyle(StyleDef.WINDOW_TITLE);
+			_title.style = skinManager.getStyle(StyleDef.WINDOW_TITLE);
 
             _minBtn = new Button();
-            _minBtn.skin = GameUI.skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_NORMAL);
-            _minBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_OVER);
-            _minBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_DOWN);
-            _minBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_DISABLE);
+            _minBtn.skin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_NORMAL);
+            _minBtn.overSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_OVER);
+            _minBtn.downSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_DOWN);
+            _minBtn.disableSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_DISABLE);
 
             _maxBtn = new Button();
-            _maxBtn.skin = GameUI.skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_NORMAL);
-            _maxBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_OVER);
-            _maxBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_DOWN);
-            _maxBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_DISABLE);
+            _maxBtn.skin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_NORMAL);
+            _maxBtn.overSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_OVER);
+            _maxBtn.downSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_DOWN);
+            _maxBtn.disableSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_DISABLE);
 
             _closeBtn = new Button();
-            _closeBtn.skin = GameUI.skinManager.getSkin(SkinDef.CLOSE_BUTTON_NORMAL);
-            _closeBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.CLOSE_BUTTON_OVER);
-            _closeBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.CLOSE_BUTTON_DOWN);
+            _closeBtn.skin = skinManager.getSkin(SkinDef.CLOSE_BUTTON_NORMAL);
+            _closeBtn.overSkin = skinManager.getSkin(SkinDef.CLOSE_BUTTON_OVER);
+            _closeBtn.downSkin = skinManager.getSkin(SkinDef.CLOSE_BUTTON_DOWN);
 
             _contentContainer = new Container();
 

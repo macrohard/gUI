@@ -1,12 +1,11 @@
 package com.macro.gUI.controls
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.AbstractControl;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.utils.StrUtil;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -49,7 +48,7 @@ package com.macro.gUI.controls
 
 			_align = align;
 
-			_style = _style ? _style : GameUI.skinManager.getStyle(StyleDef.NORMAL);
+			_style = _style ? _style : skinManager.getStyle(StyleDef.NORMAL);
 
 			_text = text;
 

@@ -1,6 +1,5 @@
 package com.macro.gUI.composite
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.assist.Viewport;
@@ -14,7 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 
@@ -61,13 +60,13 @@ package com.macro.gUI.composite
 			_hScrollBar = new HScrollBar();
 
 			_label = new Label();
-			_label.style = GameUI.skinManager.getStyle(StyleDef.TEXTAREA);
+			_label.style = skinManager.getStyle(StyleDef.TEXTAREA);
 
 			_displayContainer = new Container();
 			_displayContainer.addChild(_label);
 
 			_container = new Panel(width, height);
-			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.TEXTAREA_BG);
+			(_container as Panel).skin = skinManager.getSkin(SkinDef.TEXTAREA_BG);
 			_container.addChild(_displayContainer);
 
 			_rect = _container.rect;

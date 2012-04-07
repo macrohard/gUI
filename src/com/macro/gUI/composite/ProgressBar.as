@@ -1,15 +1,13 @@
 package com.macro.gUI.composite
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.base.AbstractComposite;
-	import com.macro.gUI.base.AbstractContainer;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Canvas;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -52,10 +50,10 @@ package com.macro.gUI.composite
 			_autoSize = true;
 			_mask = mask;
 
-			var skin:ISkin = GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_BG);
+			var skin:ISkin = skinManager.getSkin(SkinDef.PROGRESSBAR_BG);
 			_bg = new Slice(skin, width, skin.bitmapData.height);
 
-			_fillingSkin = GameUI.skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
+			_fillingSkin = skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
 			_canvas = new Canvas(width - skin.gridLeft - skin.gridRight, _fillingSkin.bitmapData.height);
 
 			_container = new Container();

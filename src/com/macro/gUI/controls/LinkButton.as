@@ -1,13 +1,12 @@
 package com.macro.gUI.controls
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
@@ -35,10 +34,10 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
-				_styles[CtrlState.OVER] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
-				_styles[CtrlState.DOWN] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
-				_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);
+				_styles[CtrlState.NORMAL] = skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
+				_styles[CtrlState.OVER] = skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
+				_styles[CtrlState.DOWN] = skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
+				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);
 			}
 
 			_style = _style ? _style : _styles[CtrlState.NORMAL];

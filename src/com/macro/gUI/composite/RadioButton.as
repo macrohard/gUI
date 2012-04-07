@@ -1,6 +1,5 @@
 package com.macro.gUI.composite
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.RadioButtonGroup;
 	import com.macro.gUI.assist.TextStyle;
@@ -13,7 +12,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.ToggleButton;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -60,10 +59,10 @@ package com.macro.gUI.composite
 
 			_label = new Label(text);
 			_icon = new ToggleButton(null, 0x22);
-			_icon.overSkin = _icon.downSkin = _icon.skin = GameUI.skinManager.getSkin(SkinDef.RADIOBUTTON_NORMAL);
-			_icon.disableSkin = GameUI.skinManager.getSkin(SkinDef.RADIOBUTTON_DISABLE);
-			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = GameUI.skinManager.getSkin(SkinDef.RADIOBUTTON_SELECTED);
-			_icon.selectedDisableSkin = GameUI.skinManager.getSkin(SkinDef.RADIOBUTTON_SELECTED_DISABLE);
+			_icon.overSkin = _icon.downSkin = _icon.skin = skinManager.getSkin(SkinDef.RADIOBUTTON_NORMAL);
+			_icon.disableSkin = skinManager.getSkin(SkinDef.RADIOBUTTON_DISABLE);
+			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = skinManager.getSkin(SkinDef.RADIOBUTTON_SELECTED);
+			_icon.selectedDisableSkin = skinManager.getSkin(SkinDef.RADIOBUTTON_SELECTED_DISABLE);
 
 			_container = new Container();
 			_container.addChild(_icon);

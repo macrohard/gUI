@@ -1,8 +1,6 @@
 package com.macro.gUI.controls
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.CtrlState;
-	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IEdit;
@@ -10,13 +8,10 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
-	import flash.events.Event;
+	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFieldType;
 	import flash.utils.Dictionary;
 
 
@@ -51,16 +46,16 @@ package com.macro.gUI.controls
 			if (_style == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.TEXTINPUT);
-				_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.DISABLE);
+				_styles[CtrlState.NORMAL] = skinManager.getStyle(StyleDef.TEXTINPUT);
+				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.DISABLE);
 			}
 
 			//背景皮肤
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_NORMAL);
-				_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.TEXTINPUT_DISABLE);
+				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.TEXTINPUT_NORMAL);
+				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.TEXTINPUT_DISABLE);
 			}
 
 			_style = _style ? _style : _styles[CtrlState.NORMAL];

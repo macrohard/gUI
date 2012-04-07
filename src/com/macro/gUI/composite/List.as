@@ -1,6 +1,5 @@
 package com.macro.gUI.composite
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.Viewport;
 	import com.macro.gUI.base.AbstractComposite;
@@ -12,7 +11,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Cell;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -67,11 +66,11 @@ package com.macro.gUI.composite
 			_scrollBar = new VScrollBar();
 
 			_container = new Panel(width, height);
-			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.LIST_BG);
+			(_container as Panel).skin = skinManager.getSkin(SkinDef.LIST_BG);
 			_container.addChild(_itemContainer);
 
-			_cellSkin = GameUI.skinManager.getSkin(SkinDef.CELL_BG);
-			_cellSelectedSkin = GameUI.skinManager.getSkin(SkinDef.CELL_SELECTED_BG);
+			_cellSkin = skinManager.getSkin(SkinDef.CELL_BG);
+			_cellSelectedSkin = skinManager.getSkin(SkinDef.CELL_SELECTED_BG);
 
 			_rect = _container.rect;
 			layout();

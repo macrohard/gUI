@@ -1,6 +1,5 @@
 package com.macro.gUI.containers
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.NULL;
 	import com.macro.gUI.assist.Viewport;
@@ -13,7 +12,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.composite.VScrollBar;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -65,7 +64,7 @@ package com.macro.gUI.containers
 			_displayContainer.addChild(_contentContainer);
 
 			_container = new Panel(width, height);
-			(_container as Panel).skin = GameUI.skinManager.getSkin(SkinDef.SCROLLPANEL_BG);
+			(_container as Panel).skin = skinManager.getSkin(SkinDef.SCROLLPANEL_BG);
 			_container.addChild(_displayContainer);
 
 			_rect = _container.rect;

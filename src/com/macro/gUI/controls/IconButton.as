@@ -1,10 +1,9 @@
 package com.macro.gUI.controls
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
@@ -29,18 +28,18 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.NORMAL] = GameUI.skinManager.getStyle(StyleDef.ICONBUTTON);
+				_styles[CtrlState.NORMAL] = skinManager.getStyle(StyleDef.ICONBUTTON);
 				_styles[CtrlState.OVER] = _styles[CtrlState.DOWN] = _styles[CtrlState.NORMAL];
-				_styles[CtrlState.DISABLE] = GameUI.skinManager.getStyle(StyleDef.ICONBUTTON_DISABLE);
+				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.ICONBUTTON_DISABLE);
 			}
 
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.NORMAL] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_NORMAL);
-				_skins[CtrlState.OVER] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_OVER);
-				_skins[CtrlState.DOWN] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_DOWN);
-				_skins[CtrlState.DISABLE] = GameUI.skinManager.getSkin(SkinDef.ICONBUTTON_DISABLE);
+				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.ICONBUTTON_NORMAL);
+				_skins[CtrlState.OVER] = skinManager.getSkin(SkinDef.ICONBUTTON_OVER);
+				_skins[CtrlState.DOWN] = skinManager.getSkin(SkinDef.ICONBUTTON_DOWN);
+				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.ICONBUTTON_DISABLE);
 			}
 
 			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];

@@ -1,6 +1,5 @@
 package com.macro.gUI.composite
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.base.AbstractComposite;
@@ -13,7 +12,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -66,14 +65,14 @@ package com.macro.gUI.composite
 			//四周边距均默认为10
 			_padding = new Rectangle(10, 10);
 
-			var skin:ISkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_VERTICAL_BG);
+			var skin:ISkin = skinManager.getSkin(SkinDef.SLIDER_VERTICAL_BG);
 			_bg = new Slice(skin, skin.bitmapData.width, height);
 
 			_blockBtn = new Button();
-			_blockBtn.skin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_NORMAL);
-			_blockBtn.overSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_OVER);
-			_blockBtn.downSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_DOWN);
-			_blockBtn.disableSkin = GameUI.skinManager.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);
+			_blockBtn.skin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_NORMAL);
+			_blockBtn.overSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_OVER);
+			_blockBtn.downSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_DOWN);
+			_blockBtn.disableSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);
 
 			_container = new Container();
 			_container.addChild(_bg);

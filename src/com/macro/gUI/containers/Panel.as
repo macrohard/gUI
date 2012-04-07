@@ -1,11 +1,8 @@
 package com.macro.gUI.containers
 {
-	import com.macro.gUI.GameUI;
 	import com.macro.gUI.base.AbstractContainer;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
-	import flash.geom.Rectangle;
 
 
 	/**
@@ -25,7 +22,7 @@ package com.macro.gUI.containers
 		{
 			super(width, height);
 
-			this.skin = skin ? skin : GameUI.skinManager.getSkin(SkinDef.PANEL_BG);
+			this.skin = skin ? skin : skinManager.getSkin(SkinDef.PANEL_BG);
 
 			paint();
 		}
