@@ -2,11 +2,11 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.NULL;
-
+	
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
 
 
 	/**
@@ -33,18 +33,18 @@ package com.macro.gUI.base
 			}
 
 			_children = new Vector.<IControl>();
-			_margin = new Rectangle();
+			_margin = new Margin();
 		}
 
 
-		protected var _margin:Rectangle;
+		protected var _margin:Margin;
 
-		public function get margin():Rectangle
+		public function get margin():Margin
 		{
 			return _margin;
 		}
 
-		public function set margin(value:Rectangle):void
+		public function set margin(value:Margin):void
 		{
 			if (value != null)
 			{

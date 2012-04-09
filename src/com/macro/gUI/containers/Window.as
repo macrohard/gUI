@@ -2,6 +2,7 @@ package com.macro.gUI.containers
 {
     import com.macro.gUI.assist.DragMode;
     import com.macro.gUI.assist.LayoutAlign;
+    import com.macro.gUI.assist.Margin;
     import com.macro.gUI.assist.NULL;
     import com.macro.gUI.assist.TextStyle;
     import com.macro.gUI.base.AbstractComposite;
@@ -18,7 +19,6 @@ package com.macro.gUI.containers
     
     import flash.display.BitmapData;
     import flash.geom.Point;
-    import flash.geom.Rectangle;
 
 
     /**
@@ -133,7 +133,7 @@ package com.macro.gUI.containers
 			
 			var skin:ISkin = skinManager.getSkin(SkinDef.WINDOW_BG);
 			_bg = new Slice(skin, width, height);
-			_margin = new Rectangle(skin.gridLeft, skin.gridTop, skin.paddingRight - skin.gridLeft, skin.paddingBottom - skin.gridTop);
+			_margin = new Margin(skin.gridLeft, skin.gridTop, skin.paddingRight, skin.paddingBottom);
 			
 			_title = new Label(title);
 			_title.style = skinManager.getStyle(StyleDef.WINDOW_TITLE);
@@ -243,14 +243,14 @@ package com.macro.gUI.containers
         }
 
 		
-		private var _margin:Rectangle;
+		private var _margin:Margin;
 
-        public function get margin():Rectangle
+        public function get margin():Margin
         {
             return _margin;
         }
 
-        public function set margin(value:Rectangle):void
+        public function set margin(value:Margin):void
         {
             _margin = value;
 			layout();
@@ -276,7 +276,7 @@ package com.macro.gUI.containers
         public function setBgSkin(bgSkin:ISkin):void
         {
             _bg.skin = bgSkin;
-			_margin = new Rectangle(bgSkin.gridLeft, bgSkin.gridTop, bgSkin.paddingRight - bgSkin.gridLeft, bgSkin.paddingBottom - bgSkin.gridTop);
+			_margin = new Margin(bgSkin.gridLeft, bgSkin.gridTop, bgSkin.paddingRight, bgSkin.paddingBottom);
 			layout();
         }
 
@@ -350,7 +350,7 @@ package com.macro.gUI.containers
                 return _closeBtn;
             }
 
-            if (p.x >= _margin.left && p.x <= _rect.width - _margin.right && p.y >= _margin.top && p.y <= _rect.height - _margin.bottom)
+            if (_contentContainer.rect.containsPoint(p))
             {
                 return _container;
             }

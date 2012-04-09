@@ -1,5 +1,6 @@
 package com.macro.gUI.containers
 {
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.base.AbstractContainer;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
@@ -23,8 +24,6 @@ package com.macro.gUI.containers
 			super(width, height);
 
 			this.skin = skin ? skin : skinManager.getSkin(SkinDef.PANEL_BG);
-
-			paint();
 		}
 
 
@@ -39,10 +38,7 @@ package com.macro.gUI.containers
 			{
 				_skin = value;
 
-				_margin.left = _skin.gridLeft;
-				_margin.top = _skin.gridTop;
-				_margin.right = _skin.paddingRight;
-				_margin.bottom = _skin.paddingBottom;
+				_margin = new Margin(_skin.gridLeft, _skin.gridTop, _skin.paddingRight, _skin.paddingBottom);
 
 				paint();
 			}

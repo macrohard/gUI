@@ -1,5 +1,7 @@
 package com.macro.gUI.base
 {
+	import com.macro.gUI.assist.Margin;
+	
 	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 
@@ -19,7 +21,7 @@ package com.macro.gUI.base
 		 * @return
 		 *
 		 */
-		function get margin():Rectangle;
+		function get margin():Margin;
 
 		/**
 		 * 子控件

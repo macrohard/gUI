@@ -1,6 +1,7 @@
 package com.macro.gUI.containers
 {
 	import com.macro.gUI.assist.DragMode;
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.NULL;
 	import com.macro.gUI.assist.Viewport;
 	import com.macro.gUI.base.AbstractComposite;
@@ -72,12 +73,12 @@ package com.macro.gUI.containers
 		}
 
 
-		public function get margin():Rectangle
+		public function get margin():Margin
 		{
 			return _container.margin;
 		}
 
-		public function set margin(value:Rectangle):void
+		public function set margin(value:Margin):void
 		{
 			_container.margin = value;
 		}
@@ -131,11 +132,11 @@ package com.macro.gUI.containers
 			// 检测是否在控件范围内
 			var p:Point = _container.globalToLocal(x, y);
 
-			var m:Rectangle = _container.margin;
-			if (p.x >= m.left && p.x <= _rect.width - m.right && p.y >= m.top && p.y <= _rect.height - m.bottom)
+			if (_displayContainer.rect.containsPoint(p))
 			{
 				target = _container;
 			}
+			
 			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
 			{
 				target = new NULL();
