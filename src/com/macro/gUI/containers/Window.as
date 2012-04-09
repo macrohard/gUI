@@ -112,10 +112,12 @@ package com.macro.gUI.containers
 
 
         /**
-         * 窗口容器，align属性设置标题栏对齐方式。默认情况下，窗口可以拖拽，标题栏居中对齐
+         * 窗口容器。align属性用于设置标题栏对齐方式<br/>
+		 * 根据margin属性的top确定标题栏的高度，margin的值是根据窗口背景皮肤的九切片定义来设置的，也可以直接设置<br/>
+		 * 默认情况下，窗口可以拖拽，标题栏居中对齐
          * @param title 标题文本
-         * @param buttonVisible 按钮可见性，默认所有按钮可见
-         * @param buttonLayout 标题栏按钮布局样式，默认使用XP样式布局
+         * @param buttonVisible 按钮可见性，默认所有按钮可见，参见BUTTON_VISIBLE_常量
+         * @param buttonLayout 标题栏按钮布局样式，默认使用XP样式布局，参见BUTTON_LAYOUT_常量
          * @param width
          * @param height
          *
@@ -288,6 +290,41 @@ package com.macro.gUI.containers
             _title.style = style;
             layout();
         }
+		
+		
+		private function setButtonState():void
+		{
+			_container.removeChild(_minBtn);
+			_container.removeChild(_maxBtn);
+			_container.removeChild(_closeBtn);
+			
+			if (_buttonStyle == BUTTON_VISIBLE_CLOSE)
+			{
+				_container.addChild(_closeBtn);
+			}
+			else if (_buttonStyle != BUTTON_VISIBLE_NONE)
+			{
+				_container.addChild(_minBtn);
+				_container.addChild(_maxBtn);
+				_container.addChild(_closeBtn);
+				
+				if (_buttonStyle == BUTTON_VISIBLE_MAXIMIZ_CLOSE)
+				{
+					_minBtn.enabled = false;
+					_maxBtn.enabled = true;
+				}
+				else if (_buttonStyle == BUTTON_VISIBLE_MINIMIZE_CLOSE)
+				{
+					_minBtn.enabled = true;
+					_maxBtn.enabled = false;
+				}
+				else if (_buttonStyle == BUTTON_VISIBLE_ALL)
+				{
+					_minBtn.enabled = true;
+					_maxBtn.enabled = true;
+				}
+			}
+		}
 
 
 
@@ -317,6 +354,7 @@ package com.macro.gUI.containers
             {
                 return _container;
             }
+			
             if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
             {
                 return new NULL();
@@ -391,41 +429,6 @@ package com.macro.gUI.containers
         }
 		
 		
-		private function setButtonState():void
-		{
-			_container.removeChild(_minBtn);
-			_container.removeChild(_maxBtn);
-			_container.removeChild(_closeBtn);
-			
-			if (_buttonStyle == BUTTON_VISIBLE_CLOSE)
-			{
-				_container.addChild(_closeBtn);
-			}
-			else if (_buttonStyle != BUTTON_VISIBLE_NONE)
-			{
-				_container.addChild(_minBtn);
-				_container.addChild(_maxBtn);
-				_container.addChild(_closeBtn);
-				
-				if (_buttonStyle == BUTTON_VISIBLE_MAXIMIZ_CLOSE)
-				{
-					_minBtn.enabled = false;
-					_maxBtn.enabled = true;
-				}
-				else if (_buttonStyle == BUTTON_VISIBLE_MINIMIZE_CLOSE)
-				{
-					_minBtn.enabled = true;
-					_maxBtn.enabled = false;
-				}
-				else if (_buttonStyle == BUTTON_VISIBLE_ALL)
-				{
-					_minBtn.enabled = true;
-					_maxBtn.enabled = true;
-				}
-			}
-		}
-		
-		
 
         public function mouseDown(target:IControl):void
         {
@@ -494,8 +497,7 @@ package com.macro.gUI.containers
 
         public function getDragMode(target:IControl):int
         {
-			trace(target);
-            if (target is NULL)
+            if (target is NULL && _canDrag)
             {
                 return DragMode.DIRECT;
             }

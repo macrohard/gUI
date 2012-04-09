@@ -149,6 +149,61 @@ package com.macro.gUI.composite
 			_cellSelectedSkin = cellSelectedSkin;
 			resetSkin();
 		}
+		
+		
+		
+		/**
+		 * 添加列表项
+		 * @param text
+		 * @param index 索引位置，默认值int.MAX_VALUE表示添加到末尾
+		 *
+		 */
+		public function addItem(text:String, index:int = int.MAX_VALUE):void
+		{
+			_itemContainer.addChildAt(new Cell(text, _cellSkin), index);
+			layout();
+		}
+		
+		/**
+		 * 移除列表项
+		 * @param index
+		 *
+		 */
+		public function removeItem(index:int):void
+		{
+			_itemContainer.removeChildAt(index);
+			
+			layout();
+		}
+		
+		/**
+		 * 移除所有列表项
+		 *
+		 */
+		public function clearItems():void
+		{
+			_itemContainer.removeChildren();
+			
+			layout();
+		}
+		
+		
+		private function resetSkin():void
+		{
+			var cell:Cell;
+			for each (var ic:IControl in _itemContainer.children)
+			{
+				cell = ic as Cell;
+				if (cell == _selectItem)
+				{
+					cell.skin = _cellSelectedSkin;
+				}
+				else
+				{
+					cell.skin = _cellSkin;
+				}
+			}
+		}
 
 
 
@@ -230,70 +285,6 @@ package com.macro.gUI.composite
 				cell = _itemContainer.getChildAt(i) as Cell;
 				cell.y = i * itemH;
 				cell.width = w;
-			}
-		}
-
-
-		/**
-		 * 添加列表项
-		 * @param text
-		 * @param index 默认值-1表示添加到末尾
-		 *
-		 */
-		public function addItem(text:String, index:int = -1):void
-		{
-			var cell:Cell = new Cell(text, _cellSkin);
-
-			if (index < 0)
-			{
-				_itemContainer.addChild(cell);
-			}
-			else
-			{
-				_itemContainer.addChildAt(cell, index);
-			}
-
-			layout();
-		}
-
-		/**
-		 * 移除列表项
-		 * @param index
-		 *
-		 */
-		public function removeItem(index:int):void
-		{
-			_itemContainer.removeChildAt(index);
-
-			layout();
-		}
-
-		/**
-		 * 移除所有列表项
-		 *
-		 */
-		public function clearItems():void
-		{
-			_itemContainer.removeChildren();
-
-			layout();
-		}
-
-
-		private function resetSkin():void
-		{
-			var cell:Cell;
-			for each (var ic:IControl in _itemContainer.children)
-			{
-				cell = ic as Cell;
-				if (cell == _selectItem)
-				{
-					cell.skin = _cellSelectedSkin;
-				}
-				else
-				{
-					cell.skin = _cellSkin;
-				}
 			}
 		}
 

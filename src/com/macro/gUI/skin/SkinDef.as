@@ -13,10 +13,8 @@ package com.macro.gUI.skin
 		
 		public static const SCROLLPANEL_BG:String = "scrollpanel.background";
 		
-		public static const WINDOW_BG:String = "window.background";
-
-
-
+		
+		
 		public static const CELL_BG:String = "cell.background";
 
 		public static const CELL_SELECTED_BG:String = "cell.selected.background";
@@ -24,14 +22,15 @@ package com.macro.gUI.skin
 		public static const LIST_BG:String = "list.background";
 		
 		
+		
 		public static const TEXTAREA_BG:String = "textarea.backgroud";
-
-
 
 		public static const TEXTINPUT_NORMAL:String = "textinput.background";
 
 		public static const TEXTINPUT_DISABLE:String = "textinput.disable";
 
+		
+		
 		public static const IMAGEBOX_BORDER:String = "imagebox.border";
 
 
@@ -113,6 +112,7 @@ package com.macro.gUI.skin
 		public static const SLIDER_BLOCK_DISABLE:String = "slider.block.disable";
 
 
+		
 
 		public static const SCROLLBAR_HORIZONTAL_BG:String = "scrollbar.horizontal.background";
 
@@ -140,6 +140,7 @@ package com.macro.gUI.skin
 
 		public static const SCROLLBAR_RIGHT_DISABLE:String = "scrollbar.right.disable";
 
+		
 
 
 		public static const SCROLLBAR_VERTICAL_BG:String = "scrollbar.vertical.background";
@@ -170,6 +171,10 @@ package com.macro.gUI.skin
 		
 		
 		
+		
+		public static const WINDOW_BG:String = "window.background";
+		
+		
 		public static const MINIMIZE_BUTTON_NORMAL:String = "minimize.button.normal";
 		
 		public static const MINIMIZE_BUTTON_OVER:String = "minimize.button.over";
@@ -177,7 +182,6 @@ package com.macro.gUI.skin
 		public static const MINIMIZE_BUTTON_DOWN:String = "minimize.button.down";
 		
 		public static const MINIMIZE_BUTTON_DISABLE:String = "minimize.button.disable";
-		
 		
 		
 		public static const MAXIMIZE_BUTTON_NORMAL:String = "maximize.button.normal";
@@ -189,7 +193,6 @@ package com.macro.gUI.skin
 		public static const MAXIMIZE_BUTTON_DISABLE:String = "maximize.button.disable";
 		
 		
-		
 		public static const CLOSE_BUTTON_NORMAL:String = "close.button.normal";
 		
 		public static const CLOSE_BUTTON_OVER:String = "close.button.over";
@@ -197,5 +200,12 @@ package com.macro.gUI.skin
 		public static const CLOSE_BUTTON_DOWN:String = "close.button.down";
 		
 
+		
+		
+		public static const TABPANEL_BG:String = "tabpanel.background";
+		
+		public static const TABPANEL_TAB:String = "tabpanel.button";
+		
+		public static const TABPANEL_TAB_SELECTED:String = "tabpanel.button.selected";
 	}
 }

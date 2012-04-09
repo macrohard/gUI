@@ -21,6 +21,8 @@ package com.macro.gUI.skin
 		
 		public static const WINDOW_TITLE:String = "window.title";
 		
+		public static const TAPPANEL_TITLE:String = "tappanel.title";
+		
 
 
 		public static const LINKBUTTON_NORMAL:String = "linkbutton.normal";

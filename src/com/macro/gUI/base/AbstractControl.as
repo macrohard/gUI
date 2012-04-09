@@ -32,20 +32,6 @@ package com.macro.gUI.base
 		public static var smoothing:Boolean = true;
 		
 		
-		
-		/**
-		 * 界面管理器
-		 */
-		protected var uiManager:UIManager;
-		
-		/**
-		 * 皮肤管理器
-		 */
-		protected var skinManager:SkinManager;
-		
-		
-
-
 		/**
 		 * 皮肤。<br/><br/>
 		 * 未直接曝露，支持此属性的子类自行提供访问器
@@ -88,12 +74,20 @@ package com.macro.gUI.base
 
 			//默认尺寸
 			_rect = new Rectangle(0, 0, width, height);
-			
-			
-			uiManager = GameUI.uiManager;
-			
-			skinManager = GameUI.skinManager;
 		}
+		
+		
+		
+		protected function get uiManager():UIManager
+		{
+			return GameUI.uiManager;
+		}
+		
+		protected function get skinManager():SkinManager
+		{
+			return GameUI.skinManager;
+		}
+		
 
 
 		private var _bgColor:int;

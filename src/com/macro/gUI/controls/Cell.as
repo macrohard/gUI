@@ -29,7 +29,7 @@ package com.macro.gUI.controls
 		{
 			_style = _style ? _style : skinManager.getStyle(StyleDef.CELL);
 			_skin = skin ? skin : skinManager.getSkin(SkinDef.CELL_BG);
-			_padding = _padding ? _padding : new Rectangle();
+			_padding = _padding ? _padding : new Rectangle(5);
 
 			super(text, autoSize, align);
 		}
