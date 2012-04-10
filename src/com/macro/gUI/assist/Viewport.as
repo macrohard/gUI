@@ -1,7 +1,7 @@
 package com.macro.gUI.assist
 {
 	import com.macro.gUI.base.AbstractControl;
-
+	
 	import flash.geom.Rectangle;
 
 
@@ -23,23 +23,23 @@ package com.macro.gUI.assist
 		public var scrollTarget:AbstractControl;
 
 		/**
-		 * 边距，使用left, top, right, bottom定义
+		 * 边距
 		 */
-		public var padding:Rectangle;
+		public var padding:Margin;
 
 		/**
 		 * 滚动条控制的视口，由ScrollBar控件使用。
 		 * 当滚动目标的高宽大于可视区域时，滚动条才会起作用
 		 * @param containerRect 可视区域
 		 * @param scrollTarget 滚动目标
-		 * @param padding 边距，使用left, top, right, bottom定义
+		 * @param padding 边距
 		 *
 		 */
-		public function Viewport(containerRect:Rectangle, scrollTarget:AbstractControl, padding:Rectangle = null)
+		public function Viewport(containerRect:Rectangle, scrollTarget:AbstractControl, padding:Margin = null)
 		{
 			this.containerRect = containerRect;
 			this.scrollTarget = scrollTarget;
-			this.padding = padding ? padding : new Rectangle();
+			this.padding = padding ? padding : new Margin();
 		}
 
 		/**

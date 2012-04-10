@@ -5,6 +5,7 @@ package com.macro.gUI.base
 	
 	import com.macro.gUI.GameUI;
 	import com.macro.gUI.assist.LayoutAlign;
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.managers.PopupManager;
 	import com.macro.gUI.managers.SkinManager;
 	import com.macro.gUI.managers.UIManager;
@@ -624,12 +625,12 @@ package com.macro.gUI.base
 		 * @param rect 范围矩形
 		 * @param align 对齐方式
 		 * @param bitmapData 图源
-		 * @param padding 间距
+		 * @param padding 边距
 		 * @return 绘制区域
 		 *
 		 */
 		protected static function drawFixed(canvas:BitmapData, rect:Rectangle, align:int, bitmapData:BitmapData,
-											padding:Rectangle = null):Rectangle
+											padding:Margin = null):Rectangle
 		{
 			var r:Rectangle = new Rectangle(0, 0, rect.width, rect.height);
 			if (padding)

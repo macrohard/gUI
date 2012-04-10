@@ -1,12 +1,12 @@
 package com.macro.gUI.controls
 {
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 	
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
 
 
 	/**
@@ -29,7 +29,7 @@ package com.macro.gUI.controls
 		{
 			_style = _style ? _style : skinManager.getStyle(StyleDef.CELL);
 			_skin = skin ? skin : skinManager.getSkin(SkinDef.CELL_BG);
-			_padding = _padding ? _padding : new Rectangle(5);
+			_padding = _padding ? _padding : new Margin(5, 0, 5, 0);
 
 			super(text, autoSize, align);
 		}

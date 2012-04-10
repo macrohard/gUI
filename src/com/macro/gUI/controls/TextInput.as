@@ -1,6 +1,7 @@
 package com.macro.gUI.controls
 {
 	import com.macro.gUI.assist.CtrlState;
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IEdit;
@@ -10,7 +11,6 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.StyleDef;
 	
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	import flash.utils.Dictionary;
 
@@ -61,7 +61,7 @@ package com.macro.gUI.controls
 			_style = _style ? _style : _styles[CtrlState.NORMAL];
 			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 
-			_padding = _padding ? _padding : new Rectangle(10, 0 - 10);
+			_padding = _padding ? _padding : new Margin(10, 0, 5, 0);
 
 			super(text, false, align);
 		}

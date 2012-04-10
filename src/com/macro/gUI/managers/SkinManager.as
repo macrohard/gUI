@@ -157,11 +157,10 @@ package com.macro.gUI.managers
             s.color = 0xFFFFFF;
             _style[StyleDef.WINDOW_TITLE] = s;
 			
-			//窗口标题栏文本样式
+			//标签面板标题栏文本样式
 			s = new TextStyle();
 			s.size = 14;
 			s.bold = false;
-			s.color = 0xFFFFFF;
 			_style[StyleDef.TAPPANEL_TITLE] = s;
 
             //输入文本框样式

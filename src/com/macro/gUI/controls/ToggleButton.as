@@ -1,13 +1,13 @@
 package com.macro.gUI.controls
 {
 	import com.macro.gUI.assist.CtrlState;
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 	
-	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 
 
@@ -55,7 +55,7 @@ package com.macro.gUI.controls
 			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 			_style = _style ? _style : _styles[CtrlState.NORMAL];
 
-			_padding = _padding ? _padding : new Rectangle(10);
+			_padding = _padding ? _padding : new Margin(10, 10, 10, 10);
 
 			super(text, align);
 		}

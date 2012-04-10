@@ -2,6 +2,7 @@ package com.macro.gUI.composite
 {
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.LayoutAlign;
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.base.AbstractComposite;
 	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.base.feature.IButton;
@@ -63,7 +64,7 @@ package com.macro.gUI.composite
 			_maximum = 10;
 
 			//四周边距均默认为10
-			_padding = new Rectangle(10, 10);
+			_padding = new Margin(10, 10, 10, 10);
 
 			var skin:ISkin = skinManager.getSkin(SkinDef.SLIDER_VERTICAL_BG);
 			_bg = new Slice(skin, skin.bitmapData.width, height);
@@ -107,31 +108,28 @@ package com.macro.gUI.composite
 		}
 
 
-		private var _padding:Rectangle;
+		private var _padding:Margin;
 
 		/**
 		 * 滑槽与四周的边距。注意，不是显示内容与四周的边距，设置不精确时，会导致显示内容被裁剪
 		 * @return
 		 *
 		 */
-		public function get padding():Rectangle
+		public function get padding():Margin
 		{
 			return _padding;
 		}
 
-		public function set padding(value:Rectangle):void
+		public function set padding(value:Margin):void
 		{
-			if (!_padding || !_padding.equals(value))
+			_padding = value;
+			if (_autoSize)
 			{
-				_padding = value;
-				if (_autoSize)
-				{
-					resize(0, _rect.height);
-				}
-				else
-				{
-					layout();
-				}
+				resize(0, _rect.height);
+			}
+			else
+			{
+				layout();
 			}
 		}
 

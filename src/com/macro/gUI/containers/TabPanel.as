@@ -2,6 +2,7 @@ package com.macro.gUI.containers
 {
     import com.macro.gUI.assist.Margin;
     import com.macro.gUI.assist.NULL;
+    import com.macro.gUI.assist.TextStyle;
     import com.macro.gUI.base.AbstractComposite;
     import com.macro.gUI.base.IContainer;
     import com.macro.gUI.base.IControl;
@@ -10,8 +11,9 @@ package com.macro.gUI.containers
     import com.macro.gUI.controls.Slice;
     import com.macro.gUI.skin.ISkin;
     import com.macro.gUI.skin.SkinDef;
+    import com.macro.gUI.skin.StyleDef;
     import com.macro.gUI.skin.impl.BitmapSkin;
-    
+
     import flash.display.BitmapData;
     import flash.geom.Matrix;
     import flash.geom.Point;
@@ -23,7 +25,8 @@ package com.macro.gUI.containers
      * @author Macro <macro776@gmail.com>
      *
      */
-    public class TabPanel extends AbstractComposite implements IContainer, IButton
+    public class TabPanel extends AbstractComposite implements IContainer,
+            IButton
     {
 
         /**
@@ -63,6 +66,11 @@ package com.macro.gUI.containers
          */
         private var _tabSelectedSkin:ISkin;
 
+        /**
+         * 标签文本样式
+         */
+        private var _tabStyle:TextStyle;
+
 
 
         /**
@@ -81,7 +89,8 @@ package com.macro.gUI.containers
          * @param height
          *
          */
-        public function TabPanel(tabLayout:int = 0, width:int = 300, height:int = 200)
+        public function TabPanel(tabLayout:int = 0, width:int = 300,
+                                 height:int = 200)
         {
             super(width, height);
 
@@ -97,8 +106,11 @@ package com.macro.gUI.containers
                 _tabSelectedSkin = flipVerticalSkin(_tabSelectedSkin);
             }
 
-            _bg = new Slice(skinManager.getSkin(SkinDef.TABPANEL_BG), width, height);
-			setMargin();
+            _tabStyle = skinManager.getStyle(StyleDef.TAPPANEL_TITLE);
+
+            _bg = new Slice(skinManager.getSkin(SkinDef.TABPANEL_BG), width,
+                                                height);
+            setMargin();
 
             _container = new Container(width, height);
             _container.addChild(_bg);
@@ -126,12 +138,12 @@ package com.macro.gUI.containers
             {
                 return;
             }
-			_tabLayout = value;
+            _tabLayout = value;
             _tabSkin = flipVerticalSkin(_tabSkin);
             _tabSelectedSkin = flipVerticalSkin(_tabSelectedSkin);
 
             resetTabSkin();
-			setMargin();
+            setMargin();
             layout();
         }
 
@@ -226,8 +238,8 @@ package com.macro.gUI.containers
         public function setBgSkin(bgSkin:ISkin):void
         {
             _bg.skin = bgSkin;
-			setMargin();
-			layout();
+            setMargin();
+            layout();
         }
 
 
@@ -250,7 +262,23 @@ package com.macro.gUI.containers
                 _tabSelectedSkin = flipVerticalSkin(tabSelectedSkin);
             }
             resetTabSkin();
-			setMargin();
+            setMargin();
+            layout();
+        }
+
+        /**
+         * 设置标签文本样式
+         * @param tabStyle
+         *
+         */
+        public function setTabStyle(tabStyle:TextStyle):void
+        {
+            _tabStyle = tabStyle;
+            for each (var tab:Cell in _tabs)
+            {
+                tab.style = _tabStyle;
+            }
+            setMargin();
             layout();
         }
 
@@ -282,33 +310,42 @@ package com.macro.gUI.containers
          */
         private function flipVerticalSkin(source:ISkin):ISkin
         {
-            var bmpd:BitmapData = new BitmapData(source.bitmapData.width, source.bitmapData.height, true, 0);
-            bmpd.draw(source.bitmapData, new Matrix(1, 0, 0, -1, 0, bmpd.height), null, null, null, true);
+            var bmpd:BitmapData = new BitmapData(source.bitmapData.width,
+                                                 source.bitmapData.height, true,
+                                                 0);
+            bmpd.draw(source.bitmapData,
+                      new Matrix(1, 0, 0, -1, 0, bmpd.height), null, null, null,
+                      true);
 
-            return new BitmapSkin(_bitmapData, new Rectangle(source.gridLeft, source.gridTop, source.paddingRight - source.gridLeft, source.paddingBottom - source.gridTop), source.align);
+            return new BitmapSkin(bmpd,
+                                  new Rectangle(source.gridLeft, source.gridTop,
+                                                source.gridRight - source.gridLeft,
+                                                source.gridBottom - source.gridTop),
+                                  source.align);
         }
-		
-		
-		/**
-		 * 设置可视间距
-		 *
-		 */
-		private function setMargin():void
-		{
-			_margin = new Margin(_bg.skin.gridLeft, _bg.skin.gridTop, _bg.skin.gridRight, _bg.skin.gridBottom);
-			if (_tabs.length > 0)
-			{
-				var tab:Cell = _tabs[0];
-				if (_tabLayout == TAB_LAYOUT_TOP)
-				{
-					_margin.top = tab.height + _bg.skin.gridTop;
-				}
-				else
-				{
-					_margin.bottom = tab.height + _bg.skin.gridBottom;
-				}
-			}
-		}
+
+
+        /**
+         * 设置可视间距
+         *
+         */
+        private function setMargin():void
+        {
+            _margin = new Margin(_bg.skin.gridLeft, _bg.skin.gridTop,
+                                 _bg.skin.paddingRight, _bg.skin.paddingBottom);
+            if (_tabs.length > 0)
+            {
+                var tab:Cell = _tabs[0];
+                if (_tabLayout == TAB_LAYOUT_TOP)
+                {
+                    _margin.top = tab.height + _bg.skin.gridTop;
+                }
+                else
+                {
+                    _margin.bottom = tab.height + _bg.skin.paddingBottom;
+                }
+            }
+        }
 
 
 
@@ -319,9 +356,11 @@ package com.macro.gUI.containers
          * @return
          *
          */
-        public function addTab(title:String, index:int = int.MAX_VALUE):Container
+        public function addTab(title:String,
+                               index:int = int.MAX_VALUE):Container
         {
             var tab:Cell = new Cell(title, _tabSkin, true);
+            tab.style = _tabStyle;
             var tabContainer:Container = new Container();
             if (index < 0)
             {
@@ -341,10 +380,10 @@ package com.macro.gUI.containers
                 _tabContainers.splice(index, 0, tabContainer);
             }
 
-			if (_tabs.length == 1)
-			{
-				setMargin();
-			}
+            if (_tabs.length == 1)
+            {
+                setMargin();
+            }
 
             _container.addChild(tab);
             selectedIndex = index;
@@ -357,9 +396,9 @@ package com.macro.gUI.containers
         {
             if (index >= 0 && index < _tabs.length)
             {
-				var tab:Cell = _tabs[index];
-				tab.text = title;
-				layout();
+                var tab:Cell = _tabs[index];
+                tab.text = title;
+                layout();
             }
         }
 
@@ -378,11 +417,11 @@ package com.macro.gUI.containers
                 var tabContainer:Container = _tabContainers.splice(index, 1)[0];
                 _container.removeChild(tabContainer);
 
-				if (_tabs.length == 0)
-				{
-					setMargin();
-				}
-				
+                if (_tabs.length == 0)
+                {
+                    setMargin();
+                }
+
                 if (tabContainer == _currentContainer) // 移除的是当前索引项时，重设索引
                 {
                     selectedIndex = index;
@@ -413,8 +452,8 @@ package com.macro.gUI.containers
 
             _tabs.splice(0, _tabs.length);
             _tabContainers.splice(0, _tabContainers.length);
-			
-			setMargin();
+
+            setMargin();
             layout();
         }
 
@@ -439,71 +478,84 @@ package com.macro.gUI.containers
         public override function hitTest(x:int, y:int):IControl
         {
             var p:Point = globalToLocal(x, y);
+            if (p.x < 0 || p.y < 0 || p.x > _rect.width || p.y > _rect.height)
+            {
+                return null;
+            }
 
             for (var i:int = _tabs.length - 1; i >= 0; i--)
             {
-				var tab:Cell = _tabs[i];
+                var tab:Cell = _tabs[i];
                 if (tab.rect.containsPoint(p))
                 {
                     return tab;
                 }
             }
 
-            if (_currentContainer != null && _currentContainer.rect.containsPoint(p))
+            if (_currentContainer != null &&
+                    _currentContainer.rect.containsPoint(p))
             {
                 return _currentContainer;
             }
 
-            if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
-            {
-                return new NULL();
-            }
-
-            return null;
+            return new NULL();
         }
 
 
 
         protected override function layout():void
         {
-			var length:int = _tabs.length;
-			
-			if (length == 0)
-			{
-				_bg.y = 0;
-				_bg.resize(_rect.width, _rect.height);
-				return;
-			}
-			
-			var ox:int;
-			var tab:Cell;
-			for (var i:int; i < length; i++)
-			{
-				tab = _tabs[i];
-				tab.x = ox;
-				ox += tab.width - 1;
-				_container.setChildIndex(tab, i);
-			}
-			
-			// 将当前选中标签置顶
-			_container.addChild(_tabs[_tabContainers.indexOf(_currentContainer)]);
-			
-			_bg.y = tab.height;
-			_bg.resize(_rect.height, _rect.height - tab.height);
-			
-			_currentContainer.x = _margin.left;
-			_currentContainer.y = _margin.top;
-			_currentContainer.resize(_rect.width - _margin.left - _margin.right, _rect.height - _margin.top - _margin.bottom);
+            var length:int = _tabs.length;
+
+            if (length == 0)
+            {
+                _bg.y = 0;
+                _bg.resize(_rect.width, _rect.height);
+                return;
+            }
+
+            var h:int = _tabs[0].height;
+            _bg.resize(_rect.width, _rect.height - h);
+
+            var ox:int;
+            var oy:int;
+            if (_tabLayout == TAB_LAYOUT_TOP)
+            {
+                _bg.y = h;
+            }
+            else
+            {
+                _bg.y = 0;
+                oy = _bg.height;
+            }
+
+            var tab:Cell;
+            for (var i:int; i < length; i++)
+            {
+                tab = _tabs[i];
+                tab.x = ox;
+                tab.y = oy;
+                ox += tab.width - 1;
+                _container.setChildIndex(tab, i);
+            }
+
+            // 将当前选中标签置顶
+            _container.addChild(_tabs[_tabContainers.indexOf(_currentContainer)]);
+
+            _currentContainer.x = _margin.left;
+            _currentContainer.y = _margin.top;
+            _currentContainer.resize(_rect.width - _margin.left - _margin.right,
+                                     _rect.height - _margin.top - _margin.bottom);
         }
 
 
 
         public function mouseDown(target:IControl):void
         {
-			if (target is Cell)
-			{
-				this.selectedIndex = _tabs.indexOf(target);
-			}
+            if (target is Cell)
+            {
+                this.selectedIndex = _tabs.indexOf(target);
+            }
         }
 
         public function mouseUp(target:IControl):void
@@ -577,7 +629,8 @@ package com.macro.gUI.containers
             return null;
         }
 
-        public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
+        public function removeChildren(beginIndex:int = 0,
+                                       endIndex:int = -1):void
         {
             if (_currentContainer != null)
             {

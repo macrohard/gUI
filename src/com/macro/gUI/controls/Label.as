@@ -1,5 +1,6 @@
 package com.macro.gUI.controls
 {
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.base.AbstractControl;
 	import com.macro.gUI.base.IControl;
@@ -147,21 +148,19 @@ package com.macro.gUI.controls
 		}
 
 
-		protected var _padding:Rectangle;
+		protected var _padding:Margin;
 
 		/**
-		 * 定义文本与四周的边距。注意，将使用left, top, right, bottom定义。 为赋值简便，可以使用如下语法：<br/>
-		 * new Rectangle(5, 8, 12 - 5, 5 - 8)<br/>
-		 * 此定义为：左间距为5，上间距为8，右间距为12，下间距为5
+		 * 定义文本与四周的边距。
 		 * @param rebuild
 		 *
 		 */
-		public function get padding():Rectangle
+		public function get padding():Margin
 		{
 			return _padding;
 		}
 
-		public function set padding(value:Rectangle):void
+		public function set padding(value:Margin):void
 		{
 			_padding = value;
 			update(false);
