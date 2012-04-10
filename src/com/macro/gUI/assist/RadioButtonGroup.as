@@ -47,7 +47,7 @@ package com.macro.gUI.assist
 		 * @param rdb
 		 *
 		 */
-		public function select(rdb:RadioButton):void
+		public function unselect(rdb:RadioButton):void
 		{
 			var id:int = _rdbGroups[rdb];
 			if (id == 0)

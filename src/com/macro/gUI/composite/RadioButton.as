@@ -47,10 +47,10 @@ package com.macro.gUI.composite
 		 * 单选框控件，目前定义支持普通，禁用，选择，选择后禁用等四态皮肤<br/>
 		 * 默认自动设置尺寸
 		 * @param text 作为文本的字符串
-		 * @param align 布局对齐方式，默认左上角对齐
+		 * @param align 布局对齐方式，默认左中对齐
 		 *
 		 */
-		public function RadioButton(text:String = null, align:int = 0x11)
+		public function RadioButton(text:String = null, align:int = 0x21)
 		{
 			//稍后resize时会重设为标准大小
 			super(1, 1, align);
@@ -112,7 +112,7 @@ package com.macro.gUI.composite
 			_icon.selected = value;
 			if (value)
 			{
-				group.select(this);
+				group.unselect(this);
 			}
 		}
 
@@ -157,6 +157,10 @@ package com.macro.gUI.composite
 
 		public function set radioGroup(value:int):void
 		{
+			if (value == 0)
+			{
+				throw new Error("Invalid value!");
+			}
 			group.setGroupId(this, value);
 		}
 
@@ -305,7 +309,7 @@ package com.macro.gUI.composite
 
 		public function mouseUp(target:IControl):void
 		{
-			_icon.mouseUp(target);
+			this.selected = !this.selected;
 		}
 
 		public function mouseOver(target:IControl):void

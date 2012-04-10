@@ -66,8 +66,8 @@ package com.macro.gUI.base
 		/**
 		 * 测试坐标是否在控件范围内。如果返回的是null，则在控件范围外；
 		 * 如果返回的是一个控件实例，则坐标在控件范围内。此时按以下原则处理：<ul>
-		 * <li>如果测试控件是IContainer，且返回的控件是NULL，表示坐标是在控件范围内但不是交互区域，交互管理器不用继续处理</li>
-		 * <li>如果测试控件是IContainer，且返回的控件不是NULL，交互管理器将下探搜索子控件的交互功能</li>
+		 * <li>如果测试控件是IContainer，且返回的控件不是CHILD_REGION，表示坐标是在控件范围内但不是子控件区域，交互管理器不用向下搜索</li>
+		 * <li>如果测试控件是IContainer，且返回的控件是CHILD_REGION，交互管理器将下探搜索子控件的交互功能</li>
 		 * <li>如果测试控件是IButton实现类时， 对测试控件执行对应鼠标方法。</li>
 		 * <li>如果测试控件是IDrag实现类时，调用相应的getDragMode接口，执行拖拽操作</li></ul>
 		 * @param x 全局坐标

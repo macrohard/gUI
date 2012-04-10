@@ -12,9 +12,9 @@ package com.macro.gUI.assist
 	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
-	public class NULL implements IControl
+	public class CHILD_REGION implements IControl
 	{
-		public function NULL()
+		public function CHILD_REGION()
 		{
 		}
 		

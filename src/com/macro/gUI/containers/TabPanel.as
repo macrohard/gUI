@@ -1,7 +1,7 @@
 package com.macro.gUI.containers
 {
     import com.macro.gUI.assist.Margin;
-    import com.macro.gUI.assist.NULL;
+    import com.macro.gUI.assist.CHILD_REGION;
     import com.macro.gUI.assist.TextStyle;
     import com.macro.gUI.base.AbstractComposite;
     import com.macro.gUI.base.IContainer;
@@ -85,16 +85,19 @@ package com.macro.gUI.containers
          * 标签页面板，仅支持顶部和底部布局样式。<br/>
          * 只需定义顶部标签样式即可，底部标签样式将通过垂直翻转得到
          * @param tabLayout 标签页布局，默认在顶部，参见TAB_LAYOUT_常量
+		 * @param tabGap 标签间距
          * @param width
          * @param height
          *
          */
-        public function TabPanel(tabLayout:int = 0, width:int = 300,
-                                 height:int = 200)
+        public function TabPanel(tabLayout:int = 0, tabGap:int = -1,
+                                 width:int = 300, height:int = 200)
         {
             super(width, height);
 
             _tabLayout = tabLayout;
+            _tabGap = tabGap;
+
             _tabContainers = new Vector.<Container>();
             _tabs = new Vector.<Cell>();
 
@@ -144,6 +147,20 @@ package com.macro.gUI.containers
 
             resetTabSkin();
             setMargin();
+            layout();
+        }
+
+
+        private var _tabGap:int;
+
+        public function get tabGap():int
+        {
+            return _tabGap;
+        }
+
+        public function set tabGap(value:int):void
+        {
+            _tabGap = value;
             layout();
         }
 
@@ -361,7 +378,10 @@ package com.macro.gUI.containers
         {
             var tab:Cell = new Cell(title, _tabSkin, true);
             tab.style = _tabStyle;
+            tab.padding = new Margin(8, 0, 8, 0);
+
             var tabContainer:Container = new Container();
+
             if (index < 0)
             {
                 index = 0;
@@ -495,10 +515,10 @@ package com.macro.gUI.containers
             if (_currentContainer != null &&
                     _currentContainer.rect.containsPoint(p))
             {
-                return _currentContainer;
+                return new CHILD_REGION();
             }
 
-            return new NULL();
+            return _container;
         }
 
 
@@ -535,7 +555,7 @@ package com.macro.gUI.containers
                 tab = _tabs[i];
                 tab.x = ox;
                 tab.y = oy;
-                ox += tab.width - 1;
+                ox += tab.width + _tabGap;
                 _container.setChildIndex(tab, i);
             }
 

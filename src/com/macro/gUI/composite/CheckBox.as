@@ -275,7 +275,7 @@ package com.macro.gUI.composite
 
 		public function mouseUp(target:IControl):void
 		{
-			_icon.mouseUp(target);
+			this.selected = !this.selected;
 		}
 
 		public function mouseOver(target:IControl):void

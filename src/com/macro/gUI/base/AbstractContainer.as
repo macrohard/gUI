@@ -4,7 +4,7 @@ package com.macro.gUI.base
 	import avmplus.getQualifiedClassName;
 	
 	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.assist.NULL;
+	import com.macro.gUI.assist.CHILD_REGION;
 	
 	import flash.geom.Point;
 
@@ -92,18 +92,18 @@ package com.macro.gUI.base
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(x, y);
+			if (p.x < 0 || p.y < 0 || p.x > _rect.width || p.y > _rect.height)
+			{
+				return null;
+			}
 
 			if (p.x >= _margin.left && p.x <= _rect.width - _margin.right && p.y >= _margin.top &&
 					p.y <= _rect.height - _margin.bottom)
 			{
-				return this;
-			}
-			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
-			{
-				return new NULL();
+				return new CHILD_REGION();
 			}
 
-			return null;
+			return this;
 		}
 
 

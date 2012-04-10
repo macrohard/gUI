@@ -2,7 +2,7 @@ package com.macro.gUI.containers
 {
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.assist.NULL;
+	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.Viewport;
 	import com.macro.gUI.base.AbstractComposite;
 	import com.macro.gUI.base.IContainer;
@@ -131,18 +131,17 @@ package com.macro.gUI.containers
 
 			// 检测是否在控件范围内
 			var p:Point = _container.globalToLocal(x, y);
+			if (p.x < 0 || p.y < 0 || p.x > _rect.width || p.y > _rect.height)
+			{
+				return null;
+			}
 
 			if (_displayContainer.rect.containsPoint(p))
 			{
-				target = _container;
+				return new CHILD_REGION();
 			}
 			
-			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
-			{
-				target = new NULL();
-			}
-
-			return target;
+			return _container;
 		}
 
 

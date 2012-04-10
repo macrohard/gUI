@@ -65,7 +65,7 @@
     <classEntry path="com.macro.gUI.composite.TextArea"/>
     <classEntry path="com.macro.gUI.containers.ScrollPanel"/>
     <classEntry path="com.macro.gUI.containers.Window"/>
-    <classEntry path="com.macro.gUI.assist.NULL"/>
+    <classEntry path="com.macro.gUI.assist.CHILD_REGION"/>
     <classEntry path="com.macro.gUI.containers.TabPanel"/>
     <classEntry path="com.macro.gUI.assist.Margin"/>
   </includeClasses>

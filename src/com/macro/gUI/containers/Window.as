@@ -3,7 +3,7 @@ package com.macro.gUI.containers
     import com.macro.gUI.assist.DragMode;
     import com.macro.gUI.assist.LayoutAlign;
     import com.macro.gUI.assist.Margin;
-    import com.macro.gUI.assist.NULL;
+    import com.macro.gUI.assist.CHILD_REGION;
     import com.macro.gUI.assist.TextStyle;
     import com.macro.gUI.base.AbstractComposite;
     import com.macro.gUI.base.IContainer;
@@ -16,7 +16,7 @@ package com.macro.gUI.containers
     import com.macro.gUI.skin.ISkin;
     import com.macro.gUI.skin.SkinDef;
     import com.macro.gUI.skin.StyleDef;
-    
+
     import flash.display.BitmapData;
     import flash.geom.Point;
 
@@ -26,7 +26,8 @@ package com.macro.gUI.containers
      * @author Macro <macro776@gmail.com>
      *
      */
-    public class Window extends AbstractComposite implements IContainer, IButton, IDrag
+    public class Window extends AbstractComposite implements IContainer,
+            IButton, IDrag
     {
 
         /**
@@ -72,11 +73,11 @@ package com.macro.gUI.containers
          * 内容容器
          */
         private var _contentContainer:Container;
-		
-		/**
-		 * 窗口背景
-		 */
-		private var _bg:Slice;
+
+        /**
+         * 窗口背景
+         */
+        private var _bg:Slice;
 
         /**
          * 最小化按钮
@@ -113,8 +114,8 @@ package com.macro.gUI.containers
 
         /**
          * 窗口容器。align属性用于设置标题栏对齐方式<br/>
-		 * 根据margin属性的top确定标题栏的高度，margin的值是根据窗口背景皮肤的九切片定义来设置的，也可以直接设置<br/>
-		 * 默认情况下，窗口可以拖拽，标题栏居中对齐
+         * 根据margin属性的top确定标题栏的高度，margin的值是根据窗口背景皮肤的九切片定义来设置的，也可以直接设置<br/>
+         * 默认情况下，窗口可以拖拽，标题栏居中对齐
          * @param title 标题文本
          * @param buttonVisible 按钮可见性，默认所有按钮可见，参见BUTTON_VISIBLE_常量
          * @param buttonLayout 标题栏按钮布局样式，默认使用XP样式布局，参见BUTTON_LAYOUT_常量
@@ -122,7 +123,9 @@ package com.macro.gUI.containers
          * @param height
          *
          */
-        public function Window(title:String = null, buttonVisible:int = 4, buttonLayout:int = 0, width:int = 300, height:int = 200)
+        public function Window(title:String = null, buttonVisible:int = 4,
+                               buttonLayout:int = 0, width:int = 300,
+                               height:int = 200)
         {
             // 标题栏默认居中对齐
             super(width, height, 0x22);
@@ -130,13 +133,14 @@ package com.macro.gUI.containers
             _canDrag = true;
             _buttonLayout = buttonLayout;
             _buttonStyle = buttonVisible;
-			
-			var skin:ISkin = skinManager.getSkin(SkinDef.WINDOW_BG);
-			_bg = new Slice(skin, width, height);
-			_margin = new Margin(skin.gridLeft, skin.gridTop, skin.paddingRight, skin.paddingBottom);
-			
-			_title = new Label(title);
-			_title.style = skinManager.getStyle(StyleDef.WINDOW_TITLE);
+
+            var skin:ISkin = skinManager.getSkin(SkinDef.WINDOW_BG);
+            _bg = new Slice(skin, width, height);
+            _margin = new Margin(skin.gridLeft, skin.gridTop, skin.paddingRight,
+                                 skin.paddingBottom);
+
+            _title = new Label(title);
+            _title.style = skinManager.getStyle(StyleDef.WINDOW_TITLE);
 
             _minBtn = new Button();
             _minBtn.skin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_NORMAL);
@@ -158,12 +162,12 @@ package com.macro.gUI.containers
             _contentContainer = new Container();
 
             _container = new Container(_bg.width, _bg.height);
-			_container.addChild(_bg);
+            _container.addChild(_bg);
             _container.addChild(_title);
             _container.addChild(_contentContainer);
 
             _rect = _container.rect;
-			setButtonState();
+            setButtonState();
             layout();
         }
 
@@ -238,12 +242,12 @@ package com.macro.gUI.containers
         public function set buttonStyle(value:int):void
         {
             _buttonStyle = value;
-			setButtonState();
+            setButtonState();
             layout();
         }
 
-		
-		private var _margin:Margin;
+
+        private var _margin:Margin;
 
         public function get margin():Margin
         {
@@ -253,7 +257,7 @@ package com.macro.gUI.containers
         public function set margin(value:Margin):void
         {
             _margin = value;
-			layout();
+            layout();
         }
 
 
@@ -276,8 +280,9 @@ package com.macro.gUI.containers
         public function setBgSkin(bgSkin:ISkin):void
         {
             _bg.skin = bgSkin;
-			_margin = new Margin(bgSkin.gridLeft, bgSkin.gridTop, bgSkin.paddingRight, bgSkin.paddingBottom);
-			layout();
+            _margin = new Margin(bgSkin.gridLeft, bgSkin.gridTop,
+                                 bgSkin.paddingRight, bgSkin.paddingBottom);
+            layout();
         }
 
         /**
@@ -290,41 +295,41 @@ package com.macro.gUI.containers
             _title.style = style;
             layout();
         }
-		
-		
-		private function setButtonState():void
-		{
-			_container.removeChild(_minBtn);
-			_container.removeChild(_maxBtn);
-			_container.removeChild(_closeBtn);
-			
-			if (_buttonStyle == BUTTON_VISIBLE_CLOSE)
-			{
-				_container.addChild(_closeBtn);
-			}
-			else if (_buttonStyle != BUTTON_VISIBLE_NONE)
-			{
-				_container.addChild(_minBtn);
-				_container.addChild(_maxBtn);
-				_container.addChild(_closeBtn);
-				
-				if (_buttonStyle == BUTTON_VISIBLE_MAXIMIZ_CLOSE)
-				{
-					_minBtn.enabled = false;
-					_maxBtn.enabled = true;
-				}
-				else if (_buttonStyle == BUTTON_VISIBLE_MINIMIZE_CLOSE)
-				{
-					_minBtn.enabled = true;
-					_maxBtn.enabled = false;
-				}
-				else if (_buttonStyle == BUTTON_VISIBLE_ALL)
-				{
-					_minBtn.enabled = true;
-					_maxBtn.enabled = true;
-				}
-			}
-		}
+
+
+        private function setButtonState():void
+        {
+            _container.removeChild(_minBtn);
+            _container.removeChild(_maxBtn);
+            _container.removeChild(_closeBtn);
+
+            if (_buttonStyle == BUTTON_VISIBLE_CLOSE)
+            {
+                _container.addChild(_closeBtn);
+            }
+            else if (_buttonStyle != BUTTON_VISIBLE_NONE)
+            {
+                _container.addChild(_minBtn);
+                _container.addChild(_maxBtn);
+                _container.addChild(_closeBtn);
+
+                if (_buttonStyle == BUTTON_VISIBLE_MAXIMIZ_CLOSE)
+                {
+                    _minBtn.enabled = false;
+                    _maxBtn.enabled = true;
+                }
+                else if (_buttonStyle == BUTTON_VISIBLE_MINIMIZE_CLOSE)
+                {
+                    _minBtn.enabled = true;
+                    _maxBtn.enabled = false;
+                }
+                else if (_buttonStyle == BUTTON_VISIBLE_ALL)
+                {
+                    _minBtn.enabled = true;
+                    _maxBtn.enabled = true;
+                }
+            }
+        }
 
 
 
@@ -334,6 +339,10 @@ package com.macro.gUI.containers
             _mouseCoord = new Point(x, y);
 
             var p:Point = _container.globalToLocal(x, y);
+            if (p.x < 0 || p.y < 0 || p.x > _rect.width || p.y > _rect.height)
+            {
+                return null;
+            }
 
             if (_minBtn.parent != null && _minBtn.rect.containsPoint(p))
             {
@@ -352,25 +361,20 @@ package com.macro.gUI.containers
 
             if (_contentContainer.rect.containsPoint(p))
             {
-                return _container;
-            }
-			
-            if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
-            {
-                return new NULL();
+                return new CHILD_REGION();
             }
 
-            return null;
+            return _container;
         }
-		
-		
+
+
 
         protected override function layout():void
         {
-			var pad:int = 5; // 四周边距
-			var gap:int; // 按钮间距
-			var titleH:int = _margin.top; // 标题栏高度
-			
+            var pad:int = 5; // 四周边距
+            var gap:int; // 按钮间距
+            var titleH:int = _margin.top; // 标题栏高度
+
             if (_buttonLayout == BUTTON_LAYOUT_XP)
             {
                 gap = 2;
@@ -378,57 +382,58 @@ package com.macro.gUI.containers
                 _closeBtn.x = _rect.width - pad - _closeBtn.width;
                 _closeBtn.y = titleH - _closeBtn.height >> 1;
 
-				_maxBtn.x = _closeBtn.x - gap - _maxBtn.width;
-				_maxBtn.y = titleH - _closeBtn.height >> 1;
-				
-				_minBtn.x = _maxBtn.x - gap - _minBtn.width;
-				_minBtn.y = titleH - _closeBtn.height >> 1;
+                _maxBtn.x = _closeBtn.x - gap - _maxBtn.width;
+                _maxBtn.y = titleH - _closeBtn.height >> 1;
+
+                _minBtn.x = _maxBtn.x - gap - _minBtn.width;
+                _minBtn.y = titleH - _closeBtn.height >> 1;
 
             }
             else if (_buttonLayout == BUTTON_LAYOUT_CHROME)
             {
-				gap = -1;
-				
-				_closeBtn.x = _rect.width - pad - _closeBtn.width;
-				_closeBtn.y = 0;
-				
-				_maxBtn.x = _closeBtn.x - gap - _maxBtn.width;
-				_maxBtn.y = 0;
-				
-				_minBtn.x = _maxBtn.x - gap - _minBtn.width;
-				_minBtn.y = 0;
-            }
-			
-			var ox:int = pad;
-			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
-			{
-				ox = _rect.width - _title.width >> 1;
-			}
-			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
-			{
-				ox = _rect.width - pad - _title.width;
-			}
-			
-			var oy:int;
-			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
-			{
-				oy = titleH - _title.height >> 1;
-			}
-			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
-			{
-				oy = titleH - _title.height;
-			}
-			
-			_title.x = ox;
-			_title.y = oy;
+                gap = -1;
 
-			_bg.resize(_rect.width, _rect.height);
-			_contentContainer.x = _margin.left;
-			_contentContainer.y = _margin.top;
-            _contentContainer.resize(_rect.width - _margin.left - _margin.right, _rect.height - _margin.top - _margin.bottom);
+                _closeBtn.x = _rect.width - pad - _closeBtn.width;
+                _closeBtn.y = 0;
+
+                _maxBtn.x = _closeBtn.x - gap - _maxBtn.width;
+                _maxBtn.y = 0;
+
+                _minBtn.x = _maxBtn.x - gap - _minBtn.width;
+                _minBtn.y = 0;
+            }
+
+            var ox:int = pad;
+            if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
+            {
+                ox = _rect.width - _title.width >> 1;
+            }
+            else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+            {
+                ox = _rect.width - pad - _title.width;
+            }
+
+            var oy:int;
+            if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
+            {
+                oy = titleH - _title.height >> 1;
+            }
+            else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+            {
+                oy = titleH - _title.height;
+            }
+
+            _title.x = ox;
+            _title.y = oy;
+
+            _bg.resize(_rect.width, _rect.height);
+            _contentContainer.x = _margin.left;
+            _contentContainer.y = _margin.top;
+            _contentContainer.resize(_rect.width - _margin.left - _margin.right,
+                                     _rect.height - _margin.top - _margin.bottom);
         }
-		
-		
+
+
 
         public function mouseDown(target:IControl):void
         {
@@ -497,7 +502,7 @@ package com.macro.gUI.containers
 
         public function getDragMode(target:IControl):int
         {
-            if (target is NULL && _canDrag)
+            if (target == _container && _canDrag)
             {
                 return DragMode.DIRECT;
             }
@@ -537,7 +542,8 @@ package com.macro.gUI.containers
             return _contentContainer.removeChildAt(index);
         }
 
-        public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
+        public function removeChildren(beginIndex:int = 0,
+                                       endIndex:int = -1):void
         {
             _contentContainer.removeChildren(beginIndex, endIndex);
         }
