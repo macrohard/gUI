@@ -5,7 +5,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.geom.Point;
 
 
@@ -25,7 +25,8 @@ package com.macro.gUI.controls
 		 * @param align 文本对齐方式，默认居中对齐
 		 *
 		 */
-		public function Cell(text:String = null, skin:ISkin = null, autoSize:Boolean = false, align:int = 0x22)
+		public function Cell(text:String = null, skin:ISkin = null,
+							 autoSize:Boolean = false, align:int = 0x22)
 		{
 			_style = _style ? _style : skinManager.getStyle(StyleDef.CELL);
 			_skin = skin ? skin : skinManager.getSkin(SkinDef.CELL_BG);

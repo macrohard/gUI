@@ -38,7 +38,8 @@
 		 * @param scale 缩放比，默认原大
 		 *
 		 */
-		public function MovieClipSerials(mc:MovieClip, frameNum:int, scale:Point = null)
+		public function MovieClipSerials(mc:MovieClip, frameNum:int,
+										 scale:Point = null)
 		{
 			_mc = mc;
 			_frameNum = frameNum;
@@ -55,7 +56,8 @@
 		public function getFrame(playHead:int):Frame
 		{
 			var f:int = playHead % _frameNum;
-			var temp:BitmapData = new BitmapData(detectArea.x, detectArea.y, true, 0);
+			var temp:BitmapData = new BitmapData(detectArea.x, detectArea.y,
+												 true, 0);
 			;
 			var m:Matrix = new Matrix(_scale.x, 0, 0, _scale.y);
 			var r:Rectangle;

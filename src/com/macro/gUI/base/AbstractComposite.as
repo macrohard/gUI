@@ -22,7 +22,8 @@ package com.macro.gUI.base
 		 * @param align 布局对齐方式，默认值为左上角对齐
 		 *
 		 */
-		public function AbstractComposite(width:int, height:int, align:int = 0x11)
+		public function AbstractComposite(width:int, height:int,
+										  align:int = 0x11)
 		{
 			super(width, height);
 

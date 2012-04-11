@@ -47,13 +47,17 @@ package com.macro.gUI.assist
 		 * @param leading
 		 *
 		 */
-		public function TextStyle(font:String = null, size:Object = null, color:Object = null, bold:Object = null,
-								  italic:Object = null, underline:Object = null, align:String = null,
-								  leftMargin:Object = null, rightMargin:Object = null, indent:Object = null,
-								  blockIndent:Object = null, leading:Object = null)
+		public function TextStyle(font:String = null, size:Object = null,
+								  color:Object = null, bold:Object = null,
+								  italic:Object = null, underline:Object = null,
+								  align:String = null, leftMargin:Object = null,
+								  rightMargin:Object = null,
+								  indent:Object = null,
+								  blockIndent:Object = null,
+								  leading:Object = null)
 		{
-			super(font, size, color, bold, italic, underline, null, null, align, leftMargin, rightMargin, indent,
-				  leading);
+			super(font, size, color, bold, italic, underline, null, null, align,
+				  leftMargin, rightMargin, indent, leading);
 
 			this.blockIndent = blockIndent;
 		}

@@ -9,7 +9,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.utils.Dictionary;

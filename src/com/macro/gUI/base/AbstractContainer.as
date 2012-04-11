@@ -2,10 +2,10 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-	
+
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.CHILD_REGION;
-	
+
 	import flash.geom.Point;
 
 
@@ -97,7 +97,8 @@ package com.macro.gUI.base
 				return null;
 			}
 
-			if (p.x >= _margin.left && p.x <= _rect.width - _margin.right && p.y >= _margin.top &&
+			if (p.x >= _margin.left && p.x <= _rect.width - _margin.right &&
+					p.y >= _margin.top &&
 					p.y <= _rect.height - _margin.bottom)
 			{
 				return new CHILD_REGION();
@@ -147,7 +148,7 @@ package com.macro.gUI.base
 			if (p != -1)
 			{
 				_children.splice(p, 1);
-				
+
 				if (child is AbstractControl)
 				{
 					(child as AbstractControl).setParent(null);
@@ -171,7 +172,8 @@ package com.macro.gUI.base
 			return child;
 		}
 
-		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
+		public function removeChildren(beginIndex:int = 0,
+									   endIndex:int = -1):void
 		{
 			if (endIndex == -1)
 			{
@@ -235,7 +237,8 @@ package com.macro.gUI.base
 
 		public function swapChildrenAt(index1:int, index2:int):void
 		{
-			if (index1 < 0 || index1 >= _children.length || index2 < 0 || index2 >= _children.length ||
+			if (index1 < 0 || index1 >= _children.length || index2 < 0 ||
+					index2 >= _children.length ||
 					index1 == index2)
 			{
 				return;

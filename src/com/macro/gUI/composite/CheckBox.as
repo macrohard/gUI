@@ -11,7 +11,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.ToggleButton;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -22,7 +22,8 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class CheckBox extends AbstractComposite implements IButton, IKeyboard
+	public class CheckBox extends AbstractComposite implements IButton,
+			IKeyboard
 	{
 
 		/**
@@ -189,7 +190,8 @@ package com.macro.gUI.composite
 		 * @param selectedDisableSkin 选中禁用态皮肤
 		 *
 		 */
-		public function setSkins(normalSkin:ISkin, disableSkin:ISkin, selectedSkin:ISkin,
+		public function setSkins(normalSkin:ISkin, disableSkin:ISkin,
+								 selectedSkin:ISkin,
 								 selectedDisableSkin:ISkin):void
 		{
 			_icon.overSkin = _icon.downSkin = _icon.skin = normalSkin;
@@ -229,7 +231,8 @@ package com.macro.gUI.composite
 
 		public override function setDefaultSize():void
 		{
-			resize(_icon.width + gap + _label.width, _icon.height > _label.height ? _icon.height : _label.height);
+			resize(_icon.width + gap + _label.width,
+				   _icon.height > _label.height ? _icon.height : _label.height);
 		}
 
 		protected override function layout():void

@@ -29,7 +29,8 @@ package com.macro.utils.serialize
 			this.addChild(_bmp);
 
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStageHandler);
-			this.addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStageHandler)
+			this.addEventListener(Event.REMOVED_FROM_STAGE,
+								  onRemovedFromStageHandler)
 		}
 
 		/**
@@ -39,7 +40,8 @@ package com.macro.utils.serialize
 		 * @param scale 缩放比
 		 *
 		 */
-		public function initMovieClip(mc:MovieClip, frameNum:int, scale:Point = null):void
+		public function initMovieClip(mc:MovieClip, frameNum:int,
+									  scale:Point = null):void
 		{
 			_serials = new MovieClipSerials(mc, frameNum, scale);
 		}

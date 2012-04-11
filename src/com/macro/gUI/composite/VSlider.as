@@ -13,7 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -26,7 +26,8 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class VSlider extends AbstractComposite implements IKeyboard, IDrag, IButton
+	public class VSlider extends AbstractComposite implements IKeyboard, IDrag,
+			IButton
 	{
 
 		private var _bg:Slice;
@@ -54,7 +55,8 @@ package com.macro.gUI.composite
 		 * @param bgSkin 背景皮肤
 		 *
 		 */
-		public function VSlider(height:int = 100, align:int = 0x02, blockSkin:ISkin = null, bgSkin:ISkin = null)
+		public function VSlider(height:int = 100, align:int = 0x02,
+								blockSkin:ISkin = null, bgSkin:ISkin = null)
 		{
 			//稍后resize时会重设为标准大小
 			super(1, height, align);
@@ -245,7 +247,8 @@ package com.macro.gUI.composite
 		 * @param selectedDisableSkin 选中禁用态皮肤
 		 *
 		 */
-		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
+		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin,
+									 downSkin:ISkin, disableSkin:ISkin):void
 		{
 			_blockBtn.skin = normalSkin;
 			_blockBtn.overSkin = overSkin;

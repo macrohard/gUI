@@ -6,7 +6,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.base.feature.IButton;
 	import com.macro.gUI.base.feature.IKeyboard;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;

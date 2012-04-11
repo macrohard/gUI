@@ -14,7 +14,7 @@ package com.macro.gUI.base.feature
 		/**
 		 * 鼠标按下
 		 * @param target 点击的目标控件，基本控件或复合控件的内部控件
-		 * 
+		 *
 		 */
 		function mouseDown(target:IControl):void;
 

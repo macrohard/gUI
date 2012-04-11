@@ -30,7 +30,8 @@ package com.macro.utils
 					var e:Error = param as Error;
 					param = "\n" + e.getStackTrace();
 				}
-				message = message.replace(new RegExp("\\{" + i + "\\}", "g"), param);
+				message = message.replace(new RegExp("\\{" + i + "\\}", "g"),
+													 param);
 			}
 			return message;
 		}

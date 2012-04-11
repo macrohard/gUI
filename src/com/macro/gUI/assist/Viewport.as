@@ -1,7 +1,7 @@
 package com.macro.gUI.assist
 {
 	import com.macro.gUI.base.AbstractControl;
-	
+
 	import flash.geom.Rectangle;
 
 
@@ -35,7 +35,9 @@ package com.macro.gUI.assist
 		 * @param padding 边距
 		 *
 		 */
-		public function Viewport(containerRect:Rectangle, scrollTarget:AbstractControl, padding:Margin = null)
+		public function Viewport(containerRect:Rectangle,
+								 scrollTarget:AbstractControl,
+								 padding:Margin = null)
 		{
 			this.containerRect = containerRect;
 			this.scrollTarget = scrollTarget;

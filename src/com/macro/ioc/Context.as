@@ -73,14 +73,16 @@ package com.macro.ioc
 		 * @return
 		 *
 		 */
-		public static function buildContext(bean:Class, isAutoInit:Boolean = true):Context
+		public static function buildContext(bean:Class,
+											isAutoInit:Boolean = true):Context
 		{
 			var context:Context = new Context();
 			context._bean = new bean();
 
 			var describe:XML = describeType(context._bean);
 			var node:XML;
-			for each (node in describe.*.(name() == "variable" || name() == "accessor"))
+			for each (node in describe.*.(name() == "variable" ||
+					name() == "accessor"))
 			{
 				context._definesByType[node.@type.toString()] = node.@name.toString();
 				context._definesByName[node.@name.toString()] = true; // 有定义
@@ -240,7 +242,8 @@ package com.macro.ioc
 			var propertyType:String;
 			var requestName:String;
 
-			for each (node in describe.*.(name() == "variable" || name() == "accessor").metadata.(@name == "Inject"))
+			for each (node in describe.*.(name() == "variable" ||
+					name() == "accessor").metadata.(@name == "Inject"))
 			{
 				propertyName = node.parent().@name;
 				propertyType = node.parent().@type;
@@ -326,7 +329,8 @@ package com.macro.ioc
 				for each (type in types)
 				{
 					type = StrUtil.trim(type);
-					dispatcher.addEventListener(type, managedEventHandler, false, 0, true);
+					dispatcher.addEventListener(type, managedEventHandler,
+												false, 0, true);
 				}
 			}
 		}

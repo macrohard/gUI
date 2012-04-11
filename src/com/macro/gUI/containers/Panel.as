@@ -19,7 +19,8 @@ package com.macro.gUI.containers
 		 * @param height 容器高度
 		 *
 		 */
-		public function Panel(width:int = 100, height:int = 100, skin:ISkin = null)
+		public function Panel(width:int = 100, height:int = 100,
+							  skin:ISkin = null)
 		{
 			super(width, height);
 
@@ -38,7 +39,8 @@ package com.macro.gUI.containers
 			{
 				_skin = value;
 
-				_margin = new Margin(_skin.gridLeft, _skin.gridTop, _skin.paddingRight, _skin.paddingBottom);
+				_margin = new Margin(_skin.gridLeft, _skin.gridTop,
+									 _skin.paddingRight, _skin.paddingBottom);
 
 				paint();
 			}

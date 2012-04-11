@@ -1,7 +1,7 @@
 package com.macro.gUI.base.feature
 {
 	import com.macro.gUI.base.IControl;
-	
+
 	import flash.display.BitmapData;
 
 
@@ -15,8 +15,8 @@ package com.macro.gUI.base.feature
 		/**
 		 * 拖拽方式，参见DragMode枚举
 		 * @param target 点击的目标控件，基本控件或复合控件的内部控件
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		function getDragMode(target:IControl):int;
 

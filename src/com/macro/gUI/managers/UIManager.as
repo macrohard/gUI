@@ -250,7 +250,8 @@ package com.macro.gUI.managers
 		 * @param modal 是否模态
 		 *
 		 */
-		public function addPopupWindow(window:IContainer, modal:Boolean = true):void
+		public function addPopupWindow(window:IContainer,
+									   modal:Boolean = true):void
 		{
 			_popupManager.addPopupWindow(window, modal);
 		}

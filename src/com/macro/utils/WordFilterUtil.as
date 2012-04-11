@@ -32,7 +32,8 @@ package com.macro.utils
 					if (index == 0 || lawlessWord.charCodeAt(index - 1) == 10)
 					{
 						var j:int = index + 1;
-						while (lawlessWord.charCodeAt(j) != 10 && j < lawlessWord.length)
+						while (lawlessWord.charCodeAt(j) != 10 &&
+								j < lawlessWord.length)
 						{
 							j++;
 						}
@@ -41,7 +42,8 @@ package com.macro.utils
 						j = j - index;
 						if (msg.substr(i, j) == s)
 						{
-							msg = msg.substring(0, i) + CYPHER_TEXT.substr(0, j) + msg.substring(i + j);
+							msg = msg.substring(0, i) + CYPHER_TEXT.substr(0,
+																		   j) + msg.substring(i + j);
 							i += j;
 							break;
 						}

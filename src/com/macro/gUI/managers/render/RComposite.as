@@ -47,7 +47,8 @@ package com.macro.gUI.managers.render
 			super.updateSource();
 			_mask.graphics.clear();
 			_mask.graphics.beginFill(0);
-			_mask.graphics.drawRect(0, 0, _control.rect.width, _control.rect.height);
+			_mask.graphics.drawRect(0, 0, _control.rect.width,
+									_control.rect.height);
 			_mask.graphics.endFill();
 		}
 

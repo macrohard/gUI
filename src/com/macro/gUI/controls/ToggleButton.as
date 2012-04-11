@@ -7,7 +7,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.utils.Dictionary;
 
 
@@ -244,7 +244,8 @@ package com.macro.gUI.controls
 		{
 			if (_selected)
 			{
-				if (_skin == _skins[CtrlState.SELECTED_DOWN] && _style == _styles[CtrlState.SELECTED_DOWN])
+				if (_skin == _skins[CtrlState.SELECTED_DOWN] &&
+						_style == _styles[CtrlState.SELECTED_DOWN])
 				{
 					return;
 				}
@@ -255,7 +256,8 @@ package com.macro.gUI.controls
 			}
 			else
 			{
-				if (_skin == _skins[CtrlState.DOWN] && _style == _styles[CtrlState.DOWN])
+				if (_skin == _skins[CtrlState.DOWN] &&
+						_style == _styles[CtrlState.DOWN])
 				{
 					return;
 				}
@@ -271,7 +273,8 @@ package com.macro.gUI.controls
 		{
 			if (_selected)
 			{
-				if (_skin == _skins[CtrlState.SELECTED] && _style == _styles[CtrlState.SELECTED])
+				if (_skin == _skins[CtrlState.SELECTED] &&
+						_style == _styles[CtrlState.SELECTED])
 				{
 					return;
 				}
@@ -281,7 +284,8 @@ package com.macro.gUI.controls
 			}
 			else
 			{
-				if (_skin == _skins[CtrlState.NORMAL] && _style == _styles[CtrlState.NORMAL])
+				if (_skin == _skins[CtrlState.NORMAL] &&
+						_style == _styles[CtrlState.NORMAL])
 				{
 					return;
 				}
@@ -296,7 +300,8 @@ package com.macro.gUI.controls
 		{
 			if (_selected)
 			{
-				if (_skin == _skins[CtrlState.SELECTED_OVER] && _style == _styles[CtrlState.SELECTED_OVER])
+				if (_skin == _skins[CtrlState.SELECTED_OVER] &&
+						_style == _styles[CtrlState.SELECTED_OVER])
 				{
 					return;
 				}
@@ -307,7 +312,8 @@ package com.macro.gUI.controls
 			}
 			else
 			{
-				if (_skin == _skins[CtrlState.OVER] && _style == _styles[CtrlState.OVER])
+				if (_skin == _skins[CtrlState.OVER] &&
+						_style == _styles[CtrlState.OVER])
 				{
 					return;
 				}

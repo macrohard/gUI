@@ -11,7 +11,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.controls.Cell;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -149,9 +149,9 @@ package com.macro.gUI.composite
 			_cellSelectedSkin = cellSelectedSkin;
 			resetSkin();
 		}
-		
-		
-		
+
+
+
 		/**
 		 * 添加列表项
 		 * @param text
@@ -163,7 +163,7 @@ package com.macro.gUI.composite
 			_itemContainer.addChildAt(new Cell(text, _cellSkin), index);
 			layout();
 		}
-		
+
 		/**
 		 * 移除列表项
 		 * @param index
@@ -172,10 +172,10 @@ package com.macro.gUI.composite
 		public function removeItem(index:int):void
 		{
 			_itemContainer.removeChildAt(index);
-			
+
 			layout();
 		}
-		
+
 		/**
 		 * 移除所有列表项
 		 *
@@ -183,11 +183,11 @@ package com.macro.gUI.composite
 		public function clearItems():void
 		{
 			_itemContainer.removeChildren();
-			
+
 			layout();
 		}
-		
-		
+
+
 		private function resetSkin():void
 		{
 			var cell:Cell;
@@ -223,7 +223,8 @@ package com.macro.gUI.composite
 			// 检测是否在控件范围内
 			var p:Point = _container.globalToLocal(x, y);
 
-			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
+			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 &&
+					p.y <= _rect.height)
 			{
 				target = _container;
 
@@ -231,7 +232,8 @@ package com.macro.gUI.composite
 				p.x -= _container.margin.left;
 				p.y -= _container.margin.top;
 
-				if (p.x >= 0 && p.x <= _container.contentWidth && p.y >= 0 && p.y <= _container.contentHeight)
+				if (p.x >= 0 && p.x <= _container.contentWidth && p.y >= 0 &&
+						p.y <= _container.contentHeight)
 				{
 					p.y -= _itemContainer.y;
 					for each (var cell:Cell in _itemContainer.children)
@@ -270,7 +272,8 @@ package com.macro.gUI.composite
 				_container.addChild(_scrollBar);
 				_scrollBar.x = w;
 				_scrollBar.height = h;
-				_scrollBar.viewport = new Viewport(new Rectangle(0, 0, w, h), _itemContainer);
+				_scrollBar.viewport = new Viewport(new Rectangle(0, 0, w, h),
+																 _itemContainer);
 			}
 			else
 			{

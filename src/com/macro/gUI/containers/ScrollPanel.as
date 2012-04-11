@@ -13,7 +13,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.composite.VScrollBar;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -24,7 +24,8 @@ package com.macro.gUI.containers
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class ScrollPanel extends AbstractComposite implements IContainer, IDrag, IButton
+	public class ScrollPanel extends AbstractComposite implements IContainer,
+			IDrag, IButton
 	{
 		/**
 		 * 显示容器
@@ -140,7 +141,7 @@ package com.macro.gUI.containers
 			{
 				return new CHILD_REGION();
 			}
-			
+
 			return _container;
 		}
 
@@ -202,7 +203,8 @@ package com.macro.gUI.containers
 				_displayContainer.resize(maxW, minH);
 				_hScrollBar.y = minH;
 				_hScrollBar.width = maxW;
-				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _contentContainer);
+				_hScrollBar.viewport = new Viewport(_displayContainer.rect,
+													_contentContainer);
 				_contentContainer.y = 0;
 			}
 			else if (scrollVisible == 2)
@@ -212,7 +214,8 @@ package com.macro.gUI.containers
 				_displayContainer.resize(minW, maxH);
 				_vScrollBar.x = minW;
 				_vScrollBar.height = maxH;
-				_vScrollBar.viewport = new Viewport(_displayContainer.rect, _contentContainer);
+				_vScrollBar.viewport = new Viewport(_displayContainer.rect,
+													_contentContainer);
 				_contentContainer.x = 0;
 			}
 			else
@@ -225,7 +228,8 @@ package com.macro.gUI.containers
 				_vScrollBar.x = minW;
 				_vScrollBar.height = minH;
 
-				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _contentContainer);
+				_hScrollBar.viewport = new Viewport(_displayContainer.rect,
+													_contentContainer);
 				_vScrollBar.viewport = _hScrollBar.viewport;
 			}
 		}
@@ -337,7 +341,8 @@ package com.macro.gUI.containers
 			return c;
 		}
 
-		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
+		public function removeChildren(beginIndex:int = 0,
+									   endIndex:int = -1):void
 		{
 			_contentContainer.removeChildren(beginIndex, endIndex);
 			layout();

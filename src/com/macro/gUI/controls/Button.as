@@ -6,7 +6,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 
@@ -200,7 +200,8 @@ package com.macro.gUI.controls
 
 		public override function mouseDown(target:IControl):void
 		{
-			if (_skin != _skins[CtrlState.DOWN] || _style != _styles[CtrlState.DOWN])
+			if (_skin != _skins[CtrlState.DOWN] ||
+					_style != _styles[CtrlState.DOWN])
 			{
 				_skin = _skins[CtrlState.DOWN];
 				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
@@ -211,7 +212,8 @@ package com.macro.gUI.controls
 
 		public override function mouseOut(target:IControl):void
 		{
-			if (_skin != _skins[CtrlState.NORMAL] || _style != _styles[CtrlState.NORMAL])
+			if (_skin != _skins[CtrlState.NORMAL] ||
+					_style != _styles[CtrlState.NORMAL])
 			{
 				_skin = _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.NORMAL];
@@ -221,7 +223,8 @@ package com.macro.gUI.controls
 
 		public override function mouseOver(target:IControl):void
 		{
-			if (_skin != _skins[CtrlState.OVER] || _style != _styles[CtrlState.OVER])
+			if (_skin != _skins[CtrlState.OVER] ||
+					_style != _styles[CtrlState.OVER])
 			{
 				_skin = _skins[CtrlState.OVER];
 				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
