@@ -1,11 +1,10 @@
 package com.macro.gUI
 {
 	import com.macro.gUI.base.AbstractControl;
-	import com.macro.gUI.managers.IRenderEngine;
-	import com.macro.gUI.managers.InteractionManager;
-	import com.macro.gUI.managers.SkinManager;
-	import com.macro.gUI.managers.layeredRender.LayeredRenderEngine;
-	import com.macro.gUI.managers.mergedRender.MergeRenderEngine;
+	import com.macro.gUI.renders.IRenderEngine;
+	import com.macro.gUI.skin.SkinManager;
+	import com.macro.gUI.renders.layeredRender.LayeredRenderEngine;
+	import com.macro.gUI.renders.mergedRender.MergeRenderEngine;
 	import com.macro.logging.LogFilter;
 	import com.macro.logging.LogLevel;
 	import com.macro.logging.Logger;

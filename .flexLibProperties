@@ -39,11 +39,10 @@
     <classEntry path="com.macro.gUI.controls.Slice"/>
     <classEntry path="com.macro.gUI.controls.TextInput"/>
     <classEntry path="com.macro.gUI.controls.ToggleButton"/>
-    <classEntry path="com.macro.gUI.managers.FocusManager"/>
-    <classEntry path="com.macro.gUI.managers.InteractionManager"/>
-    <classEntry path="com.macro.gUI.managers.PopupManager"/>
-    <classEntry path="com.macro.gUI.managers.SkinManager"/>
-    <classEntry path="com.macro.gUI.managers.mergedRender.MergeRenderEngine"/>
+    <classEntry path="com.macro.gUI.InteractionManager"/>
+    <classEntry path="com.macro.gUI.renders.PopupManager"/>
+    <classEntry path="com.macro.gUI.skin.SkinManager"/>
+    <classEntry path="com.macro.gUI.renders.mergedRender.MergeRenderEngine"/>
     <classEntry path="com.macro.gUI.render.RComposite"/>
     <classEntry path="com.macro.gUI.render.RContainer"/>
     <classEntry path="com.macro.gUI.skin.ISkin"/>
@@ -68,8 +67,8 @@
     <classEntry path="com.macro.gUI.assist.CHILD_REGION"/>
     <classEntry path="com.macro.gUI.containers.TabPanel"/>
     <classEntry path="com.macro.gUI.assist.Margin"/>
-    <classEntry path="com.macro.gUI.managers.IRenderEngine"/>
-    <classEntry path="com.macro.gUI.managers.layeredRender.LayeredRenderEngine"/>
+    <classEntry path="com.macro.gUI.renders.IRenderEngine"/>
+    <classEntry path="com.macro.gUI.renders.layeredRender.LayeredRenderEngine"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

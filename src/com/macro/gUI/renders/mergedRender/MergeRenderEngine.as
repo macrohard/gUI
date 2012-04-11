@@ -1,10 +1,10 @@
-package com.macro.gUI.managers.mergedRender
+package com.macro.gUI.renders.mergedRender
 {
 	import com.macro.gUI.base.IContainer;
 	import com.macro.gUI.base.IControl;
-	import com.macro.gUI.managers.IRenderEngine;
-	import com.macro.gUI.managers.InteractionManager;
-	import com.macro.gUI.managers.PopupManager;
+	import com.macro.gUI.renders.IRenderEngine;
+	import com.macro.gUI.InteractionManager;
+	import com.macro.gUI.renders.PopupManager;
 	
 	import flash.display.DisplayObjectContainer;
 

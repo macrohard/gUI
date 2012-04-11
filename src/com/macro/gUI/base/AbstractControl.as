@@ -5,8 +5,8 @@ package com.macro.gUI.base
 	
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.managers.IRenderEngine;
-	import com.macro.gUI.managers.SkinManager;
+	import com.macro.gUI.renders.IRenderEngine;
+	import com.macro.gUI.skin.SkinManager;
 	import com.macro.gUI.skin.ISkin;
 	
 	import flash.display.BitmapData;

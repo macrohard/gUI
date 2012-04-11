@@ -1,6 +1,6 @@
-package com.macro.gUI.managers.layeredRender
+package com.macro.gUI.renders.layeredRender
 {
-	import com.macro.gUI.managers.IRenderEngine;
+	import com.macro.gUI.renders.IRenderEngine;
 	
 	import flash.display.Stage;
 

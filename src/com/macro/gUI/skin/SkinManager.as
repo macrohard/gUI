@@ -1,8 +1,6 @@
-package com.macro.gUI.managers
+package com.macro.gUI.skin
 {
 	import com.macro.gUI.assist.TextStyle;
-	import com.macro.gUI.skin.ISkin;
-	import com.macro.gUI.skin.StyleDef;
 	import com.macro.gUI.skin.impl.BitmapSkin;
 	import com.macro.gUI.skin.impl.SpriteSkin;
 

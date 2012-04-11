@@ -1,4 +1,4 @@
-package com.macro.gUI.managers
+package com.macro.gUI
 {
 	import com.macro.gUI.base.IControl;
 
