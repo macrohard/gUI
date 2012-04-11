@@ -227,31 +227,6 @@ package com.macro.gUI.base
 		}
 
 
-		/**
-		 * 复合控件不执行绘制
-		 * @param rebuild
-		 *
-		 */
-		protected final override function paint(rebuild:Boolean = false):void
-		{
-		}
-
-		/**
-		 * 复合控件不执行绘制
-		 *
-		 */
-		protected final override function prePaint():void
-		{
-		}
-
-		/**
-		 * 复合控件不执行绘制
-		 *
-		 */
-		protected final override function postPaint():void
-		{
-		}
-
 
 		/**
 		 * 布局

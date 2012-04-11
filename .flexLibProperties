@@ -43,7 +43,7 @@
     <classEntry path="com.macro.gUI.managers.InteractionManager"/>
     <classEntry path="com.macro.gUI.managers.PopupManager"/>
     <classEntry path="com.macro.gUI.managers.SkinManager"/>
-    <classEntry path="com.macro.gUI.managers.UIManager"/>
+    <classEntry path="com.macro.gUI.managers.mergedRender.MergeRenderEngine"/>
     <classEntry path="com.macro.gUI.render.RComposite"/>
     <classEntry path="com.macro.gUI.render.RContainer"/>
     <classEntry path="com.macro.gUI.skin.ISkin"/>
@@ -68,6 +68,8 @@
     <classEntry path="com.macro.gUI.assist.CHILD_REGION"/>
     <classEntry path="com.macro.gUI.containers.TabPanel"/>
     <classEntry path="com.macro.gUI.assist.Margin"/>
+    <classEntry path="com.macro.gUI.managers.IRenderEngine"/>
+    <classEntry path="com.macro.gUI.managers.layeredRender.LayeredRenderEngine"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

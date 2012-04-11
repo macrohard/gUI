@@ -6,7 +6,7 @@ package com.macro.gUI.containers
 
 
 	/**
-	 * 空容器，无皮肤、背景定义
+	 * 空容器，无皮肤定义
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
@@ -17,16 +17,6 @@ package com.macro.gUI.containers
 		{
 			super(width, height);
 		}
-
-		/**
-		 * 空容器无皮肤、背景
-		 * @param rebuild
-		 *
-		 */
-		protected override function paint(rebuild:Boolean = false):void
-		{
-		}
-
 
 	}
 }

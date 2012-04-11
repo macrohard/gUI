@@ -67,7 +67,7 @@ package com.macro.gUI.controls
 
 				if (!_autoSize)
 				{
-					paint();
+					resize();
 				}
 			}
 		}
@@ -113,14 +113,7 @@ package com.macro.gUI.controls
 			if (_skin != value)
 			{
 				_skin = value;
-				if (_autoSize)
-				{
-					resize();
-				}
-				else
-				{
-					paint();
-				}
+				resize();
 			}
 		}
 
@@ -143,14 +136,7 @@ package com.macro.gUI.controls
 				}
 
 				_image = getBitmapData(value);
-				if (_autoSize)
-				{
-					resize();
-				}
-				else
-				{
-					paint();
-				}
+				resize();
 			}
 		}
 

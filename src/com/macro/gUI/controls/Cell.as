@@ -51,7 +51,7 @@ package com.macro.gUI.controls
 			if (_skin != value)
 			{
 				_skin = value;
-				update(false);
+				resize();
 			}
 		}
 

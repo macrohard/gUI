@@ -2,21 +2,18 @@ package com.macro.gUI.base
 {
 
 	import avmplus.getQualifiedClassName;
-
-	import com.macro.gUI.GameUI;
+	
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.managers.PopupManager;
+	import com.macro.gUI.managers.IRenderEngine;
 	import com.macro.gUI.managers.SkinManager;
-	import com.macro.gUI.managers.UIManager;
 	import com.macro.gUI.skin.ISkin;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	import flash.utils.getTimer;
 
 
 	/**
@@ -26,12 +23,6 @@ package com.macro.gUI.base
 	 */
 	public class AbstractControl extends EventDispatcher implements IControl
 	{
-
-		/**
-		 * 平滑绘制
-		 */
-		public static var smoothing:Boolean = true;
-
 
 		/**
 		 * 皮肤。<br/><br/>
@@ -75,18 +66,6 @@ package com.macro.gUI.base
 
 			//默认尺寸
 			_rect = new Rectangle(0, 0, width, height);
-		}
-
-
-
-		protected function get uiManager():UIManager
-		{
-			return GameUI.uiManager;
-		}
-
-		protected function get skinManager():SkinManager
-		{
-			return GameUI.skinManager;
 		}
 
 
@@ -230,6 +209,9 @@ package com.macro.gUI.base
 		}
 
 
+		
+		
+		
 		private var _alpha:Number;
 
 		public final function get alpha():Number
@@ -254,9 +236,38 @@ package com.macro.gUI.base
 		{
 			_visible = value;
 		}
+		
+		
+		private var _scaleX:Number;
+		
+		public final function get scaleX():Number
+		{
+			return _scaleX;
+		}
+		
+		public final function set scaleX(value:Number):void
+		{
+			_scaleX = value;
+		}
+		
+		
+		private var _scaleY:Number;
+		
+		public final function get scaleY():Number
+		{
+			return _scaleY;
+		}
+		
+		public final function set scaleY(value:Number):void
+		{
+			_scaleY = value;
+		}
 
 
 
+		
+		
+		
 		private var _parent:IContainer;
 
 		public function get parent():IContainer
@@ -397,7 +408,7 @@ package com.macro.gUI.base
 		 * 将当前皮肤绘制到画布上
 		 *
 		 */
-		protected function paint(rebuild:Boolean = false):void
+		private function paint(rebuild:Boolean = false):void
 		{
 			if (rebuild || _bitmapData == null)
 			{
@@ -409,7 +420,7 @@ package com.macro.gUI.base
 				_bitmapData = new BitmapData(_rect.width, _rect.height,
 											 _transparent, _bgColor);
 			}
-			else
+			else if (_bitmapData != null)
 			{
 				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
 			}
@@ -467,8 +478,43 @@ package com.macro.gUI.base
 
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-		// 静态绘图方法，由子类使用
+		// 静态绘图方法
 
+		
+		/**
+		 * 平滑绘制
+		 */
+		protected static var smoothing:Boolean;
+		
+		
+		/**
+		 * 界面管理器
+		 */
+		protected static var uiManager:IRenderEngine;
+		
+		
+		/**
+		 * 皮肤管理器
+		 */
+		protected static var skinManager:SkinManager;
+		
+		
+		/**
+		 * 初始化控件基类
+		 * @param uiManager
+		 * @param skinManager
+		 * @param smoothing
+		 * 
+		 */
+		public static function init(uiManager:IRenderEngine, skinManager:SkinManager, smoothing:Boolean = true):void
+		{
+			AbstractControl.uiManager = uiManager;
+			AbstractControl.skinManager = skinManager;
+			AbstractControl.smoothing = smoothing;
+		}
+		
+		
+		
 		/**
 		 * 按完全缩放方式绘图制皮肤
 		 * @param canvas 画布

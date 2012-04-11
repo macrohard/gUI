@@ -1,8 +1,12 @@
 package com.macro.gUI.managers
 {
 	import com.macro.gUI.base.IControl;
-
+	
 	import flash.display.Sprite;
+	import flash.display.Stage;
+	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 
 
 	/**
@@ -16,25 +20,18 @@ package com.macro.gUI.managers
 	{
 		private var _focusManager:FocusManager;
 
-		private var _uimanager:UIManager;
+		private var _stage:Stage;
 
 		private var _rootSprite:Sprite;
 
 
-		public function InteractionManager(uimanager:UIManager)
+		public function InteractionManager(stage:Stage)
 		{
-			_uimanager = uimanager;
-		}
-
-		public function init():void
-		{
-			if (_rootSprite)
-			{
-				removeListener();
-			}
-
-			_rootSprite = _uimanager.rootSprite;
-			addListener();
+//			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+//			stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+//			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+//			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+//			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		}
 
 		private function addListener():void

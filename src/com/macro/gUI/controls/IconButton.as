@@ -73,7 +73,7 @@ package com.macro.gUI.controls
 
 				if (!_autoSize)
 				{
-					paint();
+					resize();
 				}
 			}
 		}
@@ -94,7 +94,7 @@ package com.macro.gUI.controls
 		public function set icon(value:BitmapData):void
 		{
 			_icon = value;
-			update(false);
+			resize();
 		}
 
 

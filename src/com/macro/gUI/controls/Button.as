@@ -91,7 +91,7 @@ package com.macro.gUI.controls
 					_style = _styles[CtrlState.DISABLE];
 				}
 
-				update(true);
+				resize();
 			}
 		}
 
@@ -111,7 +111,7 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.NORMAL])
 			{
 				_skin = value;
-				update(false);
+				resize();
 			}
 
 			_skins[CtrlState.NORMAL] = value;
@@ -152,7 +152,7 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.DISABLE])
 			{
 				_skin = value;
-				update(false);
+				resize();
 			}
 
 			_skins[CtrlState.DISABLE] = value;
@@ -206,7 +206,7 @@ package com.macro.gUI.controls
 				_skin = _skins[CtrlState.DOWN];
 				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.DOWN];
-				update(true);
+				resize();
 			}
 		}
 
@@ -217,7 +217,7 @@ package com.macro.gUI.controls
 			{
 				_skin = _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.NORMAL];
-				update(true);
+				resize();
 			}
 		}
 
@@ -229,7 +229,7 @@ package com.macro.gUI.controls
 				_skin = _skins[CtrlState.OVER];
 				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.OVER];
-				update(true);
+				resize();
 			}
 		}
 	}

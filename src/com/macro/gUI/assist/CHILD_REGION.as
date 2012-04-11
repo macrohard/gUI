@@ -2,7 +2,7 @@ package com.macro.gUI.assist
 {
 	import com.macro.gUI.base.IContainer;
 	import com.macro.gUI.base.IControl;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -58,5 +58,16 @@ package com.macro.gUI.assist
 		{
 			return null;
 		}
+		
+		public function get scaleX():Number
+		{
+			return 0;
+		}
+		
+		public function get scaleY():Number
+		{
+			return 0;
+		}
+		
 	}
 }

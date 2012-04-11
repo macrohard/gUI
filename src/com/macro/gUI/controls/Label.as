@@ -54,7 +54,7 @@ package com.macro.gUI.controls
 
 			_text = text;
 
-			update(true);
+			resize();
 		}
 
 
@@ -78,7 +78,7 @@ package com.macro.gUI.controls
 
 				if (!_autoSize)
 				{
-					paint();
+					resize();
 				}
 			}
 		}
@@ -126,7 +126,7 @@ package com.macro.gUI.controls
 			if (value != null && value.length > 0 && _text != value)
 			{
 				_text = value;
-				update(true);
+				resize();
 			}
 		}
 
@@ -164,7 +164,7 @@ package com.macro.gUI.controls
 		public function set padding(value:Margin):void
 		{
 			_padding = value;
-			update(false);
+			resize();
 		}
 
 
@@ -183,7 +183,7 @@ package com.macro.gUI.controls
 		public function set style(value:TextStyle):void
 		{
 			_style = value;
-			update(true);
+			resize();
 		}
 
 
@@ -256,29 +256,6 @@ package com.macro.gUI.controls
 			var textWidth:int = _padding ? w - _padding.left - _padding.right : w;
 			_textImg = createTextImage(_text, _style, textWidth,
 									   _displayAsPassword);
-		}
-
-
-
-		/**
-		 * 更新显示
-		 * @param isRebuildTextImg 是否重建文本
-		 *
-		 */
-		protected function update(isRebuildTextImg:Boolean):void
-		{
-			if (_autoSize)
-			{
-				resize();
-			}
-			else
-			{
-				if (isRebuildTextImg)
-				{
-					drawText(_rect.width);
-				}
-				paint();
-			}
 		}
 
 

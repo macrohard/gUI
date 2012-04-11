@@ -23,7 +23,7 @@ package com.macro.gUI.controls
 		{
 			super(width, height);
 
-			paint();
+			resize();
 		}
 	}
 }

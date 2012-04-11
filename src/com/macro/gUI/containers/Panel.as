@@ -42,7 +42,7 @@ package com.macro.gUI.containers
 				_margin = new Margin(_skin.gridLeft, _skin.gridTop,
 									 _skin.paddingRight, _skin.paddingBottom);
 
-				paint();
+				resize();
 			}
 		}
 

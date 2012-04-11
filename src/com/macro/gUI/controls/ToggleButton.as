@@ -116,7 +116,7 @@ package com.macro.gUI.controls
 						_style = _styles[CtrlState.DISABLE];
 					}
 				}
-				update(true);
+				resize();
 			}
 		}
 
@@ -132,7 +132,7 @@ package com.macro.gUI.controls
 			if (_style == _styles[CtrlState.SELECTED])
 			{
 				_style = value;
-				update(true);
+				resize();
 			}
 
 			_styles[CtrlState.SELECTED] = value;
@@ -168,7 +168,7 @@ package com.macro.gUI.controls
 			if (_style == _styles[CtrlState.SELECTED_DISABLE])
 			{
 				_style = value;
-				update(true);
+				resize();
 			}
 
 			_styles[CtrlState.SELECTED_DISABLE] = value;
@@ -191,7 +191,7 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.SELECTED])
 			{
 				_skin = value;
-				update(false);
+				resize();
 			}
 
 			_skins[CtrlState.SELECTED] = value;
@@ -232,7 +232,7 @@ package com.macro.gUI.controls
 			if (_skin == _skins[CtrlState.SELECTED_DISABLE])
 			{
 				_skin = value;
-				update(false);
+				resize();
 			}
 
 			_skins[CtrlState.SELECTED_DISABLE] = value;
@@ -266,7 +266,7 @@ package com.macro.gUI.controls
 				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.DOWN];
 			}
-			update(true);
+			resize();
 		}
 
 		public override function mouseOut(target:IControl):void
@@ -293,7 +293,7 @@ package com.macro.gUI.controls
 				_skin = _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.NORMAL];
 			}
-			update(true);
+			resize();
 		}
 
 		public override function mouseOver(target:IControl):void
@@ -322,7 +322,7 @@ package com.macro.gUI.controls
 				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 				_style = _styles[CtrlState.OVER];
 			}
-			update(true);
+			resize();
 		}
 
 		public override function mouseUp(target:IControl):void

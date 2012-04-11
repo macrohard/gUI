@@ -1,16 +1,17 @@
 package com.macro.gUI
 {
-	import com.macro.gUI.skin.impl.BitmapSkin;
+	import com.macro.gUI.base.AbstractControl;
+	import com.macro.gUI.managers.IRenderEngine;
+	import com.macro.gUI.managers.InteractionManager;
+	import com.macro.gUI.managers.SkinManager;
+	import com.macro.gUI.managers.layeredRender.LayeredRenderEngine;
+	import com.macro.gUI.managers.mergedRender.MergeRenderEngine;
 	import com.macro.logging.LogFilter;
 	import com.macro.logging.LogLevel;
 	import com.macro.logging.Logger;
 	import com.macro.logging.TraceAppender;
-
-	import flash.display.BitmapData;
-	import flash.display.Sprite;
-	import flash.utils.Dictionary;
-	import com.macro.gUI.managers.SkinManager;
-	import com.macro.gUI.managers.UIManager;
+	
+	import flash.display.Stage;
 
 
 	/**
@@ -23,17 +24,29 @@ package com.macro.gUI
 		/**
 		 * 版本号
 		 */
-		public static const vertion:String = "0.5";
+		public static const version:String = "0.5";
+
+
+
+		/**
+		 * 合并渲染
+		 */
+		public static const RENDER_MODE_MERGE:int = 0;
+
+		/**
+		 * 分层渲染
+		 */
+		public static const RENDER_MODE_LAYER:int = 1;
+
+		/**
+		 * 硬件渲染
+		 */
+		public static const RENDER_MODE_STAGE3D:int = 2;
+
 
 
 
 		private static var _skinManager:SkinManager;
-
-
-
-		private static var _uiManager:UIManager;
-
-
 
 		/**
 		 * 皮肤管理器
@@ -45,32 +58,51 @@ package com.macro.gUI
 			return _skinManager;
 		}
 
+
+
+		private static var _uiManager:IRenderEngine;
+
 		/**
-		 * 根显示对象
+		 * 界面管理器
 		 * @return
 		 *
 		 */
-		public static function get uiManager():UIManager
+		public static function get uiManager():IRenderEngine
 		{
 			return _uiManager;
 		}
+
+		
+		
+		private static var _interactionManager:InteractionManager;
+
 
 		/**
 		 * 初始化GameUI
 		 *
 		 */
-		public static function init():void
+		public static function init(renderMode:int, stage:Stage):void
 		{
-			if (_uiManager)
+			if (renderMode == RENDER_MODE_MERGE)
 			{
-				return;
+				_uiManager = new MergeRenderEngine();
 			}
-
-			_uiManager = new UIManager();
+			else if (renderMode == RENDER_MODE_LAYER)
+			{
+				_uiManager = new LayeredRenderEngine();
+			}
+			else
+			{
+				throw new Error("Unsupport Render Mode!");
+			}
+			
+			_interactionManager = new InteractionManager(stage);
 			_skinManager = new SkinManager();
 
+			AbstractControl.init(_uiManager, _skinManager);
+
 			Logger.init(new TraceAppender(), new LogFilter(LogLevel.ALL));
-			Logger.info(GameUI, "version:{0}", vertion);
+			Logger.info(GameUI, "version:{0}", version);
 		}
 
 	}
