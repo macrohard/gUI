@@ -47,6 +47,11 @@ package com.macro.gUI.core
 		 */
 		private var _root:IContainer;
 		
+		/**
+		 * 最上层窗口容器
+		 */
+		private var _top:IContainer;
+		
 		
 		
 		/**
@@ -97,20 +102,28 @@ package com.macro.gUI.core
 		
 		
 
-		public function InteractionManager(root:IContainer, container:DisplayObjectContainer)
+		/**
+		 * 交互管理器
+		 * @param root
+		 * @param top
+		 * @param container
+		 * 
+		 */
+		public function InteractionManager(root:IContainer, top:IContainer, container:DisplayObjectContainer)
 		{
 			_root = root;
+			_top = top;
 			_container = container;
 			
-			container.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-			container.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-			container.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
-			container.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-			container.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			container.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+			container.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+			container.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+			container.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			container.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 		}
 
 		
-		protected function onMouseDown(e:MouseEvent):void
+		protected function mouseDownHandler(e:MouseEvent):void
 		{
 			findTargetControl(_root);
 			
@@ -182,7 +195,7 @@ package com.macro.gUI.core
 			}
 		}
 		
-		protected function onMouseUp(e:MouseEvent):void
+		protected function mouseUpHandler(e:MouseEvent):void
 		{
 			if (_dragControl == null)
 			{
@@ -222,7 +235,7 @@ package com.macro.gUI.core
 			}
 		}
 		
-		protected function onMouseMove(e:MouseEvent):void
+		protected function mouseMoveHandler(e:MouseEvent):void
 		{
 			if (_dragControl == null)
 			{
@@ -317,9 +330,9 @@ package com.macro.gUI.core
 		
 		
 		
-		protected function onKeyDown(e:KeyboardEvent):void
+		protected function keyDownHandler(e:KeyboardEvent):void
 		{
-			// TODO 按下Tab键时焦点移到下一个tabIndex控件
+			// TODO 按下Tab键时焦点移到下一个tabIndex控件，如果没有，则不处理
 			
 			if (_focusControl is IKeyboard)
 			{
@@ -337,7 +350,7 @@ package com.macro.gUI.core
 		}
 		
 		
-		protected function onKeyUp(e:KeyboardEvent):void
+		protected function keyUpHandler(e:KeyboardEvent):void
 		{
 			if (_focusControl is IKeyboard)
 			{

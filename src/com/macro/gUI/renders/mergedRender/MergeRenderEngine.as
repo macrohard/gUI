@@ -40,11 +40,11 @@ package com.macro.gUI.renders.mergedRender
 			_canvas = new BitmapData(width, height, true, 0);
 			
 			container.addChild(new Bitmap(_canvas));
-			container.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			container.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
 		
-		protected function onEnterFrame(e:Event):void
+		protected function enterFrameHandler(e:Event):void
 		{
 			_canvas.lock();
 			_canvas.fillRect(_canvas.rect, 0);

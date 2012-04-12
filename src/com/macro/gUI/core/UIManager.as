@@ -45,6 +45,11 @@ package com.macro.gUI.core
 		 * 弹出窗口容器
 		 */
 		private var _popup:Container;
+		
+		/**
+		 * 最上层窗口容器，用于交互管理器绘制焦点框、拖拽替身图像等
+		 */
+		private var _top:Container;
 
 
 		/**
@@ -72,14 +77,17 @@ package com.macro.gUI.core
 				throw new Error("Unsupport Render Mode!");
 			}
 			_skinManager = new SkinManager();
-			_interactionManager = new InteractionManager(_root, container);
-			
 			AbstractControl.init(_render, _skinManager);
 			
+			// 初始化整个UI体系层级结构
 			_main = new Container(width, height);
 			_popup = new Container(width, height);
+			_top = new Container(width, height);
 			_root.addChild(_main);
 			_root.addChild(_popup);
+			_root.addChild(_top);
+			
+			_interactionManager = new InteractionManager(_root, _top, container);
 		}
 
 
