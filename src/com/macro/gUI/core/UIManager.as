@@ -63,6 +63,9 @@ package com.macro.gUI.core
 		public function UIManager(renderMode:int, container:DisplayObjectContainer, width:int, height:int)
 		{
 			_root = new Container(width, height);
+			_main = new Container(width, height);
+			_popup = new Container(width, height);
+			_top = new Container(width, height);
 			
 			if (renderMode == RenderMode.RENDER_MODE_MERGE)
 			{
@@ -77,17 +80,14 @@ package com.macro.gUI.core
 				throw new Error("Unsupport Render Mode!");
 			}
 			_skinManager = new SkinManager();
-			AbstractControl.init(_render, _skinManager);
+			_interactionManager = new InteractionManager(_root, _top, container);
+			
+			AbstractControl.init(this, _skinManager);
 			
 			// 初始化整个UI体系层级结构
-			_main = new Container(width, height);
-			_popup = new Container(width, height);
-			_top = new Container(width, height);
 			_root.addChild(_main);
 			_root.addChild(_popup);
 			_root.addChild(_top);
-			
-			_interactionManager = new InteractionManager(_root, _top, container);
 		}
 
 
