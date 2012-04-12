@@ -10,5 +10,29 @@ package com.macro.gUI.renders
 	 */
 	public interface IRenderEngine
 	{
+		
+		/**
+		 * 更新控件坐标
+		 * @param control
+		 * @param x
+		 * @param y
+		 * 
+		 */
+		function updateCoord(control:IControl, x:int, y:int):void;
+		
+		/**
+		 * 更新控件绘制
+		 * @param control
+		 * @param isRebuild 是否重建了位图对象，一般是因为控件尺寸的变更
+		 * 
+		 */
+		function updatePaint(control:IControl, isRebuild:Boolean):void;
+		
+		/**
+		 * 更新容器子级
+		 * @param container
+		 * 
+		 */
+		function updateChildren(container:IContainer):void;
 	}
 }

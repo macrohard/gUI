@@ -312,7 +312,7 @@ package com.macro.gUI.composite
 
 		public function mouseUp(target:IControl):void
 		{
-			this.selected = !this.selected;
+			this.selected = true;
 		}
 
 		public function mouseOver(target:IControl):void
@@ -327,7 +327,7 @@ package com.macro.gUI.composite
 		{
 			if (e.keyCode == Keyboard.SPACE)
 			{
-				this.selected = !this.selected;
+				this.selected = true;
 			}
 		}
 

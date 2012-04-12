@@ -2,13 +2,13 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-	
+
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.renders.IRenderEngine;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -209,9 +209,9 @@ package com.macro.gUI.core
 		}
 
 
-		
-		
-		
+
+
+
 		private var _alpha:Number;
 
 		public final function get alpha():Number
@@ -236,28 +236,28 @@ package com.macro.gUI.core
 		{
 			_visible = value;
 		}
-		
-		
+
+
 		private var _scaleX:Number;
-		
+
 		public final function get scaleX():Number
 		{
 			return _scaleX;
 		}
-		
+
 		public final function set scaleX(value:Number):void
 		{
 			_scaleX = value;
 		}
-		
-		
+
+
 		private var _scaleY:Number;
-		
+
 		public final function get scaleY():Number
 		{
 			return _scaleY;
 		}
-		
+
 		public final function set scaleY(value:Number):void
 		{
 			_scaleY = value;
@@ -265,9 +265,9 @@ package com.macro.gUI.core
 
 
 
-		
-		
-		
+
+
+
 		private var _parent:IContainer;
 
 		public function get parent():IContainer
@@ -420,7 +420,7 @@ package com.macro.gUI.core
 				_bitmapData = new BitmapData(_rect.width, _rect.height,
 											 _transparent, _bgColor);
 			}
-			else if (_bitmapData != null)
+			else
 			{
 				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
 			}
@@ -480,41 +480,43 @@ package com.macro.gUI.core
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 		// 静态绘图方法
 
-		
+
 		/**
 		 * 平滑绘制
 		 */
 		protected static var smoothing:Boolean;
-		
-		
+
+
 		/**
 		 * 界面管理器
 		 */
 		protected static var render:IRenderEngine;
-		
-		
+
+
 		/**
 		 * 皮肤管理器
 		 */
 		protected static var skinManager:SkinManager;
-		
-		
+
+
 		/**
 		 * 初始化控件基类
 		 * @param uiManager
 		 * @param skinManager
 		 * @param smoothing
-		 * 
+		 *
 		 */
-		internal static function init(render:IRenderEngine, skinManager:SkinManager, smoothing:Boolean = true):void
+		internal static function init(render:IRenderEngine,
+									  skinManager:SkinManager,
+									  smoothing:Boolean = true):void
 		{
 			AbstractControl.render = render;
 			AbstractControl.skinManager = skinManager;
 			AbstractControl.smoothing = smoothing;
 		}
-		
-		
-		
+
+
+
 		/**
 		 * 按完全缩放方式绘图制皮肤
 		 * @param canvas 画布
@@ -523,8 +525,8 @@ package com.macro.gUI.core
 		 * @return 绘制区域
 		 *
 		 */
-		protected static function drawFull(canvas:BitmapData, rect:Rectangle,
-										   skin:ISkin):Rectangle
+		public static function drawFull(canvas:BitmapData, rect:Rectangle,
+										skin:ISkin):Rectangle
 		{
 			var scaleW:int = rect.width - skin.minWidth;
 			var scaleX:Number = scaleW / (skin.gridRight - skin.gridLeft);
@@ -607,9 +609,8 @@ package com.macro.gUI.core
 		 * @return 绘制区域
 		 *
 		 */
-		protected static function drawVertical(canvas:BitmapData,
-											   rect:Rectangle,
-											   skin:ISkin):Rectangle
+		public static function drawVertical(canvas:BitmapData, rect:Rectangle,
+											skin:ISkin):Rectangle
 		{
 			var ox:int;
 			if ((skin.align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
@@ -660,9 +661,8 @@ package com.macro.gUI.core
 		 * @return 绘制区域
 		 *
 		 */
-		protected static function drawHorizontal(canvas:BitmapData,
-												 rect:Rectangle,
-												 skin:ISkin):Rectangle
+		public static function drawHorizontal(canvas:BitmapData, rect:Rectangle,
+											  skin:ISkin):Rectangle
 		{
 			var oy:int;
 			if ((skin.align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
@@ -716,9 +716,9 @@ package com.macro.gUI.core
 		 * @return 绘制区域
 		 *
 		 */
-		protected static function drawFixed(canvas:BitmapData, rect:Rectangle,
-											align:int, bitmapData:BitmapData,
-											padding:Margin = null):Rectangle
+		public static function drawFixed(canvas:BitmapData, rect:Rectangle,
+										 align:int, bitmapData:BitmapData,
+										 padding:Margin = null):Rectangle
 		{
 			var r:Rectangle = new Rectangle(0, 0, rect.width, rect.height);
 			if (padding)

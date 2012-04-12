@@ -23,7 +23,7 @@ package com.macro.gUI.controls
 
 		/**
 		 * 图片框控件，支持边框
-		 * // TODO 实现BitBlt或顶点索引
+		 * // TODO 实现显示资源处理，BitBlt或顶点索引
 		 * @param source 要显示的可绘制对象
 		 * @param autoSize 是否自动根据显示内容设置尺寸
 		 * @param align 显示内容的对齐方式，默认左上角对齐

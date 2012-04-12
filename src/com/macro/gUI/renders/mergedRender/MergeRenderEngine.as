@@ -1,135 +1,127 @@
 package com.macro.gUI.renders.mergedRender
 {
+	import com.macro.gUI.assist.Margin;
+	import com.macro.gUI.core.IComposite;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
-	import com.macro.gUI.renders.IRenderEngine;
 	import com.macro.gUI.core.InteractionManager;
-	import com.macro.gUI.core.PopupManager;
+	import com.macro.gUI.renders.IRenderEngine;
 	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
+	import flash.events.Event;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 
 
 	/**
-	 * 界面管理器，构建基于Bitmap的视图结构，并处理控件的添加、删除行为
-	 * 分散渲染时，只需要关注Resize事件中的BitmapData重建，其它情况下，直接更新BitmapData会自动实现显示更新；
-	 * 合并渲染时，由于每帧强制重绘，就无须关心BitmapData的重建或重绘问题。
-	 * 使用Stage3D时，需要分散渲染，否则从内存上传位图数据到显存会带来巨大开销。
+	 * 合并渲染器，由于每帧强制重绘，无须关心BitmapData的重建或重绘问题
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class MergeRenderEngine implements IRenderEngine
 	{
 		
-		private var _interactionManager:InteractionManager;
-
-		private var _popupManager:PopupManager;
-
-
-
-
-		public function MergeRenderEngine(container:DisplayObjectContainer)
-		{
-			_popupManager = new PopupManager();
-		}
-
+		/**
+		 * 画布
+		 */
+		private var _canvas:BitmapData;
 
 		/**
-		 * 渲染根容器
-		 * @param container
-		 * @return
-		 *
+		 * 根容器
 		 */
-		public function render(root:IContainer):void
+		private var _root:IContainer;
+
+
+		public function MergeRenderEngine(root:IContainer, container:DisplayObjectContainer, width:int, height:int)
 		{
+			_root = root;
+			_canvas = new BitmapData(width, height, true, 0);
 			
+			container.addChild(new Bitmap(_canvas));
+			container.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
-
-
-		/**
-		 * 更新控件的位置
-		 * @param control
-		 *
-		 */
-		public function setCoord(control:IControl, x:int, y:int):void
-		{
-			
-		}
-
-		/**
-		 * 更新控件的源图，这是由于控件的源图尺寸发生了变化，重新创建了BitmapData
-		 * @param control
-		 *
-		 */
-		public function update(control:IControl):void
-		{
-			
-		}
-
 		
+		
+		protected function onEnterFrame(e:Event):void
+		{
+			_canvas.lock();
+			_canvas.fillRect(_canvas.rect, 0);
+			drawControl(_root, _canvas.rect);
+			_canvas.unlock();
+		}
 		
 		
 		/**
-		 * 更新控件的透明度
+		 * 合并渲染
 		 * @param control
+		 * @param stageRect
 		 *
 		 */
-		public function updateAlpha(control:IControl):void
+		private function drawControl(control:IControl, viewRect:Rectangle):void
 		{
+			var controlRect:Rectangle = control.rect;
+			var p:Point = control.globalCoord();
+			controlRect.x = p.x;
+			controlRect.y = p.y;
+			
+			viewRect = viewRect.intersection(controlRect);
+			
+			var drawR:Rectangle = viewRect.clone();
+			drawR.offset(-p.x, -p.y);
+			
+			if (control.bitmapData != null)
+			{
+				_canvas.copyPixels(control.bitmapData, drawR, viewRect.topLeft, null, null, true);
+			}
+			
+			if (control is IComposite)
+			{
+				drawControl((control as IComposite).container, viewRect);
+			}
+			else if (control is IContainer)
+			{
+				var container:IContainer = control as IContainer;
+				
+				var m:Margin = container.margin;
+				viewRect.left += m.left;
+				viewRect.top += m.top;
+				viewRect.right -= m.right;
+				viewRect.bottom -= m.bottom;
+				
+				for each (var ic:IControl in container.children)
+				{
+					if (ic is IComposite)
+					{
+						drawControl((ic as IComposite).container, viewRect);
+					}
+					else
+					{
+						drawControl(ic, viewRect);
+					}
+				}
+				
+			}
 		}
-
-		/**
-		 * 更新控件的可见性
-		 * @param control
-		 *
-		 */
-		public function updateVisible(control:IControl):void
+		
+		public function updateChildren(container:IContainer):void
 		{
+			// TODO Auto Generated method stub
+			
 		}
-
-
-
-		/**
-		 * 更新容器，通常是由于addChild或removeChild
-		 * @param container
-		 *
-		 */
-		public function updateContainer(container:IContainer):void
+		
+		public function updateCoord(control:IControl, x:int, y:int):void
 		{
+			// TODO Auto Generated method stub
+			
 		}
-
-
-		/**
-		 * 添加弹出窗口
-		 * @param window
-		 * @param modal 是否模态
-		 *
-		 */
-		public function addPopupWindow(window:IContainer,
-									   modal:Boolean = true):void
+		
+		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
-			_popupManager.addPopupWindow(window, modal);
+			// TODO Auto Generated method stub
+			
 		}
-
-		/**
-		 * 添加弹出菜单
-		 * @param menu
-		 *
-		 */
-		public function addPopupMenu(menu:IControl):void
-		{
-			_popupManager.addPopupMenu(menu);
-		}
-
-		/**
-		 * 移除弹出菜单或窗口
-		 * @param popupItem
-		 *
-		 */
-		public function removePopup(popupItem:IControl):void
-		{
-			_popupManager.removePopup(popupItem);
-		}
-
-
+		
 	}
 }

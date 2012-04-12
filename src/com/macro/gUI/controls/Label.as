@@ -254,8 +254,11 @@ package com.macro.gUI.controls
 		private function drawText(w:int):void
 		{
 			var textWidth:int = _padding ? w - _padding.left - _padding.right : w;
-			_textImg = createTextImage(_text, _style, textWidth,
-									   _displayAsPassword);
+			if (textWidth > 0)
+			{
+				_textImg = createTextImage(_text, _style, textWidth,
+										   _displayAsPassword);
+			}
 		}
 
 
