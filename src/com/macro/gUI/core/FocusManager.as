@@ -1,6 +1,5 @@
-package com.macro.gUI
+package com.macro.gUI.core
 {
-	import com.macro.gUI.base.IControl;
 
 
 	/**

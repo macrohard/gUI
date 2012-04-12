@@ -4,11 +4,11 @@ package com.macro.gUI.containers
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.Viewport;
-	import com.macro.gUI.base.AbstractComposite;
-	import com.macro.gUI.base.IContainer;
-	import com.macro.gUI.base.IControl;
-	import com.macro.gUI.base.feature.IButton;
-	import com.macro.gUI.base.feature.IDrag;
+	import com.macro.gUI.core.AbstractComposite;
+	import com.macro.gUI.core.IContainer;
+	import com.macro.gUI.core.IControl;
+	import com.macro.gUI.core.feature.IButton;
+	import com.macro.gUI.core.feature.IDrag;
 	import com.macro.gUI.composite.HScrollBar;
 	import com.macro.gUI.composite.VScrollBar;
 	import com.macro.gUI.skin.ISkin;

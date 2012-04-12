@@ -1,6 +1,6 @@
 package com.macro.gUI.containers
 {
-	import com.macro.gUI.base.AbstractContainer;
+	import com.macro.gUI.core.AbstractContainer;
 
 	import flash.geom.Rectangle;
 

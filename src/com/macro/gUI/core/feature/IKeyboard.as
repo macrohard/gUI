@@ -1,4 +1,4 @@
-package com.macro.gUI.base.feature
+package com.macro.gUI.core.feature
 {
 	import flash.events.KeyboardEvent;
 

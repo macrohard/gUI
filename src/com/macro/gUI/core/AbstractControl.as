@@ -1,4 +1,4 @@
-package com.macro.gUI.base
+package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
@@ -6,8 +6,8 @@ package com.macro.gUI.base
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.renders.IRenderEngine;
-	import com.macro.gUI.skin.SkinManager;
 	import com.macro.gUI.skin.ISkin;
+	import com.macro.gUI.skin.SkinManager;
 	
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
@@ -490,7 +490,7 @@ package com.macro.gUI.base
 		/**
 		 * 界面管理器
 		 */
-		protected static var uiManager:IRenderEngine;
+		protected static var render:IRenderEngine;
 		
 		
 		/**
@@ -506,9 +506,9 @@ package com.macro.gUI.base
 		 * @param smoothing
 		 * 
 		 */
-		public static function init(uiManager:IRenderEngine, skinManager:SkinManager, smoothing:Boolean = true):void
+		internal static function init(render:IRenderEngine, skinManager:SkinManager, smoothing:Boolean = true):void
 		{
-			AbstractControl.uiManager = uiManager;
+			AbstractControl.render = render;
 			AbstractControl.skinManager = skinManager;
 			AbstractControl.smoothing = smoothing;
 		}

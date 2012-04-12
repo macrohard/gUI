@@ -1,7 +1,7 @@
 package com.macro.gUI.composite
 {
 	import com.macro.gUI.assist.LayoutAlign;
-	import com.macro.gUI.base.AbstractComposite;
+	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Canvas;
 	import com.macro.gUI.controls.Slice;

@@ -1,9 +1,6 @@
-package com.macro.gUI.base
+package com.macro.gUI.core
 {
 	import com.macro.gUI.assist.Margin;
-
-	import flash.display.BitmapData;
-	import flash.geom.Rectangle;
 
 
 	/**

@@ -8,17 +8,15 @@
     <classEntry path="com.macro.gUI.assist.RadioButtonGroup"/>
     <classEntry path="com.macro.gUI.assist.TextStyle"/>
     <classEntry path="com.macro.gUI.assist.Viewport"/>
-    <classEntry path="com.macro.gUI.base.AbstractComposite"/>
-    <classEntry path="com.macro.gUI.base.AbstractContainer"/>
-    <classEntry path="com.macro.gUI.base.AbstractControl"/>
-    <classEntry path="com.macro.gUI.base.IComposite"/>
-    <classEntry path="com.macro.gUI.base.IContainer"/>
-    <classEntry path="com.macro.gUI.base.IControl"/>
+    <classEntry path="com.macro.gUI.core.AbstractComposite"/>
+    <classEntry path="com.macro.gUI.core.AbstractContainer"/>
+    <classEntry path="com.macro.gUI.core.AbstractControl"/>
+    <classEntry path="com.macro.gUI.core.IComposite"/>
+    <classEntry path="com.macro.gUI.core.IControl"/>
     <classEntry path="com.macro.gUI.base.feature.IButton"/>
     <classEntry path="com.macro.gUI.base.feature.IDrag"/>
     <classEntry path="com.macro.gUI.base.feature.IEdit"/>
     <classEntry path="com.macro.gUI.base.feature.IFocus"/>
-    <classEntry path="com.macro.gUI.base.feature.IKeyboard"/>
     <classEntry path="com.macro.gUI.composite.CheckBox"/>
     <classEntry path="com.macro.gUI.composite.HScrollBar"/>
     <classEntry path="com.macro.gUI.composite.HSlider"/>
@@ -39,8 +37,8 @@
     <classEntry path="com.macro.gUI.controls.Slice"/>
     <classEntry path="com.macro.gUI.controls.TextInput"/>
     <classEntry path="com.macro.gUI.controls.ToggleButton"/>
-    <classEntry path="com.macro.gUI.InteractionManager"/>
-    <classEntry path="com.macro.gUI.renders.PopupManager"/>
+    <classEntry path="com.macro.gUI.core.InteractionManager"/>
+    <classEntry path="com.macro.gUI.core.PopupManager"/>
     <classEntry path="com.macro.gUI.skin.SkinManager"/>
     <classEntry path="com.macro.gUI.renders.mergedRender.MergeRenderEngine"/>
     <classEntry path="com.macro.gUI.render.RComposite"/>
@@ -69,6 +67,9 @@
     <classEntry path="com.macro.gUI.assist.Margin"/>
     <classEntry path="com.macro.gUI.renders.IRenderEngine"/>
     <classEntry path="com.macro.gUI.renders.layeredRender.LayeredRenderEngine"/>
+    <classEntry path="com.macro.gUI.skin.IAnimationSkin"/>
+    <classEntry path="com.macro.gUI.core.UIManager"/>
+    <classEntry path="com.macro.gUI.renders.RenderMode"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

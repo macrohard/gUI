@@ -1,7 +1,7 @@
 package com.macro.gUI.assist
 {
-	import com.macro.gUI.base.IContainer;
-	import com.macro.gUI.base.IControl;
+	import com.macro.gUI.core.IContainer;
+	import com.macro.gUI.core.IControl;
 	
 	import flash.display.BitmapData;
 	import flash.geom.Point;

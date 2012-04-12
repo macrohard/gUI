@@ -1,6 +1,6 @@
-package com.macro.gUI.base
+package com.macro.gUI.core
 {
-	import flash.geom.Rectangle;
+	
 
 
 	/**

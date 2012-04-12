@@ -1,10 +1,10 @@
 package com.macro.gUI.renders.mergedRender
 {
-	import com.macro.gUI.base.IContainer;
-	import com.macro.gUI.base.IControl;
+	import com.macro.gUI.core.IContainer;
+	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.renders.IRenderEngine;
-	import com.macro.gUI.InteractionManager;
-	import com.macro.gUI.renders.PopupManager;
+	import com.macro.gUI.core.InteractionManager;
+	import com.macro.gUI.core.PopupManager;
 	
 	import flash.display.DisplayObjectContainer;
 
@@ -27,7 +27,7 @@ package com.macro.gUI.renders.mergedRender
 
 
 
-		public function MergeRenderEngine()
+		public function MergeRenderEngine(container:DisplayObjectContainer)
 		{
 			_popupManager = new PopupManager();
 		}
@@ -39,7 +39,7 @@ package com.macro.gUI.renders.mergedRender
 		 * @return
 		 *
 		 */
-		public function render(root:IContainer, container:DisplayObjectContainer):void
+		public function render(root:IContainer):void
 		{
 			
 		}

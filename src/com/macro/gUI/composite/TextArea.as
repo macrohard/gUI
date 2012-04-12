@@ -3,10 +3,10 @@ package com.macro.gUI.composite
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.assist.Viewport;
-	import com.macro.gUI.base.AbstractComposite;
-	import com.macro.gUI.base.IControl;
-	import com.macro.gUI.base.feature.IButton;
-	import com.macro.gUI.base.feature.IDrag;
+	import com.macro.gUI.core.AbstractComposite;
+	import com.macro.gUI.core.IControl;
+	import com.macro.gUI.core.feature.IButton;
+	import com.macro.gUI.core.feature.IDrag;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.containers.Panel;
 	import com.macro.gUI.controls.Label;

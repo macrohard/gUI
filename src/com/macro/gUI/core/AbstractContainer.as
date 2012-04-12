@@ -1,11 +1,11 @@
-package com.macro.gUI.base
+package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-
-	import com.macro.gUI.assist.Margin;
+	
 	import com.macro.gUI.assist.CHILD_REGION;
-
+	import com.macro.gUI.assist.Margin;
+	
 	import flash.geom.Point;
 
 

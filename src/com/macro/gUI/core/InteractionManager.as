@@ -1,12 +1,8 @@
-package com.macro.gUI
+package com.macro.gUI.core
 {
-	import com.macro.gUI.base.IControl;
 	
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
-	import flash.display.Stage;
-	import flash.events.Event;
-	import flash.events.KeyboardEvent;
-	import flash.events.MouseEvent;
 
 
 	/**
@@ -20,18 +16,20 @@ package com.macro.gUI
 	{
 		private var _focusManager:FocusManager;
 
-		private var _stage:Stage;
+		private var _root:DisplayObjectContainer;
 
 		private var _rootSprite:Sprite;
 
 
-		public function InteractionManager(stage:Stage)
+		public function InteractionManager(root:DisplayObjectContainer)
 		{
-//			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-//			stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-//			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
-//			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-//			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			_root = root;
+			
+//			_root.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+//			_root.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+//			_root.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+//			_root.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+//			_root.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		}
 
 		private function addListener():void

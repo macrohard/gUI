@@ -1,6 +1,6 @@
 package com.macro.gUI.controls
 {
-	import com.macro.gUI.base.AbstractControl;
+	import com.macro.gUI.core.AbstractControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 

@@ -2,9 +2,9 @@ package com.macro.gUI.controls
 {
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.TextStyle;
-	import com.macro.gUI.base.IControl;
-	import com.macro.gUI.base.feature.IButton;
-	import com.macro.gUI.base.feature.IKeyboard;
+	import com.macro.gUI.core.IControl;
+	import com.macro.gUI.core.feature.IButton;
+	import com.macro.gUI.core.feature.IKeyboard;
 	import com.macro.gUI.skin.StyleDef;
 
 	import flash.events.KeyboardEvent;

@@ -1,6 +1,6 @@
 package com.macro.gUI.assist
 {
-	import com.macro.gUI.base.AbstractControl;
+	import com.macro.gUI.core.AbstractControl;
 
 	import flash.geom.Rectangle;
 

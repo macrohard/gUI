@@ -1,7 +1,7 @@
 package com.macro.gUI.containers
 {
 	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.base.AbstractContainer;
+	import com.macro.gUI.core.AbstractContainer;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 

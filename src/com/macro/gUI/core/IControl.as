@@ -1,4 +1,4 @@
-package com.macro.gUI.base
+package com.macro.gUI.core
 {
 	import flash.display.BitmapData;
 	import flash.geom.Point;

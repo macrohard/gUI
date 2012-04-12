@@ -2,8 +2,8 @@ package com.macro.gUI.controls
 {
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.TextStyle;
-	import com.macro.gUI.base.AbstractControl;
-	import com.macro.gUI.base.IControl;
+	import com.macro.gUI.core.AbstractControl;
+	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.utils.StrUtil;
 

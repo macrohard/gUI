@@ -1,7 +1,5 @@
-package com.macro.gUI.renders
+package com.macro.gUI.core
 {
-	import com.macro.gUI.base.IContainer;
-	import com.macro.gUI.base.IControl;
 	import com.macro.gUI.containers.Container;
 	
 	import flash.display.Sprite;

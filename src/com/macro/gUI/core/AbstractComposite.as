@@ -1,7 +1,7 @@
-package com.macro.gUI.base
+package com.macro.gUI.core
 {
 	import avmplus.getQualifiedClassName;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;

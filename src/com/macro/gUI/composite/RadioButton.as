@@ -3,10 +3,10 @@ package com.macro.gUI.composite
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.RadioButtonGroup;
 	import com.macro.gUI.assist.TextStyle;
-	import com.macro.gUI.base.AbstractComposite;
-	import com.macro.gUI.base.IControl;
-	import com.macro.gUI.base.feature.IButton;
-	import com.macro.gUI.base.feature.IKeyboard;
+	import com.macro.gUI.core.AbstractComposite;
+	import com.macro.gUI.core.IControl;
+	import com.macro.gUI.core.feature.IButton;
+	import com.macro.gUI.core.feature.IKeyboard;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Label;
 	import com.macro.gUI.controls.ToggleButton;

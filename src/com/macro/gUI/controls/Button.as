@@ -2,7 +2,7 @@ package com.macro.gUI.controls
 {
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.base.IControl;
+	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
