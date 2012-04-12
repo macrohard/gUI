@@ -30,22 +30,22 @@ package com.macro.gUI.containers
 		/**
 		 * 显示容器
 		 */
-		private var _displayContainer:Container;
+		protected var _displayContainer:Container;
 
 		/**
 		 * 内容容器
 		 */
-		private var _contentContainer:Container;
+		protected var _contentContainer:Container;
 
 		/**
 		 * 水平滚动条
 		 */
-		private var _hScrollBar:HScrollBar;
+		protected var _hScrollBar:HScrollBar;
 
 		/**
 		 * 垂直滚动条
 		 */
-		private var _vScrollBar:VScrollBar;
+		protected var _vScrollBar:VScrollBar;
 
 
 		/**

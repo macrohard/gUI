@@ -43,17 +43,17 @@ package com.macro.gUI.containers
 		/**
 		 * 内容容器
 		 */
-		private var _tabContainers:Vector.<Container>;
+		protected var _tabContainers:Vector.<Container>;
 
 		/**
 		 * 标签页按钮
 		 */
-		private var _tabs:Vector.<Cell>;
+		protected var _tabs:Vector.<Cell>;
 
 		/**
 		 * 面板背景
 		 */
-		private var _bg:Slice;
+		protected var _bg:Slice;
 
 
 		/**
@@ -76,7 +76,7 @@ package com.macro.gUI.containers
 		/**
 		 * 当前容器，即选中的标签页的容器
 		 */
-		private var _currentContainer:Container;
+		protected var _currentContainer:Container;
 
 
 

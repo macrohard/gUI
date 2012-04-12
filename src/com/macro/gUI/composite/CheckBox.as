@@ -32,9 +32,9 @@ package com.macro.gUI.composite
 		private static const gap:int = 5;
 
 
-		private var _icon:ToggleButton;
+		protected var _icon:ToggleButton;
 
-		private var _label:Label;
+		protected var _label:Label;
 
 
 

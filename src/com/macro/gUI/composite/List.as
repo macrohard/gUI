@@ -28,12 +28,12 @@ package com.macro.gUI.composite
 		/**
 		 * 列表项容器
 		 */
-		private var _itemContainer:Container;
+		protected var _itemContainer:Container;
 
 		/**
 		 * 垂直滚动条
 		 */
-		private var _scrollBar:VScrollBar;
+		protected var _scrollBar:VScrollBar;
 
 		/**
 		 * 选中的列表项

@@ -30,9 +30,9 @@ package com.macro.gUI.composite
 			IButton
 	{
 
-		private var _bg:Slice;
+		protected var _bg:Slice;
 
-		private var _blockBtn:Button;
+		protected var _blockBtn:Button;
 
 
 		/**

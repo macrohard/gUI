@@ -21,14 +21,15 @@ package com.macro.gUI.composite
 	public class ProgressBar extends AbstractComposite
 	{
 
+		protected var _canvas:Canvas;
+		
+		protected var _bg:Slice;
+		
+		
 		/**
 		 * 是否使用遮罩
 		 */
 		private var _mask:Boolean;
-
-		private var _canvas:Canvas;
-
-		private var _bg:Slice;
 
 		private var _fillingSkin:ISkin;
 

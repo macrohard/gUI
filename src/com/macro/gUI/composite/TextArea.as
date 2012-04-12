@@ -28,22 +28,22 @@ package com.macro.gUI.composite
 		/**
 		 * 文本对象
 		 */
-		private var _label:Label;
+		protected var _label:Label;
 
 		/**
 		 * 显示容器
 		 */
-		private var _displayContainer:Container;
+		protected var _displayContainer:Container;
 
 		/**
 		 * 水平滚动条
 		 */
-		private var _hScrollBar:HScrollBar;
+		protected var _hScrollBar:HScrollBar;
 
 		/**
 		 * 垂直滚动条
 		 */
-		private var _vScrollBar:VScrollBar;
+		protected var _vScrollBar:VScrollBar;
 
 		/**
 		 * 文本块控件

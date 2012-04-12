@@ -72,32 +72,32 @@ package com.macro.gUI.containers
 		/**
 		 * 内容容器
 		 */
-		private var _contentContainer:Container;
+		protected var _contentContainer:Container;
 
 		/**
 		 * 窗口背景
 		 */
-		private var _bg:Slice;
+		protected var _bg:Slice;
 
 		/**
 		 * 最小化按钮
 		 */
-		private var _minBtn:Button;
+		protected var _minBtn:Button;
 
 		/**
 		 * 最大化按钮
 		 */
-		private var _maxBtn:Button;
+		protected var _maxBtn:Button;
 
 		/**
 		 * 关闭按钮
 		 */
-		private var _closeBtn:Button;
+		protected var _closeBtn:Button;
 
 		/**
 		 * 标题
 		 */
-		private var _title:Label;
+		protected var _title:Label;
 
 
 		/**

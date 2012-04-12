@@ -33,13 +33,13 @@ package com.macro.gUI.composite
 			IDrag, IButton
 	{
 
-		private var _track:Slice;
+		protected var _track:Slice;
 
-		private var _blockBtn:Button;
+		protected var _blockBtn:Button;
 
-		private var _leftBtn:Button;
+		protected var _leftBtn:Button;
 
-		private var _rightBtn:Button;
+		protected var _rightBtn:Button;
 
 
 		/**
