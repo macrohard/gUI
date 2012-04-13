@@ -2,13 +2,13 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.renders.IRenderEngine;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -545,9 +545,9 @@ package com.macro.gUI.core
 
 
 		/**
-		 * 界面管理器
+		 * 弹出窗口管理器
 		 */
-		protected static var uiManager:UIManager;
+		protected static var popupManager:PopupManager;
 
 
 		/**
@@ -566,7 +566,7 @@ package com.macro.gUI.core
 		internal static function init(uiManager:UIManager,
 									  smoothing:Boolean = true):void
 		{
-			AbstractControl.uiManager = uiManager;
+			AbstractControl.popupManager = uiManager.popupManager;
 			AbstractControl.skinManager = uiManager.skinManager;
 			AbstractControl.smoothing = smoothing;
 		}

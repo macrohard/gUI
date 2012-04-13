@@ -55,7 +55,7 @@ package com.macro.gUI.core
 		/**
 		 * 弹出窗口管理器
 		 */
-		private var _popup:PopupManager;
+		private var _popupManager:PopupManager;
 
 
 
@@ -69,41 +69,22 @@ package com.macro.gUI.core
 		 */
 		private var _mouseTarget:IControl;
 
-		/**
-		 * 拖拽的外层控件
-		 */
-		private var _dragControl:IDrag;
 
+		
 		/**
-		 * 拖拽的目标控件
+		 * 
 		 */
-		private var _dragTarget:IControl;
-
+		private var _dragManager:DragManager;
+		
 		/**
-		 * 拖拽模式
+		 * 
 		 */
-		private var _dragMode:int;
-
+		private var _focusManager:FocusManager;
+		
 		/**
-		 * 拖拽替身
+		 * 
 		 */
-		private var _dragAvatar:BitmapData;
-
-		/**
-		 * 焦点控件
-		 */
-		private var _focusControl:IFocus;
-
-		/**
-		 * 可编辑控件
-		 */
-		private var _editControl:IEdit;
-
-		/**
-		 * 输入框
-		 */
-		private var _editBox:TextField;
-
+		private var _editManager:EditManager;
 
 
 
@@ -114,55 +95,61 @@ package com.macro.gUI.core
 		 * @param container
 		 *
 		 */
-		public function InteractionManager(container:DisplayObjectContainer,
-										   root:IContainer, top:IContainer,
-										   popup:PopupManager)
+		public function InteractionManager(uiManager:UIManager, container:DisplayObjectContainer)
 		{
-			_root = root;
-			_top = top;
-			_popup = popup;
+			_root = uiManager.root;
+			_top = uiManager.topContainer;
+			_popupManager = uiManager.popupManager;
 			_container = container;
+			
+			_dragManager = new DragManager();
+			_editManager = new EditManager(container);
+			_focusManager = new FocusManager(_editManager);
+			
 
 			container.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
 			container.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			container.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-			container.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-			container.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
+			
+			container.addEventListener(KeyboardEvent.KEY_DOWN, _focusManager.keyDownHandler);
+			container.addEventListener(KeyboardEvent.KEY_UP, _focusManager.keyUpHandler);
 		}
 
 
 		protected function mouseDownHandler(e:MouseEvent):void
 		{
-			_popup.removePopupMenu();
 			findTargetControl(_root);
+			
+			// 如果有弹出菜单时，就及时关闭之
+			_popupManager.removePopupMenu(_mouseControl);
 
 			// 处理焦点
 			if (_mouseControl is IFocus && _mouseControl.enabled)
 			{
-				setFocus(_mouseControl as IFocus);
+				_focusManager.setFocus(_mouseControl as IFocus);
 			}
 			else
 			{
-				setFocus(null);
+				_focusManager.setFocus(null);
 			}
 
 			// 处理编辑框
-			if (_editControl != null)
+			if (_editManager._editControl != null)
 			{
-				if (_editControl == _mouseControl)
+				if (_editManager._editControl == _mouseControl)
 				{
-					focusEditBox();
+					_editManager.focusEditBox();
 					return;
 				}
 				else
 				{
-					endEdit();
+					_editManager.endEdit();
 				}
 			}
 			if (_mouseControl is IEdit)
 			{
-				_editControl = _mouseControl as IEdit;
-				beginEdit();
+				_editManager._editControl = _mouseControl as IEdit;
+				_editManager.beginEdit();
 				return;
 			}
 
@@ -178,36 +165,14 @@ package com.macro.gUI.core
 				// 处理拖拽
 				if (_mouseControl is IDrag)
 				{
-					_dragControl = _mouseControl as IDrag;
-					_dragTarget = _mouseTarget;
-					_dragMode = _dragControl.getDragMode(_dragTarget);
-
-					if (_dragMode == DragMode.NONE)
-					{
-						_dragControl = null;
-						_dragTarget = null;
-					}
-					else if (_dragMode == DragMode.AVATAR)
-					{
-						_dragAvatar = _dragControl.getDragImage();
-						if (_dragAvatar == null)
-						{
-							_dragControl = null;
-							_dragTarget = null;
-						}
-					}
-
-					if (_dragControl != null)
-					{
-						Mouse.cursor = MouseCursor.BUTTON;
-					}
+					_dragManager.startDrag(_mouseControl as IDrag, _mouseTarget);
 				}
 			}
 		}
 
 		protected function mouseUpHandler(e:MouseEvent):void
 		{
-			if (_dragControl == null)
+			if (_dragManager._dragControl == null)
 			{
 				// 处理鼠标松开
 				if (_mouseControl != null && _mouseControl.enabled &&
@@ -224,31 +189,13 @@ package com.macro.gUI.core
 				// 结束拖拽
 				findTargetControl(_root);
 
-				if (_dragControl == _mouseControl)
-				{
-					if (_dragControl is IButton)
-					{
-						(_dragControl as IButton).mouseUp(_dragTarget);
-					}
-				}
-				else
-				{
-					Mouse.cursor = MouseCursor.AUTO;
-					if (_dragControl is IButton)
-					{
-						(_dragControl as IButton).mouseOut(_dragTarget);
-					}
-				}
-
-				_dragControl = null;
-				_dragTarget = null;
-				_dragAvatar = null;
+				_dragManager.stopDrag(_mouseControl);
 			}
 		}
 
 		protected function mouseMoveHandler(e:MouseEvent):void
 		{
-			if (_dragControl == null)
+			if (_dragManager._dragControl == null)
 			{
 				var tempC:IControl = _mouseControl;
 				var tempT:IControl = _mouseTarget;
@@ -285,16 +232,7 @@ package com.macro.gUI.core
 			}
 			else
 			{
-				// 拖拽中
-				if (_dragMode == DragMode.DIRECT)
-				{
-					_dragControl.setDragCoord(_dragTarget, _container.mouseX,
-											  _container.mouseY);
-				}
-				else
-				{
-					// TODO 实现拖拽替身
-				}
+				_dragManager.dragging(_container.mouseX, _container.mouseY);
 			}
 		}
 
@@ -341,255 +279,6 @@ package com.macro.gUI.core
 			}
 
 		}
-
-
-
-		protected function keyDownHandler(e:KeyboardEvent):void
-		{
-			// 处理编辑框
-			if (_editControl != null && _editBox != null)
-			{
-				if (e.keyCode == Keyboard.ENTER || e.keyCode == Keyboard.ESCAPE)
-				{
-					endEdit();
-				}
-			}
-
-			if (_focusControl is IKeyboard)
-			{
-				(_focusControl as IKeyboard).keyDown(e);
-			}
-
-			if (_focusControl != null)
-			{
-				// 按下Tab键时焦点移到下一个tabIndex控件，如果没有，则不处理
-				var parent:IContainer = (_focusControl as IControl).parent;
-				if (parent != null && e.keyCode == Keyboard.TAB)
-				{
-					var temp:Vector.<IFocus> = new Vector.<IFocus>();
-					for each (var control:IControl in parent.children)
-					{
-						if (control is IFocus && control.enabled &&
-								control != _focusControl)
-						{
-							temp.push(control as IFocus);
-						}
-					}
-
-					var length:int = temp.length;
-					if (length > 0)
-					{
-						if (_editControl != null)
-						{
-							endEdit();
-						}
-
-						var index:int = 0;
-						if (length > 1)
-						{
-							temp.sort(compareTabIndex);
-							
-							var tabIndex:int = _focusControl.tabIndex;
-							for (var i:int; i < length; i++)
-							{
-								if (temp[i].tabIndex > tabIndex)
-								{
-									index = i;
-									break;
-								}
-							}
-						}
-						setFocus(temp[index]);
-
-						if (_focusControl is IEdit)
-						{
-							_editControl = _focusControl as IEdit;
-							beginEdit();
-							return;
-						}
-					}
-				}
-			}
-		}
-
-		private function compareTabIndex(a:IFocus, b:IFocus):Number
-		{
-			if (a.tabIndex > b.tabIndex)
-			{
-				return 1;
-			}
-			else if (a.tabIndex < b.tabIndex)
-			{
-				return -1;
-			}
-			return 0;
-		}
-
-
-		protected function keyUpHandler(e:KeyboardEvent):void
-		{
-			if (e.keyCode == Keyboard.TAB)
-			{
-				return;
-			}
-
-			if (_focusControl is IKeyboard)
-			{
-				(_focusControl as IKeyboard).keyUp(e);
-			}
-		}
-
-
-		private function setFocus(control:IFocus):void
-		{
-			_focusControl = control;
-
-			if (_focusControl == null)
-			{
-				// TODO 清除焦点框
-			}
-			else
-			{
-				// TODO 绘制焦点框，注意添加焦点框皮肤
-			}
-		}
-
-
-		/**
-		 * 结束编辑
-		 *
-		 */
-		private function endEdit():void
-		{
-			if (_editBox != null)
-			{
-				if (_editControl is TextInput)
-				{
-					var textInput:TextInput = _editControl as TextInput;
-					textInput.text = _editBox.text;
-				}
-
-				_container.stage.focus = null;
-				_container.removeChild(_editBox);
-				_editBox.removeEventListener(Event.CHANGE, relocateEditBox);
-				_editBox = null;
-				_editControl = null;
-			}
-		}
-
-		/**
-		 * 开始编辑
-		 *
-		 */
-		private function beginEdit():void
-		{
-			if (_editBox == null)
-			{
-				if (_editControl is TextInput)
-				{
-					var textInput:TextInput = _editControl as TextInput;
-					var ts:TextStyle = textInput.style;
-
-					_editBox = new TextField();
-					_editBox.autoSize = TextFieldAutoSize.LEFT;
-					_editBox.displayAsPassword = textInput.displayAsPassword;
-					_editBox.maxChars = ts.maxChars;
-					_editBox.filters = ts.filters;
-					_editBox.defaultTextFormat = ts;
-					if (textInput.text != null)
-					{
-						_editBox.text = textInput.text;
-					}
-					if (textInput.editable)
-					{
-						_editBox.type = TextFieldType.INPUT;
-					}
-					relocateEditBox(null);
-				}
-
-				_editBox.addEventListener(Event.CHANGE, relocateEditBox, false,
-										  0, true);
-				_editBox.setSelection(0, _editBox.text.length);
-				_container.addChild(_editBox);
-
-				focusEditBox();
-				_editControl.beginEdit();
-			}
-		}
-
-		/**
-		 * 聚焦到编辑框
-		 *
-		 */
-		private function focusEditBox():void
-		{
-			if (_editBox != null)
-			{
-				_container.stage.focus = _editBox;
-			}
-		}
-
-
-		/**
-		 * 重新定位编辑框
-		 *
-		 */
-		private function relocateEditBox(e:Event):void
-		{
-			var ox:int;
-			var oy:int;
-
-			if (_editControl is TextInput)
-			{
-				var textInput:TextInput = _editControl as TextInput;
-				var ts:TextStyle = textInput.style;
-				var padding:Margin = textInput.padding;
-
-				var txtW:int = _editBox.textWidth + 4 + ts.leftMargin + ts.rightMargin + ts.indent + ts.blockIndent;
-				var txtH:int = _editBox.textHeight + 4;
-
-				var w:int = padding ? textInput.width - padding.left - padding.right : textInput.width;
-				var h:int = padding ? textInput.height - padding.top - padding.bottom : textInput.height;
-
-				if (txtW > w)
-				{
-					_editBox.autoSize = TextFieldAutoSize.NONE;
-					_editBox.multiline = ts.multiline;
-					_editBox.wordWrap = ts.wordWrap;
-					txtW = w;
-					_editBox.width = txtW + 2;
-					txtH = _editBox.textHeight + 4;
-				}
-				else
-				{
-					_editBox.autoSize = TextFieldAutoSize.LEFT;
-				}
-
-				var p:Point = textInput.localToGlobal();
-
-				ox = p.x + (padding ? padding.left : 0);
-				if ((textInput.align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
-				{
-					ox += (w - txtW) >> 1;
-				}
-				else if ((textInput.align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
-				{
-					ox += w - txtW;
-				}
-
-				oy = p.y + (padding ? padding.top : 0);
-				if ((textInput.align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
-				{
-					oy += (h - txtH) >> 1;
-				}
-				else if ((textInput.align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
-				{
-					oy += h - txtH;
-				}
-			}
-
-			_editBox.x = ox;
-			_editBox.y = oy;
-		}
+		
 	}
 }

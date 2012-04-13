@@ -70,6 +70,9 @@
     <classEntry path="com.macro.gUI.core.UIManager"/>
     <classEntry path="com.macro.gUI.renders.RenderMode"/>
     <classEntry path="com.macro.gUI.core.PopupManager"/>
+    <classEntry path="com.macro.gUI.core.DragManager"/>
+    <classEntry path="com.macro.gUI.core.FocusManager"/>
+    <classEntry path="com.macro.gUI.core.EditManager"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

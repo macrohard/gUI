@@ -1,28 +1,34 @@
 package com.macro.gUI.core
 {
 	import com.macro.gUI.containers.Container;
-	
+
+
 	/**
 	 * 弹出窗口管理器，是一个特殊容器，它继承自Container。
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class PopupManager extends Container
 	{
-		
+
 		private var _menu:IControl;
 		
+		private var _modalWindow:IControl;
+		
+		private var _modals:Vector.<IControl>;
+		
+
 		/**
 		 * 弹出窗口管理器
 		 * @param width
 		 * @param height
-		 * 
+		 *
 		 */
-		public function PopupManager(width:int=100, height:int=100)
+		public function PopupManager(width:int = 100, height:int = 100)
 		{
 			super(width, height);
 		}
-		
+
 		/**
 		 * 添加弹出窗口
 		 * @param window
@@ -33,7 +39,7 @@ package com.macro.gUI.core
 									   modal:Boolean = true):void
 		{
 		}
-		
+
 		/**
 		 * 移除弹出菜单或窗口
 		 * @param popupItem
@@ -44,6 +50,26 @@ package com.macro.gUI.core
 		}
 		
 		/**
+		 * 将弹出窗口移到其它弹出窗口之前
+		 * @param window
+		 * 
+		 */
+		public function bringToFront(window:IControl):void
+		{
+			
+		}
+		
+		/**
+		 * 居中显示弹出窗口
+		 * @param window
+		 * 
+		 */
+		public function centerPopup(window:IControl):void
+		{
+			
+		}
+
+		/**
 		 * 添加弹出菜单
 		 * @param menu
 		 *
@@ -53,10 +79,10 @@ package com.macro.gUI.core
 			_menu = menu;
 			addChild(_menu);
 		}
-		
-		public function removePopupMenu():void
+
+		public function removePopupMenu(menu:IControl):void
 		{
-			if (_menu != null)
+			if (_menu != null && _menu == menu)
 			{
 				removeChild(_menu);
 				_menu = null;

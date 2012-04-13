@@ -31,26 +31,6 @@ package com.macro.gUI.core
 		private var _interactionManager:InteractionManager;
 
 
-		/**
-		 * 根容器
-		 */
-		private var _root:Container;
-		
-		/**
-		 * 主容器，所有控件都在此容器中
-		 */
-		private var _main:Container;
-		
-		/**
-		 * 弹出窗口管理器
-		 */
-		private var _popup:PopupManager;
-		
-		/**
-		 * 最上层窗口容器，用于交互管理器绘制焦点框、拖拽替身图像等
-		 */
-		private var _top:Container;
-
 
 		/**
 		 * 界面管理器
@@ -80,7 +60,7 @@ package com.macro.gUI.core
 				throw new Error("Unsupport Render Mode!");
 			}
 			_skinManager = new SkinManager();
-			_interactionManager = new InteractionManager(container, _root, _top, _popup);
+			_interactionManager = new InteractionManager(this, container);
 			
 			AbstractControl.init(this);
 			
@@ -102,11 +82,23 @@ package com.macro.gUI.core
 		{
 			return _skinManager;
 		}
-
 		
+		
+		
+		private var _root:IContainer;
 		
 		/**
-		 * 主容器
+		 * 根容器
+		 */
+		internal function get root():IContainer
+		{
+			return _root;
+		}
+
+		
+		private var _main:IContainer;
+		/**
+		 * 主容器，所有控件都在此容器中
 		 * @return 
 		 * 
 		 */
@@ -116,6 +108,28 @@ package com.macro.gUI.core
 		}
 
 
+		private var _popup:PopupManager;
+		
+		/**
+		 * 弹出窗口管理器
+		 */
+		internal function get popupManager():PopupManager
+		{
+			return _popup;
+		}
+		
+		
+		private var _top:IContainer;
+		
+		/**
+		 * 最上层窗口容器，一般用于交互管理器绘制焦点框、拖拽替身图像等
+		 */
+		internal function get topContainer():IContainer
+		{
+			return _top;
+		}
+		
+		
 		
 		/**
 		 * 添加弹出窗口
@@ -126,24 +140,17 @@ package com.macro.gUI.core
 		public function addPopupWindow(window:IContainer,
 									   modal:Boolean = true):void
 		{
+			_popup.addPopupWindow(window, modal);
 		}
 		
 		/**
-		 * 添加弹出菜单
-		 * @param menu
-		 *
-		 */
-		public function addPopupMenu(menu:IControl):void
-		{
-		}
-		
-		/**
-		 * 移除弹出菜单或窗口
+		 * 移除弹出窗口
 		 * @param popupItem
 		 *
 		 */
-		public function removePopup(popupItem:IControl):void
+		public function removePopupWindow(window:IControl):void
 		{
+			_popup.removePopupWindow(window);
 		}
 	}
 }
