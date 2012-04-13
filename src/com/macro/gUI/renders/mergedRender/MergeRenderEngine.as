@@ -34,7 +34,7 @@ package com.macro.gUI.renders.mergedRender
 		private var _root:IContainer;
 
 
-		public function MergeRenderEngine(root:IContainer, container:DisplayObjectContainer, width:int, height:int)
+		public function MergeRenderEngine(container:DisplayObjectContainer, root:IContainer, width:int, height:int)
 		{
 			_root = root;
 			_canvas = new BitmapData(width, height, true, 0);
@@ -107,20 +107,14 @@ package com.macro.gUI.renders.mergedRender
 		
 		public function updateChildren(container:IContainer):void
 		{
-			// TODO Auto Generated method stub
-			
 		}
 		
 		public function updateCoord(control:IControl, x:int, y:int):void
 		{
-			// TODO Auto Generated method stub
-			
 		}
 		
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
-			// TODO Auto Generated method stub
-			
 		}
 		
 	}

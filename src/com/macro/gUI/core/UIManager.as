@@ -69,20 +69,20 @@ package com.macro.gUI.core
 			
 			if (renderMode == RenderMode.RENDER_MODE_MERGE)
 			{
-				_render = new MergeRenderEngine(_root, container, width, height);
+				_render = new MergeRenderEngine(container, _root, width, height);
 			}
 			else if (renderMode == RenderMode.RENDER_MODE_LAYER)
 			{
-				_render = new LayeredRenderEngine(_root, container, width, height);
+				_render = new LayeredRenderEngine(container, _root, width, height);
 			}
 			else
 			{
 				throw new Error("Unsupport Render Mode!");
 			}
 			_skinManager = new SkinManager();
-			_interactionManager = new InteractionManager(_root, _top, container);
+			_interactionManager = new InteractionManager(container, _root, _top, _popup);
 			
-			AbstractControl.init(this, _skinManager);
+			AbstractControl.init(this);
 			
 			// 初始化整个UI体系层级结构
 			_root.addChild(_main);

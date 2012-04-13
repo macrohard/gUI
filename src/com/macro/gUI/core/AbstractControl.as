@@ -2,13 +2,13 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-	
+
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.renders.IRenderEngine;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -355,8 +355,8 @@ package com.macro.gUI.core
 			m.invert();
 			return m.transformPoint(new Point(x, y));
 		}
-		
-		
+
+
 		private function getTransformMatrix():Matrix
 		{
 			var m:Matrix = new Matrix();
@@ -366,10 +366,10 @@ package com.macro.gUI.core
 			while (container != null)
 			{
 				m.translate(container.rect.x + container.margin.left,
-					container.rect.y + container.margin.top);
+							container.rect.y + container.margin.top);
 				container = container.parent;
 			}
-			
+
 			return m;
 		}
 
@@ -564,11 +564,10 @@ package com.macro.gUI.core
 		 *
 		 */
 		internal static function init(uiManager:UIManager,
-									  skinManager:SkinManager,
 									  smoothing:Boolean = true):void
 		{
 			AbstractControl.uiManager = uiManager;
-			AbstractControl.skinManager = skinManager;
+			AbstractControl.skinManager = uiManager.skinManager;
 			AbstractControl.smoothing = smoothing;
 		}
 

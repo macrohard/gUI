@@ -52,7 +52,11 @@ package com.macro.gUI
 
 
 		/**
-		 * 初始化GameUI
+		 * 初始化GameUI。建议对Stage作如下初始化设置：<p>
+		 * stage.stageFocusRect = false;<br/>
+		 * stage.tabChildren = false;<br/>
+		 * stage.scaleMode = StageScaleMode.NO_SCALE;</p>
+		 * 
 		 * @param container 显示容器，如stage
 		 * @param width 显示容器的宽度，如stage.stageWidth
 		 * @param height 显示容器的高度，如stage.stageHeight

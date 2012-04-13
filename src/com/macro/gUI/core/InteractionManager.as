@@ -1,6 +1,6 @@
 package com.macro.gUI.core
 {
-	
+
 	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.LayoutAlign;
@@ -46,75 +46,83 @@ package com.macro.gUI.core
 		 * 根容器
 		 */
 		private var _root:IContainer;
-		
+
 		/**
 		 * 最上层窗口容器
 		 */
 		private var _top:IContainer;
-		
-		
-		
+
+		/**
+		 * 弹出窗口管理器
+		 */
+		private var _popup:PopupManager;
+
+
+
 		/**
 		 * 鼠标点击的外层控件，基本控件或复合控件
 		 */
 		private var _mouseControl:IControl;
-		
+
 		/**
 		 * 鼠标点击的实际目标控件，如复合控件内的控件
 		 */
 		private var _mouseTarget:IControl;
-		
+
 		/**
 		 * 拖拽的外层控件
 		 */
 		private var _dragControl:IDrag;
-		
+
 		/**
 		 * 拖拽的目标控件
 		 */
 		private var _dragTarget:IControl;
-		
+
 		/**
 		 * 拖拽模式
 		 */
 		private var _dragMode:int;
-		
+
 		/**
 		 * 拖拽替身
 		 */
 		private var _dragAvatar:BitmapData;
-		
+
 		/**
 		 * 焦点控件
 		 */
-		private var _focusControl:IControl;
-		
+		private var _focusControl:IFocus;
+
 		/**
 		 * 可编辑控件
 		 */
 		private var _editControl:IEdit;
-		
+
 		/**
 		 * 输入框
 		 */
 		private var _editBox:TextField;
-		
-		
-		
+
+
+
 
 		/**
 		 * 交互管理器
 		 * @param root
 		 * @param top
 		 * @param container
-		 * 
+		 *
 		 */
-		public function InteractionManager(root:IContainer, top:IContainer, container:DisplayObjectContainer)
+		public function InteractionManager(container:DisplayObjectContainer,
+										   root:IContainer, top:IContainer,
+										   popup:PopupManager)
 		{
 			_root = root;
 			_top = top;
+			_popup = popup;
 			_container = container;
-			
+
 			container.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
 			container.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			container.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
@@ -122,21 +130,22 @@ package com.macro.gUI.core
 			container.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 		}
 
-		
+
 		protected function mouseDownHandler(e:MouseEvent):void
 		{
+			_popup.removePopupMenu();
 			findTargetControl(_root);
-			
+
 			// 处理焦点
 			if (_mouseControl is IFocus && _mouseControl.enabled)
 			{
-				_focusControl = _mouseControl;
+				setFocus(_mouseControl as IFocus);
 			}
 			else
 			{
-				_focusControl = null;
+				setFocus(null);
 			}
-			
+
 			// 处理编辑框
 			if (_editControl != null)
 			{
@@ -156,22 +165,23 @@ package com.macro.gUI.core
 				beginEdit();
 				return;
 			}
-			
-			if (_mouseTarget != null && _mouseControl.enabled && _mouseTarget.enabled)
+
+			if (_mouseTarget != null && _mouseControl.enabled &&
+					_mouseTarget.enabled)
 			{
 				// 处理鼠标按下
 				if (_mouseControl is IButton)
 				{
 					(_mouseControl as IButton).mouseDown(_mouseTarget);
 				}
-				
+
 				// 处理拖拽
 				if (_mouseControl is IDrag)
 				{
 					_dragControl = _mouseControl as IDrag;
 					_dragTarget = _mouseTarget;
 					_dragMode = _dragControl.getDragMode(_dragTarget);
-					
+
 					if (_dragMode == DragMode.NONE)
 					{
 						_dragControl = null;
@@ -186,7 +196,7 @@ package com.macro.gUI.core
 							_dragTarget = null;
 						}
 					}
-					
+
 					if (_dragControl != null)
 					{
 						Mouse.cursor = MouseCursor.BUTTON;
@@ -194,13 +204,14 @@ package com.macro.gUI.core
 				}
 			}
 		}
-		
+
 		protected function mouseUpHandler(e:MouseEvent):void
 		{
 			if (_dragControl == null)
 			{
 				// 处理鼠标松开
-				if (_mouseControl != null && _mouseControl.enabled && _mouseTarget.enabled)
+				if (_mouseControl != null && _mouseControl.enabled &&
+						_mouseTarget.enabled)
 				{
 					if (_mouseControl is IButton)
 					{
@@ -212,7 +223,7 @@ package com.macro.gUI.core
 			{
 				// 结束拖拽
 				findTargetControl(_root);
-				
+
 				if (_dragControl == _mouseControl)
 				{
 					if (_dragControl is IButton)
@@ -228,13 +239,13 @@ package com.macro.gUI.core
 						(_dragControl as IButton).mouseOut(_dragTarget);
 					}
 				}
-				
+
 				_dragControl = null;
 				_dragTarget = null;
 				_dragAvatar = null;
 			}
 		}
-		
+
 		protected function mouseMoveHandler(e:MouseEvent):void
 		{
 			if (_dragControl == null)
@@ -242,41 +253,43 @@ package com.macro.gUI.core
 				var tempC:IControl = _mouseControl;
 				var tempT:IControl = _mouseTarget;
 				findTargetControl(_root);
-				
+
 				// 在同一个控件范围内移动时不作处理
 				if (tempT == _mouseTarget)
 				{
 					return;
 				}
-				
+
 				// 处理鼠标离开
 				if (tempC is IButton && tempC.enabled && tempT.enabled)
 				{
 					(tempC as IButton).mouseOut(tempT);
 					Mouse.cursor = MouseCursor.AUTO;
 				}
-				
+
 				// 处理鼠标进入
-				if (_mouseControl != null && _mouseControl.enabled && _mouseTarget.enabled)
+				if (_mouseControl != null && _mouseControl.enabled &&
+						_mouseTarget.enabled)
 				{
 					if (_mouseControl is IButton)
 					{
 						(_mouseControl as IButton).mouseOver(_mouseTarget);
-						
+
 						if (_mouseTarget is IButton)
 						{
 							Mouse.cursor = MouseCursor.BUTTON;
 						}
 					}
 				}
-				
+
 			}
 			else
 			{
 				// 拖拽中
 				if (_dragMode == DragMode.DIRECT)
 				{
-					_dragControl.setDragCoord(_dragTarget, _container.mouseX, _container.mouseY);
+					_dragControl.setDragCoord(_dragTarget, _container.mouseX,
+											  _container.mouseY);
 				}
 				else
 				{
@@ -284,7 +297,7 @@ package com.macro.gUI.core
 				}
 			}
 		}
-		
+
 		/**
 		 * 遍历查找鼠标所在的控件
 		 * @param control
@@ -293,7 +306,8 @@ package com.macro.gUI.core
 		 */
 		protected function findTargetControl(control:IControl):Boolean
 		{
-			var target:IControl = control.hitTest(_container.mouseX, _container.mouseY);
+			var target:IControl = control.hitTest(_container.mouseX,
+												  _container.mouseY);
 			if (target != null)
 			{
 				if (control is IContainer && target is CHILD_REGION)
@@ -306,7 +320,7 @@ package com.macro.gUI.core
 							return true;
 						}
 					}
-					
+
 					if (control.bitmapData == null)
 					{
 						_mouseTarget = null;
@@ -314,7 +328,7 @@ package com.macro.gUI.core
 						return false;
 					}
 				}
-				
+
 				_mouseTarget = target;
 				_mouseControl = control;
 				return true;
@@ -325,20 +339,13 @@ package com.macro.gUI.core
 				_mouseControl = null;
 				return false;
 			}
-			
+
 		}
-		
-		
-		
+
+
+
 		protected function keyDownHandler(e:KeyboardEvent):void
 		{
-			// TODO 按下Tab键时焦点移到下一个tabIndex控件，如果没有，则不处理
-			
-			if (_focusControl is IKeyboard)
-			{
-				(_focusControl as IKeyboard).keyDown(e);
-			}
-			
 			// 处理编辑框
 			if (_editControl != null && _editBox != null)
 			{
@@ -347,18 +354,111 @@ package com.macro.gUI.core
 					endEdit();
 				}
 			}
+
+			if (_focusControl is IKeyboard)
+			{
+				(_focusControl as IKeyboard).keyDown(e);
+			}
+
+			if (_focusControl != null)
+			{
+				// 按下Tab键时焦点移到下一个tabIndex控件，如果没有，则不处理
+				var parent:IContainer = (_focusControl as IControl).parent;
+				if (parent != null && e.keyCode == Keyboard.TAB)
+				{
+					var temp:Vector.<IFocus> = new Vector.<IFocus>();
+					for each (var control:IControl in parent.children)
+					{
+						if (control is IFocus && control.enabled &&
+								control != _focusControl)
+						{
+							temp.push(control as IFocus);
+						}
+					}
+
+					var length:int = temp.length;
+					if (length > 0)
+					{
+						if (_editControl != null)
+						{
+							endEdit();
+						}
+
+						var index:int = 0;
+						if (length > 1)
+						{
+							temp.sort(compareTabIndex);
+							
+							var tabIndex:int = _focusControl.tabIndex;
+							for (var i:int; i < length; i++)
+							{
+								if (temp[i].tabIndex > tabIndex)
+								{
+									index = i;
+									break;
+								}
+							}
+						}
+						setFocus(temp[index]);
+
+						if (_focusControl is IEdit)
+						{
+							_editControl = _focusControl as IEdit;
+							beginEdit();
+							return;
+						}
+					}
+				}
+			}
 		}
-		
-		
+
+		private function compareTabIndex(a:IFocus, b:IFocus):Number
+		{
+			if (a.tabIndex > b.tabIndex)
+			{
+				return 1;
+			}
+			else if (a.tabIndex < b.tabIndex)
+			{
+				return -1;
+			}
+			return 0;
+		}
+
+
 		protected function keyUpHandler(e:KeyboardEvent):void
 		{
+			if (e.keyCode == Keyboard.TAB)
+			{
+				return;
+			}
+
 			if (_focusControl is IKeyboard)
 			{
 				(_focusControl as IKeyboard).keyUp(e);
 			}
 		}
-		
-		
+
+
+		private function setFocus(control:IFocus):void
+		{
+			_focusControl = control;
+
+			if (_focusControl == null)
+			{
+				// TODO 清除焦点框
+			}
+			else
+			{
+				// TODO 绘制焦点框，注意添加焦点框皮肤
+			}
+		}
+
+
+		/**
+		 * 结束编辑
+		 *
+		 */
 		private function endEdit():void
 		{
 			if (_editBox != null)
@@ -368,7 +468,7 @@ package com.macro.gUI.core
 					var textInput:TextInput = _editControl as TextInput;
 					textInput.text = _editBox.text;
 				}
-				
+
 				_container.stage.focus = null;
 				_container.removeChild(_editBox);
 				_editBox.removeEventListener(Event.CHANGE, relocateEditBox);
@@ -376,7 +476,11 @@ package com.macro.gUI.core
 				_editControl = null;
 			}
 		}
-		
+
+		/**
+		 * 开始编辑
+		 *
+		 */
 		private function beginEdit():void
 		{
 			if (_editBox == null)
@@ -385,7 +489,7 @@ package com.macro.gUI.core
 				{
 					var textInput:TextInput = _editControl as TextInput;
 					var ts:TextStyle = textInput.style;
-					
+
 					_editBox = new TextField();
 					_editBox.autoSize = TextFieldAutoSize.LEFT;
 					_editBox.displayAsPassword = textInput.displayAsPassword;
@@ -402,16 +506,17 @@ package com.macro.gUI.core
 					}
 					relocateEditBox(null);
 				}
-				
-				_editBox.addEventListener(Event.CHANGE, relocateEditBox, false, 0, true);
+
+				_editBox.addEventListener(Event.CHANGE, relocateEditBox, false,
+										  0, true);
 				_editBox.setSelection(0, _editBox.text.length);
 				_container.addChild(_editBox);
-				
+
 				focusEditBox();
 				_editControl.beginEdit();
 			}
 		}
-		
+
 		/**
 		 * 聚焦到编辑框
 		 *
@@ -423,8 +528,8 @@ package com.macro.gUI.core
 				_container.stage.focus = _editBox;
 			}
 		}
-		
-		
+
+
 		/**
 		 * 重新定位编辑框
 		 *
@@ -433,19 +538,19 @@ package com.macro.gUI.core
 		{
 			var ox:int;
 			var oy:int;
-			
+
 			if (_editControl is TextInput)
 			{
 				var textInput:TextInput = _editControl as TextInput;
 				var ts:TextStyle = textInput.style;
 				var padding:Margin = textInput.padding;
-				
+
 				var txtW:int = _editBox.textWidth + 4 + ts.leftMargin + ts.rightMargin + ts.indent + ts.blockIndent;
 				var txtH:int = _editBox.textHeight + 4;
-				
+
 				var w:int = padding ? textInput.width - padding.left - padding.right : textInput.width;
 				var h:int = padding ? textInput.height - padding.top - padding.bottom : textInput.height;
-				
+
 				if (txtW > w)
 				{
 					_editBox.autoSize = TextFieldAutoSize.NONE;
@@ -459,9 +564,9 @@ package com.macro.gUI.core
 				{
 					_editBox.autoSize = TextFieldAutoSize.LEFT;
 				}
-				
+
 				var p:Point = textInput.localToGlobal();
-				
+
 				ox = p.x + (padding ? padding.left : 0);
 				if ((textInput.align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 				{
@@ -471,7 +576,7 @@ package com.macro.gUI.core
 				{
 					ox += w - txtW;
 				}
-				
+
 				oy = p.y + (padding ? padding.top : 0);
 				if ((textInput.align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 				{
@@ -482,7 +587,7 @@ package com.macro.gUI.core
 					oy += h - txtH;
 				}
 			}
-			
+
 			_editBox.x = ox;
 			_editBox.y = oy;
 		}

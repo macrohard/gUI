@@ -9,8 +9,11 @@ package com.macro.gUI.core
 	 */
 	public class PopupManager extends Container
 	{
+		
+		private var _menu:IControl;
+		
 		/**
-		 * 
+		 * 弹出窗口管理器
 		 * @param width
 		 * @param height
 		 * 
@@ -18,6 +21,46 @@ package com.macro.gUI.core
 		public function PopupManager(width:int=100, height:int=100)
 		{
 			super(width, height);
+		}
+		
+		/**
+		 * 添加弹出窗口
+		 * @param window
+		 * @param modal 是否模态
+		 *
+		 */
+		public function addPopupWindow(window:IControl,
+									   modal:Boolean = true):void
+		{
+		}
+		
+		/**
+		 * 移除弹出菜单或窗口
+		 * @param popupItem
+		 *
+		 */
+		public function removePopupWindow(window:IControl):void
+		{
+		}
+		
+		/**
+		 * 添加弹出菜单
+		 * @param menu
+		 *
+		 */
+		public function addPopupMenu(menu:IControl):void
+		{
+			_menu = menu;
+			addChild(_menu);
+		}
+		
+		public function removePopupMenu():void
+		{
+			if (_menu != null)
+			{
+				removeChild(_menu);
+				_menu = null;
+			}
 		}
 	}
 }
