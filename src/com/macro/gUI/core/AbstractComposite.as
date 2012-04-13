@@ -200,9 +200,9 @@ package com.macro.gUI.core
 		}
 
 
-		public override function globalCoord():Point
+		public override function localToGlobal(point:Point = null):Point
 		{
-			return _container.globalCoord();
+			return _container.localToGlobal(point);
 		}
 
 

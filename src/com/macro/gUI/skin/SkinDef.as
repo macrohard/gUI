@@ -31,10 +31,6 @@ package com.macro.gUI.skin
 
 
 
-		public static const IMAGEBOX_BORDER:String = "imagebox.border";
-
-
-
 		public static const BUTTON_NORMAL:String = "button.normal";
 
 		public static const BUTTON_OVER:String = "button.over";

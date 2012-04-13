@@ -460,7 +460,7 @@ package com.macro.gUI.core
 					_editBox.autoSize = TextFieldAutoSize.LEFT;
 				}
 				
-				var p:Point = textInput.globalCoord();
+				var p:Point = textInput.localToGlobal();
 				
 				ox = p.x + (padding ? padding.left : 0);
 				if ((textInput.align & LayoutAlign.CENTER) == LayoutAlign.CENTER)

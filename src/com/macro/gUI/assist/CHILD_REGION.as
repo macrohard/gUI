@@ -49,7 +49,7 @@ package com.macro.gUI.assist
 			return null;
 		}
 
-		public function globalCoord():Point
+		public function localToGlobal(point:Point = null):Point
 		{
 			return null;
 		}
@@ -65,6 +65,21 @@ package com.macro.gUI.assist
 		}
 		
 		public function get scaleY():Number
+		{
+			return 0;
+		}
+		
+		public function get pivotX():Number
+		{
+			return 0;
+		}
+		
+		public function get pivotY():Number
+		{
+			return 0;
+		}
+		
+		public function get rotation():Number
 		{
 			return 0;
 		}

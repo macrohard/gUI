@@ -42,9 +42,9 @@ package com.macro.gUI.core
 		private var _main:Container;
 		
 		/**
-		 * 弹出窗口容器
+		 * 弹出窗口管理器
 		 */
-		private var _popup:Container;
+		private var _popup:PopupManager;
 		
 		/**
 		 * 最上层窗口容器，用于交互管理器绘制焦点框、拖拽替身图像等
@@ -64,7 +64,7 @@ package com.macro.gUI.core
 		{
 			_root = new Container(width, height);
 			_main = new Container(width, height);
-			_popup = new Container(width, height);
+			_popup = new PopupManager(width, height);
 			_top = new Container(width, height);
 			
 			if (renderMode == RenderMode.RENDER_MODE_MERGE)

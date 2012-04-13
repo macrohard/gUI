@@ -41,7 +41,7 @@ package com.macro.gUI.controls
 
 			_autoSize = autoSize;
 
-			_skin = skin ? skin : skinManager.getSkin(SkinDef.IMAGEBOX_BORDER);
+			_skin = skin;
 
 			setSource(source);
 		}
@@ -99,7 +99,7 @@ package com.macro.gUI.controls
 
 
 		/**
-		 * 皮肤
+		 * 边框皮肤
 		 * @return
 		 *
 		 */

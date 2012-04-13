@@ -62,7 +62,7 @@ package com.macro.gUI.renders.mergedRender
 		private function drawControl(control:IControl, viewRect:Rectangle):void
 		{
 			var controlRect:Rectangle = control.rect;
-			var p:Point = control.globalCoord();
+			var p:Point = control.localToGlobal();
 			controlRect.x = p.x;
 			controlRect.y = p.y;
 			

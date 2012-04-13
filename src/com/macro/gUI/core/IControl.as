@@ -41,11 +41,12 @@ package com.macro.gUI.core
 		function get parent():IContainer;
 
 		/**
-		 * 获取控件的全局坐标
-		 * @return
-		 *
+		 * 控件的本地坐标转换为全局坐标
+		 * @param point 基于控件本地坐标系的点
+		 * @return 
+		 * 
 		 */
-		function globalCoord():Point;
+		function localToGlobal(point:Point = null):Point;
 
 		/**
 		 * 测试坐标是否在控件范围内。如果返回的是null，则在控件范围外；
@@ -65,7 +66,7 @@ package com.macro.gUI.core
 		
 		
 		/**
-		 * 透明度。有效值为 0（完全透明）到 1（完全不透明），默认值为 1。
+		 * // TODO 透明度。有效值为 0（完全透明）到 1（完全不透明），默认值为 1。
 		 * 通过渲染过程实现，控件实现类不要处理它
 		 * @return
 		 *
@@ -73,7 +74,7 @@ package com.macro.gUI.core
 		function get alpha():Number;
 		
 		/**
-		 * 控件是否可见。
+		 * // TODO 控件是否可见。
 		 * 通过渲染过程实现，控件实现类不要处理它
 		 * @return
 		 *
@@ -81,7 +82,7 @@ package com.macro.gUI.core
 		function get visible():Boolean;
 		
 		/**
-		 * 水平缩放比，1.0是100%。
+		 * // TODO 水平缩放比，1.0是100%。
 		 * 通过渲染过程实现，控件实现类不要处理它
 		 * @return 
 		 * 
@@ -89,11 +90,32 @@ package com.macro.gUI.core
 		function get scaleX():Number;
 		
 		/**
-		 * 垂直缩放比，1.0是100%。
+		 * // TODO 垂直缩放比，1.0是100%。
 		 * 通过渲染过程实现，控件实现类不要处理它
 		 * @return 
 		 * 
 		 */
 		function get scaleY():Number;
+		
+		/**
+		 * // TODO 注册点横坐标
+		 * @return 
+		 * 
+		 */
+		function get pivotX():Number;
+		
+		/**
+		 * // TODO 注册点纵坐标
+		 * @return 
+		 * 
+		 */
+		function get pivotY():Number;
+		
+		/**
+		 * // TODO 以注册点为原点旋转，弧度单位
+		 * @param value
+		 * 
+		 */
+		function get rotation():Number;
 	}
 }

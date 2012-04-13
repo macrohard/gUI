@@ -264,6 +264,45 @@ package com.macro.gUI.core
 		}
 
 
+		private var _pivotX:Number;
+
+		public final function get pivotX():Number
+		{
+			return _pivotX;
+		}
+
+		public final function set pivotX(value:Number):void
+		{
+			_pivotX = value;
+		}
+
+
+		private var _pivotY:Number;
+
+		public final function get pivotY():Number
+		{
+			return _pivotY;
+		}
+
+		public final function set pivotY(value:Number):void
+		{
+			_pivotY = value;
+		}
+
+
+		private var _rotation:Number;
+
+		public final function get rotation():Number
+		{
+			return _rotation;
+		}
+
+		public final function set rotation(value:Number):void
+		{
+			_rotation = value;
+		}
+
+
 
 
 
@@ -287,17 +326,19 @@ package com.macro.gUI.core
 		}
 
 
-		public function globalCoord():Point
+		public function localToGlobal(point:Point = null):Point
 		{
-			var p:Point = _rect.topLeft;
-			var container:IContainer = this.parent;
-			while (container != null)
+			var p:Point;
+			if (point == null)
 			{
-				p.offset(container.rect.x + container.margin.left,
-						 container.rect.y + container.margin.top);
-				container = container.parent;
+				p = new Point();
 			}
-			return p;
+			else
+			{
+				p = point.clone();
+			}
+
+			return getTransformMatrix().transformPoint(p);
 		}
 
 
@@ -310,10 +351,26 @@ package com.macro.gUI.core
 		 */
 		public function globalToLocal(x:int, y:int):Point
 		{
-			var p:Point = globalCoord();
-			p.x = x - p.x;
-			p.y = y - p.y;
-			return p;
+			var m:Matrix = getTransformMatrix();
+			m.invert();
+			return m.transformPoint(new Point(x, y));
+		}
+		
+		
+		private function getTransformMatrix():Matrix
+		{
+			var m:Matrix = new Matrix();
+			m.translate(_rect.x, _rect.y);
+			// TODO 处理旋转、缩放
+			var container:IContainer = this.parent;
+			while (container != null)
+			{
+				m.translate(container.rect.x + container.margin.left,
+					container.rect.y + container.margin.top);
+				container = container.parent;
+			}
+			
+			return m;
 		}
 
 
