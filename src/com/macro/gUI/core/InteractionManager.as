@@ -12,7 +12,7 @@ package com.macro.gUI.core
 	import com.macro.gUI.core.feature.IEdit;
 	import com.macro.gUI.core.feature.IFocus;
 	import com.macro.gUI.core.feature.IKeyboard;
-	
+
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
@@ -47,15 +47,22 @@ package com.macro.gUI.core
 		 */
 		private var _root:IContainer;
 
-		/**
-		 * 最上层窗口容器
-		 */
-		private var _top:IContainer;
+
 
 		/**
 		 * 弹出窗口管理器
 		 */
 		private var _popupManager:PopupManager;
+
+		/**
+		 * 拖拽管理器
+		 */
+		private var _dragManager:DragManager;
+
+		/**
+		 * 焦点管理器
+		 */
+		private var _focusManager:FocusManager;
 
 
 
@@ -70,23 +77,6 @@ package com.macro.gUI.core
 		private var _mouseTarget:IControl;
 
 
-		
-		/**
-		 * 
-		 */
-		private var _dragManager:DragManager;
-		
-		/**
-		 * 
-		 */
-		private var _focusManager:FocusManager;
-		
-		/**
-		 * 
-		 */
-		private var _editManager:EditManager;
-
-
 
 		/**
 		 * 交互管理器
@@ -98,104 +88,73 @@ package com.macro.gUI.core
 		public function InteractionManager(uiManager:UIManager, container:DisplayObjectContainer)
 		{
 			_root = uiManager.root;
-			_top = uiManager.topContainer;
 			_popupManager = uiManager.popupManager;
 			_container = container;
-			
+
 			_dragManager = new DragManager();
-			_editManager = new EditManager(container);
-			_focusManager = new FocusManager(_editManager);
-			
+			_focusManager = new FocusManager(container, uiManager.topContainer);
 
 			container.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
 			container.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			container.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-			
-			container.addEventListener(KeyboardEvent.KEY_DOWN, _focusManager.keyDownHandler);
-			container.addEventListener(KeyboardEvent.KEY_UP, _focusManager.keyUpHandler);
 		}
 
 
 		protected function mouseDownHandler(e:MouseEvent):void
 		{
 			findTargetControl(_root);
-			
+
 			// 如果有弹出菜单时，就及时关闭之
 			_popupManager.removePopupMenu(_mouseControl);
 
 			// 处理焦点
-			if (_mouseControl is IFocus && _mouseControl.enabled)
-			{
-				_focusManager.setFocus(_mouseControl as IFocus);
-			}
-			else
-			{
-				_focusManager.setFocus(null);
-			}
+			_focusManager.focus(_mouseControl);
 
-			// 处理编辑框
-			if (_editManager._editControl != null)
+			if (_mouseControl == null || _mouseControl.enabled == false || _mouseTarget.enabled == false)
 			{
-				if (_editManager._editControl == _mouseControl)
-				{
-					_editManager.focusEditBox();
-					return;
-				}
-				else
-				{
-					_editManager.endEdit();
-				}
-			}
-			if (_mouseControl is IEdit)
-			{
-				_editManager._editControl = _mouseControl as IEdit;
-				_editManager.beginEdit();
 				return;
 			}
 
-			if (_mouseTarget != null && _mouseControl.enabled &&
-					_mouseTarget.enabled)
+			// 处理鼠标按下
+			if (_mouseControl is IButton)
 			{
-				// 处理鼠标按下
-				if (_mouseControl is IButton)
-				{
-					(_mouseControl as IButton).mouseDown(_mouseTarget);
-				}
+				(_mouseControl as IButton).mouseDown(_mouseTarget);
+			}
 
-				// 处理拖拽
-				if (_mouseControl is IDrag)
-				{
-					_dragManager.startDrag(_mouseControl as IDrag, _mouseTarget);
-				}
+			// 处理拖拽
+			if (_mouseControl is IDrag)
+			{
+				_dragManager.startDrag(_mouseControl as IDrag, _mouseTarget);
 			}
 		}
 
 		protected function mouseUpHandler(e:MouseEvent):void
 		{
-			if (_dragManager._dragControl == null)
-			{
-				// 处理鼠标松开
-				if (_mouseControl != null && _mouseControl.enabled &&
-						_mouseTarget.enabled)
-				{
-					if (_mouseControl is IButton)
-					{
-						(_mouseControl as IButton).mouseUp(_mouseTarget);
-					}
-				}
-			}
-			else
+			if (_dragManager.isDragging)
 			{
 				// 结束拖拽
 				findTargetControl(_root);
 
 				_dragManager.stopDrag(_mouseControl);
 			}
+			else
+			{
+				// 处理鼠标松开
+				if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
+				{
+					(_mouseControl as IButton).mouseUp(_mouseTarget);
+				}
+			}
 		}
 
 		protected function mouseMoveHandler(e:MouseEvent):void
 		{
-			if (_dragManager._dragControl == null)
+			if (_dragManager.isDragging)
+			{
+				// 正在拖拽
+				_dragManager.setDragCoord(_container.mouseX, _container.mouseY);
+			}
+			else
 			{
 				var tempC:IControl = _mouseControl;
 				var tempT:IControl = _mouseTarget;
@@ -215,26 +174,19 @@ package com.macro.gUI.core
 				}
 
 				// 处理鼠标进入
-				if (_mouseControl != null && _mouseControl.enabled &&
-						_mouseTarget.enabled)
+				if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
 				{
-					if (_mouseControl is IButton)
-					{
-						(_mouseControl as IButton).mouseOver(_mouseTarget);
+					(_mouseControl as IButton).mouseOver(_mouseTarget);
 
-						if (_mouseTarget is IButton)
-						{
-							Mouse.cursor = MouseCursor.BUTTON;
-						}
+					if (_mouseTarget is IButton)
+					{
+						Mouse.cursor = MouseCursor.BUTTON;
 					}
 				}
-
-			}
-			else
-			{
-				_dragManager.dragging(_container.mouseX, _container.mouseY);
 			}
 		}
+
+
 
 		/**
 		 * 遍历查找鼠标所在的控件
@@ -244,8 +196,7 @@ package com.macro.gUI.core
 		 */
 		protected function findTargetControl(control:IControl):Boolean
 		{
-			var target:IControl = control.hitTest(_container.mouseX,
-												  _container.mouseY);
+			var target:IControl = control.hitTest(_container.mouseX, _container.mouseY);
 			if (target != null)
 			{
 				if (control is IContainer && target is CHILD_REGION)
@@ -279,6 +230,6 @@ package com.macro.gUI.core
 			}
 
 		}
-		
+
 	}
 }
