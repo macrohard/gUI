@@ -34,13 +34,19 @@ package com.macro.gUI.renders.mergedRender
 		private var _root:IContainer;
 
 
-		public function MergeRenderEngine(container:DisplayObjectContainer, root:IContainer, width:int, height:int)
+		/**
+		 * 合并渲染器
+		 * @param root 根容器控件
+		 * @param displayObjectContainer 显示对象容器
+		 * 
+		 */
+		public function MergeRenderEngine(root:IContainer, displayObjectContainer:DisplayObjectContainer)
 		{
 			_root = root;
-			_canvas = new BitmapData(width, height, true, 0);
+			_canvas = new BitmapData(_root.rect.width, _root.rect.height, true, 0);
 			
-			container.addChild(new Bitmap(_canvas));
-			container.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			displayObjectContainer.addChild(new Bitmap(_canvas));
+			displayObjectContainer.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
 		

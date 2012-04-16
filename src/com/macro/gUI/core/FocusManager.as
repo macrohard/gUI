@@ -26,22 +26,20 @@ package com.macro.gUI.core
 	{
 
 		/**
-		 * 焦点控件
+		 * 显示对象容器
 		 */
-		protected var _focusControl:IFocus;
-
-		
-
-		/**
-		 * 显示容器
-		 */
-		private var _container:DisplayObjectContainer;
+		private var _displayObjectContainer:DisplayObjectContainer;
 		
 		/**
-		 * 最上层窗口容器
+		 * 最上层窗口容器控件
 		 */
 		private var _top:IContainer;
 		
+		
+		/**
+		 * 焦点控件
+		 */
+		protected var _focusControl:IFocus;
 		
 
 		/**
@@ -58,15 +56,17 @@ package com.macro.gUI.core
 
 		/**
 		 * 焦点管理器
-		 * @param container 显示容器，用于处理临时TextField
-		 *
+		 * @param top 最上层窗口容器控件，用于焦点框及拖拽替身图像
+		 * @param displayObjectContainer 显示对象容器，用于处理临时TextField
+		 * 
 		 */
-		public function FocusManager(container:DisplayObjectContainer, top:IContainer)
+		public function FocusManager(top:IContainer, displayObjectContainer:DisplayObjectContainer)
 		{
 			_top = top;
-			_container = container;
-			_container.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-			_container.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
+			
+			_displayObjectContainer = displayObjectContainer;
+			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 		}
 
 
@@ -258,7 +258,7 @@ package com.macro.gUI.core
 
 				_editBox.addEventListener(Event.CHANGE, relocateEditBox, false, 0, true);
 				_editBox.setSelection(0, _editBox.text.length);
-				_container.addChild(_editBox);
+				_displayObjectContainer.addChild(_editBox);
 
 				focusEditBox();
 				_editControl.beginEdit();
@@ -280,8 +280,8 @@ package com.macro.gUI.core
 					textInput.text = _editBox.text;
 				}
 
-				_container.stage.focus = null;
-				_container.removeChild(_editBox);
+				_displayObjectContainer.stage.focus = null;
+				_displayObjectContainer.removeChild(_editBox);
 				_editBox.removeEventListener(Event.CHANGE, relocateEditBox);
 				_editBox = null;
 				_editControl = null;
@@ -297,7 +297,7 @@ package com.macro.gUI.core
 		{
 			if (_editBox != null)
 			{
-				_container.stage.focus = _editBox;
+				_displayObjectContainer.stage.focus = _editBox;
 			}
 		}
 

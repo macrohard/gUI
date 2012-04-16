@@ -17,8 +17,21 @@ package com.macro.gUI.renders.layeredRender
 	 */
 	public class LayeredRenderEngine implements IRenderEngine
 	{
-		public function LayeredRenderEngine(container:DisplayObjectContainer, root:IContainer, width:int, height:int)
+		
+		private var _displayObjectContainer:DisplayObjectContainer;
+		
+		private var _root:IContainer;
+		
+		/**
+		 * 分层渲染器
+		 * @param root 根容器控件
+		 * @param displayObjectContainer 显示对象容器
+		 * 
+		 */
+		public function LayeredRenderEngine(root:IContainer, displayObjectContainer:DisplayObjectContainer)
 		{
+			_root = root;
+			_displayObjectContainer = displayObjectContainer;
 		}
 		
 		public function updateChildren(container:IContainer):void

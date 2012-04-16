@@ -1,6 +1,5 @@
 package com.macro.gUI
 {
-	import com.macro.gUI.core.UIManager;
 	import com.macro.gUI.skin.SkinManager;
 	import com.macro.logging.LogFilter;
 	import com.macro.logging.LogLevel;
@@ -8,6 +7,7 @@ package com.macro.gUI
 	import com.macro.logging.TraceAppender;
 
 	import flash.display.DisplayObjectContainer;
+	import com.macro.gUI.core.UIManager;
 
 
 	/**

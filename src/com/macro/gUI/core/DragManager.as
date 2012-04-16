@@ -38,7 +38,7 @@ package com.macro.gUI.core
 		private var _dragMode:int;
 
 		/**
-		 * 拖拽替身
+		 * 拖拽替身图像
 		 */
 		private var _dragAvatar:BitmapData;
 

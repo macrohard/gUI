@@ -21,46 +21,62 @@ package com.macro.gUI.core
 	{
 
 		/**
-		 * 渲染器
+		 * 皮肤管理器
 		 */
-		private var _render:IRenderEngine;
+		public var skinManager:SkinManager;
 
+		
 		/**
 		 * 交互管理器
 		 */
-		private var _interactionManager:InteractionManager;
+		internal var interactionManager:InteractionManager;
+		
+		/**
+		 * 弹出窗口管理器
+		 * 
+		 */
+		internal var popupManager:PopupManager;
 
+		
+		
+		/**
+		 * 渲染器
+		 */
+		private var _render:IRenderEngine;
+		
 
 
 		/**
 		 * 界面管理器
 		 * @param renderMode 渲染模式
-		 * @param container 显示容器
+		 * @param container 显示对象容器
 		 * @param width 宽度
 		 * @param height 高度
 		 * 
 		 */
-		public function UIManager(renderMode:int, container:DisplayObjectContainer, width:int, height:int)
+		public function UIManager(renderMode:int, displayObjectContainer:DisplayObjectContainer, width:int, height:int)
 		{
 			_root = new Container(width, height);
 			_main = new Container(width, height);
-			_popup = new PopupManager(width, height);
+			_popup = new Container(width, height);
 			_top = new Container(width, height);
 			
 			if (renderMode == RenderMode.RENDER_MODE_MERGE)
 			{
-				_render = new MergeRenderEngine(container, _root, width, height);
+				_render = new MergeRenderEngine(_root, displayObjectContainer);
 			}
 			else if (renderMode == RenderMode.RENDER_MODE_LAYER)
 			{
-				_render = new LayeredRenderEngine(container, _root, width, height);
+				_render = new LayeredRenderEngine(_root, displayObjectContainer);
 			}
 			else
 			{
 				throw new Error("Unsupport Render Mode!");
 			}
-			_skinManager = new SkinManager();
-			_interactionManager = new InteractionManager(this, container);
+			
+			skinManager = new SkinManager();
+			interactionManager = new InteractionManager(this, displayObjectContainer);
+			popupManager = new PopupManager(_popup);
 			
 			AbstractControl.init(this);
 			
@@ -71,20 +87,6 @@ package com.macro.gUI.core
 		}
 
 
-		private var _skinManager:SkinManager;
-
-		/**
-		 * 皮肤管理器
-		 * @return
-		 *
-		 */
-		public function get skinManager():SkinManager
-		{
-			return _skinManager;
-		}
-		
-		
-		
 		private var _root:IContainer;
 		
 		/**
@@ -108,12 +110,12 @@ package com.macro.gUI.core
 		}
 
 
-		private var _popup:PopupManager;
+		private var _popup:IContainer;
 		
 		/**
-		 * 弹出窗口管理器
+		 * 弹出窗口容器
 		 */
-		internal function get popupManager():PopupManager
+		internal function get popupContainer():IContainer
 		{
 			return _popup;
 		}
@@ -138,9 +140,9 @@ package com.macro.gUI.core
 		 *
 		 */
 		public function addPopupWindow(window:IContainer,
-									   modal:Boolean = true):void
+									   modal:Boolean = false):void
 		{
-			_popup.addPopupWindow(window, modal);
+			popupManager.addPopupWindow(window, modal);
 		}
 		
 		/**
@@ -150,7 +152,7 @@ package com.macro.gUI.core
 		 */
 		public function removePopupWindow(window:IControl):void
 		{
-			_popup.removePopupWindow(window);
+			popupManager.removePopupWindow(window);
 		}
 	}
 }

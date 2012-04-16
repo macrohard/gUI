@@ -5,11 +5,10 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IEdit;
-	import com.macro.gUI.core.feature.IFocus;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.utils.Dictionary;
@@ -20,7 +19,7 @@ package com.macro.gUI.controls
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class TextInput extends Label implements IEdit, IFocus
+	public class TextInput extends Label implements IEdit
 	{
 
 		protected var _skins:Dictionary;

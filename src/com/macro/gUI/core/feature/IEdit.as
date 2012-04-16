@@ -7,7 +7,7 @@ package com.macro.gUI.core.feature
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public interface IEdit
+	public interface IEdit extends IFocus
 	{
 
 		/**

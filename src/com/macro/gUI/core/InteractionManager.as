@@ -38,12 +38,12 @@ package com.macro.gUI.core
 	{
 
 		/**
-		 * 显示容器
+		 * 显示对象容器
 		 */
-		private var _container:DisplayObjectContainer;
+		private var _displayObjectContainer:DisplayObjectContainer;
 
 		/**
-		 * 根容器
+		 * 根容器控件
 		 */
 		private var _root:IContainer;
 
@@ -85,18 +85,18 @@ package com.macro.gUI.core
 		 * @param container
 		 *
 		 */
-		public function InteractionManager(uiManager:UIManager, container:DisplayObjectContainer)
+		public function InteractionManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
 		{
 			_root = uiManager.root;
+			_displayObjectContainer = displayObjectContainer;
+
 			_popupManager = uiManager.popupManager;
-			_container = container;
-
 			_dragManager = new DragManager();
-			_focusManager = new FocusManager(container, uiManager.topContainer);
+			_focusManager = new FocusManager(uiManager.topContainer, displayObjectContainer);
 
-			container.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
-			container.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-			container.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+			displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+			displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+			displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 		}
 
 
@@ -152,7 +152,7 @@ package com.macro.gUI.core
 			if (_dragManager.isDragging)
 			{
 				// 正在拖拽
-				_dragManager.setDragCoord(_container.mouseX, _container.mouseY);
+				_dragManager.setDragCoord(_displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 			}
 			else
 			{
@@ -196,7 +196,7 @@ package com.macro.gUI.core
 		 */
 		protected function findTargetControl(control:IControl):Boolean
 		{
-			var target:IControl = control.hitTest(_container.mouseX, _container.mouseY);
+			var target:IControl = control.hitTest(_displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 			if (target != null)
 			{
 				if (control is IContainer && target is CHILD_REGION)

@@ -4,12 +4,14 @@ package com.macro.gUI.core
 
 
 	/**
-	 * 弹出窗口管理器，是一个特殊容器，它继承自Container。
+	 * 弹出窗口管理器
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class PopupManager extends Container
+	public class PopupManager
 	{
+		private var _popupContainer:IContainer;
+		
 
 		private var _menu:IControl;
 		
@@ -20,13 +22,12 @@ package com.macro.gUI.core
 
 		/**
 		 * 弹出窗口管理器
-		 * @param width
-		 * @param height
+		 * @param popupContainer 弹出窗口容器
 		 *
 		 */
-		public function PopupManager(width:int = 100, height:int = 100)
+		public function PopupManager(popupContainer:IContainer)
 		{
-			super(width, height);
+			_popupContainer = popupContainer;
 		}
 
 		/**
@@ -77,14 +78,14 @@ package com.macro.gUI.core
 		public function addPopupMenu(menu:IControl):void
 		{
 			_menu = menu;
-			addChild(_menu);
+			_popupContainer.addChild(_menu);
 		}
 
 		public function removePopupMenu(menu:IControl):void
 		{
 			if (_menu != null && _menu == menu)
 			{
-				removeChild(_menu);
+				_popupContainer.removeChild(_menu);
 				_menu = null;
 			}
 		}
