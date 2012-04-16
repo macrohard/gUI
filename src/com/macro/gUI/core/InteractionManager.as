@@ -102,7 +102,7 @@ package com.macro.gUI.core
 
 		protected function mouseDownHandler(e:MouseEvent):void
 		{
-			findTargetControl(_root);
+			findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 			// 如果有弹出菜单时，就及时关闭之
 			_popupManager.removePopupMenu(_mouseControl);
@@ -133,7 +133,7 @@ package com.macro.gUI.core
 			if (_dragManager.isDragging)
 			{
 				// 结束拖拽
-				findTargetControl(_root);
+				findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 				_dragManager.stopDrag(_mouseControl);
 			}
@@ -158,7 +158,7 @@ package com.macro.gUI.core
 			{
 				var tempC:IControl = _mouseControl;
 				var tempT:IControl = _mouseTarget;
-				findTargetControl(_root);
+				findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 				// 在同一个控件范围内移动时不作处理
 				if (tempT == _mouseTarget)
@@ -194,9 +194,9 @@ package com.macro.gUI.core
 		 * @return
 		 *
 		 */
-		protected function findTargetControl(control:IControl):Boolean
+		protected function findTargetControl(control:IControl, mouseX:int, mouseY:int):Boolean
 		{
-			var target:IControl = control.hitTest(_displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			var target:IControl = control.hitTest(mouseX, mouseY);
 			if (target != null)
 			{
 				if (control is IContainer && target is CHILD_REGION)
@@ -204,7 +204,7 @@ package com.macro.gUI.core
 					var container:IContainer = control as IContainer;
 					for (var i:int = container.numChildren - 1; i >= 0; i--)
 					{
-						if (findTargetControl(container.children[i]))
+						if (findTargetControl(container.children[i], mouseX, mouseY))
 						{
 							return true;
 						}
