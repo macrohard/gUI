@@ -105,7 +105,7 @@ package com.macro.gUI.core
 			findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 			// 如果有弹出菜单时，就及时关闭之
-			if (_popupManager.menu != null && _popupManager.menu != _mouseControl)
+			if (_popupManager.popupMenu != null && _popupManager.popupMenu != _mouseControl)
 			{
 				_popupManager.removePopupMenu();
 			}

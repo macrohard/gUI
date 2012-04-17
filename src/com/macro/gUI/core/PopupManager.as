@@ -23,7 +23,7 @@ package com.macro.gUI.core
 		/**
 		 * 弹出菜单，如ComboBox控件的下拉列表
 		 */
-		internal var menu:IControl;
+		internal var popupMenu:IControl;
 
 		/**
 		 * 当前模态窗口
@@ -77,6 +77,7 @@ package com.macro.gUI.core
 					var layer:int = getPopupWindowLayer(true);
 					_popupContainer.addChildAt(window, layer);
 					_popupContainer.addChildAt(_modalBg, layer);
+					_modalWindow = window;
 				}
 				else
 				{
@@ -104,11 +105,13 @@ package com.macro.gUI.core
 				if (_modals.length > 0)
 				{
 					window = _modals.shift();
-					_popupContainer.addChild(window, getPopupWindowLayer(true));
+					_popupContainer.addChildAt(window, getPopupWindowLayer(true));
+					_modalWindow = window;
 				}
 				else // 模态窗口队列中没有元素了，则移除模态窗口背景控件
 				{
 					_popupContainer.removeChild(_modalBg);
+					_modalWindow = null;
 				}
 			}
 		}
@@ -155,7 +158,7 @@ package com.macro.gUI.core
 			// 移除旧菜单
 			removePopupMenu();
 
-			this.menu = menu;
+			popupMenu = menu;
 			_popupContainer.addChild(menu);
 		}
 
@@ -166,10 +169,10 @@ package com.macro.gUI.core
 		 */
 		public function removePopupMenu():void
 		{
-			if (menu != null)
+			if (popupMenu != null)
 			{
-				_popupContainer.removeChild(menu);
-				menu = null;
+				_popupContainer.removeChild(popupMenu);
+				popupMenu = null;
 			}
 		}
 
@@ -190,9 +193,9 @@ package com.macro.gUI.core
 			}
 
 			// 如果当前有弹出菜单，则返回弹出菜单所在的层级
-			if (menu != null)
+			if (popupMenu != null)
 			{
-				return _popupContainer.getChildIndex(menu);
+				return _popupContainer.getChildIndex(popupMenu);
 			}
 
 			// 返回最高层级
