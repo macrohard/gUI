@@ -7,10 +7,9 @@ package com.macro.gUI.core
 	import com.macro.gUI.core.feature.IEdit;
 	import com.macro.gUI.core.feature.IFocus;
 	import com.macro.gUI.core.feature.IKeyboard;
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
-	import flash.events.FocusEvent;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
@@ -125,9 +124,6 @@ package com.macro.gUI.core
 			if (_focusControl is IKeyboard)
 			{
 				(_focusControl as IKeyboard).keyDown(e);
-				// 派发对应的键盘事件
-				_focusControl.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, false, e.charCode, e.keyCode, e.keyLocation,
-															  e.ctrlKey, e.altKey, e.shiftKey));
 			}
 
 			if (_focusControl != null)
@@ -192,9 +188,6 @@ package com.macro.gUI.core
 			if (_focusControl is IKeyboard)
 			{
 				(_focusControl as IKeyboard).keyUp(e);
-				// 派发对应的键盘事件
-				_focusControl.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, false, e.charCode, e.keyCode, e.keyLocation,
-															  e.ctrlKey, e.altKey, e.shiftKey));
 			}
 		}
 
@@ -220,12 +213,6 @@ package com.macro.gUI.core
 		 */
 		private function setFocus(control:IFocus):void
 		{
-			if (_focusControl != null)
-			{
-				// 派发对应的焦点事件
-				_focusControl.dispatchEvent(new FocusEvent(FocusEvent.FOCUS_OUT, false, false));
-			}
-
 			_focusControl = control;
 
 			if (_focusControl == null)
@@ -237,9 +224,6 @@ package com.macro.gUI.core
 			{
 				// TODO 绘制焦点框，注意添加焦点框皮肤
 				
-				
-				// 派发对应的焦点事件
-				_focusControl.dispatchEvent(new FocusEvent(FocusEvent.FOCUS_IN, false, false));
 			}
 		}
 

@@ -386,10 +386,6 @@ package com.macro.gUI.core
 
 		/**
 		 * 添加侦听器。弱引用参数默认值为true，因为使用类成员作为侦听器的使用环境更为常见。<br/>
-		 * gUI只支持较少的事件，在大部分游戏里它们应该够用了：<br/>
-		 * MOUSE_OVER, MOUSE_DOWN, MOUSE_UP， MOUSE_OUT<br/>
-		 * KEY_DOWN, KEY_UP<br/>
-		 * FOCUS_IN, FOCUS_OUT<br/><br/>
 		 * <b>注意，gUI的事件不支持冒泡</b>
 		 *
 		 */

@@ -2,27 +2,11 @@ package com.macro.gUI.core
 {
 
 	import com.macro.gUI.assist.CHILD_REGION;
-	import com.macro.gUI.assist.DragMode;
-	import com.macro.gUI.assist.LayoutAlign;
-	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.assist.TextStyle;
-	import com.macro.gUI.controls.TextInput;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-	import com.macro.gUI.core.feature.IEdit;
-	import com.macro.gUI.core.feature.IFocus;
-	import com.macro.gUI.core.feature.IKeyboard;
-
-	import flash.display.BitmapData;
+	
 	import flash.display.DisplayObjectContainer;
-	import flash.events.Event;
-	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import flash.geom.Point;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFieldType;
-	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
 
@@ -118,8 +102,6 @@ package com.macro.gUI.core
 			if (_mouseControl is IButton)
 			{
 				(_mouseControl as IButton).mouseDown(_mouseTarget);
-				// 派发对应的鼠标事件
-				_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN, false, false));
 			}
 
 			// 处理拖拽
@@ -145,8 +127,6 @@ package com.macro.gUI.core
 						_mouseTarget.enabled)
 				{
 					(_mouseControl as IButton).mouseUp(_mouseTarget);
-					// 派发对应的鼠标事件
-					_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, false, false));
 				}
 			}
 		}
@@ -175,8 +155,6 @@ package com.macro.gUI.core
 				{
 					(tempC as IButton).mouseOut(tempT);
 					Mouse.cursor = MouseCursor.AUTO;
-					// 派发对应的鼠标事件
-					tempC.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OUT, false, false));
 				}
 
 				// 处理鼠标进入
@@ -184,8 +162,6 @@ package com.macro.gUI.core
 						_mouseTarget.enabled)
 				{
 					(_mouseControl as IButton).mouseOver(_mouseTarget);
-					// 派发对应的鼠标事件
-					_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OVER, false, false));
 
 					if (_mouseTarget is IButton)
 					{
