@@ -20,6 +20,20 @@ package com.macro.gUI.skin
 		public static const CELL_SELECTED_BG:String = "cell.selected.background";
 
 		public static const LIST_BG:String = "list.background";
+		
+		
+		
+		public static const COMBO_INPUT_NORMAL:String = "combo.input.normal";
+		
+		public static const COMBO_INPUT_DISABLE:String = "combo.input.disable";
+		
+		public static const COMBO_BUTTON_NORMAL:String = "combo.button.normal";
+		
+		public static const COMBO_BUTTON_OVER:String = "combo.button.over";
+		
+		public static const COMBO_BUTTON_DOWN:String = "combo.button.down";
+		
+		public static const COMBO_BUTTON_DISABLE:String = "combo.button.disable";
 
 
 

@@ -46,7 +46,7 @@ package com.macro.gUI.controls
 			{
 				_styles = new Dictionary();
 				_styles[CtrlState.NORMAL] = skinManager.getStyle(StyleDef.TEXTINPUT);
-				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.DISABLE);
+				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.TEXTINPUT_DISABLE);
 			}
 
 			//背景皮肤

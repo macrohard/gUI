@@ -11,13 +11,17 @@ package com.macro.gUI.skin
 	{
 		public static const NORMAL:String = "normal";
 
-		public static const DISABLE:String = "disable";
-
 		public static const TEXTINPUT:String = "textinput";
+		
+		public static const TEXTINPUT_DISABLE:String = "textinput.disable";
 
 		public static const TEXTAREA:String = "textarea";
 
 		public static const CELL:String = "cell";
+		
+		public static const COMBO_INPUT:String = "combo.input";
+		
+		public static const COMBO_INPUT_DISABLE:String = "combo.input.disable";
 
 		public static const WINDOW_TITLE:String = "window.title";
 

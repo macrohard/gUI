@@ -72,6 +72,7 @@
     <classEntry path="com.macro.gUI.core.PopupManager"/>
     <classEntry path="com.macro.gUI.core.DragManager"/>
     <classEntry path="com.macro.gUI.core.FocusManager"/>
+    <classEntry path="com.macro.gUI.composite.ComboBox"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
