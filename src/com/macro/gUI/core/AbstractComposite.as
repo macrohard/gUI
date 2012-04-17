@@ -126,8 +126,7 @@ package com.macro.gUI.core
 
 		public override function set x(value:int):void
 		{
-			_container.x = value;
-			_rect.x = value;
+			_rect.x = _container.x = value;
 		}
 
 
@@ -143,8 +142,7 @@ package com.macro.gUI.core
 
 		public override function set y(value:int):void
 		{
-			_container.y = value;
-			_rect.y = value;
+			_rect.y = _container.y = value;
 		}
 
 

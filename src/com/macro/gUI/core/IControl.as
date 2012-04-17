@@ -20,7 +20,7 @@ package com.macro.gUI.core
 		function get bitmapData():BitmapData;
 
 		/**
-		 * 控件坐标及大小
+		 * 控件区域，注意，不可使用此接口设置控件的坐标及尺寸
 		 * @return
 		 *
 		 */

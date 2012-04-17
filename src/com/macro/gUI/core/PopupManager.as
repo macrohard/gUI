@@ -1,24 +1,45 @@
 package com.macro.gUI.core
 {
-	import com.macro.gUI.containers.Container;
+	import com.macro.gUI.controls.Canvas;
 
 
 	/**
-	 * 弹出窗口管理器
+	 * 弹出窗口管理器<br/>
+	 * 窗口层级按从底到顶：普通弹出窗口 -> 模态弹出窗口 -> 弹出菜单<br/>
+	 * 非模态窗口允许同时弹出多个容器，模态窗口一次只允许弹出一个，
+	 * 如果有多个模态窗口，将会被队列。
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class PopupManager
 	{
-		private var _popupContainer:IContainer;
-		
 
-		private var _menu:IControl;
-		
+		/**
+		 * 弹出窗口容器
+		 */
+		private var _popupContainer:IContainer;
+
+
+		/**
+		 * 弹出菜单，如ComboBox控件的下拉列表
+		 */
+		internal var menu:IControl;
+
+		/**
+		 * 当前模态窗口
+		 */
 		private var _modalWindow:IControl;
-		
+
+		/**
+		 * 模态窗口队列
+		 */
 		private var _modals:Vector.<IControl>;
-		
+
+		/**
+		 * 模态窗口半透明背景
+		 */
+		private var _modalBg:Canvas;
+
 
 		/**
 		 * 弹出窗口管理器
@@ -28,17 +49,44 @@ package com.macro.gUI.core
 		public function PopupManager(popupContainer:IContainer)
 		{
 			_popupContainer = popupContainer;
+			_modals = new Vector.<IControl>();
+			_modalBg = new Canvas(popupContainer.rect.width,
+								  popupContainer.rect.height);
+			_modalBg.backgroundColor = 0x33000000;
 		}
 
 		/**
 		 * 添加弹出窗口
 		 * @param window
-		 * @param modal 是否模态
+		 * @param isModal 是否模态
+		 * @param isCenter 是否居中显示
 		 *
 		 */
-		public function addPopupWindow(window:IControl,
-									   modal:Boolean = true):void
+		public function addPopupWindow(window:IControl, isModal:Boolean = false,
+									   isCenter:Boolean = false):void
 		{
+			if (isCenter)
+			{
+				centerPopup(window);
+			}
+
+			if (isModal)
+			{
+				if (_modalWindow == null)
+				{
+					var layer:int = getPopupWindowLayer(true);
+					_popupContainer.addChildAt(window, layer);
+					_popupContainer.addChildAt(_modalBg, layer);
+				}
+				else
+				{
+					_modals.push(window);
+				}
+			}
+			else
+			{
+				_popupContainer.addChildAt(window, getPopupWindowLayer(false));
+			}
 		}
 
 		/**
@@ -48,46 +96,107 @@ package com.macro.gUI.core
 		 */
 		public function removePopupWindow(window:IControl):void
 		{
-		}
-		
-		/**
-		 * 将弹出窗口移到其它弹出窗口之前
-		 * @param window
-		 * 
-		 */
-		public function bringToFront(window:IControl):void
-		{
+			_popupContainer.removeChild(window);
 			
-		}
-		
-		/**
-		 * 居中显示弹出窗口
-		 * @param window
-		 * 
-		 */
-		public function centerPopup(window:IControl):void
-		{
-			
+			if (_modalWindow == window)
+			{
+				// 模态窗口队列中还有元素时，立即弹出新的模态窗口
+				if (_modals.length > 0)
+				{
+					window = _modals.shift();
+					_popupContainer.addChild(window, getPopupWindowLayer(true));
+				}
+				else // 模态窗口队列中没有元素了，则移除模态窗口背景控件
+				{
+					_popupContainer.removeChild(_modalBg);
+				}
+			}
 		}
 
 		/**
-		 * 添加弹出菜单
+		 * 将弹出窗口移到其它弹出窗口之前
+		 * @param window 普通弹出窗口
+		 *
+		 */
+		public function bringToFront(window:IControl):void
+		{
+			// 如果调整层级的窗口是模态窗口，则不处理
+			if (_modalWindow != null && window == _modalWindow)
+			{
+				return;
+			}
+			
+			_popupContainer.removeChild(window);
+			_popupContainer.addChildAt(window, getPopupWindowLayer(false));
+		}
+
+		/**
+		 * 居中显示弹出窗口
+		 * @param window
+		 *
+		 */
+		public function centerPopup(window:IControl):void
+		{
+			if (window is AbstractControl)
+			{
+				var c:AbstractControl = window as AbstractControl;
+				c.x = _modalBg.width - c.width >> 1;
+				c.y = _modalBg.height - c.height >> 1;
+			}
+		}
+
+		/**
+		 * 添加弹出菜单。一次只允许弹出一个菜单，旧菜单将被自动关闭
 		 * @param menu
 		 *
 		 */
 		public function addPopupMenu(menu:IControl):void
 		{
-			_menu = menu;
-			_popupContainer.addChild(_menu);
+			// 移除旧菜单
+			removePopupMenu();
+
+			this.menu = menu;
+			_popupContainer.addChild(menu);
 		}
 
-		public function removePopupMenu(menu:IControl):void
+		/**
+		 * 移除弹出菜单
+		 * @param menu
+		 *
+		 */
+		public function removePopupMenu():void
 		{
-			if (_menu != null && _menu == menu)
+			if (menu != null)
 			{
-				_popupContainer.removeChild(_menu);
-				_menu = null;
+				_popupContainer.removeChild(menu);
+				menu = null;
 			}
+		}
+
+
+
+		/**
+		 * 取得弹出窗口的层级
+		 * @param isModal 是否模态窗口
+		 * @return
+		 *
+		 */
+		private function getPopupWindowLayer(isModal:Boolean):int
+		{
+			// 如果不是模态窗口，且当前已有模态窗口，则返回模态窗口背景控件所在的层级
+			if (!isModal && _modalWindow != null)
+			{
+				return _popupContainer.getChildIndex(_modalBg);
+			}
+
+			// 如果当前有弹出菜单，则返回弹出菜单所在的层级
+			if (menu != null)
+			{
+				return _popupContainer.getChildIndex(menu);
+			}
+
+			// 返回最高层级
+			return _popupContainer.numChildren;
 		}
 	}
 }
