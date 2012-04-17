@@ -220,24 +220,26 @@ package com.macro.gUI.core
 		 */
 		private function setFocus(control:IFocus):void
 		{
-			var old:IFocus = _focusControl;
-			if (old != null)
+			if (_focusControl != null)
 			{
 				// 派发对应的焦点事件
-				old.dispatchEvent(new FocusEvent(FocusEvent.FOCUS_OUT, false, false));
+				_focusControl.dispatchEvent(new FocusEvent(FocusEvent.FOCUS_OUT, false, false));
 			}
 
 			_focusControl = control;
-			// 派发对应的焦点事件
-			_focusControl.dispatchEvent(new FocusEvent(FocusEvent.FOCUS_IN, false, false, old));
 
 			if (_focusControl == null)
 			{
 				// TODO 清除焦点框
+				
 			}
 			else
 			{
 				// TODO 绘制焦点框，注意添加焦点框皮肤
+				
+				
+				// 派发对应的焦点事件
+				_focusControl.dispatchEvent(new FocusEvent(FocusEvent.FOCUS_IN, false, false));
 			}
 		}
 

@@ -119,8 +119,7 @@ package com.macro.gUI.core
 			{
 				(_mouseControl as IButton).mouseDown(_mouseTarget);
 				// 派发对应的鼠标事件
-				var p:Point = _mouseControl.globalToLocal(e.localX, e.localY);
-				_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN, false, false, p.x, p.y));
+				_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN, false, false));
 			}
 
 			// 处理拖拽
@@ -147,8 +146,7 @@ package com.macro.gUI.core
 				{
 					(_mouseControl as IButton).mouseUp(_mouseTarget);
 					// 派发对应的鼠标事件
-					var p:Point = _mouseControl.globalToLocal(e.localX, e.localY);
-					_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, false, false, p.x, p.y));
+					_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, false, false));
 				}
 			}
 		}
@@ -178,8 +176,7 @@ package com.macro.gUI.core
 					(tempC as IButton).mouseOut(tempT);
 					Mouse.cursor = MouseCursor.AUTO;
 					// 派发对应的鼠标事件
-					var p:Point = tempC.globalToLocal(e.localX, e.localY);
-					tempC.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OUT, false, false, p.x, p.y));
+					tempC.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OUT, false, false));
 				}
 
 				// 处理鼠标进入
@@ -188,8 +185,7 @@ package com.macro.gUI.core
 				{
 					(_mouseControl as IButton).mouseOver(_mouseTarget);
 					// 派发对应的鼠标事件
-					var p:Point = _mouseControl.globalToLocal(e.localX, e.localY);
-					_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OVER, false, false, p.x, p.y, tempC));
+					_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OVER, false, false));
 
 					if (_mouseTarget is IButton)
 					{

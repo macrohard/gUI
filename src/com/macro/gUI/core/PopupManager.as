@@ -90,7 +90,7 @@ package com.macro.gUI.core
 
 		/**
 		 * 移除弹出菜单或窗口
-		 * @param popupItem
+		 * @param window
 		 *
 		 */
 		public function removePopupWindow(window:IControl):void

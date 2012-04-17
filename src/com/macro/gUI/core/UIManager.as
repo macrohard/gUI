@@ -6,7 +6,7 @@ package com.macro.gUI.core
 	import com.macro.gUI.renders.layeredRender.LayeredRenderEngine;
 	import com.macro.gUI.renders.mergedRender.MergeRenderEngine;
 	import com.macro.gUI.skin.SkinManager;
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Stage;
 
@@ -137,12 +137,13 @@ package com.macro.gUI.core
 		/**
 		 * 添加弹出窗口
 		 * @param window
-		 * @param modal 是否模态
-		 *
+		 * @param isModal 是否模态
+		 * @param isCenter 是否居中显示
+		 * 
 		 */
-		public function addPopupWindow(window:IContainer, modal:Boolean = false):void
+		public function addPopupWindow(window:IContainer, isModal:Boolean = false, isCenter:Boolean = false):void
 		{
-			popupManager.addPopupWindow(window, modal);
+			popupManager.addPopupWindow(window, isModal, isCenter);
 		}
 
 		/**

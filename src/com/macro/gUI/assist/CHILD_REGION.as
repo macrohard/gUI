@@ -2,7 +2,7 @@ package com.macro.gUI.assist
 {
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
@@ -51,6 +51,11 @@ package com.macro.gUI.assist
 		}
 
 		public function localToGlobal(point:Point = null):Point
+		{
+			return null;
+		}
+		
+		public function globalToLocal(x:int, y:int):Point
 		{
 			return null;
 		}
