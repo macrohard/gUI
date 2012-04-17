@@ -2,10 +2,10 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-	
+
 	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.Margin;
-	
+
 	import flash.geom.Point;
 
 
@@ -172,8 +172,7 @@ package com.macro.gUI.core
 			return child;
 		}
 
-		public function removeChildren(beginIndex:int = 0,
-									   endIndex:int = -1):void
+		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
 		{
 			if (endIndex == -1)
 			{

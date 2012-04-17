@@ -90,8 +90,7 @@ package com.macro.gUI.containers
 		 * @param height
 		 *
 		 */
-		public function TabPanel(tabLayout:int = 0, tabGap:int = -1,
-								 width:int = 300, height:int = 200)
+		public function TabPanel(tabLayout:int = 0, tabGap:int = -1, width:int = 300, height:int = 200)
 		{
 			super(width, height);
 
@@ -111,8 +110,7 @@ package com.macro.gUI.containers
 
 			_tabStyle = skinManager.getStyle(StyleDef.TAPPANEL_TITLE);
 
-			_bg = new Slice(skinManager.getSkin(SkinDef.TABPANEL_BG), width,
-												height);
+			_bg = new Slice(skinManager.getSkin(SkinDef.TABPANEL_BG), width, height);
 			setMargin();
 
 			_container = new Container(width, height);
@@ -327,18 +325,12 @@ package com.macro.gUI.containers
 		 */
 		private function flipVerticalSkin(source:ISkin):ISkin
 		{
-			var bmpd:BitmapData = new BitmapData(source.bitmapData.width,
-												 source.bitmapData.height, true,
-												 0);
-			bmpd.draw(source.bitmapData,
-					  new Matrix(1, 0, 0, -1, 0, bmpd.height), null, null, null,
-					  true);
+			var bmpd:BitmapData = new BitmapData(source.bitmapData.width, source.bitmapData.height, true, 0);
+			bmpd.draw(source.bitmapData, new Matrix(1, 0, 0, -1, 0, bmpd.height), null, null, null, true);
 
 			return new BitmapSkin(bmpd,
-								  new Rectangle(source.gridLeft, source.gridTop,
-												source.gridRight - source.gridLeft,
-												source.gridBottom - source.gridTop),
-								  source.align);
+								  new Rectangle(source.gridLeft, source.gridTop, source.gridRight - source.gridLeft,
+												source.gridBottom - source.gridTop), source.align);
 		}
 
 
@@ -348,8 +340,7 @@ package com.macro.gUI.containers
 		 */
 		private function setMargin():void
 		{
-			_margin = new Margin(_bg.skin.gridLeft, _bg.skin.gridTop,
-								 _bg.skin.paddingRight, _bg.skin.paddingBottom);
+			_margin = new Margin(_bg.skin.gridLeft, _bg.skin.gridTop, _bg.skin.paddingRight, _bg.skin.paddingBottom);
 			if (_tabs.length > 0)
 			{
 				var tab:Cell = _tabs[0];
@@ -373,8 +364,7 @@ package com.macro.gUI.containers
 		 * @return
 		 *
 		 */
-		public function addTab(title:String,
-							   index:int = int.MAX_VALUE):Container
+		public function addTab(title:String, index:int = int.MAX_VALUE):Container
 		{
 			var tab:Cell = new Cell(title, _tabSkin, true);
 			tab.style = _tabStyle;
@@ -564,8 +554,7 @@ package com.macro.gUI.containers
 
 			_currentContainer.x = _margin.left;
 			_currentContainer.y = _margin.top;
-			_currentContainer.resize(_rect.width - _margin.left - _margin.right,
-									 _rect.height - _margin.top - _margin.bottom);
+			_currentContainer.resize(_rect.width - _margin.left - _margin.right, _rect.height - _margin.top - _margin.bottom);
 		}
 
 
@@ -649,8 +638,7 @@ package com.macro.gUI.containers
 			return null;
 		}
 
-		public function removeChildren(beginIndex:int = 0,
-									   endIndex:int = -1):void
+		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
 		{
 			if (_currentContainer != null)
 			{

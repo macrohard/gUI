@@ -42,8 +42,7 @@ package com.macro.gUI.skin.impl
 		 * 请使用LayoutAlign枚举，可按此方式设置左上角对齐：LayoutAlign.LEFT | LayoutAlign.TOP
 		 *
 		 */
-		public function BitmapSkin(bitmapData:BitmapData, grid:Rectangle,
-								   align:int)
+		public function BitmapSkin(bitmapData:BitmapData, grid:Rectangle, align:int)
 		{
 			if (bitmapData == null)
 			{

@@ -30,9 +30,7 @@ package com.macro.gUI.controls
 		 * @param skin 边框皮肤
 		 *
 		 */
-		public function ImageBox(source:IBitmapDrawable = null,
-								 autoSize:Boolean = true, align:int = 0x11,
-								 skin:ISkin = null)
+		public function ImageBox(source:IBitmapDrawable = null, autoSize:Boolean = true, align:int = 0x11, skin:ISkin = null)
 		{
 			// 默认大小
 			super(100, 100);
@@ -125,8 +123,7 @@ package com.macro.gUI.controls
 		 * @param destroy 是否销毁原有的显示对象，默认不销毁
 		 *
 		 */
-		public function setSource(value:IBitmapDrawable,
-								  destroy:Boolean = false):void
+		public function setSource(value:IBitmapDrawable, destroy:Boolean = false):void
 		{
 			if (value != null)
 			{
@@ -182,8 +179,7 @@ package com.macro.gUI.controls
 			else if (image is DisplayObject)
 			{
 				var r:Rectangle = (image as DisplayObject).getBounds(null);
-				var bmd:BitmapData = new BitmapData(r.right + 1, r.bottom + 1,
-													true, 0);
+				var bmd:BitmapData = new BitmapData(r.right + 1, r.bottom + 1, true, 0);
 				bmd.draw(image);
 				return bmd;
 			}

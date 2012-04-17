@@ -245,8 +245,7 @@ package com.macro.gUI.composite
 		 * @param selectedDisableSkin 选中禁用态皮肤
 		 *
 		 */
-		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin,
-									 downSkin:ISkin, disableSkin:ISkin):void
+		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
 			_blockBtn.skin = normalSkin;
 			_blockBtn.overSkin = overSkin;

@@ -1,7 +1,7 @@
 package com.macro.gUI.core
 {
 	import avmplus.getQualifiedClassName;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -22,8 +22,7 @@ package com.macro.gUI.core
 		 * @param align 布局对齐方式，默认值为左上角对齐
 		 *
 		 */
-		public function AbstractComposite(width:int, height:int,
-										  align:int = 0x11)
+		public function AbstractComposite(width:int, height:int, align:int = 0x11)
 		{
 			super(width, height);
 

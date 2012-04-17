@@ -24,8 +24,7 @@ package com.macro.gUI.skin.impl
 		public function SpriteSkin(sprite:Sprite, grid:Rectangle, align:int)
 		{
 			var r:Rectangle = sprite.getBounds(null);
-			var bmd:BitmapData = new BitmapData(r.right + 1, r.bottom + 1, true,
-												0);
+			var bmd:BitmapData = new BitmapData(r.right + 1, r.bottom + 1, true, 0);
 			bmd.draw(sprite);
 			super(bmd, grid, align);
 		}

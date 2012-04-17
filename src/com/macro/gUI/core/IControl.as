@@ -1,6 +1,7 @@
 package com.macro.gUI.core
 {
 	import flash.display.BitmapData;
+	import flash.events.IEventDispatcher;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -10,7 +11,7 @@ package com.macro.gUI.core
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public interface IControl
+	public interface IControl extends IEventDispatcher
 	{
 		/**
 		 * 画布
@@ -43,10 +44,19 @@ package com.macro.gUI.core
 		/**
 		 * 控件的本地坐标转换为全局坐标
 		 * @param point 基于控件本地坐标系的点
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		function localToGlobal(point:Point = null):Point;
+
+		/**
+		 * 将全局坐标转换为控件的本地坐标
+		 * @param x
+		 * @param y
+		 * @return
+		 *
+		 */
+		function globalToLocal(x:int, y:int):Point;
 
 		/**
 		 * 测试坐标是否在控件范围内。如果返回的是null，则在控件范围外；
@@ -62,9 +72,9 @@ package com.macro.gUI.core
 		 */
 		function hitTest(x:int, y:int):IControl;
 
-		
-		
-		
+
+
+
 		/**
 		 * // TODO 透明度。有效值为 0（完全透明）到 1（完全不透明），默认值为 1。
 		 * 通过渲染过程实现，控件实现类不要处理它
@@ -72,7 +82,7 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get alpha():Number;
-		
+
 		/**
 		 * // TODO 控件是否可见。
 		 * 通过渲染过程实现，控件实现类不要处理它
@@ -80,41 +90,41 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get visible():Boolean;
-		
+
 		/**
 		 * // TODO 水平缩放比，1.0是100%。
 		 * 通过渲染过程实现，控件实现类不要处理它
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		function get scaleX():Number;
-		
+
 		/**
 		 * // TODO 垂直缩放比，1.0是100%。
 		 * 通过渲染过程实现，控件实现类不要处理它
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		function get scaleY():Number;
-		
+
 		/**
 		 * // TODO 注册点横坐标
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		function get pivotX():Number;
-		
+
 		/**
 		 * // TODO 注册点纵坐标
-		 * @return 
-		 * 
+		 * @return
+		 *
 		 */
 		function get pivotY():Number;
-		
+
 		/**
 		 * // TODO 以注册点为原点旋转，弧度单位
 		 * @param value
-		 * 
+		 *
 		 */
 		function get rotation():Number;
 	}

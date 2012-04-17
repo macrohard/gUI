@@ -2,8 +2,9 @@ package com.macro.gUI.assist
 {
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
-	
+
 	import flash.display.BitmapData;
+	import flash.events.EventDispatcher;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -13,7 +14,7 @@ package com.macro.gUI.assist
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class CHILD_REGION implements IControl
+	public class CHILD_REGION extends EventDispatcher implements IControl
 	{
 		public function CHILD_REGION()
 		{
@@ -58,31 +59,31 @@ package com.macro.gUI.assist
 		{
 			return null;
 		}
-		
+
 		public function get scaleX():Number
 		{
 			return 0;
 		}
-		
+
 		public function get scaleY():Number
 		{
 			return 0;
 		}
-		
+
 		public function get pivotX():Number
 		{
 			return 0;
 		}
-		
+
 		public function get pivotY():Number
 		{
 			return 0;
 		}
-		
+
 		public function get rotation():Number
 		{
 			return 0;
 		}
-		
+
 	}
 }

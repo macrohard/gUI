@@ -213,8 +213,7 @@ package com.macro.gUI.composite
 				_displayContainer.resize(maxW, minH);
 				_hScrollBar.y = minH;
 				_hScrollBar.width = maxW;
-				_hScrollBar.viewport = new Viewport(_displayContainer.rect,
-													_label);
+				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _label);
 				_label.y = 0;
 			}
 			else if (scrollVisible == 2)
@@ -224,8 +223,7 @@ package com.macro.gUI.composite
 				_displayContainer.resize(minW, maxH);
 				_vScrollBar.x = minW;
 				_vScrollBar.height = maxH;
-				_vScrollBar.viewport = new Viewport(_displayContainer.rect,
-													_label);
+				_vScrollBar.viewport = new Viewport(_displayContainer.rect, _label);
 				_label.x = 0;
 			}
 			else
@@ -238,8 +236,7 @@ package com.macro.gUI.composite
 				_vScrollBar.x = minW;
 				_vScrollBar.height = minH;
 
-				_hScrollBar.viewport = new Viewport(_displayContainer.rect,
-													_label);
+				_hScrollBar.viewport = new Viewport(_displayContainer.rect, _label);
 				_vScrollBar.viewport = _hScrollBar.viewport;
 			}
 		}

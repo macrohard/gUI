@@ -272,8 +272,7 @@ package com.macro.gUI.composite
 				_container.addChild(_scrollBar);
 				_scrollBar.x = w;
 				_scrollBar.height = h;
-				_scrollBar.viewport = new Viewport(new Rectangle(0, 0, w, h),
-																 _itemContainer);
+				_scrollBar.viewport = new Viewport(new Rectangle(0, 0, w, h), _itemContainer);
 			}
 			else
 			{

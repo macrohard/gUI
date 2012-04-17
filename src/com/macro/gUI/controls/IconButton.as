@@ -23,8 +23,7 @@ package com.macro.gUI.controls
 		 * @param alignIcon 图标对齐方式，默认居中对齐
 		 *
 		 */
-		public function IconButton(text:String = null, alignText:int = 0x44,
-								   alignIcon:int = 0x22)
+		public function IconButton(text:String = null, alignText:int = 0x44, alignIcon:int = 0x22)
 		{
 			if (_styles == null)
 			{

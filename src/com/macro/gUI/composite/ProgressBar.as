@@ -22,10 +22,10 @@ package com.macro.gUI.composite
 	{
 
 		protected var _canvas:Canvas;
-		
+
 		protected var _bg:Slice;
-		
-		
+
+
 		/**
 		 * 是否使用遮罩
 		 */
@@ -43,8 +43,7 @@ package com.macro.gUI.composite
 		 * @param maskMode 使用遮罩
 		 *
 		 */
-		public function ProgressBar(width:int = 200, align:int = 0x20,
-									mask:Boolean = false)
+		public function ProgressBar(width:int = 200, align:int = 0x20, mask:Boolean = false)
 		{
 			//复选框控件默认是自动设置尺寸的，稍后resize时会重设为标准大小
 			super(width, 1, align);
@@ -56,8 +55,7 @@ package com.macro.gUI.composite
 			_bg = new Slice(skin, width, skin.bitmapData.height);
 
 			_fillingSkin = skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
-			_canvas = new Canvas(width - skin.gridLeft - skin.gridRight,
-								 _fillingSkin.bitmapData.height);
+			_canvas = new Canvas(width - skin.gridLeft - skin.gridRight, _fillingSkin.bitmapData.height);
 
 			_container = new Container();
 			_container.addChild(_bg);
@@ -197,21 +195,14 @@ package com.macro.gUI.composite
 			{
 				if (_mask)
 				{
-					var m:BitmapData = new BitmapData(bmd.width, bmd.height,
-													  true, 0);
+					var m:BitmapData = new BitmapData(bmd.width, bmd.height, true, 0);
 					drawHorizontal(m, m.rect, _fillingSkin);
-					bmd.copyPixels(m,
-								   new Rectangle(0, 0, m.width * _percent / 100,
-												 m.height), new Point(), null,
-								   null, true);
+					bmd.copyPixels(m, new Rectangle(0, 0, m.width * _percent / 100, m.height), new Point(), null, null, true);
 					m.dispose();
 				}
 				else
 				{
-					drawHorizontal(bmd,
-								   new Rectangle(0, 0,
-												 bmd.width * _percent / 100,
-												 bmd.height), _fillingSkin);
+					drawHorizontal(bmd, new Rectangle(0, 0, bmd.width * _percent / 100, bmd.height), _fillingSkin);
 				}
 			}
 			else
@@ -220,9 +211,7 @@ package com.macro.gUI.composite
 				var w:int = bmd.width * _percent / 100;
 				while (true)
 				{
-					bmd.copyPixels(_fillingSkin.bitmapData,
-								   _fillingSkin.bitmapData.rect, new Point(i),
-								   null, null, true);
+					bmd.copyPixels(_fillingSkin.bitmapData, _fillingSkin.bitmapData.rect, new Point(i), null, null, true);
 					i += _fillingSkin.bitmapData.width;
 					if (i > w)
 					{

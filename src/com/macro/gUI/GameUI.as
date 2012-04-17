@@ -56,15 +56,14 @@ package com.macro.gUI
 		 * stage.stageFocusRect = false;<br/>
 		 * stage.tabChildren = false;<br/>
 		 * stage.scaleMode = StageScaleMode.NO_SCALE;</p>
-		 * 
+		 *
 		 * @param container 显示容器，如stage
 		 * @param width 显示容器的宽度，如stage.stageWidth
 		 * @param height 显示容器的高度，如stage.stageHeight
 		 * @param renderMode 渲染模式，默认使用合并渲染
 		 *
 		 */
-		public static function init(container:DisplayObjectContainer, width:int,
-									height:int, renderMode:int = 0):void
+		public static function init(container:DisplayObjectContainer, width:int, height:int, renderMode:int = 0):void
 		{
 			if (container == null)
 			{

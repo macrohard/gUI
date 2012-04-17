@@ -222,9 +222,7 @@ package com.macro.gUI.composite
 		 * @param selectedDisableSkin 选中禁用态皮肤
 		 *
 		 */
-		public function setSkins(normalSkin:ISkin, disableSkin:ISkin,
-								 selectedSkin:ISkin,
-								 selectedDisableSkin:ISkin):void
+		public function setSkins(normalSkin:ISkin, disableSkin:ISkin, selectedSkin:ISkin, selectedDisableSkin:ISkin):void
 		{
 			_icon.overSkin = _icon.downSkin = _icon.skin = normalSkin;
 			_icon.disableSkin = disableSkin;
@@ -264,8 +262,7 @@ package com.macro.gUI.composite
 
 		public override function setDefaultSize():void
 		{
-			resize(_icon.width + gap + _label.width,
-				   _icon.height > _label.height ? _icon.height : _label.height);
+			resize(_icon.width + gap + _label.width, _icon.height > _label.height ? _icon.height : _label.height);
 		}
 
 

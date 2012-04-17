@@ -37,11 +37,10 @@ package com.macro.logging
 			if (!_socket)
 			{
 				_socket = new XMLSocket();
-				_socket.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-				_socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR,
-										 onSecurityError);
-				_socket.addEventListener(Event.CONNECT, onConnect);
-				_socket.addEventListener(Event.CLOSE, onClose);
+				_socket.addEventListener(IOErrorEvent.IO_ERROR, onIOError, false, 0, true);
+				_socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError, false, 0, true);
+				_socket.addEventListener(Event.CONNECT, onConnect, false, 0, true);
+				_socket.addEventListener(Event.CLOSE, onClose, false, 0, true);
 				_socket.connect(_server, _port);
 			}
 
@@ -63,8 +62,7 @@ package com.macro.logging
 			_useSocket = false;
 			_socket = null;
 
-			send(getQualifiedClassName(this), "XMLSocket IOError",
-									   LogLevel.ERROR);
+			send(getQualifiedClassName(this), "XMLSocket IOError", LogLevel.ERROR);
 
 			for each (var log:String in _cache)
 			{
@@ -79,8 +77,7 @@ package com.macro.logging
 			_useSocket = false;
 			_socket = null;
 
-			send(getQualifiedClassName(this), "XMLSocket SecurityError",
-									   LogLevel.ERROR);
+			send(getQualifiedClassName(this), "XMLSocket SecurityError", LogLevel.ERROR);
 
 			for each (var log:String in _cache)
 			{
@@ -94,8 +91,7 @@ package com.macro.logging
 			_useSocket = false;
 			_socket = null;
 
-			send(getQualifiedClassName(this), "XMLSocket Closed",
-									   LogLevel.ERROR);
+			send(getQualifiedClassName(this), "XMLSocket Closed", LogLevel.ERROR);
 
 			for each (var log:String in _cache)
 			{

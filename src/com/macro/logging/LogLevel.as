@@ -17,12 +17,7 @@ package com.macro.logging
 		public static const ALL:int = 0;
 
 
-		private static const LEVEL_STRING:Vector.<String> = new <String>[ "FATAL",
-																		  "ERROR",
-																		  "WARN",
-																		  "INFO",
-																		  "DEBUG",
-																		  "TRACE" ];
+		private static const LEVEL_STRING:Vector.<String> = new <String>[ "FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE" ];
 
 		public static function getLevelString(level:int):String
 		{

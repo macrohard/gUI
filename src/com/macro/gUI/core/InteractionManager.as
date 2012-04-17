@@ -38,11 +38,6 @@ package com.macro.gUI.core
 	{
 
 		/**
-		 * 显示对象容器
-		 */
-		private var _displayObjectContainer:DisplayObjectContainer;
-
-		/**
 		 * 根容器控件
 		 */
 		private var _root:IContainer;
@@ -88,24 +83,24 @@ package com.macro.gUI.core
 		public function InteractionManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
 		{
 			_root = uiManager.root;
-			_displayObjectContainer = displayObjectContainer;
 
 			_popupManager = uiManager.popupManager;
 			_dragManager = new DragManager();
 			_focusManager = new FocusManager(uiManager.topContainer, displayObjectContainer);
 
-			displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
-			displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-			displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+			displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
+			displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
+			displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
 		}
 
 
 		protected function mouseDownHandler(e:MouseEvent):void
 		{
-			findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			findTargetControl(_root, e.localX, e.localY);
 
 			// 如果有弹出菜单时，就及时关闭之
-			if (_popupManager.popupMenu != null && _popupManager.popupMenu != _mouseControl)
+			if (_popupManager.popupMenu != null &&
+					_popupManager.popupMenu != _mouseControl)
 			{
 				_popupManager.removePopupMenu();
 			}
@@ -113,7 +108,8 @@ package com.macro.gUI.core
 			// 处理焦点
 			_focusManager.focus(_mouseControl);
 
-			if (_mouseControl == null || _mouseControl.enabled == false || _mouseTarget.enabled == false)
+			if (_mouseControl == null || _mouseControl.enabled == false ||
+					_mouseTarget.enabled == false)
 			{
 				return;
 			}
@@ -122,6 +118,9 @@ package com.macro.gUI.core
 			if (_mouseControl is IButton)
 			{
 				(_mouseControl as IButton).mouseDown(_mouseTarget);
+				// 派发对应的鼠标事件
+				var p:Point = _mouseControl.globalToLocal(e.localX, e.localY);
+				_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN, false, false, p.x, p.y));
 			}
 
 			// 处理拖拽
@@ -136,16 +135,20 @@ package com.macro.gUI.core
 			if (_dragManager.isDragging)
 			{
 				// 结束拖拽
-				findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+				findTargetControl(_root, e.localX, e.localY);
 
 				_dragManager.stopDrag(_mouseControl);
 			}
 			else
 			{
 				// 处理鼠标松开
-				if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
+				if (_mouseControl is IButton && _mouseControl.enabled &&
+						_mouseTarget.enabled)
 				{
 					(_mouseControl as IButton).mouseUp(_mouseTarget);
+					// 派发对应的鼠标事件
+					var p:Point = _mouseControl.globalToLocal(e.localX, e.localY);
+					_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, false, false, p.x, p.y));
 				}
 			}
 		}
@@ -155,13 +158,13 @@ package com.macro.gUI.core
 			if (_dragManager.isDragging)
 			{
 				// 正在拖拽
-				_dragManager.setDragCoord(_displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+				_dragManager.setDragCoord(e.localX, e.localY);
 			}
 			else
 			{
 				var tempC:IControl = _mouseControl;
 				var tempT:IControl = _mouseTarget;
-				findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+				findTargetControl(_root, e.localX, e.localY);
 
 				// 在同一个控件范围内移动时不作处理
 				if (tempT == _mouseTarget)
@@ -174,12 +177,19 @@ package com.macro.gUI.core
 				{
 					(tempC as IButton).mouseOut(tempT);
 					Mouse.cursor = MouseCursor.AUTO;
+					// 派发对应的鼠标事件
+					var p:Point = tempC.globalToLocal(e.localX, e.localY);
+					tempC.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OUT, false, false, p.x, p.y));
 				}
 
 				// 处理鼠标进入
-				if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
+				if (_mouseControl is IButton && _mouseControl.enabled &&
+						_mouseTarget.enabled)
 				{
 					(_mouseControl as IButton).mouseOver(_mouseTarget);
+					// 派发对应的鼠标事件
+					var p:Point = _mouseControl.globalToLocal(e.localX, e.localY);
+					_mouseControl.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_OVER, false, false, p.x, p.y, tempC));
 
 					if (_mouseTarget is IButton)
 					{

@@ -1,6 +1,8 @@
 package com.macro.gUI.core.feature
 {
 	import com.macro.gUI.core.IControl;
+	
+	import flash.events.IEventDispatcher;
 
 
 	/**
@@ -8,7 +10,7 @@ package com.macro.gUI.core.feature
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public interface IButton
+	public interface IButton extends IControl
 	{
 
 		/**

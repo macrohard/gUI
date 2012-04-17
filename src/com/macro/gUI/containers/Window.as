@@ -123,9 +123,7 @@ package com.macro.gUI.containers
 		 * @param height
 		 *
 		 */
-		public function Window(title:String = null, buttonVisible:int = 4,
-							   buttonLayout:int = 0, width:int = 300,
-							   height:int = 200)
+		public function Window(title:String = null, buttonVisible:int = 4, buttonLayout:int = 0, width:int = 300, height:int = 200)
 		{
 			// 标题栏默认居中对齐
 			super(width, height, 0x22);
@@ -136,8 +134,7 @@ package com.macro.gUI.containers
 
 			var skin:ISkin = skinManager.getSkin(SkinDef.WINDOW_BG);
 			_bg = new Slice(skin, width, height);
-			_margin = new Margin(skin.gridLeft, skin.gridTop, skin.paddingRight,
-								 skin.paddingBottom);
+			_margin = new Margin(skin.gridLeft, skin.gridTop, skin.paddingRight, skin.paddingBottom);
 
 			_title = new Label(title);
 			_title.style = skinManager.getStyle(StyleDef.WINDOW_TITLE);
@@ -280,8 +277,7 @@ package com.macro.gUI.containers
 		public function setBgSkin(bgSkin:ISkin):void
 		{
 			_bg.skin = bgSkin;
-			_margin = new Margin(bgSkin.gridLeft, bgSkin.gridTop,
-								 bgSkin.paddingRight, bgSkin.paddingBottom);
+			_margin = new Margin(bgSkin.gridLeft, bgSkin.gridTop, bgSkin.paddingRight, bgSkin.paddingBottom);
 			layout();
 		}
 
@@ -429,8 +425,7 @@ package com.macro.gUI.containers
 			_bg.resize(_rect.width, _rect.height);
 			_contentContainer.x = _margin.left;
 			_contentContainer.y = _margin.top;
-			_contentContainer.resize(_rect.width - _margin.left - _margin.right,
-									 _rect.height - _margin.top - _margin.bottom);
+			_contentContainer.resize(_rect.width - _margin.left - _margin.right, _rect.height - _margin.top - _margin.bottom);
 		}
 
 
@@ -542,8 +537,7 @@ package com.macro.gUI.containers
 			return _contentContainer.removeChildAt(index);
 		}
 
-		public function removeChildren(beginIndex:int = 0,
-									   endIndex:int = -1):void
+		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
 		{
 			_contentContainer.removeChildren(beginIndex, endIndex);
 		}

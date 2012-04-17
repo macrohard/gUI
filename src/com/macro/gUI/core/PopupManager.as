@@ -50,8 +50,7 @@ package com.macro.gUI.core
 		{
 			_popupContainer = popupContainer;
 			_modals = new Vector.<IControl>();
-			_modalBg = new Canvas(popupContainer.rect.width,
-								  popupContainer.rect.height);
+			_modalBg = new Canvas(popupContainer.rect.width, popupContainer.rect.height);
 			_modalBg.backgroundColor = 0x33000000;
 		}
 
@@ -62,8 +61,7 @@ package com.macro.gUI.core
 		 * @param isCenter 是否居中显示
 		 *
 		 */
-		public function addPopupWindow(window:IControl, isModal:Boolean = false,
-									   isCenter:Boolean = false):void
+		public function addPopupWindow(window:IControl, isModal:Boolean = false, isCenter:Boolean = false):void
 		{
 			if (isCenter)
 			{
@@ -98,7 +96,7 @@ package com.macro.gUI.core
 		public function removePopupWindow(window:IControl):void
 		{
 			_popupContainer.removeChild(window);
-			
+
 			if (_modalWindow == window)
 			{
 				// 模态窗口队列中还有元素时，立即弹出新的模态窗口
@@ -128,7 +126,7 @@ package com.macro.gUI.core
 			{
 				return;
 			}
-			
+
 			_popupContainer.removeChild(window);
 			_popupContainer.addChildAt(window, getPopupWindowLayer(false));
 		}

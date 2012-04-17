@@ -1,7 +1,7 @@
 package com.macro.gUI.core.feature
 {
 	import com.macro.gUI.core.IControl;
-
+	
 	import flash.display.BitmapData;
 
 
@@ -10,7 +10,7 @@ package com.macro.gUI.core.feature
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public interface IDrag
+	public interface IDrag extends IControl
 	{
 		/**
 		 * 拖拽方式，参见DragMode枚举

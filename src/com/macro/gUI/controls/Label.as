@@ -40,8 +40,7 @@ package com.macro.gUI.controls
 		 * @param align 文本对齐方式，默认左上角对齐
 		 *
 		 */
-		public function Label(text:String = null, autoSize:Boolean = true,
-							  align:int = 0x11)
+		public function Label(text:String = null, autoSize:Boolean = true, align:int = 0x11)
 		{
 			//默认大小
 			super(100, 20);
@@ -244,8 +243,7 @@ package com.macro.gUI.controls
 		{
 			if (_textImg)
 			{
-				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg,
-										  _padding);
+				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _padding);
 			}
 		}
 
@@ -256,8 +254,7 @@ package com.macro.gUI.controls
 			var textWidth:int = _padding ? w - _padding.left - _padding.right : w;
 			if (textWidth > 0)
 			{
-				_textImg = createTextImage(_text, _style, textWidth,
-										   _displayAsPassword);
+				_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword);
 			}
 		}
 
@@ -272,9 +269,7 @@ package com.macro.gUI.controls
 		 * @return
 		 *
 		 */
-		protected static function createTextImage(text:String, style:TextStyle,
-												  width:int,
-												  displayAsPassword:Boolean):BitmapData
+		protected static function createTextImage(text:String, style:TextStyle, width:int, displayAsPassword:Boolean):BitmapData
 		{
 			if (!text || text.length == 0 || !style)
 			{

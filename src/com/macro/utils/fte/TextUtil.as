@@ -25,8 +25,7 @@ package com.macro.utils.fte
 	public class TextUtil
 	{
 
-		public static const GLOW_FILTER:Array = [ new GlowFilter(0x000000, 1, 2,
-																 2, 16)];
+		public static const GLOW_FILTER:Array = [ new GlowFilter(0x000000, 1, 2, 2, 16)];
 
 		/**
 		 * 创建单行文本
@@ -38,9 +37,7 @@ package com.macro.utils.fte
 		 * @return
 		 *
 		 */
-		public static function getTextLine(text:String, color:int = 0,
-										   size:int = 12, bold:Boolean = true,
-										   filters:Array = null):TextLine
+		public static function getTextLine(text:String, color:int = 0, size:int = 12, bold:Boolean = true, filters:Array = null):TextLine
 		{
 			var fontdesc:FontDescription = new FontDescription()
 			if (bold)
@@ -75,10 +72,7 @@ package com.macro.utils.fte
 		 * @return
 		 *
 		 */
-		public static function getMultiLineTextLine(texts:Vector.<TextSegment>,
-													width:int,
-													lineHeight:int = 18,
-													spacing:int = 5):Sprite
+		public static function getMultiLineTextLine(texts:Vector.<TextSegment>, width:int, lineHeight:int = 18, spacing:int = 5):Sprite
 		{
 			var sprite:Sprite = new Sprite();
 
@@ -123,8 +117,7 @@ package com.macro.utils.fte
 				{
 					if (previousTextLine == null)
 					{
-						textLine = block.createTextLine(previousTextLine,
-														width >= caret ? width - caret : 0);
+						textLine = block.createTextLine(previousTextLine, width >= caret ? width - caret : 0);
 					}
 					else
 					{

@@ -73,8 +73,7 @@ package com.macro.ioc
 		 * @return
 		 *
 		 */
-		public static function buildContext(bean:Class,
-											isAutoInit:Boolean = true):Context
+		public static function buildContext(bean:Class, isAutoInit:Boolean = true):Context
 		{
 			var context:Context = new Context();
 			context._bean = new bean();
@@ -329,8 +328,7 @@ package com.macro.ioc
 				for each (type in types)
 				{
 					type = StrUtil.trim(type);
-					dispatcher.addEventListener(type, managedEventHandler,
-												false, 0, true);
+					dispatcher.addEventListener(type, managedEventHandler, false, 0, true);
 				}
 			}
 		}

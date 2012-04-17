@@ -53,8 +53,7 @@ package com.macro.gUI.skin
 		 * @return
 		 *
 		 */
-		public function setSkin(id:String, value:Object, grid:Rectangle = null,
-								align:int = 0x11):ISkin
+		public function setSkin(id:String, value:Object, grid:Rectangle = null, align:int = 0x11):ISkin
 		{
 			if (grid == null)
 			{

@@ -16,8 +16,7 @@ package com.macro.utils.serialize
 		 */
 		public var offsetPoint:Point;
 
-		public function Frame(width:int, height:int, transparent:Boolean = true,
-							  fillColor:uint = 0)
+		public function Frame(width:int, height:int, transparent:Boolean = true, fillColor:uint = 0)
 		{
 			super(width, height, transparent, fillColor);
 		}

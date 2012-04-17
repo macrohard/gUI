@@ -7,15 +7,17 @@ package com.macro.gUI.core
 	import com.macro.gUI.core.feature.IEdit;
 	import com.macro.gUI.core.feature.IFocus;
 	import com.macro.gUI.core.feature.IKeyboard;
-	
+
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
+	import flash.events.FocusEvent;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFieldType;
 	import flash.ui.Keyboard;
+
 
 	/**
 	 * 焦点管理器
@@ -29,18 +31,18 @@ package com.macro.gUI.core
 		 * 显示对象容器
 		 */
 		private var _displayObjectContainer:DisplayObjectContainer;
-		
+
 		/**
 		 * 最上层窗口容器控件
 		 */
 		private var _top:IContainer;
-		
-		
+
+
 		/**
 		 * 焦点控件
 		 */
 		protected var _focusControl:IFocus;
-		
+
 
 		/**
 		 * 可编辑控件
@@ -58,15 +60,15 @@ package com.macro.gUI.core
 		 * 焦点管理器
 		 * @param top 最上层窗口容器控件，用于焦点框及拖拽替身图像
 		 * @param displayObjectContainer 显示对象容器，用于处理临时TextField
-		 * 
+		 *
 		 */
 		public function FocusManager(top:IContainer, displayObjectContainer:DisplayObjectContainer)
 		{
 			_top = top;
-			
+
 			_displayObjectContainer = displayObjectContainer;
-			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
+			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 0, true);
+			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler, false, 0, true);
 		}
 
 
@@ -123,6 +125,9 @@ package com.macro.gUI.core
 			if (_focusControl is IKeyboard)
 			{
 				(_focusControl as IKeyboard).keyDown(e);
+				// 派发对应的键盘事件
+				_focusControl.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, false, e.charCode, e.keyCode, e.keyLocation,
+															  e.ctrlKey, e.altKey, e.shiftKey));
 			}
 
 			if (_focusControl != null)
@@ -134,7 +139,8 @@ package com.macro.gUI.core
 					var temp:Vector.<IFocus> = new Vector.<IFocus>();
 					for each (var control:IControl in parent.children)
 					{
-						if (control is IFocus && control.enabled && control != _focusControl)
+						if (control is IFocus && control.enabled &&
+								control != _focusControl)
 						{
 							temp.push(control as IFocus);
 						}
@@ -186,6 +192,9 @@ package com.macro.gUI.core
 			if (_focusControl is IKeyboard)
 			{
 				(_focusControl as IKeyboard).keyUp(e);
+				// 派发对应的键盘事件
+				_focusControl.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, false, e.charCode, e.keyCode, e.keyLocation,
+															  e.ctrlKey, e.altKey, e.shiftKey));
 			}
 		}
 
@@ -211,7 +220,16 @@ package com.macro.gUI.core
 		 */
 		private function setFocus(control:IFocus):void
 		{
+			var old:IFocus = _focusControl;
+			if (old != null)
+			{
+				// 派发对应的焦点事件
+				old.dispatchEvent(new FocusEvent(FocusEvent.FOCUS_OUT, false, false));
+			}
+
 			_focusControl = control;
+			// 派发对应的焦点事件
+			_focusControl.dispatchEvent(new FocusEvent(FocusEvent.FOCUS_IN, false, false, old));
 
 			if (_focusControl == null)
 			{

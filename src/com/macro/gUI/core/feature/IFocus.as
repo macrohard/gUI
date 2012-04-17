@@ -1,5 +1,6 @@
 package com.macro.gUI.core.feature
 {
+	import com.macro.gUI.core.IControl;
 
 
 	/**
@@ -7,7 +8,7 @@ package com.macro.gUI.core.feature
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public interface IFocus
+	public interface IFocus extends IControl
 	{
 		/**
 		 * 获取焦点的顺序，当用户按下Tab键时，自动聚焦到索引数组中下一个控件上。

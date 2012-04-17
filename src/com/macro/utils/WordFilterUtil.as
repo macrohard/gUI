@@ -42,8 +42,7 @@ package com.macro.utils
 						j = j - index;
 						if (msg.substr(i, j) == s)
 						{
-							msg = msg.substring(0, i) + CYPHER_TEXT.substr(0,
-																		   j) + msg.substring(i + j);
+							msg = msg.substring(0, i) + CYPHER_TEXT.substr(0, j) + msg.substring(i + j);
 							i += j;
 							break;
 						}

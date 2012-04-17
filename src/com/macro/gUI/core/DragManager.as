@@ -8,10 +8,11 @@ package com.macro.gUI.core
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
 
+
 	/**
 	 * 拖拽管理器
 	 * @author Macro <macro776@gmail.com>
-	 * 
+	 *
 	 */
 	public class DragManager
 	{
@@ -45,7 +46,7 @@ package com.macro.gUI.core
 
 		/**
 		 * 拖拽管理器
-		 * 
+		 *
 		 */
 		public function DragManager()
 		{
@@ -56,7 +57,7 @@ package com.macro.gUI.core
 		 * 开始拖拽
 		 * @param control 要开始拖拽的控件
 		 * @param target 拖拽的实际目标
-		 * 
+		 *
 		 */
 		public function startDrag(control:IDrag, target:IControl):void
 		{
@@ -87,11 +88,11 @@ package com.macro.gUI.core
 			}
 		}
 
-		
+
 		/**
 		 * 停止拖拽
 		 * @param control 要停止拖拽的控件
-		 * 
+		 *
 		 */
 		public function stopDrag(control:IControl):void
 		{
@@ -118,12 +119,12 @@ package com.macro.gUI.core
 			isDragging = false;
 		}
 
-		
+
 		/**
 		 * 设置拖拽坐标
 		 * @param mouseX
 		 * @param mouseY
-		 * 
+		 *
 		 */
 		public function setDragCoord(mouseX:int, mouseY:int):void
 		{
