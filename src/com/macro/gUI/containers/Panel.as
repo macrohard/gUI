@@ -19,11 +19,13 @@ package com.macro.gUI.containers
 		 * @param height 容器高度
 		 *
 		 */
-		public function Panel(width:int = 100, height:int = 100, skin:ISkin = null)
+		public function Panel(width:int = 100, height:int = 100)
 		{
 			super(width, height);
 
-			this.skin = skin ? skin : skinManager.getSkin(SkinDef.PANEL_BG);
+			_skin = _skin ? _skin : skinManager.getSkin(SkinDef.PANEL_BG);
+			_margin = new Margin(_skin.gridLeft, _skin.gridTop, _skin.paddingRight, _skin.paddingBottom);
+			resize();
 		}
 
 
@@ -37,9 +39,7 @@ package com.macro.gUI.containers
 			if (_skin != value && value != null)
 			{
 				_skin = value;
-
 				_margin = new Margin(_skin.gridLeft, _skin.gridTop, _skin.paddingRight, _skin.paddingBottom);
-
 				resize();
 			}
 		}
