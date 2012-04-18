@@ -3,7 +3,7 @@ package com.macro.gUI.core
 	import com.macro.gUI.core.feature.IEdit;
 	import com.macro.gUI.core.feature.IFocus;
 	import com.macro.gUI.core.feature.IKeyboard;
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.KeyboardEvent;
 	import flash.text.TextField;
@@ -71,15 +71,6 @@ package com.macro.gUI.core
 		 */
 		public function focus(control:IControl):void
 		{
-			if (control is IFocus && control.enabled)
-			{
-				setFocus(control as IFocus);
-			}
-			else
-			{
-				setFocus(null);
-			}
-
 			// 已有编辑框时
 			if (_editControl != null)
 			{
@@ -93,10 +84,22 @@ package com.macro.gUI.core
 					endEdit();
 				}
 			}
+			
+			if (control is IFocus && control.enabled)
+			{
+				_focusControl = control as IFocus;
+				drawFocusBox();
+			}
+			else
+			{
+				_focusControl = null;
+				drawFocusBox();
+			}
 
 			if (control is IEdit)
 			{
-				beginEdit(control as IEdit);
+				_editControl = control as IEdit;
+				beginEdit();
 			}
 		}
 
@@ -186,10 +189,8 @@ package com.macro.gUI.core
 		 * @param control
 		 *
 		 */
-		private function setFocus(control:IFocus):void
+		private function drawFocusBox():void
 		{
-			_focusControl = control;
-
 			if (_focusControl == null)
 			{
 				// TODO 清除焦点框
@@ -209,10 +210,10 @@ package com.macro.gUI.core
 		 * 开始编辑
 		 *
 		 */
-		private function beginEdit(control:IEdit):void
+		private function beginEdit():void
 		{
-			_editControl = control;
 			_editBox = _editControl.beginEdit();
+			_editBox.setSelection(0, _editBox.text.length);
 			_displayObjectContainer.addChild(_editBox);
 			
 			focusEditBox();
@@ -241,10 +242,6 @@ package com.macro.gUI.core
 		 */
 		private function focusEditBox():void
 		{
-			if (_editBox != null)
-			{
-				_editBox.setSelection(0, _editBox.text.length);
-			}
 			_displayObjectContainer.stage.focus = _editBox;
 		}
 	}
