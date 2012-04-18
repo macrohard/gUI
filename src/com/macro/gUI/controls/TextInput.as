@@ -250,7 +250,6 @@ package com.macro.gUI.controls
 			_editBox.maxChars = _style.maxChars;
 			_editBox.filters = _style.filters;
 			_editBox.defaultTextFormat = _style;
-			_editBox.textColor = 0xff0000;
 			if (_text != null)
 			{
 				_editBox.text = _text;
