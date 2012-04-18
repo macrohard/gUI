@@ -1,6 +1,7 @@
 package com.macro.gUI.controls
 {
 	import com.macro.gUI.assist.CtrlState;
+	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.core.IControl;
@@ -8,9 +9,12 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
+	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFieldType;
 	import flash.utils.Dictionary;
 
 
@@ -27,6 +31,9 @@ package com.macro.gUI.controls
 		protected var _styles:Dictionary;
 
 
+		/**
+		 * 输入框
+		 */
 		private var _editBox:TextField;
 
 
@@ -229,22 +236,102 @@ package com.macro.gUI.controls
 			{
 				return this;
 			}
-
+			
 			return null;
 		}
 
 
 
-		/**
-		 * 开始编辑
-		 * @return
-		 *
-		 */
-		public function beginEdit():void
+		public function beginEdit():TextField
 		{
+			_editBox = new TextField();
+			_editBox.autoSize = TextFieldAutoSize.LEFT;
+			_editBox.displayAsPassword = _displayAsPassword;
+			_editBox.maxChars = _style.maxChars;
+			_editBox.filters = _style.filters;
+			_editBox.defaultTextFormat = _style;
+			_editBox.textColor = 0xff0000;
+			if (_text != null)
+			{
+				_editBox.text = _text;
+			}
+			if (_editable)
+			{
+				_editBox.type = TextFieldType.INPUT;
+			}
+			relocateEditBox(null);
+			
+			_editBox.addEventListener(Event.CHANGE, relocateEditBox, false, 0, true);
+			
+			// 清除现有文本
 			_text = null;
 			_textImg = null;
 			resize();
+			
+			return _editBox;
+		}
+		
+		
+		public function endEdit(value:String):void
+		{
+			_editBox.removeEventListener(Event.CHANGE, relocateEditBox);
+			_editBox = null;
+			
+			_text = value;
+			resize();
+		}
+		
+		
+		/**
+		 * 重新定位编辑框
+		 *
+		 */
+		private function relocateEditBox(e:Event):void
+		{
+			var txtW:int = _editBox.textWidth + 4 + _style.leftMargin + _style.rightMargin + _style.indent + _style.blockIndent;
+			var txtH:int = _editBox.textHeight + 4;
+			
+			var w:int = _padding ? _rect.width - _padding.left - _padding.right : _rect.width;
+			var h:int = _padding ? _rect.height - _padding.top - _padding.bottom : _rect.height;
+			
+			if (txtW > w)
+			{
+				_editBox.autoSize = TextFieldAutoSize.NONE;
+				_editBox.multiline = _style.multiline;
+				_editBox.wordWrap = _style.wordWrap;
+				txtW = w;
+				_editBox.width = txtW + 2;
+				txtH = _editBox.textHeight + 4;
+			}
+			else
+			{
+				_editBox.autoSize = TextFieldAutoSize.LEFT;
+			}
+			
+			var p:Point = localToGlobal();
+			
+			var ox:int = p.x + (_padding ? _padding.left : 0);
+			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
+			{
+				ox += (w - txtW) >> 1;
+			}
+			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
+			{
+				ox += w - txtW;
+			}
+			
+			var oy:int = p.y + (_padding ? _padding.top : 0);
+			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
+			{
+				oy += (h - txtH) >> 1;
+			}
+			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
+			{
+				oy += h - txtH;
+			}
+			
+			_editBox.x = ox;
+			_editBox.y = oy;
 		}
 	}
 }

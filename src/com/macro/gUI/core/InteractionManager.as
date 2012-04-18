@@ -20,6 +20,8 @@ package com.macro.gUI.core
 	 */
 	public class InteractionManager
 	{
+		
+		private var _displayObjectContainer:DisplayObjectContainer;
 
 		/**
 		 * 根容器控件
@@ -67,20 +69,21 @@ package com.macro.gUI.core
 		public function InteractionManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
 		{
 			_root = uiManager.root;
+			_displayObjectContainer = displayObjectContainer;
 
 			_popupManager = uiManager.popupManager;
 			_dragManager = new DragManager();
 			_focusManager = new FocusManager(uiManager.topContainer, displayObjectContainer);
 
-			displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
-			displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
-			displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
+			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
+			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
 		}
 
 
 		protected function mouseDownHandler(e:MouseEvent):void
 		{
-			findTargetControl(_root, e.localX, e.localY);
+			findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 			// 如果有弹出菜单时，就及时关闭之
 			if (_popupManager.popupMenu != null &&
@@ -116,7 +119,7 @@ package com.macro.gUI.core
 			if (_dragManager.isDragging)
 			{
 				// 结束拖拽
-				findTargetControl(_root, e.localX, e.localY);
+				findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 				_dragManager.stopDrag(_mouseControl);
 			}
@@ -136,13 +139,13 @@ package com.macro.gUI.core
 			if (_dragManager.isDragging)
 			{
 				// 正在拖拽
-				_dragManager.setDragCoord(e.localX, e.localY);
+				_dragManager.setDragCoord(_displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 			}
 			else
 			{
 				var tempC:IControl = _mouseControl;
 				var tempT:IControl = _mouseTarget;
-				findTargetControl(_root, e.localX, e.localY);
+				findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 				// 在同一个控件范围内移动时不作处理
 				if (tempT == _mouseTarget)

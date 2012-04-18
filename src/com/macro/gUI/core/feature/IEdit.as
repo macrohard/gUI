@@ -1,5 +1,6 @@
 package com.macro.gUI.core.feature
 {
+	import flash.text.TextField;
 
 
 	/**
@@ -16,13 +17,20 @@ package com.macro.gUI.core.feature
 		 *
 		 */
 		function get editable():Boolean;
-
+		
 		/**
 		 * 开始编辑
 		 * @return
 		 *
 		 */
-		function beginEdit():void;
+		function beginEdit():TextField;
+		
+		/**
+		 * 结束编辑
+		 * @param text
+		 * 
+		 */
+		function endEdit(text:String):void;
 
 	}
 }
