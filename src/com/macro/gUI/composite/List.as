@@ -1,17 +1,19 @@
 package com.macro.gUI.composite
 {
 	import com.macro.gUI.assist.DragMode;
+	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.assist.Viewport;
+	import com.macro.gUI.containers.Container;
+	import com.macro.gUI.containers.Panel;
+	import com.macro.gUI.controls.ToggleButton;
 	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-	import com.macro.gUI.containers.Container;
-	import com.macro.gUI.containers.Panel;
-	import com.macro.gUI.controls.Cell;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	import com.macro.gUI.skin.StyleDef;
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -38,18 +40,33 @@ package com.macro.gUI.composite
 		/**
 		 * 选中的列表项
 		 */
-		private var _selectItem:Cell;
+		protected var _selectItem:ToggleButton;
 
+
+		/**
+		 * 列表项文本样式
+		 */
+		private var _itemStyle:TextStyle;
+
+		/**
+		 * 列表项选中文本样式
+		 */
+		private var _itemSelectedStyle:TextStyle;
 
 		/**
 		 * 列表项背景皮肤
 		 */
-		private var _cellSkin:ISkin;
+		private var _itemSkin:ISkin;
+
+		/**
+		 * 列表项悬停状态时的背景皮肤
+		 */
+		private var _itemOverSkin:ISkin;
 
 		/**
 		 * 列表项选中状态时的背景皮肤
 		 */
-		private var _cellSelectedSkin:ISkin;
+		private var _itemSelectedSkin:ISkin;
 
 
 		/**
@@ -69,8 +86,12 @@ package com.macro.gUI.composite
 			(_container as Panel).skin = skinManager.getSkin(SkinDef.LIST_BG);
 			_container.addChild(_itemContainer);
 
-			_cellSkin = skinManager.getSkin(SkinDef.CELL_BG);
-			_cellSelectedSkin = skinManager.getSkin(SkinDef.CELL_SELECTED_BG);
+			_itemStyle = skinManager.getStyle(StyleDef.LIST_ITEM);
+			_itemSelectedStyle = skinManager.getStyle(StyleDef.LIST_ITEM_SELECTED);
+
+			_itemSkin = skinManager.getSkin(SkinDef.LIST_ITEM_BG);
+			_itemOverSkin = skinManager.getSkin(SkinDef.LIST_ITEM_OVER_BG);
+			_itemSelectedSkin = skinManager.getSkin(SkinDef.LIST_ITEM_SELECTED_BG);
 
 			_rect = _container.rect;
 			layout();
@@ -86,11 +107,9 @@ package com.macro.gUI.composite
 		{
 			_itemContainer.removeChildren();
 
-			var cell:Cell;
 			for each (var s:String in value)
 			{
-				cell = new Cell(s, _cellSkin);
-				_itemContainer.addChild(cell);
+				_itemContainer.addChild(createItem(s));
 			}
 
 			layout();
@@ -109,7 +128,7 @@ package com.macro.gUI.composite
 
 		public function set selectedIndex(value:int):void
 		{
-			_selectItem = _itemContainer.getChildAt(value) as Cell;
+			_selectItem = _itemContainer.getChildAt(value) as ToggleButton;
 			resetSkin();
 		}
 
@@ -121,7 +140,11 @@ package com.macro.gUI.composite
 		 */
 		public function get selectedText():String
 		{
-			return _selectItem.text;
+			if (_selectItem != null)
+			{
+				return _selectItem.text;
+			}
+			return null;
 		}
 
 
@@ -143,10 +166,25 @@ package com.macro.gUI.composite
 		 * @param cellSelectedSkin
 		 *
 		 */
-		public function setItemSkin(cellSkin:ISkin, cellSelectedSkin:ISkin):void
+		public function setItemSkin(itemSkin:ISkin, itemOverSkin:ISkin, itemSelectedSkin:ISkin):void
 		{
-			_cellSkin = cellSkin;
-			_cellSelectedSkin = cellSelectedSkin;
+			_itemSkin = itemSkin;
+			_itemOverSkin = itemOverSkin;
+			_itemSelectedSkin = itemSelectedSkin;
+			resetSkin();
+		}
+
+
+		/**
+		 * 设置列表项文本样式
+		 * @param itemStyle
+		 * @param itemSelectedStyle
+		 *
+		 */
+		public function setItemStyle(itemStyle:TextStyle, itemSelectedStyle:TextStyle):void
+		{
+			_itemStyle = itemStyle;
+			_itemSelectedStyle = itemSelectedStyle;
 			resetSkin();
 		}
 
@@ -160,7 +198,7 @@ package com.macro.gUI.composite
 		 */
 		public function addItem(text:String, index:int = int.MAX_VALUE):void
 		{
-			_itemContainer.addChildAt(new Cell(text, _cellSkin), index);
+			_itemContainer.addChildAt(createItem(text), index);
 			layout();
 		}
 
@@ -172,7 +210,6 @@ package com.macro.gUI.composite
 		public function removeItem(index:int):void
 		{
 			_itemContainer.removeChildAt(index);
-
 			layout();
 		}
 
@@ -183,25 +220,32 @@ package com.macro.gUI.composite
 		public function clearItems():void
 		{
 			_itemContainer.removeChildren();
-
 			layout();
+		}
+
+
+		private function createItem(text:String):ToggleButton
+		{
+			var item:ToggleButton = new ToggleButton(text);
+			item.autoSize = false;
+			item.style = item.overStyle = item.downStyle = _itemStyle;
+			item.selectedStyle = item.selectedOverStyle = item.selectedDownStyle = _itemSelectedStyle;
+			item.skin = _itemSkin;
+			item.overSkin = item.downSkin = _itemOverSkin;
+			item.selectedSkin = item.selectedOverSkin = item.selectedDownSkin = _itemSelectedSkin;
+			return item;
 		}
 
 
 		private function resetSkin():void
 		{
-			var cell:Cell;
-			for each (var ic:IControl in _itemContainer.children)
+			for each (var item:ToggleButton in _itemContainer.children)
 			{
-				cell = ic as Cell;
-				if (cell == _selectItem)
-				{
-					cell.skin = _cellSelectedSkin;
-				}
-				else
-				{
-					cell.skin = _cellSkin;
-				}
+				item.style = item.overStyle = item.downStyle = _itemStyle;
+				item.selectedStyle = item.selectedOverStyle = item.selectedDownStyle = _itemSelectedStyle;
+				item.skin = _itemSkin;
+				item.overSkin = item.downSkin = _itemOverSkin;
+				item.selectedSkin = item.selectedOverSkin = item.selectedDownSkin = _itemSelectedSkin;
 			}
 		}
 
@@ -235,12 +279,12 @@ package com.macro.gUI.composite
 				if (p.x >= 0 && p.x <= _container.contentWidth && p.y >= 0 &&
 						p.y <= _container.contentHeight)
 				{
-					p.y -= _itemContainer.y;
-					for each (var cell:Cell in _itemContainer.children)
+					// 检测是否在列表项范围内
+					for each (var item:ToggleButton in _itemContainer.children)
 					{
-						if (cell.rect.containsPoint(p))
+						if (item.hitTest(x, y) != null)
 						{
-							target = cell;
+							return item;
 						}
 					}
 				}
@@ -260,7 +304,7 @@ package com.macro.gUI.composite
 
 			var w:int = _container.contentWidth;
 			var h:int = _container.contentHeight;
-			var itemH:int = (_itemContainer.getChildAt(0) as Cell).height;
+			var itemH:int = (_itemContainer.getChildAt(0) as ToggleButton).height;
 			var totalH:int = itemH * _itemContainer.numChildren;
 
 			_itemContainer.resize(w, totalH);
@@ -281,12 +325,12 @@ package com.macro.gUI.composite
 			}
 
 			var length:int = _itemContainer.numChildren;
-			var cell:Cell;
+			var item:ToggleButton;
 			for (var i:int; i < length; i++)
 			{
-				cell = _itemContainer.getChildAt(i) as Cell;
-				cell.y = i * itemH;
-				cell.width = w;
+				item = _itemContainer.getChildAt(i) as ToggleButton;
+				item.y = i * itemH;
+				item.width = w;
 			}
 		}
 
@@ -294,14 +338,9 @@ package com.macro.gUI.composite
 
 		public function mouseDown(target:IControl):void
 		{
-			if (target is Cell)
+			if (target is ToggleButton)
 			{
-				if (_selectItem != null)
-				{
-					_selectItem.skin = _cellSkin;
-				}
-				_selectItem = target as Cell;
-				_selectItem.skin = _cellSelectedSkin;
+				(target as ToggleButton).mouseDown(target);
 			}
 			else if (target.parent == _scrollBar.container)
 			{
@@ -311,7 +350,16 @@ package com.macro.gUI.composite
 
 		public function mouseUp(target:IControl):void
 		{
-			if (target.parent == _scrollBar.container)
+			if (target is ToggleButton)
+			{
+				if (_selectItem != null)
+				{
+					_selectItem.selected = false;
+				}
+				_selectItem = target as ToggleButton;
+				_selectItem.mouseUp(target);
+			}
+			else if (target.parent == _scrollBar.container)
 			{
 				_scrollBar.mouseUp(target);
 			}
@@ -319,7 +367,11 @@ package com.macro.gUI.composite
 
 		public function mouseOut(target:IControl):void
 		{
-			if (target.parent == _scrollBar.container)
+			if (target is ToggleButton)
+			{
+				(target as ToggleButton).mouseOut(target);
+			}
+			else if (target.parent == _scrollBar.container)
 			{
 				_scrollBar.mouseOut(target);
 			}
@@ -327,7 +379,11 @@ package com.macro.gUI.composite
 
 		public function mouseOver(target:IControl):void
 		{
-			if (target.parent == _scrollBar.container)
+			if (target is ToggleButton)
+			{
+				(target as ToggleButton).mouseOver(target);
+			}
+			else if (target.parent == _scrollBar.container)
 			{
 				_scrollBar.mouseOver(target);
 			}

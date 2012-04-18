@@ -55,7 +55,7 @@ package com.macro.gUI.controls
 			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
 			_style = _style ? _style : _styles[CtrlState.NORMAL];
 
-			_padding = _padding ? _padding : new Margin(10, 10, 10, 10);
+			_padding = _padding ? _padding : new Margin(10, 0, 10, 0);
 
 			super(text, align);
 		}

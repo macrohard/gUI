@@ -7,7 +7,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
-	import com.macro.gUI.controls.Cell;
+	import com.macro.gUI.controls.TitleBar;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
@@ -48,7 +48,7 @@ package com.macro.gUI.containers
 		/**
 		 * 标签页按钮
 		 */
-		protected var _tabs:Vector.<Cell>;
+		protected var _tabs:Vector.<TitleBar>;
 
 		/**
 		 * 面板背景
@@ -98,7 +98,7 @@ package com.macro.gUI.containers
 			_tabGap = tabGap;
 
 			_tabContainers = new Vector.<Container>();
-			_tabs = new Vector.<Cell>();
+			_tabs = new Vector.<TitleBar>();
 
 			_tabSkin = skinManager.getSkin(SkinDef.TABPANEL_TAB);
 			_tabSelectedSkin = skinManager.getSkin(SkinDef.TABPANEL_TAB_SELECTED);
@@ -289,7 +289,7 @@ package com.macro.gUI.containers
 		public function setTabStyle(tabStyle:TextStyle):void
 		{
 			_tabStyle = tabStyle;
-			for each (var tab:Cell in _tabs)
+			for each (var tab:TitleBar in _tabs)
 			{
 				tab.style = _tabStyle;
 			}
@@ -343,7 +343,7 @@ package com.macro.gUI.containers
 			_margin = new Margin(_bg.skin.gridLeft, _bg.skin.gridTop, _bg.skin.paddingRight, _bg.skin.paddingBottom);
 			if (_tabs.length > 0)
 			{
-				var tab:Cell = _tabs[0];
+				var tab:TitleBar = _tabs[0];
 				if (_tabLayout == TAB_LAYOUT_TOP)
 				{
 					_margin.top = tab.height + _bg.skin.gridTop;
@@ -366,7 +366,7 @@ package com.macro.gUI.containers
 		 */
 		public function addTab(title:String, index:int = int.MAX_VALUE):Container
 		{
-			var tab:Cell = new Cell(title, _tabSkin, true);
+			var tab:TitleBar = new TitleBar(title, _tabSkin, true);
 			tab.style = _tabStyle;
 			tab.padding = new Margin(8, 0, 8, 0);
 
@@ -406,7 +406,7 @@ package com.macro.gUI.containers
 		{
 			if (index >= 0 && index < _tabs.length)
 			{
-				var tab:Cell = _tabs[index];
+				var tab:TitleBar = _tabs[index];
 				tab.text = title;
 				layout();
 			}
@@ -449,7 +449,7 @@ package com.macro.gUI.containers
 		 */
 		public function clearTabs():void
 		{
-			for each (var tab:Cell in _tabs)
+			for each (var tab:TitleBar in _tabs)
 			{
 				_container.removeChild(tab);
 			}
@@ -495,7 +495,7 @@ package com.macro.gUI.containers
 
 			for (var i:int = _tabs.length - 1; i >= 0; i--)
 			{
-				var tab:Cell = _tabs[i];
+				var tab:TitleBar = _tabs[i];
 				if (tab.rect.containsPoint(p))
 				{
 					return tab;
@@ -539,7 +539,7 @@ package com.macro.gUI.containers
 				oy = _bg.height;
 			}
 
-			var tab:Cell;
+			var tab:TitleBar;
 			for (var i:int; i < length; i++)
 			{
 				tab = _tabs[i];
@@ -561,7 +561,7 @@ package com.macro.gUI.containers
 
 		public function mouseDown(target:IControl):void
 		{
-			if (target is Cell)
+			if (target is TitleBar)
 			{
 				this.selectedIndex = _tabs.indexOf(target);
 			}

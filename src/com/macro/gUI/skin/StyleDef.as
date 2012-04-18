@@ -9,19 +9,32 @@ package com.macro.gUI.skin
 	 */
 	public class StyleDef
 	{
+
 		public static const NORMAL:String = "normal";
 
 		public static const TEXTINPUT:String = "textinput";
-		
+
 		public static const TEXTINPUT_DISABLE:String = "textinput.disable";
 
 		public static const TEXTAREA:String = "textarea";
 
-		public static const CELL:String = "cell";
+		public static const TITLEBAR:String = "titlebar";
+
+
+
+		public static const LIST_ITEM:String = "list.item";
 		
+		public static const LIST_ITEM_SELECTED:String = "list.item.selected";
+
 		public static const COMBO_INPUT:String = "combo.input";
-		
+
 		public static const COMBO_INPUT_DISABLE:String = "combo.input.disable";
+
+		public static const COMBO_LIST_ITEM:String = "combo.list.item";
+		
+		public static const COMBO_LIST_ITEM_SELECTED:String = "combo.list.item.selected";
+
+
 
 		public static const WINDOW_TITLE:String = "window.title";
 

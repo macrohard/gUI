@@ -9,39 +9,14 @@ package com.macro.gUI.skin
 	 */
 	public class SkinDef
 	{
-		public static const PANEL_BG:String = "panel.background";
-
-		public static const SCROLLPANEL_BG:String = "scrollpanel.background";
-
-
-
-		public static const CELL_BG:String = "cell.background";
-
-		public static const CELL_SELECTED_BG:String = "cell.selected.background";
-
-		public static const LIST_BG:String = "list.background";
-		
-		
-		
-		public static const COMBO_INPUT_NORMAL:String = "combo.input.normal";
-		
-		public static const COMBO_INPUT_DISABLE:String = "combo.input.disable";
-		
-		public static const COMBO_BUTTON_NORMAL:String = "combo.button.normal";
-		
-		public static const COMBO_BUTTON_OVER:String = "combo.button.over";
-		
-		public static const COMBO_BUTTON_DOWN:String = "combo.button.down";
-		
-		public static const COMBO_BUTTON_DISABLE:String = "combo.button.disable";
-
-
-
-		public static const TEXTAREA_BG:String = "textarea.backgroud";
 
 		public static const TEXTINPUT_NORMAL:String = "textinput.background";
 
 		public static const TEXTINPUT_DISABLE:String = "textinput.disable";
+
+		public static const TEXTAREA_BG:String = "textarea.backgroud";
+
+		public static const TITLEBAR_BG:String = "titlebar.background";
 
 
 
@@ -178,8 +153,47 @@ package com.macro.gUI.skin
 		public static const SCROLLBAR_DOWN_DOWN:String = "scrollbar.down.down";
 
 		public static const SCROLLBAR_DOWN_DISABLE:String = "scrollbar.down.disable";
+		
+		
+		
+		public static const LIST_ITEM_BG:String = "list.item.background";
+		
+		public static const LIST_ITEM_OVER_BG:String = "list.item.over.background";
+		
+		public static const LIST_ITEM_SELECTED_BG:String = "list.item.selected.background";
+		
+		public static const LIST_BG:String = "list.background";
+		
+		
+		
+		public static const COMBO_INPUT_NORMAL:String = "combo.input.normal";
+		
+		public static const COMBO_INPUT_DISABLE:String = "combo.input.disable";
+		
+		public static const COMBO_BUTTON_NORMAL:String = "combo.button.normal";
+		
+		public static const COMBO_BUTTON_OVER:String = "combo.button.over";
+		
+		public static const COMBO_BUTTON_DOWN:String = "combo.button.down";
+		
+		public static const COMBO_BUTTON_DISABLE:String = "combo.button.disable";
+		
+		public static const COMBO_LIST_ITEM_BG:String = "combo.list.item.background";
+		
+		public static const COMBO_LIST_ITEM_OVER_BG:String = "combo.list.item.over.background";
+		
+		public static const COMBO_LIST_ITEM_SELECTED_BG:String = "combo.list.item.selected.background";
+		
+		public static const COMBO_LIST_BG:String = "combo.list.background";
 
 
+		
+		
+		public static const PANEL_BG:String = "panel.background";
+		
+		public static const SCROLLPANEL_BG:String = "scrollpanel.background";
+		
+		
 
 
 		public static const WINDOW_BG:String = "window.background";
