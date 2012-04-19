@@ -54,7 +54,7 @@ package com.macro.gUI.composite
 
 			_label = new Label(text);
 			_icon = new ToggleButton(null, 0x22);
-			_icon.overSkin = _icon.downSkin = _icon.skin = skinManager.getSkin(SkinDef.CHECKBOX_NORMAL);
+			_icon.overSkin = _icon.downSkin = _icon.skin = skinManager.getSkin(SkinDef.CHECKBOX);
 			_icon.disableSkin = skinManager.getSkin(SkinDef.CHECKBOX_DISABLE);
 			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = skinManager.getSkin(SkinDef.CHECKBOX_SELECTED);
 			_icon.selectedDisableSkin = skinManager.getSkin(SkinDef.CHECKBOX_SELECTED_DISABLE);

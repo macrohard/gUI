@@ -60,8 +60,8 @@ package com.macro.gUI.controls
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.TEXTINPUT_NORMAL);
-				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.TEXTINPUT_DISABLE);
+				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.TEXTINPUT_BG);
+				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.TEXTINPUT_BG_DISABLE);
 			}
 
 			_style = _style ? _style : _styles[CtrlState.NORMAL];

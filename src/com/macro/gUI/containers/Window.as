@@ -140,19 +140,19 @@ package com.macro.gUI.containers
 			_title.style = skinManager.getStyle(StyleDef.WINDOW_TITLE);
 
 			_minBtn = new Button();
-			_minBtn.skin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_NORMAL);
+			_minBtn.skin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON);
 			_minBtn.overSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_OVER);
 			_minBtn.downSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_DOWN);
 			_minBtn.disableSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_DISABLE);
 
 			_maxBtn = new Button();
-			_maxBtn.skin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_NORMAL);
+			_maxBtn.skin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON);
 			_maxBtn.overSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_OVER);
 			_maxBtn.downSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_DOWN);
 			_maxBtn.disableSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_DISABLE);
 
 			_closeBtn = new Button();
-			_closeBtn.skin = skinManager.getSkin(SkinDef.CLOSE_BUTTON_NORMAL);
+			_closeBtn.skin = skinManager.getSkin(SkinDef.CLOSE_BUTTON);
 			_closeBtn.overSkin = skinManager.getSkin(SkinDef.CLOSE_BUTTON_OVER);
 			_closeBtn.downSkin = skinManager.getSkin(SkinDef.CLOSE_BUTTON_DOWN);
 

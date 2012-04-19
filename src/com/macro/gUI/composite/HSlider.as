@@ -70,7 +70,7 @@ package com.macro.gUI.composite
 			_bg = new Slice(skin, width, skin.bitmapData.height);
 
 			_blockBtn = new Button();
-			_blockBtn.skin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_NORMAL);
+			_blockBtn.skin = skinManager.getSkin(SkinDef.SLIDER_BLOCK);
 			_blockBtn.overSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_OVER);
 			_blockBtn.downSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_DOWN);
 			_blockBtn.disableSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);

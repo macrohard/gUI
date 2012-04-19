@@ -47,13 +47,13 @@ package com.macro.gUI.composite
 			_autoSize = true;
 
 			_textInput = new TextInput(text);
-			_textInput.skin = skinManager.getSkin(SkinDef.COMBO_INPUT_NORMAL);
-			_textInput.disableSkin = skinManager.getSkin(SkinDef.COMBO_INPUT_DISABLE);
+			_textInput.skin = skinManager.getSkin(SkinDef.COMBO_INPUT_BG);
+			_textInput.disableSkin = skinManager.getSkin(SkinDef.COMBO_INPUT_BG_DISABLE);
 			_textInput.style = skinManager.getStyle(StyleDef.COMBO_INPUT);
 			_textInput.disableStyle = skinManager.getStyle(StyleDef.COMBO_INPUT_DISABLE);
 
 			_downBtn = new Button();
-			_downBtn.skin = skinManager.getSkin(SkinDef.COMBO_BUTTON_NORMAL);
+			_downBtn.skin = skinManager.getSkin(SkinDef.COMBO_BUTTON);
 			_downBtn.overSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON_OVER);
 			_downBtn.downSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON_DOWN);
 			_downBtn.disableSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON_DISABLE);

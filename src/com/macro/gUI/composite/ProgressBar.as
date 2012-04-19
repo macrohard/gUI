@@ -54,7 +54,7 @@ package com.macro.gUI.composite
 			var skin:ISkin = skinManager.getSkin(SkinDef.PROGRESSBAR_BG);
 			_bg = new Slice(skin, width, skin.bitmapData.height);
 
-			_fillingSkin = skinManager.getSkin(SkinDef.PROGRESSBAR_INFILL);
+			_fillingSkin = skinManager.getSkin(SkinDef.PROGRESSBAR_FILLING);
 			_canvas = new Canvas(width - skin.gridLeft - skin.gridRight, _fillingSkin.bitmapData.height);
 
 			_container = new Container();

@@ -42,7 +42,7 @@ package com.macro.gUI.controls
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_NORMAL);
+				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.TOGGLEBUTTON);
 				_skins[CtrlState.OVER] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_OVER);
 				_skins[CtrlState.DOWN] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_DOWN);
 				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_DISABLE);

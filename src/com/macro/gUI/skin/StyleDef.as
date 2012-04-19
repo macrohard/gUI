@@ -10,7 +10,7 @@ package com.macro.gUI.skin
 	public class StyleDef
 	{
 
-		public static const NORMAL:String = "normal";
+		public static const LABEL:String = "normal";
 
 		public static const TEXTINPUT:String = "textinput";
 

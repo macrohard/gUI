@@ -36,7 +36,7 @@ package com.macro.gUI.controls
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.ICONBUTTON_NORMAL);
+				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.ICONBUTTON);
 				_skins[CtrlState.OVER] = skinManager.getSkin(SkinDef.ICONBUTTON_OVER);
 				_skins[CtrlState.DOWN] = skinManager.getSkin(SkinDef.ICONBUTTON_DOWN);
 				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.ICONBUTTON_DISABLE);
