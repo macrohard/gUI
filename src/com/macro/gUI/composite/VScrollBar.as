@@ -319,7 +319,14 @@ package com.macro.gUI.composite
 			_blockBtn.overSkin = overSkin;
 			_blockBtn.downSkin = downSkin;
 			_blockBtn.disableSkin = disableSkin;
-			layout();
+			if (_autoSize)
+			{
+				resize(0, _rect.height);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 		/**
@@ -336,7 +343,14 @@ package com.macro.gUI.composite
 			_upBtn.overSkin = overSkin;
 			_upBtn.downSkin = downSkin;
 			_upBtn.disableSkin = disableSkin;
-			layout();
+			if (_autoSize)
+			{
+				resize(0, _rect.height);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 		/**
@@ -353,7 +367,14 @@ package com.macro.gUI.composite
 			_downBtn.overSkin = overSkin;
 			_downBtn.downSkin = downSkin;
 			_downBtn.disableSkin = disableSkin;
-			layout();
+			if (_autoSize)
+			{
+				resize(0, _rect.height);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 		/**
@@ -365,7 +386,14 @@ package com.macro.gUI.composite
 		{
 			_track.skin = value;
 			_track.width = value.bitmapData.width;
-			layout();
+			if (_autoSize)
+			{
+				resize(0, _rect.height);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 
@@ -423,7 +451,7 @@ package com.macro.gUI.composite
 			var w:int = _padding.left + _padding.right;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
-				ox += (_rect.width - w) >> 1;
+				ox += _rect.width - w >> 1;
 			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
 			{

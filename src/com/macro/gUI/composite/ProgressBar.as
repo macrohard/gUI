@@ -126,7 +126,14 @@ package com.macro.gUI.composite
 			_bg.height = bgSkin.bitmapData.height;
 			_fillingSkin = fillingSkin;
 			_canvas.height = fillingSkin.bitmapData.height;
-			layout();
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 
@@ -164,7 +171,7 @@ package com.macro.gUI.composite
 			var oy:int;
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				oy += (_rect.height - _bg.height) >> 1;
+				oy += _rect.height - _bg.height >> 1;
 			}
 			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
 			{

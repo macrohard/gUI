@@ -319,7 +319,14 @@ package com.macro.gUI.composite
 			_blockBtn.overSkin = overSkin;
 			_blockBtn.downSkin = downSkin;
 			_blockBtn.disableSkin = disableSkin;
-			layout();
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 		/**
@@ -336,7 +343,14 @@ package com.macro.gUI.composite
 			_leftBtn.overSkin = overSkin;
 			_leftBtn.downSkin = downSkin;
 			_leftBtn.disableSkin = disableSkin;
-			layout();
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 		/**
@@ -353,7 +367,14 @@ package com.macro.gUI.composite
 			_rightBtn.overSkin = overSkin;
 			_rightBtn.downSkin = downSkin;
 			_rightBtn.disableSkin = disableSkin;
-			layout();
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 		/**
@@ -365,7 +386,14 @@ package com.macro.gUI.composite
 		{
 			_track.skin = value;
 			_track.height = value.bitmapData.height;
-			layout();
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 

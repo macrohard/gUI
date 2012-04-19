@@ -1,5 +1,6 @@
 package com.macro.gUI.composite
 {
+	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Button;
@@ -12,6 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 	
+	import flash.geom.Point;
 	import flash.text.TextField;
 
 
@@ -33,12 +35,14 @@ package com.macro.gUI.composite
 		/**
 		 * 组合框控件
 		 * @param text 默认文本
+		 * @param width 初始宽度
 		 * @param align 布局对齐方式，默认左上角对齐
 		 *
 		 */
-		public function ComboBox(text:String = null, align:int = 0x11)
+		public function ComboBox(text:String = null, width:int = 80, align:int = 0x11)
 		{
-			super(1, 1, align);
+			//稍后resize时会重设为标准大小
+			super(width, 1, align);
 
 			_autoSize = true;
 
@@ -84,7 +88,7 @@ package com.macro.gUI.composite
 				itemSelectedSkin = skinManager.getSkin(SkinDef.LIST_ITEM_SELECTED_BG);
 			}
 			_list.setItemSkin(itemSkin, itemOverSkin, itemSelectedSkin);
-			
+
 			var itemStyle:TextStyle = skinManager.getStyle(StyleDef.COMBO_LIST_ITEM);
 			if (itemStyle == null)
 			{
@@ -141,13 +145,13 @@ package com.macro.gUI.composite
 		{
 			_textInput.editable = value;
 		}
-		
-		
+
+
 		public override function get enabled():Boolean
 		{
 			return _textInput.enabled;
 		}
-		
+
 		public override function set enabled(value:Boolean):void
 		{
 			_textInput.enabled = value;
@@ -168,62 +172,187 @@ package com.macro.gUI.composite
 			_tabIndex = value;
 		}
 
-		
-		
-		public function setInputStyle(normalStyle:TextStyle, disableStyle:TextStyle):void
+
+
+		/**
+		 * 设置输入框样式
+		 * @param normalStyle 常态样式
+		 * @param disableStyle 禁用态样式
+		 *
+		 */
+		public function setTextInputStyle(normalStyle:TextStyle, disableStyle:TextStyle):void
 		{
-			
+			_textInput.style = normalStyle;
+			_textInput.disableStyle = disableStyle;
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
 		}
-		
-		
-		
+
+
+		/**
+		 * 设置输入框皮肤
+		 * @param normalSkin 常态皮肤
+		 * @param disableSkin 禁用态皮肤
+		 *
+		 */
+		public function setTextInputSkin(normalSkin:ISkin, disableSkin:ISkin):void
+		{
+			_textInput.skin = normalSkin;
+			_textInput.disableSkin = disableSkin;
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
+		}
+
+
+		/**
+		 * 设置按钮皮肤
+		 * @param normalSkin
+		 * @param overSkin
+		 * @param downSkin
+		 * @param disableSkin
+		 *
+		 */
+		public function setButtonSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
+		{
+			_downBtn.skin = normalSkin;
+			_downBtn.overSkin = overSkin;
+			_downBtn.downSkin = downSkin;
+			_downBtn.disableSkin = disableSkin;
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
+		}
+
+
+		/**
+		 * 设置列表框文本样式
+		 * @param itemStyle
+		 * @param itemSelectedStyle
+		 *
+		 */
+		public function setListStyle(itemStyle:TextStyle, itemSelectedStyle:TextStyle):void
+		{
+			_list.setItemStyle(itemStyle, itemSelectedStyle);
+		}
+
+
+		/**
+		 * 设置列表框皮肤
+		 * @param bgSkin
+		 * @param itemSkin
+		 * @param itemOverSkin
+		 * @param itemSelectedSkin
+		 *
+		 */
+		public function setListSkin(bgSkin:ISkin, itemSkin:ISkin, itemOverSkin:ISkin, itemSelectedSkin:ISkin):void
+		{
+			_list.setBgSkin(bgSkin);
+			_list.setItemSkin(itemSkin, itemOverSkin, itemSelectedSkin);
+		}
+
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
+			var p:Point = globalToLocal(x, y);
+
+			if (_textInput.rect.containsPoint(p))
+			{
+				return _textInput;
+			}
+
+			if (_downBtn.rect.containsPoint(p))
+			{
+				return _downBtn;
+			}
+
 			return null;
 		}
-		
-		
-		
-		public override function resize(width:int=0, height:int=0):void
+
+
+
+		public override function resize(width:int = 0, height:int = 0):void
 		{
-			
+			if (_autoSize)
+			{
+				var min:int = (_textInput.skin ? _textInput.skin.minWidth : 10) + _downBtn.width;
+				width = width < min ? min : width;
+				height = _textInput.height > _downBtn.height ? _textInput.height : _downBtn.height;
+			}
+
+			super.resize(width, height);
 		}
-		
-		
-		
+
+
+
 		public override function setDefaultSize():void
 		{
-			
+			resize((_textInput.skin ? _textInput.skin.minWidth : 10) + _downBtn.width,
+				   _textInput.height > _downBtn.height ? _textInput.height : _downBtn.height);
 		}
-		
-		
-		
+
+
+
 		protected override function layout():void
 		{
+			if ((_align & LayoutAlign.TOP) == LayoutAlign.TOP)
+			{
+				_textInput.y = 0;
+				_downBtn.y = 0;
+			}
+			else if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
+			{
+				_textInput.y = _rect.height - _textInput.height >> 1;
+				_downBtn.y = _rect.height - _downBtn.height >> 1;
+			}
+			else
+			{
+				_textInput.y = _rect.height - _textInput.height;
+				_downBtn.y = _rect.height - _downBtn.height;
+			}
 			
+			_textInput.width = _rect.width - _downBtn.width;
+			_downBtn.x = _textInput.width;
 		}
-		
+
 
 
 
 		public function mouseDown(target:IControl):void
 		{
-			
+
 		}
 
 		public function mouseUp(target:IControl):void
 		{
-			
+
 		}
 
 		public function mouseOver(target:IControl):void
 		{
-			
+
 		}
 
 		public function mouseOut(target:IControl):void
 		{
-			
+
 		}
 
 

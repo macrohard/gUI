@@ -51,11 +51,9 @@ package com.macro.gUI.composite
 		 * 默认自动设置尺寸
 		 * @param height 高度
 		 * @param align 布局对齐方式，默认水平居中
-		 * @param blockSkin 滑块皮肤
-		 * @param bgSkin 背景皮肤
 		 *
 		 */
-		public function VSlider(height:int = 100, align:int = 0x02, blockSkin:ISkin = null, bgSkin:ISkin = null)
+		public function VSlider(height:int = 100, align:int = 0x02)
 		{
 			//稍后resize时会重设为标准大小
 			super(1, height, align);
@@ -252,7 +250,14 @@ package com.macro.gUI.composite
 			_blockBtn.overSkin = overSkin;
 			_blockBtn.downSkin = downSkin;
 			_blockBtn.disableSkin = disableSkin;
-			layout();
+			if (_autoSize)
+			{
+				resize(0, _rect.height);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 		/**
@@ -264,7 +269,14 @@ package com.macro.gUI.composite
 		{
 			_bg.skin = value;
 			_bg.width = value.bitmapData.width;
-			layout();
+			if (_autoSize)
+			{
+				resize(0, _rect.height);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 
@@ -311,7 +323,7 @@ package com.macro.gUI.composite
 			var w:int = _padding.left + _padding.right;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
-				ox += (_rect.width - w) >> 1;
+				ox += _rect.width - w >> 1;
 			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
 			{

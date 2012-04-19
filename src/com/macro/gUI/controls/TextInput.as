@@ -312,7 +312,7 @@ package com.macro.gUI.controls
 			var ox:int = p.x + (_padding ? _padding.left : 0);
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
-				ox += (w - txtW) >> 1;
+				ox += w - txtW >> 1;
 			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
 			{
@@ -322,7 +322,7 @@ package com.macro.gUI.controls
 			var oy:int = p.y + (_padding ? _padding.top : 0);
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				oy += (h - txtH) >> 1;
+				oy += h - txtH >> 1;
 			}
 			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
 			{

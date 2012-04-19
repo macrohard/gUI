@@ -251,7 +251,14 @@ package com.macro.gUI.composite
 			_blockBtn.overSkin = overSkin;
 			_blockBtn.downSkin = downSkin;
 			_blockBtn.disableSkin = disableSkin;
-			layout();
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 		/**
@@ -263,7 +270,14 @@ package com.macro.gUI.composite
 		{
 			_bg.skin = value;
 			_bg.height = value.bitmapData.height;
-			layout();
+			if (_autoSize)
+			{
+				resize(_rect.width);
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 
@@ -312,7 +326,7 @@ package com.macro.gUI.composite
 			var h:int = _padding.top + _padding.bottom;
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				oy += (_rect.height - h) >> 1;
+				oy += _rect.height - h >> 1;
 			}
 			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
 			{

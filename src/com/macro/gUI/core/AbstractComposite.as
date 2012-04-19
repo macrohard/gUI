@@ -158,7 +158,7 @@ package com.macro.gUI.core
 		public override function set width(value:int):void
 		{
 			_rect.width = _container.width = value;
-			layout();
+			resize(value, _rect.height);
 		}
 
 
@@ -175,7 +175,7 @@ package com.macro.gUI.core
 		public override function set height(value:int):void
 		{
 			_rect.height = _container.height = value;
-			layout();
+			resize(_rect.width, value);
 		}
 
 
@@ -211,6 +211,16 @@ package com.macro.gUI.core
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
+			if (width == 0)
+			{
+				width = _rect.width;
+			}
+			
+			if (height == 0)
+			{
+				height = _rect.height;
+			}
+			
 			_container.resize(width, height);
 			_rect = _container.rect;
 			layout();

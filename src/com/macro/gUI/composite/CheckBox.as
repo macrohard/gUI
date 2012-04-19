@@ -197,7 +197,14 @@ package com.macro.gUI.composite
 			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = selectedSkin;
 			_icon.selectedDisableSkin = selectedDisableSkin;
 
-			layout();
+			if (_autoSize)
+			{
+				resize();
+			}
+			else
+			{
+				layout();
+			}
 		}
 
 
@@ -239,7 +246,7 @@ package com.macro.gUI.composite
 			var ox:int;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
-				ox = (_rect.width - w) >> 1;
+				ox = _rect.width - w >> 1;
 			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
 			{
@@ -257,8 +264,8 @@ package com.macro.gUI.composite
 			}
 			else if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				_icon.y = (_rect.height - _icon.height) >> 1;
-				_label.y = (_rect.height - _label.height) >> 1;
+				_icon.y = _rect.height - _icon.height >> 1;
+				_label.y = _rect.height - _label.height >> 1;
 			}
 			else
 			{
