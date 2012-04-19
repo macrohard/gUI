@@ -43,9 +43,25 @@ package com.macro.gUI.controls
 			{
 				_skins = new Dictionary();
 				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.TOGGLEBUTTON);
+				if (_skins[CtrlState.NORMAL] == null)
+				{
+					_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.BUTTON);
+				}
 				_skins[CtrlState.OVER] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_OVER);
+				if (_skins[CtrlState.OVER] == null)
+				{
+					_skins[CtrlState.OVER] = skinManager.getSkin(SkinDef.BUTTON_OVER);
+				}
 				_skins[CtrlState.DOWN] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_DOWN);
+				if (_skins[CtrlState.DOWN] == null)
+				{
+					_skins[CtrlState.DOWN] = skinManager.getSkin(SkinDef.BUTTON_DOWN);
+				}
 				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_DISABLE);
+				if (_skins[CtrlState.DISABLE] == null)
+				{
+					_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.BUTTON_DISABLE);
+				}
 				_skins[CtrlState.SELECTED] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED);
 				_skins[CtrlState.SELECTED_OVER] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED_OVER);
 				_skins[CtrlState.SELECTED_DOWN] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED_DOWN);
