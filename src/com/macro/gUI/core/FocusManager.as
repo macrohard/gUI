@@ -58,8 +58,8 @@ package com.macro.gUI.core
 			_top = top;
 
 			_displayObjectContainer = displayObjectContainer;
-			_displayObjectContainer.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 0, true);
-			_displayObjectContainer.stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler, false, 0, true);
+			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 0, true);
+			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler, false, 0, true);
 		}
 
 
@@ -110,14 +110,6 @@ package com.macro.gUI.core
 			{
 				(_focusControl as IKeyboard).keyDown(e);
 			}
-		}
-
-		protected function keyUpHandler(e:KeyboardEvent):void
-		{
-			if (_focusControl is IKeyboard)
-			{
-				(_focusControl as IKeyboard).keyUp(e);
-			}
 			
 			// 处理编辑框
 			if (_editControl != null)
@@ -166,6 +158,14 @@ package com.macro.gUI.core
 						focus(temp[index]);
 					}
 				}
+			}
+		}
+
+		protected function keyUpHandler(e:KeyboardEvent):void
+		{
+			if (_focusControl is IKeyboard)
+			{
+				(_focusControl as IKeyboard).keyUp(e);
 			}
 		}
 

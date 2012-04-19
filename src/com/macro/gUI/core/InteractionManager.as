@@ -70,14 +70,13 @@ package com.macro.gUI.core
 		{
 			_root = uiManager.root;
 			_displayObjectContainer = displayObjectContainer;
-
-			_popupManager = uiManager.popupManager;
-			_dragManager = new DragManager();
-			_focusManager = new FocusManager(uiManager.topContainer, displayObjectContainer);
-
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+			
+			_popupManager = uiManager.popupManager;
+			_dragManager = new DragManager();
+			_focusManager = new FocusManager(uiManager.topContainer, _displayObjectContainer);
 		}
 
 
