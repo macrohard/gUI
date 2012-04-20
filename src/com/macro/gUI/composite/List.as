@@ -41,6 +41,11 @@ package com.macro.gUI.composite
 		 * 选中的列表项
 		 */
 		protected var _selectItem:ToggleButton;
+		
+		/**
+		 * 列表项数据
+		 */
+		private var _items:Vector.<String>;
 
 
 		/**
@@ -99,14 +104,20 @@ package com.macro.gUI.composite
 
 
 		/**
-		 * 一次性设置所有列表项
+		 * 所有列表项
 		 * @param value
 		 *
 		 */
+		public function get items():Vector.<String>
+		{
+			return _items;
+		}
+		
 		public function set items(value:Vector.<String>):void
 		{
 			_itemContainer.removeChildren();
 
+			_items = value;
 			for each (var s:String in value)
 			{
 				_itemContainer.addChild(createItem(s));
@@ -199,6 +210,18 @@ package com.macro.gUI.composite
 		public function addItem(text:String, index:int = int.MAX_VALUE):void
 		{
 			_itemContainer.addChildAt(createItem(text), index);
+			if (index < 1)
+			{
+				_items.unshift(text);
+			}
+			else if (index >= _itemContainer.numChildren)
+			{
+				_items.push(text);
+			}
+			else
+			{
+				_items.splice(index, 0, text);
+			}
 			layout();
 		}
 
@@ -209,7 +232,14 @@ package com.macro.gUI.composite
 		 */
 		public function removeItem(index:int):void
 		{
-			_itemContainer.removeChildAt(index);
+			if (index >= 0 && index < _items.length)
+			{
+				_items.splice(index, 1);
+			}
+			if (_selectItem == _itemContainer.removeChildAt(index))
+			{
+				_selectItem = null;
+			}
 			layout();
 		}
 
@@ -220,6 +250,7 @@ package com.macro.gUI.composite
 		public function clearItems():void
 		{
 			_itemContainer.removeChildren();
+			_items = null;
 			layout();
 		}
 
@@ -291,6 +322,24 @@ package com.macro.gUI.composite
 			}
 
 			return target;
+		}
+		
+		
+		
+		/**
+		 * 根据行数设置高度
+		 * @param lines
+		 * 
+		 */
+		public function setHeightByLines(lines:int):void
+		{
+			if (_itemContainer.numChildren == 0)
+			{
+				return;
+			}
+			
+			var itemH:int = (_itemContainer.getChildAt(0) as ToggleButton).height;
+			this.height = itemH * lines;
 		}
 
 

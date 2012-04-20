@@ -120,17 +120,14 @@ package com.macro.gUI.composite
 
 		public function set text(value:String):void
 		{
-			if (value && value.length > 0)
+			_label.text = value;
+			if (_autoSize)
 			{
-				_label.text = value;
-				if (_autoSize)
-				{
-					resize();
-				}
-				else
-				{
-					layout();
-				}
+				resize();
+			}
+			else
+			{
+				layout();
 			}
 		}
 

@@ -9,10 +9,11 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IEdit;
+	import com.macro.gUI.core.feature.IPopupMenu;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.geom.Point;
 	import flash.text.TextField;
 
@@ -22,7 +23,7 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class ComboBox extends AbstractComposite implements IButton, IEdit
+	public class ComboBox extends AbstractComposite implements IButton, IEdit, IPopupMenu
 	{
 
 		protected var _list:List;
@@ -30,8 +31,9 @@ package com.macro.gUI.composite
 		protected var _textInput:TextInput;
 
 		protected var _downBtn:Button;
-		
-		
+
+
+
 		/**
 		 * 组合框控件
 		 * @param text 默认文本
@@ -130,12 +132,66 @@ package com.macro.gUI.composite
 		}
 
 
+		/**
+		 * 一次性设置所有列表项
+		 * @param value
+		 *
+		 */
+		public function set items(value:Vector.<String>):void
+		{
+			_list.items = value;
+			if (!_textInput.editable)
+			{
+				if (value != null && value.length > 0)
+				{
+					_textInput.text = value[0];
+				}
+				else
+				{
+					_textInput.text = null;
+				}
+			}
+		}
+
 
 		/**
-		 * 是否可编辑
+		 * 选择项索引
 		 * @return
 		 *
 		 */
+		public function get selectedIndex():int
+		{
+			if (_list.items != null && _list.items.length > 0)
+			{
+				return _list.items.indexOf(_textInput.text);
+			}
+			return -1;
+		}
+
+		public function set selectedIndex(value:int):void
+		{
+			_list.selectedIndex = value;
+			_textInput.text = _list.selectedText;
+		}
+
+
+		/**
+		 * 输入框的文本内容
+		 * @return
+		 *
+		 */
+		public function get text():String
+		{
+			return _textInput.text;
+		}
+
+		public function set text(value:String):void
+		{
+			_textInput.text = value;
+		}
+
+
+
 		public function get editable():Boolean
 		{
 			return _textInput.editable;
@@ -144,6 +200,10 @@ package com.macro.gUI.composite
 		public function set editable(value:Boolean):void
 		{
 			_textInput.editable = value;
+			if (!value && selectedIndex == -1)
+			{
+				selectedIndex = 0;
+			}
 		}
 
 
@@ -269,6 +329,29 @@ package com.macro.gUI.composite
 
 
 
+		/**
+		 * 添加列表项
+		 * @param text
+		 * @param index 索引位置，默认值int.MAX_VALUE表示添加到末尾
+		 *
+		 */
+		public function addItem(text:String, index:int = int.MAX_VALUE):void
+		{
+			_list.addItem(text, index);
+		}
+
+		/**
+		 * 移除列表项
+		 * @param index
+		 *
+		 */
+		public function removeItem(index:int):void
+		{
+			_list.removeItem(index);
+		}
+
+
+
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(x, y);
@@ -327,7 +410,7 @@ package com.macro.gUI.composite
 				_textInput.y = _rect.height - _textInput.height;
 				_downBtn.y = _rect.height - _downBtn.height;
 			}
-			
+
 			_textInput.width = _rect.width - _downBtn.width;
 			_downBtn.x = _textInput.width;
 		}
@@ -340,7 +423,7 @@ package com.macro.gUI.composite
 			if (target == _downBtn)
 			{
 				_downBtn.mouseDown(target);
-				
+
 				if (_list.parent == null)
 				{
 					var p:Point = _textInput.localToGlobal();
@@ -385,6 +468,12 @@ package com.macro.gUI.composite
 		}
 
 
+		public function selectMenu():void
+		{
+			_textInput.text = _list.selectedText;
+		}
+
+
 
 		public function beginEdit():TextField
 		{
@@ -393,6 +482,14 @@ package com.macro.gUI.composite
 
 		public function endEdit(value:String):void
 		{
+			if (_list.items != null && _list.items.length > 0)
+			{
+				var index:int = _list.items.indexOf(value);
+				if (index != -1)
+				{
+					_list.selectedIndex = index;
+				}
+			}
 			_textInput.endEdit(value);
 		}
 	}

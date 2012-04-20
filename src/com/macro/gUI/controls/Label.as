@@ -122,7 +122,7 @@ package com.macro.gUI.controls
 
 		public function set text(value:String):void
 		{
-			if (value != null && value.length > 0 && _text != value)
+			if (_text != value)
 			{
 				_text = value;
 				resize();
