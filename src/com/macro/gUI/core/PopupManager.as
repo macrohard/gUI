@@ -23,7 +23,12 @@ package com.macro.gUI.core
 		/**
 		 * 弹出菜单，如ComboBox控件的下拉列表
 		 */
-		internal var popupMenu:IControl;
+		private var _popupMenu:IControl;
+
+		/**
+		 * 菜单宿主控件
+		 */
+		private var _initiator:IControl;
 
 		/**
 		 * 当前模态窗口
@@ -148,29 +153,45 @@ package com.macro.gUI.core
 
 		/**
 		 * 添加弹出菜单。一次只允许弹出一个菜单，旧菜单将被自动关闭
-		 * @param menu
+		 * @param menu 菜单
+		 * @param initiator 菜单宿主控件
 		 *
 		 */
-		public function addPopupMenu(menu:IControl):void
+		public function addPopupMenu(menu:IControl, initiator:IControl):void
 		{
 			// 移除旧菜单
 			removePopupMenu();
 
-			popupMenu = menu;
+			_popupMenu = menu;
+			_initiator = initiator;
 			_popupContainer.addChild(menu);
 		}
 
 		/**
 		 * 移除弹出菜单
-		 * @param menu
 		 *
 		 */
 		public function removePopupMenu():void
 		{
-			if (popupMenu != null)
+			if (_popupMenu != null)
 			{
-				_popupContainer.removeChild(popupMenu);
-				popupMenu = null;
+				_popupContainer.removeChild(_popupMenu);
+				_popupMenu = null;
+				_initiator = null;
+			}
+		}
+
+
+		/**
+		 * 检测是否有需要关闭的菜单
+		 * @param control
+		 *
+		 */
+		internal function process(control:IControl):void
+		{
+			if (_popupMenu != null && control != _popupMenu && control != _initiator)
+			{
+				removePopupMenu();
 			}
 		}
 
@@ -191,9 +212,9 @@ package com.macro.gUI.core
 			}
 
 			// 如果当前有弹出菜单，则返回弹出菜单所在的层级
-			if (popupMenu != null)
+			if (_popupMenu != null)
 			{
-				return _popupContainer.getChildIndex(popupMenu);
+				return _popupContainer.getChildIndex(_popupMenu);
 			}
 
 			// 返回最高层级

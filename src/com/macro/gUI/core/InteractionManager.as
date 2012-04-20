@@ -84,15 +84,11 @@ package com.macro.gUI.core
 		{
 			findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
-			// 如果有弹出菜单时，就及时关闭之
-			if (_popupManager.popupMenu != null &&
-					_popupManager.popupMenu != _mouseControl)
-			{
-				_popupManager.removePopupMenu();
-			}
+			// 处理弹出菜单
+			_popupManager.process(_mouseControl);
 
 			// 处理焦点
-			_focusManager.focus(_mouseControl);
+			_focusManager.focus(_mouseControl, _mouseTarget);
 
 			if (_mouseControl == null || _mouseControl.enabled == false ||
 					_mouseTarget.enabled == false)

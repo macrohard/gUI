@@ -39,6 +39,11 @@ package com.macro.gUI.core
 		 * 可编辑控件
 		 */
 		private var _editControl:IEdit;
+		
+		/**
+		 * 可编辑目标控件
+		 */
+		private var _editTarget:IEdit;
 
 		/**
 		 * 输入框
@@ -66,15 +71,15 @@ package com.macro.gUI.core
 		/**
 		 * 聚焦控件
 		 * @param control
-		 * @return
-		 *
+		 * @param target
+		 * 
 		 */
-		public function focus(control:IControl):void
+		public function focus(control:IControl, target:IControl):void
 		{
 			// 已有编辑框时
 			if (_editControl != null)
 			{
-				if (_editControl == control)
+				if (_editControl == control && _editTarget == target)
 				{
 					focusEditBox();
 					return;
@@ -96,9 +101,10 @@ package com.macro.gUI.core
 				drawFocusBox();
 			}
 
-			if (control is IEdit)
+			if (control is IEdit && control.enabled && target is IEdit && target.enabled)
 			{
 				_editControl = control as IEdit;
+				_editTarget = target as IEdit;
 				beginEdit();
 			}
 		}
@@ -155,7 +161,8 @@ package com.macro.gUI.core
 							}
 						}
 						
-						focus(temp[index]);
+						var f:IFocus = temp[index];
+						focus(f, f);
 					}
 				}
 			}
@@ -228,6 +235,7 @@ package com.macro.gUI.core
 		{
 			_editControl.endEdit(_editBox.text);
 			_editControl = null;
+			_editTarget = null;
 			
 			_displayObjectContainer.removeChild(_editBox);
 			_editBox = null;

@@ -30,8 +30,8 @@ package com.macro.gUI.composite
 		protected var _textInput:TextInput;
 
 		protected var _downBtn:Button;
-
-
+		
+		
 		/**
 		 * 组合框控件
 		 * @param text 默认文本
@@ -337,22 +337,51 @@ package com.macro.gUI.composite
 
 		public function mouseDown(target:IControl):void
 		{
-
+			if (target == _downBtn)
+			{
+				_downBtn.mouseDown(target);
+				
+				if (_list.parent == null)
+				{
+					var p:Point = _textInput.localToGlobal();
+					_list.x = p.x;
+					_list.y = p.y + _textInput.height;
+					_list.width = _rect.width;
+					popupManager.addPopupMenu(_list, this);
+				}
+				else
+				{
+					popupManager.removePopupMenu();
+				}
+			}
+			else if (target == _textInput)
+			{
+				popupManager.removePopupMenu();
+			}
 		}
 
 		public function mouseUp(target:IControl):void
 		{
-
+			if (target == _downBtn)
+			{
+				_downBtn.mouseUp(target);
+			}
 		}
 
 		public function mouseOver(target:IControl):void
 		{
-
+			if (target == _downBtn)
+			{
+				_downBtn.mouseOver(target);
+			}
 		}
 
 		public function mouseOut(target:IControl):void
 		{
-
+			if (target == _downBtn)
+			{
+				_downBtn.mouseOut(target);
+			}
 		}
 
 
