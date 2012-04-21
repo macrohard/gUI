@@ -85,7 +85,7 @@ package com.macro.gUI.core
 			findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 			// 处理弹出菜单
-			_popupManager.process(_mouseControl);
+			_popupManager.autoClosePopupMenu(_mouseControl);
 
 			// 处理焦点
 			_focusManager.focus(_mouseControl, _mouseTarget);

@@ -9,7 +9,6 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IEdit;
-	import com.macro.gUI.core.feature.IPopupMenu;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
@@ -23,7 +22,7 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class ComboBox extends AbstractComposite implements IButton, IEdit, IPopupMenu
+	public class ComboBox extends AbstractComposite implements IButton, IEdit
 	{
 
 		protected var _list:List;
@@ -49,6 +48,7 @@ package com.macro.gUI.composite
 			_autoSize = true;
 
 			_textInput = new TextInput(text);
+			_textInput.editable = false;
 			_textInput.skin = skinManager.getSkin(SkinDef.COMBO_INPUT_BG);
 			_textInput.disableSkin = skinManager.getSkin(SkinDef.COMBO_INPUT_BG_DISABLE);
 			_textInput.style = skinManager.getStyle(StyleDef.COMBO_INPUT);
@@ -465,12 +465,6 @@ package com.macro.gUI.composite
 			{
 				_downBtn.mouseOut(target);
 			}
-		}
-
-
-		public function selectMenu():void
-		{
-			_textInput.text = _list.selectedText;
 		}
 
 

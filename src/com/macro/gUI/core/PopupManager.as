@@ -1,7 +1,6 @@
 package com.macro.gUI.core
 {
 	import com.macro.gUI.controls.Canvas;
-	import com.macro.gUI.core.feature.IPopupMenu;
 
 
 	/**
@@ -188,16 +187,11 @@ package com.macro.gUI.core
 		 * @param control
 		 *
 		 */
-		internal function process(control:IControl):void
+		internal function autoClosePopupMenu(control:IControl):void
 		{
 			if (_popupMenu != null)
 			{
-				if (control == _popupMenu && _initiator is IPopupMenu)
-				{
-					(_initiator as IPopupMenu).selectMenu();
-				}
-				
-				if (control != _initiator)
+				if (control != _initiator && control != _popupMenu)
 				{
 					removePopupMenu();
 				}
