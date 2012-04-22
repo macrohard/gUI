@@ -84,6 +84,7 @@ package com.macro.gUI.composite
 		{
 			super(width, height);
 
+			_items = new Vector.<String>();
 			_itemContainer = new Container();
 			_scrollBar = new VScrollBar();
 
@@ -250,7 +251,7 @@ package com.macro.gUI.composite
 		public function clearItems():void
 		{
 			_itemContainer.removeChildren();
-			_items = null;
+			_items.splice(0, _items.length);
 			layout();
 		}
 
@@ -333,13 +334,13 @@ package com.macro.gUI.composite
 		 */
 		public function setHeightByLines(lines:int):void
 		{
-			if (_itemContainer.numChildren == 0)
+			var itemH:int;
+			if (_itemContainer.numChildren > 0)
 			{
-				return;
+				itemH = (_itemContainer.getChildAt(0) as ToggleButton).height;
 			}
 			
-			var itemH:int = (_itemContainer.getChildAt(0) as ToggleButton).height;
-			this.height = itemH * lines;
+			this.height = itemH * lines + _container.margin.top + _container.margin.bottom;
 		}
 
 

@@ -46,6 +46,7 @@ package com.macro.gUI.composite
 			super(width, 1, align);
 
 			_autoSize = true;
+			_showItems = 5;
 
 			_textInput = new TextInput(text);
 			_textInput.editable = false;
@@ -129,6 +130,24 @@ package com.macro.gUI.composite
 					resize();
 				}
 			}
+		}
+		
+		
+		private var _showItems:int;
+		
+		/**
+		 * 弹出菜单显示的最大列表项数量
+		 * @return 
+		 * 
+		 */
+		public function get maxShowItems():int
+		{
+			return _showItems;
+		}
+		
+		public function set maxShowItems(value:int):void
+		{
+			_showItems = value;
 		}
 
 
@@ -426,10 +445,12 @@ package com.macro.gUI.composite
 
 				if (_list.parent == null)
 				{
+					// TODO 处理屏幕范围引起的弹出菜单向上显示问题
 					var p:Point = _textInput.localToGlobal();
 					_list.x = p.x;
 					_list.y = p.y + _textInput.height;
 					_list.width = _rect.width;
+					_list.setHeightByLines(Math.min(_showItems, _list.items.length));
 					popupManager.addPopupMenu(_list, this);
 				}
 				else
