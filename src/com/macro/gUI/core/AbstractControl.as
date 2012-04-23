@@ -5,6 +5,7 @@ package com.macro.gUI.core
 	
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
+	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.renders.IRenderEngine;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
@@ -438,6 +439,8 @@ package com.macro.gUI.core
 			{
 				paint();
 			}
+			
+			dispatchEvent(new UIEvent(UIEvent.RESIZE));
 		}
 
 		/**

@@ -69,6 +69,14 @@
     <classEntry path="com.macro.gUI.core.UIManager"/>
     <classEntry path="com.macro.gUI.renders.RenderMode"/>
     <classEntry path="com.macro.gUI.core.PopupManager"/>
+    <classEntry path="com.macro.gUI.events.UIEvent"/>
+    <classEntry path="com.macro.gUI.events.ButtonEvent"/>
+    <classEntry path="com.macro.gUI.events.TextInputEvent"/>
+    <classEntry path="com.macro.gUI.events.WindowEvent"/>
+    <classEntry path="com.macro.gUI.events.SliderEvent"/>
+    <classEntry path="com.macro.gUI.events.ScrollEvent"/>
+    <classEntry path="com.macro.gUI.events.ListEvent"/>
+    <classEntry path="com.macro.gUI.events.TabEvent"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

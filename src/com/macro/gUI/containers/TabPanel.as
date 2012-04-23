@@ -1,19 +1,20 @@
 package com.macro.gUI.containers
 {
-	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.CHILD_REGION;
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.TextStyle;
+	import com.macro.gUI.controls.Slice;
+	import com.macro.gUI.controls.TitleBar;
 	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
-	import com.macro.gUI.controls.TitleBar;
-	import com.macro.gUI.controls.Slice;
+	import com.macro.gUI.events.TabEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.gUI.skin.impl.BitmapSkin;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
@@ -207,6 +208,8 @@ package com.macro.gUI.containers
 			_tabs[_tabContainers.indexOf(_currentContainer)].skin = _tabSelectedSkin;
 
 			layout();
+			
+			dispatchEvent(new TabEvent(TabEvent.TAB_CHANGED));
 		}
 
 
@@ -465,6 +468,8 @@ package com.macro.gUI.containers
 
 			setMargin();
 			layout();
+			
+			dispatchEvent(new TabEvent(TabEvent.TAB_CHANGED));
 		}
 
 

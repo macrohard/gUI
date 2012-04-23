@@ -3,10 +3,11 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.core.IControl;
+	import com.macro.gUI.events.ButtonEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 
@@ -208,6 +209,8 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.DOWN];
 				resize();
 			}
+			
+			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_DOWN));
 		}
 
 		public override function mouseOut(target:IControl):void
@@ -219,6 +222,8 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.NORMAL];
 				resize();
 			}
+			
+			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OUT));
 		}
 
 		public override function mouseOver(target:IControl):void
@@ -231,6 +236,8 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.OVER];
 				resize();
 			}
+			
+			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OVER));
 		}
 	}
 }

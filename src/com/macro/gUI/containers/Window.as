@@ -1,22 +1,23 @@
 package com.macro.gUI.containers
 {
+	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.TextStyle;
+	import com.macro.gUI.controls.Button;
+	import com.macro.gUI.controls.Label;
+	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-	import com.macro.gUI.controls.Button;
-	import com.macro.gUI.controls.Label;
-	import com.macro.gUI.controls.Slice;
+	import com.macro.gUI.events.WindowEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 
@@ -451,14 +452,17 @@ package com.macro.gUI.containers
 			if (target == _minBtn)
 			{
 				_minBtn.mouseUp(target);
+				dispatchEvent(new WindowEvent(WindowEvent.MIN_BUTTON_CLICK));
 			}
 			else if (target == _maxBtn)
 			{
 				_maxBtn.mouseUp(target);
+				dispatchEvent(new WindowEvent(WindowEvent.MAX_BUTTON_CLICK));
 			}
 			else if (target == _closeBtn)
 			{
 				_closeBtn.mouseUp(target);
+				dispatchEvent(new WindowEvent(WindowEvent.CLOSE_BUTTON_CLICK));
 			}
 		}
 

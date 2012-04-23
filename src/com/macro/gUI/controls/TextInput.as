@@ -6,6 +6,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IEdit;
+	import com.macro.gUI.events.TextInputEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
@@ -244,6 +245,8 @@ package com.macro.gUI.controls
 
 		public function beginEdit():TextField
 		{
+			dispatchEvent(new TextInputEvent(TextInputEvent.EDIT_BEGIN));
+			
 			_editBox = new TextField();
 			_editBox.autoSize = TextFieldAutoSize.LEFT;
 			_editBox.displayAsPassword = _displayAsPassword;
@@ -278,6 +281,8 @@ package com.macro.gUI.controls
 			
 			_text = value;
 			resize();
+			
+			dispatchEvent(new TextInputEvent(TextInputEvent.EDIT_FINISH));
 		}
 		
 		

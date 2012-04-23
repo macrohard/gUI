@@ -1,13 +1,13 @@
 package com.macro.gUI.controls
 {
 	import com.macro.gUI.assist.CtrlState;
-	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.core.IControl;
+	import com.macro.gUI.events.ButtonEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.utils.Dictionary;
 
 
@@ -281,6 +281,8 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.DOWN];
 			}
 			resize();
+			
+			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_DOWN));
 		}
 
 		public override function mouseOut(target:IControl):void
@@ -308,6 +310,8 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.NORMAL];
 			}
 			resize();
+			
+			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OUT));
 		}
 
 		public override function mouseOver(target:IControl):void
@@ -337,12 +341,41 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.OVER];
 			}
 			resize();
+			
+			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OVER));
 		}
 
 		public override function mouseUp(target:IControl):void
 		{
 			_selected = !_selected;
-			mouseOver(target);
+			
+			if (_selected)
+			{
+				if (_skin == _skins[CtrlState.SELECTED_OVER] &&
+					_style == _styles[CtrlState.SELECTED_OVER])
+				{
+					return;
+				}
+				
+				_skin = _skins[CtrlState.SELECTED_OVER];
+				_skin = _skin ? _skin : _skins[CtrlState.SELECTED];
+				_style = _styles[CtrlState.SELECTED_OVER];
+			}
+			else
+			{
+				if (_skin == _skins[CtrlState.OVER] &&
+					_style == _styles[CtrlState.OVER])
+				{
+					return;
+				}
+				
+				_skin = _skins[CtrlState.OVER];
+				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+				_style = _styles[CtrlState.OVER];
+			}
+			resize();
+			
+			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_UP));
 		}
 	}
 }

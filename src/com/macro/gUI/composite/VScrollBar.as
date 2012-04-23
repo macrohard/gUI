@@ -4,17 +4,18 @@ package com.macro.gUI.composite
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.Viewport;
+	import com.macro.gUI.containers.Container;
+	import com.macro.gUI.controls.Button;
+	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
 	import com.macro.gUI.core.feature.IKeyboard;
-	import com.macro.gUI.containers.Container;
-	import com.macro.gUI.controls.Button;
-	import com.macro.gUI.controls.Slice;
+	import com.macro.gUI.events.ScrollEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -273,6 +274,8 @@ package com.macro.gUI.composite
 		{
 			_value = value < _minimum ? _minimum : (value > _maximum ? _maximum : value);
 			relocateBlock();
+			
+			dispatchEvent(new ScrollEvent(ScrollEvent.SCROLL));
 		}
 
 
@@ -677,6 +680,8 @@ package com.macro.gUI.composite
 			_value = ratio * (_maximum - _minimum) + _minimum;
 
 			scrollViewport(ratio);
+			
+			dispatchEvent(new ScrollEvent(ScrollEvent.SCROLL));
 		}
 
 	}

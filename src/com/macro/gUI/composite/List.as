@@ -10,6 +10,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
+	import com.macro.gUI.events.ListEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
@@ -142,6 +143,8 @@ package com.macro.gUI.composite
 		{
 			_selectItem = _itemContainer.getChildAt(value) as ToggleButton;
 			resetSkin();
+			
+			dispatchEvent(new ListEvent(ListEvent.SELECT));
 		}
 
 
@@ -240,6 +243,7 @@ package com.macro.gUI.composite
 			if (_selectItem == _itemContainer.removeChildAt(index))
 			{
 				_selectItem = null;
+				dispatchEvent(new ListEvent(ListEvent.SELECT));
 			}
 			layout();
 		}
@@ -408,6 +412,8 @@ package com.macro.gUI.composite
 				}
 				_selectItem = target as ToggleButton;
 				_selectItem.mouseUp(target);
+				
+				dispatchEvent(new ListEvent(ListEvent.SELECT));
 			}
 			else if (target.parent == _scrollBar.container)
 			{

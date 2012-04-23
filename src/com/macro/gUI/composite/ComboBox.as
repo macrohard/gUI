@@ -9,10 +9,12 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IEdit;
+	import com.macro.gUI.events.ListEvent;
+	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Point;
 	import flash.text.TextField;
 
@@ -67,6 +69,7 @@ package com.macro.gUI.composite
 
 			// 使用列表框控件作为弹出菜单
 			_list = new List();
+			_list.addEventListener(ListEvent.SELECT, listSelectHandler);
 
 			var skin:ISkin;
 			skin = skinManager.getSkin(SkinDef.COMBO_LIST_BG);
@@ -367,6 +370,13 @@ package com.macro.gUI.composite
 		public function removeItem(index:int):void
 		{
 			_list.removeItem(index);
+		}
+		
+		
+		private function listSelectHandler(e:UIEvent):void
+		{
+			_textInput.text = _list.selectedText;
+			popupManager.removePopupMenu();
 		}
 
 
