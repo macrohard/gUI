@@ -3,7 +3,7 @@ package com.macro.gUI.core
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-
+	
 	import flash.display.BitmapData;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
@@ -92,12 +92,15 @@ package com.macro.gUI.core
 		/**
 		 * 停止拖拽
 		 * @param control 要停止拖拽的控件
-		 *
+		 * @param target 要停止拖拽的目标控件
+		 * @return 不是当前正在拖拽的控件时返回false
+		 * 
 		 */
-		public function stopDrag(control:IControl):void
+		public function stopDrag(control:IControl, target:IControl):Boolean
 		{
+			var b:Boolean = true;
 			// 要停止拖拽的控件是当前正在拖拽的控件时
-			if (_dragControl == control)
+			if (_dragControl == control && _dragTarget == target)
 			{
 				if (_dragControl is IButton)
 				{
@@ -111,12 +114,16 @@ package com.macro.gUI.core
 				{
 					(_dragControl as IButton).mouseOut(_dragTarget);
 				}
+				
+				b = false;
 			}
 
 			_dragControl = null;
 			_dragTarget = null;
 			_dragAvatar = null;
 			isDragging = false;
+			
+			return b;
 		}
 
 

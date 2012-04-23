@@ -116,7 +116,20 @@ package com.macro.gUI.core
 				// 结束拖拽
 				findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
-				_dragManager.stopDrag(_mouseControl);
+				if (!_dragManager.stopDrag(_mouseControl, _mouseTarget))
+				{
+					// 处理鼠标进入
+					if (_mouseControl is IButton && _mouseControl.enabled &&
+						_mouseTarget.enabled)
+					{
+						(_mouseControl as IButton).mouseOver(_mouseTarget);
+						
+						if (_mouseTarget is IButton)
+						{
+							Mouse.cursor = MouseCursor.BUTTON;
+						}
+					}
+				}
 			}
 			else
 			{
