@@ -77,8 +77,8 @@ package com.macro.gUI.composite
 			_pageSize = 10;
 			_maximum = 100;
 
-			//四周边距均默认为10
-			_padding = new Margin(10, 10, 10, 10);
+			//四周边距
+			_padding = new Margin(8, 10, 8, 10);
 
 
 			var skin:ISkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BG);

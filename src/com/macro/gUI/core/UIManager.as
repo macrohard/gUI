@@ -8,7 +8,6 @@ package com.macro.gUI.core
 	import com.macro.gUI.skin.SkinManager;
 	
 	import flash.display.DisplayObjectContainer;
-	import flash.display.Stage;
 
 
 	/**
@@ -56,6 +55,9 @@ package com.macro.gUI.core
 		 */
 		public function UIManager(renderMode:int, displayObjectContainer:DisplayObjectContainer, width:int, height:int)
 		{
+			_stageWidth = width;
+			_stageHeight = height;
+			
 			_root = new Container(width, height);
 			_main = new Container(width, height);
 			_popup = new Container(width, height);
@@ -78,14 +80,41 @@ package com.macro.gUI.core
 			popupManager = new PopupManager(_popup);
 			_interactionManager = new InteractionManager(this, displayObjectContainer);
 
-			AbstractControl.init(this);
+			AbstractControl.init(this, width, height);
 
 			// 初始化整个UI体系层级结构
 			_root.addChild(_main);
 			_root.addChild(_popup);
 			_root.addChild(_top);
 		}
+		
+		
+		private var _stageWidth:int;
+		
+		/**
+		 * 舞台宽度
+		 * @return 
+		 * 
+		 */
+		public function get stageWidth():int
+		{
+			return _stageWidth;
+		}
+		
+		
+		private var _stageHeight:int;
+		
+		/**
+		 * 舞台高度
+		 * @return 
+		 * 
+		 */
+		public function get stageHeight():int
+		{
+			return _stageHeight;
+		}
 
+		
 
 		private var _root:IContainer;
 

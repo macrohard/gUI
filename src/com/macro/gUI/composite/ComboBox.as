@@ -445,12 +445,15 @@ package com.macro.gUI.composite
 
 				if (_list.parent == null)
 				{
-					// TODO 处理屏幕范围引起的弹出菜单向上显示问题
 					var p:Point = _textInput.localToGlobal();
 					_list.x = p.x;
 					_list.y = p.y + _textInput.height;
 					_list.width = _rect.width;
 					_list.setHeightByLines(Math.min(_showItems, _list.items.length));
+					if (_list.y + _list.height > stageHeight)
+					{
+						_list.y = p.y - _list.height;
+					}
 					popupManager.addPopupMenu(_list, this);
 				}
 				else

@@ -29,7 +29,6 @@
     <classEntry path="com.macro.gUI.containers.Panel"/>
     <classEntry path="com.macro.gUI.controls.Button"/>
     <classEntry path="com.macro.gUI.controls.Canvas"/>
-    <classEntry path="com.macro.gUI.controls.TitleBar"/>
     <classEntry path="com.macro.gUI.controls.IconButton"/>
     <classEntry path="com.macro.gUI.controls.ImageBox"/>
     <classEntry path="com.macro.gUI.controls.Label"/>
@@ -70,10 +69,6 @@
     <classEntry path="com.macro.gUI.core.UIManager"/>
     <classEntry path="com.macro.gUI.renders.RenderMode"/>
     <classEntry path="com.macro.gUI.core.PopupManager"/>
-    <classEntry path="com.macro.gUI.core.DragManager"/>
-    <classEntry path="com.macro.gUI.core.FocusManager"/>
-    <classEntry path="com.macro.gUI.composite.ComboBox"/>
-    <classEntry path="com.macro.gUI.containers.BackgroundPanel"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

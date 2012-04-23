@@ -259,12 +259,12 @@ package com.macro.gUI.composite
 		private function createItem(text:String):ToggleButton
 		{
 			var item:ToggleButton = new ToggleButton(text);
-			item.autoSize = false;
 			item.style = item.overStyle = item.downStyle = _itemStyle;
 			item.selectedStyle = item.selectedOverStyle = item.selectedDownStyle = _itemSelectedStyle;
 			item.skin = _itemSkin;
 			item.overSkin = item.downSkin = _itemOverSkin;
 			item.selectedSkin = item.selectedOverSkin = item.selectedDownSkin = _itemSelectedSkin;
+			item.autoSize = false;
 			return item;
 		}
 

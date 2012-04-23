@@ -2,13 +2,13 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.renders.IRenderEngine;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -543,6 +543,16 @@ package com.macro.gUI.core
 		 * 皮肤管理器
 		 */
 		protected static var skinManager:SkinManager;
+		
+		/**
+		 * 舞台宽度
+		 */
+		protected static var stageWidth:int;
+		
+		/**
+		 * 舞台高度
+		 */
+		protected static var stageHeight:int
 
 
 		/**
@@ -552,11 +562,13 @@ package com.macro.gUI.core
 		 * @param smoothing
 		 *
 		 */
-		internal static function init(uiManager:UIManager, smoothing:Boolean = true):void
+		internal static function init(uiManager:UIManager, stageWidth:int, stageHeight:int, smoothing:Boolean = true):void
 		{
 			AbstractControl.popupManager = uiManager.popupManager;
 			AbstractControl.skinManager = uiManager.skinManager;
 			AbstractControl.smoothing = smoothing;
+			AbstractControl.stageWidth = stageWidth;
+			AbstractControl.stageHeight = stageHeight;
 		}
 
 
