@@ -8,7 +8,7 @@ package com.macro.gUI.events
 	public class ScrollEvent extends UIEvent
 	{
 		/**
-		 * 滚动
+		 * 控件目标发生滚动时
 		 */
 		public static const SCROLL:String = "scroll";
 		

@@ -2,16 +2,17 @@ package com.macro.gUI.composite
 {
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.TextStyle;
+	import com.macro.gUI.containers.Container;
+	import com.macro.gUI.controls.Label;
+	import com.macro.gUI.controls.ToggleButton;
 	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IKeyboard;
-	import com.macro.gUI.containers.Container;
-	import com.macro.gUI.controls.Label;
-	import com.macro.gUI.controls.ToggleButton;
+	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -104,7 +105,11 @@ package com.macro.gUI.composite
 
 		public function set selected(value:Boolean):void
 		{
-			_icon.selected = value;
+			if (_icon.selected != value)
+			{
+				_icon.selected = value;
+				dispatchEvent(new UIEvent(UIEvent.SELECT));
+			}
 		}
 
 

@@ -11,14 +11,13 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
 	import com.macro.gUI.core.feature.IKeyboard;
-	import com.macro.gUI.events.SliderEvent;
+	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	
 	import flash.display.BitmapData;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
 	import flash.ui.Keyboard;
 
 
@@ -209,7 +208,7 @@ package com.macro.gUI.composite
 			_value = value < _minimum ? _minimum : (value > _maximum ? _maximum : value);
 			relocateBlock();
 			
-			dispatchEvent(new SliderEvent(SliderEvent.VALUE_CHANGED));
+			dispatchEvent(new UIEvent(UIEvent.VALUE_CHANGED));
 		}
 
 

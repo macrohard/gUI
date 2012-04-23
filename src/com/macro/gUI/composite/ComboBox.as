@@ -9,7 +9,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IEdit;
-	import com.macro.gUI.events.ListEvent;
+	import com.macro.gUI.events.TextInputEvent;
 	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
@@ -69,7 +69,7 @@ package com.macro.gUI.composite
 
 			// 使用列表框控件作为弹出菜单
 			_list = new List();
-			_list.addEventListener(ListEvent.SELECT, listSelectHandler);
+			_list.addEventListener(UIEvent.SELECT, listSelectHandler);
 
 			var skin:ISkin;
 			skin = skinManager.getSkin(SkinDef.COMBO_LIST_BG);
@@ -194,6 +194,8 @@ package com.macro.gUI.composite
 		{
 			_list.selectedIndex = value;
 			_textInput.text = _list.selectedText;
+			
+			dispatchEvent(new UIEvent(UIEvent.SELECT));
 		}
 
 
@@ -360,6 +362,11 @@ package com.macro.gUI.composite
 		public function addItem(text:String, index:int = int.MAX_VALUE):void
 		{
 			_list.addItem(text, index);
+			
+			if (selectedIndex == -1 && _textInput.editable == false)
+			{
+				selectedIndex = 0;
+			}
 		}
 
 		/**
@@ -370,6 +377,11 @@ package com.macro.gUI.composite
 		public function removeItem(index:int):void
 		{
 			_list.removeItem(index);
+			
+			if (selectedIndex == -1 && _textInput.editable == false)
+			{
+				selectedIndex = 0;
+			}
 		}
 		
 		
@@ -377,6 +389,8 @@ package com.macro.gUI.composite
 		{
 			_textInput.text = _list.selectedText;
 			popupManager.removePopupMenu();
+			
+			dispatchEvent(new UIEvent(UIEvent.SELECT));
 		}
 
 
@@ -505,6 +519,7 @@ package com.macro.gUI.composite
 
 		public function beginEdit():TextField
 		{
+			dispatchEvent(new TextInputEvent(TextInputEvent.EDIT_BEGIN));
 			return _textInput.beginEdit();
 		}
 
@@ -519,6 +534,7 @@ package com.macro.gUI.composite
 				}
 			}
 			_textInput.endEdit(value);
+			dispatchEvent(new TextInputEvent(TextInputEvent.EDIT_FINISH));
 		}
 	}
 }
