@@ -9,10 +9,7 @@ package com.macro.gUI.renders.layeredRender
 
 
 	/**
-	 * 分层渲染器，需要关注
-	 * <ul><li>控件的坐标变化</li>
-	 * <li>Paint事件中的BitmapData重建，不需要处理BitmapData的重绘</li>
-	 * <li>子控件的添加、删除、层级变化</li></ul>
+	 * 分层渲染器
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */

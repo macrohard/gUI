@@ -51,9 +51,9 @@ package com.macro.gUI.core
 		 * @param popupContainer 弹出窗口容器
 		 *
 		 */
-		public function PopupManager(popupContainer:IContainer)
+		public function PopupManager(uiManager:UIManager)
 		{
-			_popupContainer = popupContainer;
+			_popupContainer = uiManager.popupContainer;
 			_modals = new Vector.<IControl>();
 		}
 		

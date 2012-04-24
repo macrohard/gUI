@@ -80,7 +80,7 @@ package com.macro.gUI.core
 			}
 
 			skinManager = new SkinManager();
-			popupManager = new PopupManager(_popup);
+			popupManager = new PopupManager(this);
 			interactionManager = new InteractionManager(this, displayObjectContainer);
 
 			AbstractControl.init(this);
