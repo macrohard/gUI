@@ -388,7 +388,7 @@ package com.macro.gUI.composite
 		private function listSelectHandler(e:UIEvent):void
 		{
 			_textInput.text = _list.selectedText;
-			popupManager.removePopupMenu();
+			uiManager.popupManager.removePopupMenu();
 			
 			dispatchEvent(new UIEvent(UIEvent.SELECT));
 		}
@@ -474,20 +474,20 @@ package com.macro.gUI.composite
 					_list.y = p.y + _textInput.height;
 					_list.width = _rect.width;
 					_list.setHeightByLines(Math.min(_showItems, _list.items.length));
-					if (_list.y + _list.height > stageHeight)
+					if (_list.y + _list.height > uiManager.stageHeight)
 					{
 						_list.y = p.y - _list.height;
 					}
-					popupManager.addPopupMenu(_list, this);
+					uiManager.popupManager.addPopupMenu(_list, this);
 				}
 				else
 				{
-					popupManager.removePopupMenu();
+					uiManager.popupManager.removePopupMenu();
 				}
 			}
 			else if (target == _textInput)
 			{
-				popupManager.removePopupMenu();
+				uiManager.popupManager.removePopupMenu();
 			}
 		}
 

@@ -41,6 +41,12 @@ package com.macro.gUI.core
 		 * 交互管理器
 		 */
 		internal var interactionManager:InteractionManager;
+		
+		
+		/**
+		 * 根容器
+		 */
+		private var _root:IContainer;
 
 
 
@@ -54,13 +60,11 @@ package com.macro.gUI.core
 		 */
 		public function UIManager(renderMode:int, displayObjectContainer:DisplayObjectContainer, width:int, height:int)
 		{
-			_stageWidth = width;
-			_stageHeight = height;
-			
-			_root = new Container(_stageWidth, _stageHeight);
-			_main = new Container(_stageWidth, _stageHeight);
-			_popup = new Container(_stageWidth, _stageHeight);
-			_top = new Container(_stageWidth, _stageHeight);
+			_root = new Container(width, height);
+			_stage = new Container(width, height);
+			_main = new Container(width, height);
+			_popup = new Container(width, height);
+			_top = new Container(width, height);
 
 			if (renderMode == RenderMode.RENDER_MODE_MERGE)
 			{
@@ -79,51 +83,27 @@ package com.macro.gUI.core
 			popupManager = new PopupManager(_popup);
 			interactionManager = new InteractionManager(this, displayObjectContainer);
 
-			AbstractControl.init(this, width, height);
-			popupManager.init();
+			AbstractControl.init(this);
 
 			// 初始化整个UI体系层级结构
-			_root.addChild(_main);
-			_root.addChild(_popup);
+			(_root as AbstractControl).setStage(_stage as AbstractContainer);
+			_stage.addChild(_main);
+			_stage.addChild(_popup);
+			
+			_root.addChild(_stage);
 			_root.addChild(_top);
 		}
 		
 		
-		private var _stageWidth:int;
-		
-		/**
-		 * 舞台宽度
-		 * @return 
-		 * 
-		 */
-		public function get stageWidth():int
-		{
-			return _stageWidth;
-		}
-		
-		
-		private var _stageHeight:int;
-		
-		/**
-		 * 舞台高度
-		 * @return 
-		 * 
-		 */
-		public function get stageHeight():int
-		{
-			return _stageHeight;
-		}
 
-		
-
-		private var _root:IContainer;
+		private var _stage:IContainer;
 
 		/**
 		 * 根容器
 		 */
-		internal function get root():IContainer
+		public function get stage():IContainer
 		{
-			return _root;
+			return _stage;
 		}
 
 
@@ -145,7 +125,7 @@ package com.macro.gUI.core
 		/**
 		 * 弹出窗口容器
 		 */
-		internal function get popupContainer():IContainer
+		public function get popupContainer():IContainer
 		{
 			return _popup;
 		}
@@ -154,11 +134,34 @@ package com.macro.gUI.core
 		private var _top:IContainer;
 
 		/**
-		 * 最上层窗口容器，一般用于交互管理器绘制焦点框、拖拽替身图像等
+		 * 最上层容器，一般用于交互管理器绘制焦点框、拖拽替身图像、Tip信息显示等
+		 * 此容器中的控件不参与交互
 		 */
-		internal function get topContainer():IContainer
+		public function get topContainer():IContainer
 		{
 			return _top;
+		}
+		
+		
+		
+		/**
+		 * 舞台宽度
+		 * @return 
+		 * 
+		 */
+		public function get stageWidth():int
+		{
+			return _stage.rect.width;
+		}
+		
+		/**
+		 * 舞台高度
+		 * @return 
+		 * 
+		 */
+		public function get stageHeight():int
+		{
+			return _stage.rect.height;
 		}
 	}
 }

@@ -2,10 +2,10 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
 	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.Margin;
-
+	
 	import flash.geom.Point;
 
 
@@ -118,8 +118,9 @@ package com.macro.gUI.core
 				child.parent.removeChild(child);
 			}
 			(child as AbstractControl).setParent(this);
+			setChildStage(child, stage);
 			
-			renderer.updateChildren(this);
+			uiManager.renderer.updateChildren(this);
 		}
 
 		public function addChildAt(child:IControl, index:int):void
@@ -142,8 +143,9 @@ package com.macro.gUI.core
 				child.parent.removeChild(child);
 			}
 			(child as AbstractControl).setParent(this);
+			setChildStage(child, stage);
 			
-			renderer.updateChildren(this);
+			uiManager.renderer.updateChildren(this);
 		}
 
 		public function removeChild(child:IControl):void
@@ -153,13 +155,11 @@ package com.macro.gUI.core
 			{
 				_children.splice(p, 1);
 
-				if (child is AbstractControl)
-				{
-					(child as AbstractControl).setParent(null);
-				}
+				(child as AbstractControl).setParent(null);
+				setChildStage(child, null);
+				
+				uiManager.renderer.updateChildren(this);
 			}
-			
-			renderer.updateChildren(this);
 		}
 
 		public function removeChildAt(index:int):IControl
@@ -169,13 +169,12 @@ package com.macro.gUI.core
 			{
 				child = _children.splice(index, 1)[0];
 
-				if (child is AbstractControl)
-				{
-					(child as AbstractControl).setParent(null);
-				}
+				(child as AbstractControl).setParent(null);
+				setChildStage(child, null);
+				
+				uiManager.renderer.updateChildren(this);
 			}
 
-			renderer.updateChildren(this);
 			return child;
 		}
 
@@ -195,14 +194,12 @@ package com.macro.gUI.core
 			for (var i:int = beginIndex; i < endIndex; i++)
 			{
 				child = _children[i];
-				if (child is AbstractControl)
-				{
-					(child as AbstractControl).setParent(null);
-				}
+				(child as AbstractControl).setParent(null);
+				setChildStage(child, null);
 			}
 			_children.splice(beginIndex, endIndex - beginIndex);
 			
-			renderer.updateChildren(this);
+			uiManager.renderer.updateChildren(this);
 		}
 
 		public function getChildAt(index:int):IControl
@@ -235,7 +232,7 @@ package com.macro.gUI.core
 			}
 			_children.splice(index, 0, child);
 			
-			renderer.updateChildren(this);
+			uiManager.renderer.updateChildren(this);
 		}
 
 		public function swapChildren(child1:IControl, child2:IControl):void
@@ -268,8 +265,28 @@ package com.macro.gUI.core
 			_children.splice(index2, 1, child1);
 			_children.splice(index1, 1, child2);
 			
-			renderer.updateChildren(this);
+			uiManager.renderer.updateChildren(this);
 		}
 
+		
+		private function setChildStage(child:IControl, stage:IContainer):void
+		{
+			if (child is IComposite)
+			{
+				setChildStage((child as IComposite).container, stage);
+				return;
+			}
+			
+			(child as AbstractControl).setStage(stage);
+			
+			if (child is IContainer)
+			{
+				var container:IContainer = child as IContainer;
+				for each (var control:IControl in container.children)
+				{
+					setChildStage(control, stage);
+				}
+			}
+		}
 	}
 }

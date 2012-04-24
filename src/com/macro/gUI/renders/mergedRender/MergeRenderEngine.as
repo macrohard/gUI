@@ -77,6 +77,12 @@ package com.macro.gUI.renders.mergedRender
 		 */
 		private function drawControl(control:IControl, viewRect:Rectangle):void
 		{
+			if (control is IComposite)
+			{
+				drawControl((control as IComposite).container, viewRect);
+				return;
+			}
+			
 			var controlRect:Rectangle = control.rect;
 			var p:Point = control.localToGlobal();
 			controlRect.x = p.x;
@@ -92,11 +98,7 @@ package com.macro.gUI.renders.mergedRender
 				_canvas.copyPixels(control.bitmapData, drawR, viewRect.topLeft, null, null, true);
 			}
 
-			if (control is IComposite)
-			{
-				drawControl((control as IComposite).container, viewRect);
-			}
-			else if (control is IContainer)
+			if (control is IContainer)
 			{
 				var container:IContainer = control as IContainer;
 
@@ -108,14 +110,7 @@ package com.macro.gUI.renders.mergedRender
 
 				for each (var ic:IControl in container.children)
 				{
-					if (ic is IComposite)
-					{
-						drawControl((ic as IComposite).container, viewRect);
-					}
-					else
-					{
-						drawControl(ic, viewRect);
-					}
+					drawControl(ic, viewRect);
 				}
 
 			}
@@ -123,17 +118,26 @@ package com.macro.gUI.renders.mergedRender
 
 		public function updateChildren(container:IContainer):void
 		{
-			_needRedraw = true;
+			if (container.stage != null)
+			{
+				_needRedraw = true;
+			}
 		}
 
 		public function updateCoord(control:IControl, x:int, y:int):void
 		{
-			_needRedraw = true;
+			if (control.stage != null)
+			{
+				_needRedraw = true;
+			}
 		}
 
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
-			_needRedraw = true;
+			if (control.stage != null)
+			{
+				_needRedraw = true;
+			}
 		}
 
 	}

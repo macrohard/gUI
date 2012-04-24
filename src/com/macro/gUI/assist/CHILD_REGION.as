@@ -49,6 +49,11 @@ package com.macro.gUI.assist
 		{
 			return null;
 		}
+		
+		public function get stage():IContainer
+		{
+			return null;
+		}
 
 		public function localToGlobal(point:Point = null):Point
 		{

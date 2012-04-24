@@ -1,7 +1,7 @@
 package com.macro.gUI.core
 {
 	import avmplus.getQualifiedClassName;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -85,14 +85,9 @@ package com.macro.gUI.core
 		}
 
 
-		/**
-		 * 复合控件无位图数据对象，此属性总是返回null
-		 * @return
-		 *
-		 */
-		public final override function get bitmapData():BitmapData
+		public override function get bitmapData():BitmapData
 		{
-			return null;
+			return _container.bitmapData;
 		}
 
 
@@ -184,22 +179,33 @@ package com.macro.gUI.core
 		{
 			return _container.parent;
 		}
+		
+		public override function get stage():IContainer
+		{
+			return _container.stage;
+		}
 
 
-		/**
-		 * 设置父容器，内部行为，外部无法访问
-		 * @param container
-		 *
-		 */
 		internal override function setParent(container:IContainer):void
 		{
 			_container.setParent(container);
+		}
+		
+		
+		internal override function setStage(stage:IContainer):void
+		{
+			_container.setStage(stage);
 		}
 
 
 		public override function localToGlobal(point:Point = null):Point
 		{
 			return _container.localToGlobal(point);
+		}
+		
+		public override function globalToLocal(x:int, y:int):Point
+		{
+			return _container.globalToLocal(x, y);
 		}
 
 

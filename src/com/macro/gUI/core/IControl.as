@@ -35,11 +35,18 @@ package com.macro.gUI.core
 		function get enabled():Boolean;
 
 		/**
-		 * 获取父级容器
+		 * 获取父容器
 		 * @return
 		 *
 		 */
 		function get parent():IContainer;
+		
+		/**
+		 * 获取舞台容器。可根据此值是否为null来判定控件是否添加到舞台
+		 * @return 
+		 * 
+		 */
+		function get stage():IContainer;
 
 		/**
 		 * 控件的本地坐标转换为全局坐标

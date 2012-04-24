@@ -26,7 +26,7 @@ package com.macro.gUI.core
 		/**
 		 * 根容器控件
 		 */
-		private var _root:IContainer;
+		private var _stage:IContainer;
 
 
 
@@ -61,28 +61,27 @@ package com.macro.gUI.core
 
 		/**
 		 * 交互管理器
-		 * @param root
-		 * @param top
-		 * @param container
-		 *
+		 * @param uiManager
+		 * @param displayObjectContainer
+		 * 
 		 */
 		public function InteractionManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
 		{
-			_root = uiManager.root;
+			_stage = uiManager.stage;
 			_displayObjectContainer = displayObjectContainer;
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
 			
 			_popupManager = uiManager.popupManager;
-			_dragManager = new DragManager();
+			_dragManager = new DragManager(uiManager.topContainer);
 			_focusManager = new FocusManager(uiManager.topContainer, _displayObjectContainer);
 		}
 
 
 		protected function mouseDownHandler(e:MouseEvent):void
 		{
-			findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 			// 处理弹出菜单
 			_popupManager.autoClosePopupMenu(_mouseControl);
@@ -114,7 +113,7 @@ package com.macro.gUI.core
 			if (_dragManager.isDragging)
 			{
 				// 结束拖拽
-				findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+				findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 				if (!_dragManager.stopDrag(_mouseControl, _mouseTarget))
 				{
@@ -153,7 +152,7 @@ package com.macro.gUI.core
 			{
 				var tempC:IControl = _mouseControl;
 				var tempT:IControl = _mouseTarget;
-				findTargetControl(_root, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+				findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 				// 在同一个控件范围内移动时不作处理
 				if (tempT == _mouseTarget)

@@ -6,7 +6,6 @@ package com.macro.gUI.core
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.events.UIEvent;
-	import com.macro.gUI.renders.IRenderEngine;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
 	
@@ -153,7 +152,7 @@ package com.macro.gUI.core
 		public function set x(value:int):void
 		{
 			_rect.x = value;
-			renderer.updateCoord(this, _rect.x, _rect.y);
+			uiManager.renderer.updateCoord(this, _rect.x, _rect.y);
 		}
 
 
@@ -170,7 +169,7 @@ package com.macro.gUI.core
 		public function set y(value:int):void
 		{
 			_rect.y = value;
-			renderer.updateCoord(this, _rect.x, _rect.y);
+			uiManager.renderer.updateCoord(this, _rect.x, _rect.y);
 		}
 
 
@@ -316,6 +315,14 @@ package com.macro.gUI.core
 		{
 			return _parent;
 		}
+		
+		
+		private var _stage:IContainer;
+		
+		public function get stage():IContainer
+		{
+			return _stage;
+		}
 
 
 		/**
@@ -326,6 +333,17 @@ package com.macro.gUI.core
 		internal function setParent(container:IContainer):void
 		{
 			_parent = container;
+		}
+		
+		
+		/**
+		 * 设置根容器，内部行为，外部无法访问
+		 * @param stage
+		 * 
+		 */
+		internal function setStage(stage:IContainer):void
+		{
+			_stage = stage;
 		}
 
 
@@ -472,12 +490,12 @@ package com.macro.gUI.core
 				}
 
 				_bitmapData = new BitmapData(_rect.width, _rect.height, _transparent, _bgColor);
-				renderer.updatePaint(this, true);
+				uiManager.renderer.updatePaint(this, true);
 			}
 			else
 			{
 				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
-				renderer.updatePaint(this, false);
+				uiManager.renderer.updatePaint(this, false);
 			}
 
 			prePaint();
@@ -539,33 +557,16 @@ package com.macro.gUI.core
 		 */
 		protected static var smoothing:Boolean;
 
-
 		/**
-		 * 渲染器
+		 * 界面管理器
 		 */
-		protected static var renderer:IRenderEngine;
+		protected static var uiManager:UIManager;
 		
-		/**
-		 * 弹出窗口管理器
-		 */
-		protected static var popupManager:PopupManager;
-
-
 		/**
 		 * 皮肤管理器
 		 */
 		protected static var skinManager:SkinManager;
 		
-		/**
-		 * 舞台宽度
-		 */
-		protected static var stageWidth:int;
-		
-		/**
-		 * 舞台高度
-		 */
-		protected static var stageHeight:int
-
 
 		/**
 		 * 初始化控件基类
@@ -574,14 +575,11 @@ package com.macro.gUI.core
 		 * @param smoothing
 		 *
 		 */
-		internal static function init(uiManager:UIManager, stageWidth:int, stageHeight:int, smoothing:Boolean = true):void
+		internal static function init(uiManager:UIManager, smoothing:Boolean = true):void
 		{
-			AbstractControl.renderer = uiManager.renderer;
-			AbstractControl.popupManager = uiManager.popupManager;
+			AbstractControl.uiManager = uiManager;
 			AbstractControl.skinManager = uiManager.skinManager;
 			AbstractControl.smoothing = smoothing;
-			AbstractControl.stageWidth = stageWidth;
-			AbstractControl.stageHeight = stageHeight;
 		}
 
 

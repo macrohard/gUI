@@ -57,10 +57,15 @@ package com.macro.gUI.core
 			_modals = new Vector.<IControl>();
 		}
 		
-		internal function init():void
+		
+		private function get modalBg():Canvas
 		{
-			_modalBg = new Canvas(_popupContainer.rect.width, _popupContainer.rect.height);
-			_modalBg.backgroundColor = 0x33000000;
+			if (_modalBg == null)
+			{
+				_modalBg = new Canvas(_popupContainer.rect.width, _popupContainer.rect.height);
+				_modalBg.backgroundColor = 0x33000000;
+			}
+			return _modalBg;
 		}
 		
 
@@ -84,7 +89,7 @@ package com.macro.gUI.core
 				{
 					var layer:int = getPopupWindowLayer(true);
 					_popupContainer.addChildAt(window, layer);
-					_popupContainer.addChildAt(_modalBg, layer);
+					_popupContainer.addChildAt(modalBg, layer);
 					_modalWindow = window;
 				}
 				else
@@ -118,7 +123,7 @@ package com.macro.gUI.core
 				}
 				else // 模态窗口队列中没有元素了，则移除模态窗口背景控件
 				{
-					_popupContainer.removeChild(_modalBg);
+					_popupContainer.removeChild(modalBg);
 					_modalWindow = null;
 				}
 			}
@@ -151,8 +156,8 @@ package com.macro.gUI.core
 			if (window is AbstractControl)
 			{
 				var c:AbstractControl = window as AbstractControl;
-				c.x = _modalBg.width - c.width >> 1;
-				c.y = _modalBg.height - c.height >> 1;
+				c.x = modalBg.width - c.width >> 1;
+				c.y = modalBg.height - c.height >> 1;
 			}
 		}
 
@@ -216,7 +221,7 @@ package com.macro.gUI.core
 			// 如果不是模态窗口，且当前已有模态窗口，则返回模态窗口背景控件所在的层级
 			if (!isModal && _modalWindow != null)
 			{
-				return _popupContainer.getChildIndex(_modalBg);
+				return _popupContainer.getChildIndex(modalBg);
 			}
 
 			// 如果当前有弹出菜单，则返回弹出菜单所在的层级

@@ -22,6 +22,10 @@ package com.macro.gUI.core
 		 */
 		public var isDragging:Boolean;
 
+		/**
+		 * 最上层窗口容器控件
+		 */
+		private var _top:IContainer;
 
 		/**
 		 * 拖拽的外层控件
@@ -48,8 +52,9 @@ package com.macro.gUI.core
 		 * 拖拽管理器
 		 *
 		 */
-		public function DragManager()
+		public function DragManager(top:IContainer)
 		{
+			_top = top;
 		}
 
 
