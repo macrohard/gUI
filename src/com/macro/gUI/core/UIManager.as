@@ -80,6 +80,7 @@ package com.macro.gUI.core
 			interactionManager = new InteractionManager(this, displayObjectContainer);
 
 			AbstractControl.init(this, width, height);
+			popupManager.init();
 
 			// 初始化整个UI体系层级结构
 			_root.addChild(_main);

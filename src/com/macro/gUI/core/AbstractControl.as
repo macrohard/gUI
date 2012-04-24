@@ -153,6 +153,7 @@ package com.macro.gUI.core
 		public function set x(value:int):void
 		{
 			_rect.x = value;
+			renderer.updateCoord(this, _rect.x, _rect.y);
 		}
 
 
@@ -169,6 +170,7 @@ package com.macro.gUI.core
 		public function set y(value:int):void
 		{
 			_rect.y = value;
+			renderer.updateCoord(this, _rect.x, _rect.y);
 		}
 
 
@@ -470,10 +472,12 @@ package com.macro.gUI.core
 				}
 
 				_bitmapData = new BitmapData(_rect.width, _rect.height, _transparent, _bgColor);
+				renderer.updatePaint(this, true);
 			}
 			else
 			{
 				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
+				renderer.updatePaint(this, false);
 			}
 
 			prePaint();

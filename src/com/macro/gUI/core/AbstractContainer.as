@@ -118,6 +118,8 @@ package com.macro.gUI.core
 				child.parent.removeChild(child);
 			}
 			(child as AbstractControl).setParent(this);
+			
+			renderer.updateChildren(this);
 		}
 
 		public function addChildAt(child:IControl, index:int):void
@@ -140,6 +142,8 @@ package com.macro.gUI.core
 				child.parent.removeChild(child);
 			}
 			(child as AbstractControl).setParent(this);
+			
+			renderer.updateChildren(this);
 		}
 
 		public function removeChild(child:IControl):void
@@ -154,6 +158,8 @@ package com.macro.gUI.core
 					(child as AbstractControl).setParent(null);
 				}
 			}
+			
+			renderer.updateChildren(this);
 		}
 
 		public function removeChildAt(index:int):IControl
@@ -169,6 +175,7 @@ package com.macro.gUI.core
 				}
 			}
 
+			renderer.updateChildren(this);
 			return child;
 		}
 
@@ -194,6 +201,8 @@ package com.macro.gUI.core
 				}
 			}
 			_children.splice(beginIndex, endIndex - beginIndex);
+			
+			renderer.updateChildren(this);
 		}
 
 		public function getChildAt(index:int):IControl
@@ -225,6 +234,8 @@ package com.macro.gUI.core
 				index--;
 			}
 			_children.splice(index, 0, child);
+			
+			renderer.updateChildren(this);
 		}
 
 		public function swapChildren(child1:IControl, child2:IControl):void
@@ -256,6 +267,8 @@ package com.macro.gUI.core
 
 			_children.splice(index2, 1, child1);
 			_children.splice(index1, 1, child2);
+			
+			renderer.updateChildren(this);
 		}
 
 	}

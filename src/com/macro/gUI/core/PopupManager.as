@@ -55,9 +55,14 @@ package com.macro.gUI.core
 		{
 			_popupContainer = popupContainer;
 			_modals = new Vector.<IControl>();
-			_modalBg = new Canvas(popupContainer.rect.width, popupContainer.rect.height);
+		}
+		
+		internal function init():void
+		{
+			_modalBg = new Canvas(_popupContainer.rect.width, _popupContainer.rect.height);
 			_modalBg.backgroundColor = 0x33000000;
 		}
+		
 
 		/**
 		 * 添加弹出窗口
