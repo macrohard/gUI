@@ -537,6 +537,11 @@ package com.macro.gUI.core
 
 
 		/**
+		 * 渲染器
+		 */
+		protected static var renderer:IRenderEngine;
+		
+		/**
 		 * 弹出窗口管理器
 		 */
 		protected static var popupManager:PopupManager;
@@ -567,6 +572,7 @@ package com.macro.gUI.core
 		 */
 		internal static function init(uiManager:UIManager, stageWidth:int, stageHeight:int, smoothing:Boolean = true):void
 		{
+			AbstractControl.renderer = uiManager.renderer;
 			AbstractControl.popupManager = uiManager.popupManager;
 			AbstractControl.skinManager = uiManager.skinManager;
 			AbstractControl.smoothing = smoothing;

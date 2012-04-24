@@ -32,6 +32,11 @@ package com.macro.gUI.renders.mergedRender
 		 * 根容器
 		 */
 		private var _root:IContainer;
+		
+		/**
+		 * 重绘标记
+		 */
+		private var _needRedraw:Boolean;
 
 
 		/**
@@ -52,17 +57,22 @@ package com.macro.gUI.renders.mergedRender
 
 		protected function enterFrameHandler(e:Event):void
 		{
-			_canvas.lock();
-			_canvas.fillRect(_canvas.rect, 0);
-			drawControl(_root, _canvas.rect);
-			_canvas.unlock();
+			if (_needRedraw)
+			{
+				_canvas.lock();
+				_canvas.fillRect(_canvas.rect, 0);
+				drawControl(_root, _canvas.rect);
+				_canvas.unlock();
+				
+				_needRedraw = false;
+			}
 		}
 
 
 		/**
 		 * 合并渲染
 		 * @param control
-		 * @param stageRect
+		 * @param viewRect 控件的可视范围
 		 *
 		 */
 		private function drawControl(control:IControl, viewRect:Rectangle):void
@@ -113,14 +123,17 @@ package com.macro.gUI.renders.mergedRender
 
 		public function updateChildren(container:IContainer):void
 		{
+			_needRedraw = true;
 		}
 
 		public function updateCoord(control:IControl, x:int, y:int):void
 		{
+			_needRedraw = true;
 		}
 
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
+			_needRedraw = true;
 		}
 
 	}

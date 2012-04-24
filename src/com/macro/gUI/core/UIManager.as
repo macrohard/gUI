@@ -26,6 +26,11 @@ package com.macro.gUI.core
 
 
 		/**
+		 * 渲染器
+		 */
+		public var renderer:IRenderEngine;
+		
+		/**
 		 * 弹出窗口管理器
 		 *
 		 */
@@ -35,13 +40,7 @@ package com.macro.gUI.core
 		/**
 		 * 交互管理器
 		 */
-		private var _interactionManager:InteractionManager;
-
-
-		/**
-		 * 渲染器
-		 */
-		private var _render:IRenderEngine;
+		internal var interactionManager:InteractionManager;
 
 
 
@@ -58,18 +57,18 @@ package com.macro.gUI.core
 			_stageWidth = width;
 			_stageHeight = height;
 			
-			_root = new Container(width, height);
-			_main = new Container(width, height);
-			_popup = new Container(width, height);
-			_top = new Container(width, height);
+			_root = new Container(_stageWidth, _stageHeight);
+			_main = new Container(_stageWidth, _stageHeight);
+			_popup = new Container(_stageWidth, _stageHeight);
+			_top = new Container(_stageWidth, _stageHeight);
 
 			if (renderMode == RenderMode.RENDER_MODE_MERGE)
 			{
-				_render = new MergeRenderEngine(_root, displayObjectContainer);
+				renderer = new MergeRenderEngine(_root, displayObjectContainer);
 			}
 			else if (renderMode == RenderMode.RENDER_MODE_LAYER)
 			{
-				_render = new LayeredRenderEngine(_root, displayObjectContainer);
+				renderer = new LayeredRenderEngine(_root, displayObjectContainer);
 			}
 			else
 			{
@@ -78,7 +77,7 @@ package com.macro.gUI.core
 
 			skinManager = new SkinManager();
 			popupManager = new PopupManager(_popup);
-			_interactionManager = new InteractionManager(this, displayObjectContainer);
+			interactionManager = new InteractionManager(this, displayObjectContainer);
 
 			AbstractControl.init(this, width, height);
 
@@ -159,30 +158,6 @@ package com.macro.gUI.core
 		internal function get topContainer():IContainer
 		{
 			return _top;
-		}
-
-
-
-		/**
-		 * 添加弹出窗口
-		 * @param window
-		 * @param isModal 是否模态
-		 * @param isCenter 是否居中显示
-		 * 
-		 */
-		public function addPopupWindow(window:IContainer, isModal:Boolean = false, isCenter:Boolean = false):void
-		{
-			popupManager.addPopupWindow(window, isModal, isCenter);
-		}
-
-		/**
-		 * 移除弹出窗口
-		 * @param popupItem
-		 *
-		 */
-		public function removePopupWindow(window:IControl):void
-		{
-			popupManager.removePopupWindow(window);
 		}
 	}
 }

@@ -1,13 +1,14 @@
 package com.macro.gUI
 {
+	import com.macro.gUI.core.PopupManager;
+	import com.macro.gUI.core.UIManager;
 	import com.macro.gUI.skin.SkinManager;
 	import com.macro.logging.LogFilter;
 	import com.macro.logging.LogLevel;
 	import com.macro.logging.Logger;
 	import com.macro.logging.TraceAppender;
-
+	
 	import flash.display.DisplayObjectContainer;
-	import com.macro.gUI.core.UIManager;
 
 
 	/**
@@ -36,6 +37,17 @@ package com.macro.gUI
 		public static function get uiManager():UIManager
 		{
 			return _uiManager;
+		}
+		
+		
+		/**
+		 * 弹出窗口管理器
+		 * @return 
+		 * 
+		 */
+		public static function get popupManager():PopupManager
+		{
+			return _uiManager.popupManager;
 		}
 
 
