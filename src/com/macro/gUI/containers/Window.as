@@ -20,6 +20,7 @@ package com.macro.gUI.containers
 	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 
 
 	/**
@@ -27,8 +28,7 @@ package com.macro.gUI.containers
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class Window extends AbstractComposite implements IContainer,
-			IButton, IDrag
+	public class Window extends AbstractComposite implements IContainer, IButton, IDrag
 	{
 
 		/**
@@ -111,6 +111,11 @@ package com.macro.gUI.containers
 		 */
 		private var _mouseCoord:Point;
 
+		/**
+		 * 可拖拽区域，当值为null时表示没有限制
+		 */
+		private var _dragArea:Rectangle;
+
 
 
 		/**
@@ -129,7 +134,7 @@ package com.macro.gUI.containers
 			// 标题栏默认居中对齐
 			super(width, height, 0x22);
 
-			_canDrag = true;
+			_isDraggable = true;
 			_buttonLayout = buttonLayout;
 			_buttonStyle = buttonVisible;
 
@@ -170,21 +175,34 @@ package com.macro.gUI.containers
 		}
 
 
-		private var _canDrag:Boolean;
+		private var _isDraggable:Boolean;
 
 		/**
 		 * 可否拖拽
 		 * @return
 		 *
 		 */
-		public function get draggable():Boolean
+		public function get isDraggable():Boolean
 		{
-			return _canDrag;
+			return _isDraggable;
 		}
 
-		public function set draggable(value:Boolean):void
+		public function set isDraggable(value:Boolean):void
 		{
-			_canDrag = value;
+			_isDraggable = value;
+		}
+
+
+		private var _canDragOutStage:Boolean;
+
+		public function get canDragOutStage():Boolean
+		{
+			return _canDragOutStage;
+		}
+
+		public function set canDragOutStage(value:Boolean):void
+		{
+			_canDragOutStage = value;
 		}
 
 
@@ -501,8 +519,16 @@ package com.macro.gUI.containers
 
 		public function getDragMode(target:IControl):int
 		{
-			if (target == _container && _canDrag)
+			if (target == _container && _isDraggable)
 			{
+				_dragArea = null;
+				if (!_canDragOutStage && this.parent != null)
+				{
+					var p1:Point = this.parent.globalToLocal(0, 0);
+					var p2:Point = this.parent.globalToLocal(uiManager.stageWidth - _rect.width, uiManager.stageHeight - _rect.height);
+					_dragArea = new Rectangle(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+				}
+
 				return DragMode.DIRECT;
 			}
 			return DragMode.NONE;
@@ -515,8 +541,15 @@ package com.macro.gUI.containers
 
 		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
-			this.x = _originalCoord.x + x - _mouseCoord.x;
-			this.y = _originalCoord.y + y - _mouseCoord.y;
+			x = _originalCoord.x + x - _mouseCoord.x;
+			y = _originalCoord.y + y - _mouseCoord.y;
+			if (_dragArea != null)
+			{
+				x = x < _dragArea.left ? _dragArea.left : (x > _dragArea.right ? _dragArea.right : x);
+				y = y < _dragArea.top ? _dragArea.top : (y > _dragArea.bottom ? _dragArea.bottom : y);
+			}
+			this.x = x;
+			this.y = y;
 		}
 
 

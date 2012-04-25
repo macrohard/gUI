@@ -96,22 +96,11 @@ package com.macro.gUI.core
 
 		/**
 		 * 停止拖拽
-		 * @param control 要停止拖拽的控件
-		 * @param target 要停止拖拽的目标控件
 		 * 
 		 */
-		public function stopDrag(control:IControl, target:IControl):void
+		public function stopDrag():void
 		{
 			Mouse.cursor = MouseCursor.AUTO;
-			// 要停止拖拽的控件不是当前正在拖拽的控件时
-			if (_dragControl != control || _dragTarget != target)
-			{
-				if (_dragControl is IButton)
-				{
-					(_dragControl as IButton).mouseOut(_dragTarget);
-				}
-			}
-
 			_dragControl = null;
 			_dragTarget = null;
 			_dragAvatar = null;

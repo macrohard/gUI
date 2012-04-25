@@ -89,6 +89,10 @@ package com.macro.gUI.renders.mergedRender
 			controlRect.y = p.y;
 
 			viewRect = viewRect.intersection(controlRect);
+			if (viewRect.width == 0 || viewRect.height == 0)
+			{
+				return;
+			}
 
 			var drawR:Rectangle = viewRect.clone();
 			drawR.offset(-p.x, -p.y);
