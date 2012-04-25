@@ -1,7 +1,8 @@
 package com.macro.gUI.containers
 {
 	import com.macro.gUI.core.AbstractContainer;
-
+	import com.macro.utils.ImageUtil;
+	
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.IBitmapDrawable;
@@ -37,7 +38,7 @@ package com.macro.gUI.containers
 
 			_autoSize = autoSize;
 
-			setSource(source);
+			this.image = source;
 		}
 
 
@@ -94,23 +95,19 @@ package com.macro.gUI.containers
 
 
 		/**
-		 * 设置新的显示对象
+		 * 设置新的显示对象，旧显示对象相关的BitmapData将被自动销毁
 		 * @param value
-		 * @param destroy 是否销毁原有的显示对象，默认不销毁
 		 *
 		 */
-		public function setSource(value:IBitmapDrawable, destroy:Boolean = false):void
+		public function set image(value:IBitmapDrawable):void
 		{
-			if (value != null)
+			if (_image != null)
 			{
-				if (destroy && _image != null)
-				{
-					_image.dispose();
-				}
-
-				_image = getBitmapData(value);
-				resize();
+				_image.dispose();
 			}
+
+			_image = ImageUtil.getBitmapData(value);
+			resize();
 		}
 
 
@@ -142,24 +139,6 @@ package com.macro.gUI.containers
 			{
 				drawFixed(_bitmapData, _rect, _align, _image);
 			}
-		}
-
-
-		private function getBitmapData(image:IBitmapDrawable):BitmapData
-		{
-			if (image is BitmapData)
-			{
-				return image as BitmapData;
-			}
-			else if (image is DisplayObject)
-			{
-				var r:Rectangle = (image as DisplayObject).getBounds(null);
-				var bmd:BitmapData = new BitmapData(r.right + 1, r.bottom + 1, true, 0);
-				bmd.draw(image);
-				return bmd;
-			}
-
-			throw new Error("Unknow IBitmapDrawable Object!");
 		}
 	}
 }

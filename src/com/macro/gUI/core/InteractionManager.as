@@ -4,7 +4,7 @@ package com.macro.gUI.core
 	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-	
+
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
@@ -20,7 +20,7 @@ package com.macro.gUI.core
 	 */
 	public class InteractionManager
 	{
-		
+
 		private var _displayObjectContainer:DisplayObjectContainer;
 
 		/**
@@ -63,7 +63,7 @@ package com.macro.gUI.core
 		 * 交互管理器
 		 * @param uiManager
 		 * @param displayObjectContainer
-		 * 
+		 *
 		 */
 		public function InteractionManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
 		{
@@ -72,7 +72,7 @@ package com.macro.gUI.core
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
-			
+
 			_popupManager = uiManager.popupManager;
 			_dragManager = new DragManager(uiManager.topContainer);
 			_focusManager = new FocusManager(uiManager.topContainer, _displayObjectContainer);
@@ -114,29 +114,54 @@ package com.macro.gUI.core
 			{
 				// 结束拖拽
 				findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
-
-				if (!_dragManager.stopDrag(_mouseControl, _mouseTarget))
+				
+				_dragManager.stopDrag(_mouseControl, _mouseTarget);
+				
+				// 处理鼠标弹起
+				if (_mouseControl is IButton && _mouseControl.enabled &&
+					_mouseTarget.enabled)
 				{
-					// 处理鼠标进入
-					if (_mouseControl is IButton && _mouseControl.enabled &&
-						_mouseTarget.enabled)
+					if (_mouseTarget is IButton)
 					{
-						(_mouseControl as IButton).mouseOver(_mouseTarget);
-						
-						if (_mouseTarget is IButton)
-						{
-							Mouse.cursor = MouseCursor.BUTTON;
-						}
+						Mouse.cursor = MouseCursor.BUTTON;
 					}
+					(_mouseControl as IButton).mouseUp(_mouseTarget);
 				}
 			}
 			else
 			{
-				// 处理鼠标松开
-				if (_mouseControl is IButton && _mouseControl.enabled &&
-						_mouseTarget.enabled)
+				var tempC:IControl = _mouseControl;
+				var tempT:IControl = _mouseTarget;
+				findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+
+				if (tempT == _mouseTarget)
 				{
-					(_mouseControl as IButton).mouseUp(_mouseTarget);
+					// 处理鼠标松开
+					if (_mouseControl is IButton && _mouseControl.enabled &&
+							_mouseTarget.enabled)
+					{
+						(_mouseControl as IButton).mouseUp(_mouseTarget);
+					}
+				}
+				else
+				{
+					// 处理鼠标离开
+					if (tempC is IButton && tempC.enabled && tempT.enabled)
+					{
+						Mouse.cursor = MouseCursor.AUTO;
+						(tempC as IButton).mouseOut(tempT);
+					}
+
+					// 处理鼠标弹起
+					if (_mouseControl is IButton && _mouseControl.enabled &&
+							_mouseTarget.enabled)
+					{
+						if (_mouseTarget is IButton)
+						{
+							Mouse.cursor = MouseCursor.BUTTON;
+						}
+						(_mouseControl as IButton).mouseUp(_mouseTarget);
+					}
 				}
 			}
 		}
@@ -154,7 +179,7 @@ package com.macro.gUI.core
 				var tempT:IControl = _mouseTarget;
 				findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
-				// 在同一个控件范围内移动时不作处理
+				// 在同一个目标控件范围内移动时不作处理
 				if (tempT == _mouseTarget)
 				{
 					return;
@@ -163,20 +188,19 @@ package com.macro.gUI.core
 				// 处理鼠标离开
 				if (tempC is IButton && tempC.enabled && tempT.enabled)
 				{
-					(tempC as IButton).mouseOut(tempT);
 					Mouse.cursor = MouseCursor.AUTO;
+					(tempC as IButton).mouseOut(tempT);
 				}
 
 				// 处理鼠标进入
 				if (_mouseControl is IButton && _mouseControl.enabled &&
 						_mouseTarget.enabled)
 				{
-					(_mouseControl as IButton).mouseOver(_mouseTarget);
-
 					if (_mouseTarget is IButton)
 					{
 						Mouse.cursor = MouseCursor.BUTTON;
 					}
+					(_mouseControl as IButton).mouseOver(_mouseTarget);
 				}
 			}
 		}

@@ -228,6 +228,8 @@ package com.macro.gUI.composite
 			}
 
 			bmd.unlock();
+			
+			_canvas.update();
 		}
 	}
 }

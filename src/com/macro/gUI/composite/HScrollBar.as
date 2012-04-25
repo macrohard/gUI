@@ -311,15 +311,15 @@ package com.macro.gUI.composite
 
 		/**
 		 * 设置滑块皮肤
-		 * @param normalSkin 常态皮肤
+		 * @param upSkin 常态皮肤
 		 * @param disableSkin 禁用态皮肤
 		 * @param selectedSkin 选中态皮肤
 		 * @param selectedDisableSkin 选中禁用态皮肤
 		 *
 		 */
-		public function setBlockSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
+		public function setBlockSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_blockBtn.skin = normalSkin;
+			_blockBtn.skin = upSkin;
 			_blockBtn.overSkin = overSkin;
 			_blockBtn.downSkin = downSkin;
 			_blockBtn.disableSkin = disableSkin;
@@ -335,15 +335,15 @@ package com.macro.gUI.composite
 
 		/**
 		 * 设置左按钮皮肤
-		 * @param normalSkin 常态皮肤
+		 * @param upSkin 常态皮肤
 		 * @param disableSkin 禁用态皮肤
 		 * @param selectedSkin 选中态皮肤
 		 * @param selectedDisableSkin 选中禁用态皮肤
 		 *
 		 */
-		public function setLeftButtonSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
+		public function setLeftButtonSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_leftBtn.skin = normalSkin;
+			_leftBtn.skin = upSkin;
 			_leftBtn.overSkin = overSkin;
 			_leftBtn.downSkin = downSkin;
 			_leftBtn.disableSkin = disableSkin;
@@ -359,15 +359,15 @@ package com.macro.gUI.composite
 
 		/**
 		 * 设置右按钮皮肤
-		 * @param normalSkin 常态皮肤
+		 * @param upSkin 常态皮肤
 		 * @param disableSkin 禁用态皮肤
 		 * @param selectedSkin 选中态皮肤
 		 * @param selectedDisableSkin 选中禁用态皮肤
 		 *
 		 */
-		public function setRightButtonSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
+		public function setRightButtonSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_rightBtn.skin = normalSkin;
+			_rightBtn.skin = upSkin;
 			_rightBtn.overSkin = overSkin;
 			_rightBtn.downSkin = downSkin;
 			_rightBtn.disableSkin = disableSkin;

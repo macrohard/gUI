@@ -21,6 +21,9 @@ package com.macro.gUI.controls
 	public class LinkButton extends Label implements IButton, IKeyboard
 	{
 
+		/**
+		 * 四态样式
+		 */
 		protected var _styles:Dictionary;
 
 		/**
@@ -35,13 +38,13 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.NORMAL] = skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
+				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
 				_styles[CtrlState.OVER] = skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
 				_styles[CtrlState.DOWN] = skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
 				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);
 			}
 
-			_style = _style ? _style : _styles[CtrlState.NORMAL];
+			_style = _style ? _style : _styles[CtrlState.UP];
 
 			super(text, true, align);
 		}
@@ -67,7 +70,7 @@ package com.macro.gUI.controls
 				_enabled = value;
 				if (_enabled)
 				{
-					_style = _styles[CtrlState.NORMAL];
+					_style = _styles[CtrlState.UP];
 				}
 				else
 				{
@@ -81,18 +84,18 @@ package com.macro.gUI.controls
 
 		public override function get style():TextStyle
 		{
-			return _styles[CtrlState.NORMAL];
+			return _styles[CtrlState.UP];
 		}
 
 		public override function set style(value:TextStyle):void
 		{
-			if (_style == _styles[CtrlState.NORMAL])
+			if (_style == _styles[CtrlState.UP])
 			{
 				_style = value;
 				resize();
 			}
 
-			_styles[CtrlState.NORMAL] = value;
+			_styles[CtrlState.UP] = value;
 		}
 
 		public function get overStyle():TextStyle
@@ -168,9 +171,9 @@ package com.macro.gUI.controls
 
 		public function mouseOut(target:IControl):void
 		{
-			if (_style != _styles[CtrlState.NORMAL])
+			if (_style != _styles[CtrlState.UP])
 			{
-				_style = _styles[CtrlState.NORMAL];
+				_style = _styles[CtrlState.UP];
 				resize();
 			}
 			

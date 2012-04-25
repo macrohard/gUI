@@ -29,7 +29,7 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.NORMAL] = skinManager.getStyle(StyleDef.BUTTON_NORMAL);
+				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.BUTTON_NORMAL);
 				_styles[CtrlState.OVER] = skinManager.getStyle(StyleDef.BUTTON_OVER);
 				_styles[CtrlState.DOWN] = skinManager.getStyle(StyleDef.BUTTON_DOWN);
 				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.BUTTON_DISABLE);
@@ -42,10 +42,10 @@ package com.macro.gUI.controls
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.TOGGLEBUTTON);
-				if (_skins[CtrlState.NORMAL] == null)
+				_skins[CtrlState.UP] = skinManager.getSkin(SkinDef.TOGGLEBUTTON);
+				if (_skins[CtrlState.UP] == null)
 				{
-					_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.BUTTON);
+					_skins[CtrlState.UP] = skinManager.getSkin(SkinDef.BUTTON);
 				}
 				_skins[CtrlState.OVER] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_OVER);
 				if (_skins[CtrlState.OVER] == null)
@@ -68,8 +68,8 @@ package com.macro.gUI.controls
 				_skins[CtrlState.SELECTED_DISABLE] = skinManager.getSkin(SkinDef.TOGGLEBUTTON_SELECTED_DISABLE);
 			}
 
-			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
-			_style = _style ? _style : _styles[CtrlState.NORMAL];
+			_skin = _skin ? _skin : _skins[CtrlState.UP];
+			_style = _style ? _style : _styles[CtrlState.UP];
 
 			super(text, align);
 		}
@@ -111,8 +111,8 @@ package com.macro.gUI.controls
 					}
 					else
 					{
-						_skin = _skins[CtrlState.NORMAL];
-						_style = _styles[CtrlState.NORMAL];
+						_skin = _skins[CtrlState.UP];
+						_style = _styles[CtrlState.UP];
 					}
 				}
 				else
@@ -126,7 +126,7 @@ package com.macro.gUI.controls
 					else
 					{
 						_skin = _skins[CtrlState.DISABLE];
-						_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+						_skin = _skin ? _skin : _skins[CtrlState.UP];
 						_style = _styles[CtrlState.DISABLE];
 					}
 				}
@@ -277,7 +277,7 @@ package com.macro.gUI.controls
 				}
 
 				_skin = _skins[CtrlState.DOWN];
-				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+				_skin = _skin ? _skin : _skins[CtrlState.UP];
 				_style = _styles[CtrlState.DOWN];
 			}
 			resize();
@@ -310,7 +310,7 @@ package com.macro.gUI.controls
 				}
 				
 				_skin = _skins[CtrlState.OVER];
-				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+				_skin = _skin ? _skin : _skins[CtrlState.UP];
 				_style = _styles[CtrlState.OVER];
 			}
 			resize();
@@ -333,14 +333,14 @@ package com.macro.gUI.controls
 			}
 			else
 			{
-				if (_skin == _skins[CtrlState.NORMAL] &&
-						_style == _styles[CtrlState.NORMAL])
+				if (_skin == _skins[CtrlState.UP] &&
+						_style == _styles[CtrlState.UP])
 				{
 					return;
 				}
 
-				_skin = _skins[CtrlState.NORMAL];
-				_style = _styles[CtrlState.NORMAL];
+				_skin = _skins[CtrlState.UP];
+				_style = _styles[CtrlState.UP];
 			}
 			resize();
 			
@@ -370,7 +370,7 @@ package com.macro.gUI.controls
 				}
 
 				_skin = _skins[CtrlState.OVER];
-				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+				_skin = _skin ? _skin : _skins[CtrlState.UP];
 				_style = _styles[CtrlState.OVER];
 			}
 			resize();

@@ -76,6 +76,7 @@
     <classEntry path="com.macro.gUI.events.ScrollEvent"/>
     <classEntry path="com.macro.gUI.events.TabEvent"/>
     <classEntry path="com.macro.gUI.controls.ImageButton"/>
+    <classEntry path="com.macro.utils.ImageUtil"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

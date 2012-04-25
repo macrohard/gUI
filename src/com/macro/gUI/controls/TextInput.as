@@ -27,8 +27,14 @@ package com.macro.gUI.controls
 	public class TextInput extends Label implements IEdit
 	{
 
+		/**
+		 * 两态皮肤
+		 */
 		protected var _skins:Dictionary;
 
+		/**
+		 * 两态样式
+		 */
 		protected var _styles:Dictionary;
 
 
@@ -53,7 +59,7 @@ package com.macro.gUI.controls
 			if (_style == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.NORMAL] = skinManager.getStyle(StyleDef.TEXTINPUT);
+				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.TEXTINPUT);
 				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.TEXTINPUT_DISABLE);
 			}
 
@@ -61,12 +67,12 @@ package com.macro.gUI.controls
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.TEXTINPUT_BG);
+				_skins[CtrlState.UP] = skinManager.getSkin(SkinDef.TEXTINPUT_BG);
 				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.TEXTINPUT_BG_DISABLE);
 			}
 
-			_style = _style ? _style : _styles[CtrlState.NORMAL];
-			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+			_style = _style ? _style : _styles[CtrlState.UP];
+			_skin = _skin ? _skin : _skins[CtrlState.UP];
 
 			_padding = _padding ? _padding : new Margin(10, 0, 5, 0);
 
@@ -113,13 +119,13 @@ package com.macro.gUI.controls
 				_enabled = value;
 				if (_enabled)
 				{
-					_skin = _skins[CtrlState.NORMAL];
-					_style = _styles[CtrlState.NORMAL];
+					_skin = _skins[CtrlState.UP];
+					_style = _styles[CtrlState.UP];
 				}
 				else
 				{
 					_skin = _skins[CtrlState.DISABLE];
-					_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+					_skin = _skin ? _skin : _skins[CtrlState.UP];
 					_style = _styles[CtrlState.DISABLE];
 				}
 				resize();
@@ -135,18 +141,18 @@ package com.macro.gUI.controls
 		 */
 		public override function get style():TextStyle
 		{
-			return _styles[CtrlState.NORMAL];
+			return _styles[CtrlState.UP];
 		}
 
 		public override function set style(value:TextStyle):void
 		{
-			if (_style == _styles[CtrlState.NORMAL])
+			if (_style == _styles[CtrlState.UP])
 			{
 				_style = value;
 				resize();
 			}
 
-			_styles[CtrlState.NORMAL] = value;
+			_styles[CtrlState.UP] = value;
 		}
 
 		/**
@@ -177,23 +183,23 @@ package com.macro.gUI.controls
 		 */
 		public function get skin():ISkin
 		{
-			return _skins[CtrlState.NORMAL];
+			return _skins[CtrlState.UP];
 		}
 
 		public function set skin(value:ISkin):void
 		{
-			if (_skins[CtrlState.NORMAL] == value)
+			if (_skins[CtrlState.UP] == value)
 			{
 				return;
 			}
 
-			if (_skin == _skins[CtrlState.NORMAL])
+			if (_skin == _skins[CtrlState.UP])
 			{
 				_skin = value;
 				resize();
 			}
 
-			_skins[CtrlState.NORMAL] = value;
+			_skins[CtrlState.UP] = value;
 		}
 
 		/**

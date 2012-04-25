@@ -20,6 +20,9 @@ package com.macro.gUI.controls
 	public class Button extends LinkButton
 	{
 
+		/**
+		 * 四态皮肤
+		 */
 		protected var _skins:Dictionary;
 
 		/**
@@ -33,7 +36,7 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.NORMAL] = skinManager.getStyle(StyleDef.BUTTON_NORMAL);
+				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.BUTTON_NORMAL);
 				_styles[CtrlState.OVER] = skinManager.getStyle(StyleDef.BUTTON_OVER);
 				_styles[CtrlState.DOWN] = skinManager.getStyle(StyleDef.BUTTON_DOWN);
 				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.BUTTON_DISABLE);
@@ -42,14 +45,14 @@ package com.macro.gUI.controls
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.BUTTON);
+				_skins[CtrlState.UP] = skinManager.getSkin(SkinDef.BUTTON);
 				_skins[CtrlState.OVER] = skinManager.getSkin(SkinDef.BUTTON_OVER);
 				_skins[CtrlState.DOWN] = skinManager.getSkin(SkinDef.BUTTON_DOWN);
 				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.BUTTON_DISABLE);
 			}
 
-			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
-			_style = _style ? _style : _styles[CtrlState.NORMAL];
+			_skin = _skin ? _skin : _skins[CtrlState.UP];
+			_style = _style ? _style : _styles[CtrlState.UP];
 
 			_padding = _padding ? _padding : new Margin(10, 0, 10, 0);
 
@@ -82,13 +85,13 @@ package com.macro.gUI.controls
 				_enabled = value;
 				if (_enabled)
 				{
-					_skin = _skins[CtrlState.NORMAL];
-					_style = _styles[CtrlState.NORMAL];
+					_skin = _skins[CtrlState.UP];
+					_style = _styles[CtrlState.UP];
 				}
 				else
 				{
 					_skin = _skins[CtrlState.DISABLE];
-					_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+					_skin = _skin ? _skin : _skins[CtrlState.UP];
 					_style = _styles[CtrlState.DISABLE];
 				}
 
@@ -99,23 +102,23 @@ package com.macro.gUI.controls
 
 		public function get skin():ISkin
 		{
-			return _skins[CtrlState.NORMAL];
+			return _skins[CtrlState.UP];
 		}
 
 		public function set skin(value:ISkin):void
 		{
-			if (_skins[CtrlState.NORMAL] == value)
+			if (_skins[CtrlState.UP] == value)
 			{
 				return;
 			}
 
-			if (_skin == _skins[CtrlState.NORMAL])
+			if (_skin == _skins[CtrlState.UP])
 			{
 				_skin = value;
 				resize();
 			}
 
-			_skins[CtrlState.NORMAL] = value;
+			_skins[CtrlState.UP] = value;
 		}
 
 		public function get overSkin():ISkin
@@ -205,7 +208,7 @@ package com.macro.gUI.controls
 					_style != _styles[CtrlState.DOWN])
 			{
 				_skin = _skins[CtrlState.DOWN];
-				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+				_skin = _skin ? _skin : _skins[CtrlState.UP];
 				_style = _styles[CtrlState.DOWN];
 				resize();
 			}
@@ -219,7 +222,7 @@ package com.macro.gUI.controls
 				_style != _styles[CtrlState.OVER])
 			{
 				_skin = _skins[CtrlState.OVER];
-				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+				_skin = _skin ? _skin : _skins[CtrlState.UP];
 				_style = _styles[CtrlState.OVER];
 				resize();
 			}
@@ -233,7 +236,7 @@ package com.macro.gUI.controls
 				_style != _styles[CtrlState.OVER])
 			{
 				_skin = _skins[CtrlState.OVER];
-				_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
+				_skin = _skin ? _skin : _skins[CtrlState.UP];
 				_style = _styles[CtrlState.OVER];
 				resize();
 			}
@@ -243,11 +246,11 @@ package com.macro.gUI.controls
 
 		public override function mouseOut(target:IControl):void
 		{
-			if (_skin != _skins[CtrlState.NORMAL] ||
-					_style != _styles[CtrlState.NORMAL])
+			if (_skin != _skins[CtrlState.UP] ||
+					_style != _styles[CtrlState.UP])
 			{
-				_skin = _skins[CtrlState.NORMAL];
-				_style = _styles[CtrlState.NORMAL];
+				_skin = _skins[CtrlState.UP];
+				_style = _styles[CtrlState.UP];
 				resize();
 			}
 			

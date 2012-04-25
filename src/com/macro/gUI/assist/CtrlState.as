@@ -12,7 +12,7 @@ package com.macro.gUI.assist
 		/**
 		 * 常态
 		 */
-		public static const NORMAL:int = 0x01;
+		public static const UP:int = 0x01;
 
 		/**
 		 * 按下态

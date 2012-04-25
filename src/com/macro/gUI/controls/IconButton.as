@@ -28,22 +28,22 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.NORMAL] = skinManager.getStyle(StyleDef.ICONBUTTON);
-				_styles[CtrlState.OVER] = _styles[CtrlState.DOWN] = _styles[CtrlState.NORMAL];
+				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.ICONBUTTON);
+				_styles[CtrlState.OVER] = _styles[CtrlState.DOWN] = _styles[CtrlState.UP];
 				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.ICONBUTTON_DISABLE);
 			}
 
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.NORMAL] = skinManager.getSkin(SkinDef.ICONBUTTON);
+				_skins[CtrlState.UP] = skinManager.getSkin(SkinDef.ICONBUTTON);
 				_skins[CtrlState.OVER] = skinManager.getSkin(SkinDef.ICONBUTTON_OVER);
 				_skins[CtrlState.DOWN] = skinManager.getSkin(SkinDef.ICONBUTTON_DOWN);
 				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.ICONBUTTON_DISABLE);
 			}
 
-			_skin = _skin ? _skin : _skins[CtrlState.NORMAL];
-			_style = _style ? _style : _styles[CtrlState.NORMAL];
+			_skin = _skin ? _skin : _skins[CtrlState.UP];
+			_style = _style ? _style : _styles[CtrlState.UP];
 
 			_padding = _padding ? _padding : new Margin(3, 3, 3, 3);
 			_alignIcon = alignIcon;

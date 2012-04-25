@@ -260,13 +260,13 @@ package com.macro.gUI.composite
 
 		/**
 		 * 设置输入框样式
-		 * @param normalStyle 常态样式
+		 * @param upStyle 常态样式
 		 * @param disableStyle 禁用态样式
 		 *
 		 */
-		public function setTextInputStyle(normalStyle:TextStyle, disableStyle:TextStyle):void
+		public function setTextInputStyle(upStyle:TextStyle, disableStyle:TextStyle):void
 		{
-			_textInput.style = normalStyle;
+			_textInput.style = upStyle;
 			_textInput.disableStyle = disableStyle;
 			if (_autoSize)
 			{
@@ -281,13 +281,13 @@ package com.macro.gUI.composite
 
 		/**
 		 * 设置输入框皮肤
-		 * @param normalSkin 常态皮肤
+		 * @param upSkin 常态皮肤
 		 * @param disableSkin 禁用态皮肤
 		 *
 		 */
-		public function setTextInputSkin(normalSkin:ISkin, disableSkin:ISkin):void
+		public function setTextInputSkin(upSkin:ISkin, disableSkin:ISkin):void
 		{
-			_textInput.skin = normalSkin;
+			_textInput.skin = upSkin;
 			_textInput.disableSkin = disableSkin;
 			if (_autoSize)
 			{
@@ -302,15 +302,15 @@ package com.macro.gUI.composite
 
 		/**
 		 * 设置按钮皮肤
-		 * @param normalSkin
+		 * @param upSkin
 		 * @param overSkin
 		 * @param downSkin
 		 * @param disableSkin
 		 *
 		 */
-		public function setButtonSkin(normalSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
+		public function setButtonSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_downBtn.skin = normalSkin;
+			_downBtn.skin = upSkin;
 			_downBtn.overSkin = overSkin;
 			_downBtn.downSkin = downSkin;
 			_downBtn.disableSkin = disableSkin;

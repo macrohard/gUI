@@ -3,7 +3,8 @@ package com.macro.gUI.controls
 	import com.macro.gUI.core.AbstractControl;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	import com.macro.utils.ImageUtil;
+	
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.IBitmapDrawable;
@@ -18,7 +19,7 @@ package com.macro.gUI.controls
 	public class ImageBox extends AbstractControl
 	{
 
-		private var _image:BitmapData;
+		protected var _image:BitmapData;
 
 
 		/**
@@ -33,7 +34,7 @@ package com.macro.gUI.controls
 		public function ImageBox(source:IBitmapDrawable = null, autoSize:Boolean = true, align:int = 0x11, skin:ISkin = null)
 		{
 			// 默认大小
-			super(100, 100);
+			super(50, 50);
 
 			_align = align;
 
@@ -41,7 +42,7 @@ package com.macro.gUI.controls
 
 			_skin = skin;
 
-			setSource(source);
+			this.image = source;
 		}
 
 
@@ -118,23 +119,19 @@ package com.macro.gUI.controls
 
 
 		/**
-		 * 设置新的显示对象
+		 * 设置新的显示对象，旧显示对象相关的BitmapData将被自动销毁
 		 * @param value
-		 * @param destroy 是否销毁原有的显示对象，默认不销毁
 		 *
 		 */
-		public function setSource(value:IBitmapDrawable, destroy:Boolean = false):void
+		public function set image(value:IBitmapDrawable):void
 		{
-			if (value != null)
+			if (_image != null)
 			{
-				if (destroy && _image != null)
-				{
-					_image.dispose();
-				}
-
-				_image = getBitmapData(value);
-				resize();
+				_image.dispose();
 			}
+
+			_image = ImageUtil.getBitmapData(value);
+			resize();
 		}
 
 
@@ -167,24 +164,6 @@ package com.macro.gUI.controls
 			{
 				drawFixed(_bitmapData, _rect, _align, _image);
 			}
-		}
-
-
-		private function getBitmapData(image:IBitmapDrawable):BitmapData
-		{
-			if (image is BitmapData)
-			{
-				return image as BitmapData;
-			}
-			else if (image is DisplayObject)
-			{
-				var r:Rectangle = (image as DisplayObject).getBounds(null);
-				var bmd:BitmapData = new BitmapData(r.right + 1, r.bottom + 1, true, 0);
-				bmd.draw(image);
-				return bmd;
-			}
-
-			throw new Error("Unknow IBitmapDrawable Object!");
 		}
 	}
 }

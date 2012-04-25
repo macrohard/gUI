@@ -24,5 +24,14 @@ package com.macro.gUI.controls
 
 			resize();
 		}
+		
+		/**
+		 * 绘制后更新
+		 * 
+		 */
+		public function update():void
+		{
+			uiManager.renderer.updatePaint(this, false);
+		}
 	}
 }
