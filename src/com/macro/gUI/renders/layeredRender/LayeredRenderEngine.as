@@ -39,7 +39,6 @@ package com.macro.gUI.renders.layeredRender
 			_root = root;
 			_displayObjectContainer = displayObjectContainer;
 			_controls = new Dictionary(true);
-			render(_root, _root.rect, 0, 0);
 		}
 		
 		
@@ -47,12 +46,6 @@ package com.macro.gUI.renders.layeredRender
 		 * 分层渲染
 		 * @param control
 		 * @param viewRect 控件的可视范围
-		 * 
-		 */
-		/**
-		 * 
-		 * @param control
-		 * @param viewRect
 		 * @param x
 		 * @param y
 		 * 
@@ -119,20 +112,38 @@ package com.macro.gUI.renders.layeredRender
 
 		public function updateChildren(container:IContainer):void
 		{
+			if (container.stage == null)
+			{
+				return;
+			}
+			
 			removeAllChild();
 			render(_root, _root.rect, 0, 0);
 		}
 
 		public function updateCoord(control:IControl, x:int, y:int):void
 		{
+			if (control.stage == null)
+			{
+				return;
+			}
+			
 			removeAllChild();
 			render(_root, _root.rect, 0, 0);
 		}
-
+		
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
-			removeAllChild();
-			render(_root, _root.rect, 0, 0);
+			if (control.stage == null)
+			{
+				return;
+			}
+			
+			var b:Bitmap = _controls[control];
+			if (b != null && isRebuild)
+			{
+				b.bitmapData = control.bitmapData;
+			}
 		}
 
 	}
