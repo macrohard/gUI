@@ -381,6 +381,25 @@ package com.macro.gUI.containers
 
 			return _container;
 		}
+		
+		
+		public override function resize(width:int=0, height:int=0):void
+		{
+			if (_bg.skin != null)
+			{
+				if (width < _bg.skin.minWidth)
+				{
+					width = _bg.skin.minWidth;
+				}
+				
+				if (height < _bg.skin.minHeight)
+				{
+					height = _bg.skin.minHeight;
+				}
+			}
+			
+			super.resize(width, height);
+		}
 
 
 

@@ -1,5 +1,6 @@
 package com.macro.gUI.renders.layeredRender
 {
+	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.core.IComposite;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
@@ -38,7 +39,7 @@ package com.macro.gUI.renders.layeredRender
 			_root = root;
 			_displayObjectContainer = displayObjectContainer;
 			_controls = new Dictionary(true);
-			render(_root);
+			render(_root, _root.rect, 0, 0);
 		}
 		
 		
@@ -48,27 +49,69 @@ package com.macro.gUI.renders.layeredRender
 		 * @param viewRect 控件的可视范围
 		 * 
 		 */
-		private function render(control:IControl):void
+		/**
+		 * 
+		 * @param control
+		 * @param viewRect
+		 * @param x
+		 * @param y
+		 * 
+		 */
+		private function render(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
 		{
 			if (control is IComposite)
 			{
-				render((control as IComposite).container);
+				render((control as IComposite).container, viewRect, globalX, globalY);
 				return;
 			}
 			
-			var p:Point = control.localToGlobal();
-			var b:Bitmap = new Bitmap(control.bitmapData);
-			b.x = p.x;
-			b.y = p.y;
+			var controlRect:Rectangle = control.rect;
+			controlRect.x += globalX;
+			controlRect.y += globalY;
+			
+			viewRect = viewRect.intersection(controlRect);
+			
+			var b:Bitmap = _controls[control];
+			if (b == null)
+			{
+				b = new Bitmap(control.bitmapData);
+				_controls[control] = b;
+			}
+			else
+			{
+				b.bitmapData = control.bitmapData;
+			}
+			b.x = controlRect.x;
+			b.y = controlRect.y;
 			_displayObjectContainer.addChild(b);
-			_controls[control] = b;
 			
 			if (control is IContainer)
 			{
 				var container:IContainer = control as IContainer;
+				
+				var m:Margin = container.margin;
+				viewRect.left += m.left;
+				viewRect.top += m.top;
+				viewRect.right -= m.right;
+				viewRect.bottom -= m.bottom;
+				
+				globalX = controlRect.x + m.left;
+				globalY = controlRect.y + m.top;
+				
 				for each (var ic:IControl in container.children)
 				{
-					render(ic);
+					render(ic, viewRect, globalX, globalY);
+				}
+			}
+		}
+		
+		private function removeAllChild():void
+		{
+			for each (var b:Bitmap in _controls)
+			{
+				if (_displayObjectContainer.contains(b))
+				{
+					_displayObjectContainer.removeChild(b);
 				}
 			}
 		}
@@ -76,27 +119,20 @@ package com.macro.gUI.renders.layeredRender
 
 		public function updateChildren(container:IContainer):void
 		{
-			render(_root);
+			removeAllChild();
+			render(_root, _root.rect, 0, 0);
 		}
 
 		public function updateCoord(control:IControl, x:int, y:int):void
 		{
-			var b:Bitmap = _controls[control];
-			if (b != null)
-			{
-				var p:Point = control.parent.localToGlobal(new Point(x, y));
-				b.x = p.x;
-				b.y = p.y;
-			}
+			removeAllChild();
+			render(_root, _root.rect, 0, 0);
 		}
 
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
-			var b:Bitmap = _controls[control];
-			if (b != null && isRebuild)
-			{
-				b.bitmapData = control.bitmapData;
-			}
+			removeAllChild();
+			render(_root, _root.rect, 0, 0);
 		}
 
 	}

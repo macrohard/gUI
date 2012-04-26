@@ -4,14 +4,12 @@ package com.macro.gUI.renders.mergedRender
 	import com.macro.gUI.core.IComposite;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
-	import com.macro.gUI.core.InteractionManager;
 	import com.macro.gUI.renders.IRenderEngine;
-
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
-	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
 
@@ -72,21 +70,25 @@ package com.macro.gUI.renders.mergedRender
 		/**
 		 * 合并渲染
 		 * @param control
-		 * @param viewRect 控件的可视范围
-		 *
+		 * @param viewRect 控件的全局可视范围
+		 * @param globalX 父控件的全局横坐标
+		 * @param globalY 父控件的全局纵坐标
+		 * 
 		 */
-		private function render(control:IControl, viewRect:Rectangle, x:int, y:int):void
+		private function render(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
 		{
 			if (control is IComposite)
 			{
-				render((control as IComposite).container, viewRect, x, y);
+				render((control as IComposite).container, viewRect, globalX, globalY);
 				return;
 			}
 
+			// 当前控件的全局区域
 			var controlRect:Rectangle = control.rect;
-			controlRect.x += x;
-			controlRect.y += y;
+			controlRect.x += globalX;
+			controlRect.y += globalY;
 
+			// 父控件全局可视区域与当前控件全局区域的交集
 			viewRect = viewRect.intersection(controlRect);
 			if (viewRect.width == 0 || viewRect.height == 0)
 			{
@@ -103,18 +105,19 @@ package com.macro.gUI.renders.mergedRender
 			{
 				var container:IContainer = control as IContainer;
 
+				// 处理容器类控件的边距
 				var m:Margin = container.margin;
 				viewRect.left += m.left;
 				viewRect.top += m.top;
 				viewRect.right -= m.right;
 				viewRect.bottom -= m.bottom;
 				
-				x = controlRect.x + m.left;
-				y = controlRect.y + m.top;
+				globalX = controlRect.x + m.left;
+				globalY = controlRect.y + m.top;
 
 				for each (var ic:IControl in container.children)
 				{
-					render(ic, viewRect, x, y);
+					render(ic, viewRect, globalX, globalY);
 				}
 
 			}

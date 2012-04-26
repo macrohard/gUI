@@ -426,12 +426,12 @@ package com.macro.gUI.core
 		 */
 		public function resize(width:int = 0, height:int = 0):void
 		{
-			if (width == 0)
+			if (width <= 0)
 			{
 				width = _rect.width;
 			}
 
-			if (height == 0)
+			if (height <= 0)
 			{
 				height = _rect.height;
 			}
