@@ -301,7 +301,7 @@ package com.macro.gUI.composite
 			}
 
 			// 检测是否在控件范围内
-			var p:Point = _container.globalToLocal(x, y);
+			var p:Point = _container.globalToLocal(new Point(x, y));
 
 			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 &&
 					p.y <= _rect.height)

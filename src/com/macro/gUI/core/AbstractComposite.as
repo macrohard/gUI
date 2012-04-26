@@ -203,9 +203,9 @@ package com.macro.gUI.core
 			return _container.localToGlobal(point);
 		}
 		
-		public override function globalToLocal(x:int, y:int):Point
+		public override function globalToLocal(point:Point):Point
 		{
-			return _container.globalToLocal(x, y);
+			return _container.globalToLocal(point);
 		}
 
 

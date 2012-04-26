@@ -353,7 +353,7 @@ package com.macro.gUI.containers
 			_originalCoord = _rect.topLeft;
 			_mouseCoord = new Point(x, y);
 
-			var p:Point = _container.globalToLocal(x, y);
+			var p:Point = _container.globalToLocal(new Point(x, y));
 			if (p.x < 0 || p.y < 0 || p.x > _rect.width || p.y > _rect.height)
 			{
 				return null;
@@ -524,8 +524,8 @@ package com.macro.gUI.containers
 				_dragArea = null;
 				if (!_canDragOutStage && this.parent != null)
 				{
-					var p1:Point = this.parent.globalToLocal(0, 0);
-					var p2:Point = this.parent.globalToLocal(uiManager.stageWidth - _rect.width, uiManager.stageHeight - _rect.height);
+					var p1:Point = this.parent.globalToLocal(new Point());
+					var p2:Point = this.parent.globalToLocal(new Point(uiManager.stageWidth - _rect.width, uiManager.stageHeight - _rect.height));
 					_dragArea = new Rectangle(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
 				}
 

@@ -32,7 +32,7 @@ package com.macro.gUI.renders.mergedRender
 		 * 根容器
 		 */
 		private var _root:IContainer;
-		
+
 		/**
 		 * 重绘标记
 		 */
@@ -60,10 +60,10 @@ package com.macro.gUI.renders.mergedRender
 			if (_needRedraw)
 			{
 				_canvas.lock();
-				_canvas.fillRect(_canvas.rect, 0);
-				drawControl(_root, _canvas.rect);
+				_canvas.fillRect(_root.rect, 0);
+				render(_root, _root.rect, 0, 0);
 				_canvas.unlock();
-				
+
 				_needRedraw = false;
 			}
 		}
@@ -75,18 +75,17 @@ package com.macro.gUI.renders.mergedRender
 		 * @param viewRect 控件的可视范围
 		 *
 		 */
-		private function drawControl(control:IControl, viewRect:Rectangle):void
+		private function render(control:IControl, viewRect:Rectangle, x:int, y:int):void
 		{
 			if (control is IComposite)
 			{
-				drawControl((control as IComposite).container, viewRect);
+				render((control as IComposite).container, viewRect, x, y);
 				return;
 			}
-			
+
 			var controlRect:Rectangle = control.rect;
-			var p:Point = control.localToGlobal();
-			controlRect.x = p.x;
-			controlRect.y = p.y;
+			controlRect.x += x;
+			controlRect.y += y;
 
 			viewRect = viewRect.intersection(controlRect);
 			if (viewRect.width == 0 || viewRect.height == 0)
@@ -94,12 +93,10 @@ package com.macro.gUI.renders.mergedRender
 				return;
 			}
 
-			var drawR:Rectangle = viewRect.clone();
-			drawR.offset(-p.x, -p.y);
-
 			if (control.bitmapData != null)
 			{
-				_canvas.copyPixels(control.bitmapData, drawR, viewRect.topLeft, null, null, true);
+				_canvas.copyPixels(control.bitmapData, new Rectangle(viewRect.x - controlRect.x, viewRect.y - controlRect.y, viewRect.width, viewRect.height),
+								   viewRect.topLeft, null, null, true);
 			}
 
 			if (control is IContainer)
@@ -111,10 +108,13 @@ package com.macro.gUI.renders.mergedRender
 				viewRect.top += m.top;
 				viewRect.right -= m.right;
 				viewRect.bottom -= m.bottom;
+				
+				x = controlRect.x + m.left;
+				y = controlRect.y + m.top;
 
 				for each (var ic:IControl in container.children)
 				{
-					drawControl(ic, viewRect);
+					render(ic, viewRect, x, y);
 				}
 
 			}

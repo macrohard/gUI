@@ -60,7 +60,7 @@ package com.macro.gUI.assist
 			return null;
 		}
 		
-		public function globalToLocal(x:int, y:int):Point
+		public function globalToLocal(point:Point):Point
 		{
 			return null;
 		}

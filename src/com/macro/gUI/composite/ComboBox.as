@@ -397,7 +397,7 @@ package com.macro.gUI.composite
 
 		public override function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = globalToLocal(x, y);
+			var p:Point = globalToLocal(new Point(x, y));
 
 			if (_textInput.rect.containsPoint(p))
 			{

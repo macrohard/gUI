@@ -5,7 +5,7 @@ package com.macro.gUI.renders
 	public class RenderMode
 	{
 		/**
-		 * 合并渲染，所有控件渲染到一张大BitmapData上，适用于大量运动对象的场合，如整个背景地图的卷轴
+		 * 合并渲染，所有控件渲染到一张大BitmapData上，适用于有大量运动对象的场景
 		 */
 		public static const RENDER_MODE_MERGE:int = 0;
 

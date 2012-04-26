@@ -404,7 +404,7 @@ package com.macro.gUI.composite
 
 		public override function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = globalToLocal(x, y);
+			var p:Point = globalToLocal(new Point(x, y));
 
 			_mouseX = p.x;
 			_blockX = _blockBtn.x;
@@ -667,7 +667,7 @@ package com.macro.gUI.composite
 
 		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
-			var p:Point = globalToLocal(x, y);
+			var p:Point = globalToLocal(new Point(x, y));
 
 			var j:int = _blockX + (p.x - _mouseX);
 			var max:int = _track.x + _track.width - _blockBtn.width;

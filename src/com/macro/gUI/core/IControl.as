@@ -63,7 +63,7 @@ package com.macro.gUI.core
 		 * @return
 		 *
 		 */
-		function globalToLocal(x:int, y:int):Point;
+		function globalToLocal(point:Point):Point;
 
 		/**
 		 * 测试坐标是否在控件范围内。如果返回的是null，则在控件范围外；

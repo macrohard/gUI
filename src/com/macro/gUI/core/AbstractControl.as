@@ -366,11 +366,11 @@ package com.macro.gUI.core
 		 * @return
 		 *
 		 */
-		public function globalToLocal(x:int, y:int):Point
+		public function globalToLocal(point:Point):Point
 		{
 			var m:Matrix = getTransformMatrix();
 			m.invert();
-			return m.transformPoint(new Point(x, y));
+			return m.transformPoint(point);
 		}
 
 
@@ -392,7 +392,7 @@ package com.macro.gUI.core
 
 		public function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = globalToLocal(x, y);
+			var p:Point = globalToLocal(new Point(x, y));
 
 			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 &&
 					p.y <= _rect.height)
