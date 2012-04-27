@@ -8,8 +8,6 @@ package com.macro.gUI.renders.layeredRender
 	
 	import flash.display.Bitmap;
 	import flash.display.DisplayObjectContainer;
-	import flash.display.Stage;
-	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 
@@ -22,11 +20,12 @@ package com.macro.gUI.renders.layeredRender
 	public class LayeredRenderEngine implements IRenderEngine
 	{
 
-		private var _displayObjectContainer:DisplayObjectContainer;
-
 		private var _root:IContainer;
 		
-		private var _controls:Dictionary;
+		private var _twoWayList:TwoWayList;
+		
+		private var _syncContainer:SyncContainer;
+		
 
 		/**
 		 * 分层渲染器
@@ -37,24 +36,37 @@ package com.macro.gUI.renders.layeredRender
 		public function LayeredRenderEngine(root:IContainer, displayObjectContainer:DisplayObjectContainer)
 		{
 			_root = root;
-			_displayObjectContainer = displayObjectContainer;
-			_controls = new Dictionary(true);
+			_twoWayList = new TwoWayList();
+			_syncContainer = new SyncContainer(displayObjectContainer);
+			
+			var b:Bitmap = new Bitmap(_root.bitmapData);
+			_twoWayList.add(_root, b);
+			_syncContainer.addChild(b);
 		}
 		
 		
+		public function updateCoord(control:IControl, x:int, y:int):void
+		{
+			if (control.stage == null)
+			{
+				return;
+			}
+			
+		}
+		
 		/**
-		 * 分层渲染
+		 * 更新坐标及遮罩
 		 * @param control
 		 * @param viewRect 控件的可视范围
 		 * @param x
 		 * @param y
 		 * 
 		 */
-		private function render(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
+		private function updateCoordAndMask(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
 		{
 			if (control is IComposite)
 			{
-				render((control as IComposite).container, viewRect, globalX, globalY);
+				updateCoordAndMask((control as IComposite).container, viewRect, globalX, globalY);
 				return;
 			}
 			
@@ -64,19 +76,9 @@ package com.macro.gUI.renders.layeredRender
 			
 			viewRect = viewRect.intersection(controlRect);
 			
-			var b:Bitmap = _controls[control];
-			if (b == null)
-			{
-				b = new Bitmap(control.bitmapData);
-				_controls[control] = b;
-			}
-			else
-			{
-				b.bitmapData = control.bitmapData;
-			}
+			var b:Bitmap = _twoWayList.getBitmap(control);
 			b.x = controlRect.x;
 			b.y = controlRect.y;
-			_displayObjectContainer.addChild(b);
 			
 			if (control is IContainer)
 			{
@@ -93,23 +95,12 @@ package com.macro.gUI.renders.layeredRender
 				
 				for each (var ic:IControl in container.children)
 				{
-					render(ic, viewRect, globalX, globalY);
+					updateCoordAndMask(ic, viewRect, globalX, globalY);
 				}
 			}
 		}
 		
-		private function removeAllChild():void
-		{
-			for each (var b:Bitmap in _controls)
-			{
-				if (_displayObjectContainer.contains(b))
-				{
-					_displayObjectContainer.removeChild(b);
-				}
-			}
-		}
 		
-
 		public function updateChildren(container:IContainer):void
 		{
 			if (container.stage == null)
@@ -117,20 +108,66 @@ package com.macro.gUI.renders.layeredRender
 				return;
 			}
 			
-			removeAllChild();
-			render(_root, _root.rect, 0, 0);
-		}
-
-		public function updateCoord(control:IControl, x:int, y:int):void
-		{
-			if (control.stage == null)
+			var beginIndex:int;
+			var endIndex:int;
+			
+			if (container.parent == null)
 			{
-				return;
+				// container是root
+				endIndex = _syncContainer.bitmapList.length - 1;
+			}
+			else
+			{
+				// 获取当前控件对应的Bitmap
+				var a:Bitmap = _twoWayList.getBitmap(container);
+				beginIndex = _syncContainer.bitmapList.indexOf(a);
+				
+				// 获取当前控件在父级中的索引
+				var index:int = container.parent.getChildIndex(container);
+				// 获取当前控件同级的下一个控件的对应Bitmap
+				var b:Bitmap = _twoWayList.getBitmap(container.parent.getChildAt(index + 1));
+				if (b == null)
+				{
+					endIndex = _syncContainer.bitmapList.length - 1;
+				}
+				else
+				{
+					endIndex = _syncContainer.bitmapList.indexOf(b) - 1;
+				}
 			}
 			
-			removeAllChild();
-			render(_root, _root.rect, 0, 0);
+			// 获取对应范围内的所有已经在显示列表中的Bitmap
+			var subChild:Vector.<Bitmap> = _syncContainer.bitmapList.slice(beginIndex, endIndex);
+			// 获取更新控件的当前Bitmap列表
+			var newChild:Vector.<Bitmap> = new Vector.<Bitmap>();
+			makeSubChild(container, newChild);
+			
+			// 通过比较找出差异，添加或删除
+			
 		}
+		
+		private function makeSubChild(control:IControl, childList:Vector.<Bitmap>):void
+		{
+			var b:Bitmap = _twoWayList.getBitmap(control);
+			if (b == null)
+			{
+				b = new Bitmap(control.bitmapData);
+				_twoWayList.add(control, b);
+			}
+			
+			childList.push(b);
+			
+			if (control is IContainer)
+			{
+				var container:IContainer = control as IContainer;
+				for each (var ic:IControl in container.children)
+				{
+					makeSubChild(ic, childList);
+				}
+			}
+		}
+		
+		
 		
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
@@ -139,12 +176,11 @@ package com.macro.gUI.renders.layeredRender
 				return;
 			}
 			
-			var b:Bitmap = _controls[control];
+			var b:Bitmap = _twoWayList.getBitmap(control);
 			if (b != null && isRebuild)
 			{
 				b.bitmapData = control.bitmapData;
 			}
 		}
-
 	}
 }

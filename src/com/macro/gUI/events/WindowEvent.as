@@ -2,7 +2,7 @@ package com.macro.gUI.events
 {
 	/**
 	 * 窗口容器事件
-	 * @author "Macro <macro776@gmail.com>"
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class WindowEvent extends UIEvent

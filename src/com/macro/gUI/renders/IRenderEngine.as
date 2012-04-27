@@ -31,8 +31,8 @@ package com.macro.gUI.renders
 
 		/**
 		 * 更新容器子级
-		 * @param container
-		 *
+		 * @param container 容器
+		 * 
 		 */
 		function updateChildren(container:IContainer):void;
 	}

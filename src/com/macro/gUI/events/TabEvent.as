@@ -2,7 +2,7 @@ package com.macro.gUI.events
 {
 	/**
 	 * 标签面板容器事件
-	 * @author "Macro <macro776@gmail.com>"
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class TabEvent extends UIEvent

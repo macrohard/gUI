@@ -123,14 +123,6 @@ package com.macro.gUI.renders.mergedRender
 			}
 		}
 
-		public function updateChildren(container:IContainer):void
-		{
-			if (container.stage != null)
-			{
-				_needRedraw = true;
-			}
-		}
-
 		public function updateCoord(control:IControl, x:int, y:int):void
 		{
 			if (control.stage != null)
@@ -146,6 +138,13 @@ package com.macro.gUI.renders.mergedRender
 				_needRedraw = true;
 			}
 		}
-
+		
+		public function updateChildren(container:IContainer):void
+		{
+			if (container.stage != null)
+			{
+				_needRedraw = true;
+			}
+		}
 	}
 }
