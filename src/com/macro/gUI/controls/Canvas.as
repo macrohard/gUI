@@ -12,7 +12,7 @@ package com.macro.gUI.controls
 	{
 		/**
 		 * 画布控件，没有皮肤定义，提供bitmapData对象以供绘制。
-		 * 可以将画布用于序列帧的播放，遂帧替换bitmapData。
+		 * 可以将画布用于序列帧的播放，遂帧替换bitmapData，然后调用update方法通知渲染器更新。
 		 * 注意，resize时，bitmapData将被自动重建
 		 * @param width
 		 * @param height
@@ -27,9 +27,10 @@ package com.macro.gUI.controls
 		
 		/**
 		 * 绘制后更新
+		 * @param rebuild 是否重建了BitmapData
 		 * 
 		 */
-		public function update():void
+		public function update(rebuild:Boolean = false):void
 		{
 			uiManager.renderer.updatePaint(this, false);
 		}

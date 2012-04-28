@@ -11,7 +11,7 @@ package com.macro.gUI.containers
 
 	/**
 	 * 背景面板容器
-	 * @author "Macro <macro776@gmail.com>"
+	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
 	public class BackgroundPanel extends AbstractContainer

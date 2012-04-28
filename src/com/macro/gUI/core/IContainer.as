@@ -67,10 +67,10 @@ package com.macro.gUI.core
 		/**
 		 * 移除指定范围的所有子控件
 		 * @param beginIndex 首个子控件的深度
-		 * @param endIndex 最后一个子控件的深度，如果是-1，则指向结尾
+		 * @param endIndex 最后一个子控件的深度
 		 *
 		 */
-		function removeChildren(beginIndex:int = 0, endIndex:int = -1):void;
+		function removeChildren(beginIndex:int = 0, endIndex:int = int.MAX_VALUE):void;
 
 		/**
 		 * 获取指定深度的控件

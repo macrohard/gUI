@@ -24,16 +24,44 @@ package com.macro.gUI.renders
 		/**
 		 * 更新控件绘制
 		 * @param control
-		 * @param isRebuild 是否重建了位图对象，一般是因为控件尺寸的变更
+		 * @param isRebuild 是否重建了BitmapData，一般是因为控件尺寸的变更
 		 *
 		 */
 		function updatePaint(control:IControl, isRebuild:Boolean):void;
 
+		
 		/**
-		 * 更新容器子级
+		 * 添加子控件
 		 * @param container
-		 *
+		 * @param child
+		 * 
 		 */
-		function updateChildren(container:IContainer):void;
+		function addChild(container:IContainer, child:IControl):void;
+		
+		/**
+		 * 移除子控件
+		 * @param container
+		 * @param child
+		 * 
+		 */
+		function removeChild(container:IContainer, child:IControl):void;
+		
+		/**
+		 * 移除指定范围的子控件
+		 * @param container
+		 * @param childList
+		 * 
+		 */
+		function removeChildren(container:IContainer, childList:Vector.<IControl>):void;
+		
+		/**
+		 * 更新子控件的层级
+		 * @param container
+		 * @param child
+		 * @param index
+		 * 
+		 */
+		function updateChildIndex(container:IContainer, child:IControl):void;
+		
 	}
 }

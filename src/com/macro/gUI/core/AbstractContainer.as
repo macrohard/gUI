@@ -111,20 +111,25 @@ package com.macro.gUI.core
 
 		public function addChild(child:IControl):void
 		{
-			_children.push(child);
-
 			if (child.parent != null)
 			{
 				child.parent.removeChild(child);
 			}
+			
+			_children.push(child);
 			(child as AbstractControl).setParent(this);
 			setChildStage(child, stage);
-			
-			uiManager.renderer.updateChildren(this);
+
+			uiManager.renderer.addChild(this, child);
 		}
 
 		public function addChildAt(child:IControl, index:int):void
 		{
+			if (child.parent != null)
+			{
+				child.parent.removeChild(child);
+			}
+			
 			if (index < 1)
 			{
 				_children.unshift(child);
@@ -137,15 +142,10 @@ package com.macro.gUI.core
 			{
 				_children.splice(index, 0, child);
 			}
-
-			if (child.parent != null)
-			{
-				child.parent.removeChild(child);
-			}
 			(child as AbstractControl).setParent(this);
 			setChildStage(child, stage);
-			
-			uiManager.renderer.updateChildren(this);
+
+			uiManager.renderer.addChild(this, child);
 		}
 
 		public function removeChild(child:IControl):void
@@ -157,8 +157,8 @@ package com.macro.gUI.core
 
 				(child as AbstractControl).setParent(null);
 				setChildStage(child, null);
-				
-				uiManager.renderer.updateChildren(this);
+
+				uiManager.renderer.removeChild(this, child);
 			}
 		}
 
@@ -171,23 +171,29 @@ package com.macro.gUI.core
 
 				(child as AbstractControl).setParent(null);
 				setChildStage(child, null);
-				
-				uiManager.renderer.updateChildren(this);
+
+				uiManager.renderer.removeChild(this, child);
 			}
 
 			return child;
 		}
 
-		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void
+		public function removeChildren(beginIndex:int = 0, endIndex:int = int.MAX_VALUE):void
 		{
-			if (endIndex == -1)
-			{
-				endIndex = _children.length;
-			}
-
 			if (endIndex <= beginIndex)
 			{
 				return;
+			}
+
+			if (beginIndex < 0)
+			{
+				beginIndex = 0;
+			}
+
+			var length:int = _children.length;
+			if (endIndex > length)
+			{
+				endIndex = length;
 			}
 
 			var child:IControl;
@@ -197,9 +203,9 @@ package com.macro.gUI.core
 				(child as AbstractControl).setParent(null);
 				setChildStage(child, null);
 			}
-			_children.splice(beginIndex, endIndex - beginIndex);
-			
-			uiManager.renderer.updateChildren(this);
+			var removedControl:Vector.<IControl> = _children.splice(beginIndex, endIndex - beginIndex);
+
+			uiManager.renderer.removeChildren(this, removedControl);
 		}
 
 		public function getChildAt(index:int):IControl
@@ -219,7 +225,7 @@ package com.macro.gUI.core
 		public function setChildIndex(child:IControl, index:int):void
 		{
 			var p:int = _children.indexOf(child);
-			if (p == -1 || p == index)
+			if (p == -1 || p == index || index < 0 || index > _children.length)
 			{
 				return;
 			}
@@ -231,8 +237,8 @@ package com.macro.gUI.core
 				index--;
 			}
 			_children.splice(index, 0, child);
-			
-			uiManager.renderer.updateChildren(this);
+
+			uiManager.renderer.updateChildIndex(this, child);
 		}
 
 		public function swapChildren(child1:IControl, child2:IControl):void
@@ -244,8 +250,9 @@ package com.macro.gUI.core
 
 		public function swapChildrenAt(index1:int, index2:int):void
 		{
-			if (index1 < 0 || index1 >= _children.length || index2 < 0 ||
-					index2 >= _children.length ||
+			var length:int = _children.length;
+			if (index1 < 0 || index1 >= length || index2 < 0 ||
+					index2 >= length ||
 					index1 == index2)
 			{
 				return;
@@ -264,11 +271,12 @@ package com.macro.gUI.core
 
 			_children.splice(index2, 1, child1);
 			_children.splice(index1, 1, child2);
-			
-			uiManager.renderer.updateChildren(this);
+
+			uiManager.renderer.updateChildIndex(this, child1);
+			uiManager.renderer.updateChildIndex(this, child2);
 		}
 
-		
+
 		private function setChildStage(child:IControl, stage:IContainer):void
 		{
 			if (child is IComposite)
@@ -276,9 +284,9 @@ package com.macro.gUI.core
 				setChildStage((child as IComposite).container, stage);
 				return;
 			}
-			
+
 			(child as AbstractControl).setStage(stage);
-			
+
 			if (child is IContainer)
 			{
 				var container:IContainer = child as IContainer;

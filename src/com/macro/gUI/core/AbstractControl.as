@@ -478,7 +478,8 @@ package com.macro.gUI.core
 
 		/**
 		 * 将当前皮肤绘制到画布上
-		 *
+		 * @param rebuild 是否重建BitmapData
+		 * 
 		 */
 		private function paint(rebuild:Boolean = false):void
 		{

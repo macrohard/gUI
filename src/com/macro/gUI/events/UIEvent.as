@@ -4,7 +4,7 @@ package com.macro.gUI.events
 	
 	/**
 	 * UI界面事件基类，不支持事件冒泡
-	 * @author "Macro <macro776@gmail.com>"
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class UIEvent extends Event

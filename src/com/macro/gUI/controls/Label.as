@@ -152,7 +152,6 @@ package com.macro.gUI.controls
 
 		/**
 		 * 定义文本与四周的边距。
-		 * @param rebuild
 		 *
 		 */
 		public function get padding():Margin

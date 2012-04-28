@@ -23,8 +23,8 @@ package com.macro.gUI.controls
 
 
 		/**
-		 * 图片框控件，支持边框
-		 * // TODO 实现显示资源处理，BitBlt或顶点索引
+		 * 图片框控件，支持皮肤，显示对象处于皮肤下层。
+		 * 用于动画显示时，需注意性能问题，如果无须皮肤合成，则应使用Canvas控件
 		 * @param source 要显示的可绘制对象
 		 * @param autoSize 是否自动根据显示内容设置尺寸
 		 * @param align 显示内容的对齐方式，默认左上角对齐

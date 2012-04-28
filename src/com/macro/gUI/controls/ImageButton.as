@@ -18,7 +18,7 @@ package com.macro.gUI.controls
 	
 	/**
 	 * 图片按钮控件
-	 * @author "Macro <macro776@gmail.com>"
+	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
 	public class ImageButton extends ImageBox implements IButton, IKeyboard
