@@ -231,11 +231,6 @@ package com.macro.gUI.core
 			}
 
 			_children.splice(p, 1);
-			// 如果插入位置比当前位置大，由于删除该子控件后，其后所有控件会自动前移，因此需要将插入位置－１
-			if (index > p)
-			{
-				index--;
-			}
 			_children.splice(index, 0, child);
 
 			uiManager.renderer.updateChildIndex(this, child);
@@ -256,14 +251,6 @@ package com.macro.gUI.core
 					index1 == index2)
 			{
 				return;
-			}
-
-			// 确保index2大于index1
-			if (index1 > index2)
-			{
-				var temp:int = index1;
-				index1 = index2;
-				index2 = temp;
 			}
 
 			var child1:IControl = _children[index1];
