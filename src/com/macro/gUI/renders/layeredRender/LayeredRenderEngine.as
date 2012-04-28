@@ -9,6 +9,7 @@ package com.macro.gUI.renders.layeredRender
 	import flash.display.Bitmap;
 	import flash.display.DisplayObjectContainer;
 	import flash.geom.Rectangle;
+	import flash.utils.Dictionary;
 
 
 	/**
@@ -21,7 +22,7 @@ package com.macro.gUI.renders.layeredRender
 
 		private var _root:IContainer;
 
-		private var _twoWayList:TwoWayList;
+		private var _controlToBitmap:Dictionary;
 
 		private var _displayObjectContainer:DisplayObjectContainer;
 
@@ -36,10 +37,10 @@ package com.macro.gUI.renders.layeredRender
 		{
 			_root = root;
 			_displayObjectContainer = displayObjectContainer;
-			_twoWayList = new TwoWayList();
+			_controlToBitmap = new Dictionary(true);
 
 			var b:Bitmap = new Bitmap(_root.bitmapData);
-			_twoWayList.add(_root, b);
+			_controlToBitmap[_root] = b;
 			_displayObjectContainer.addChild(b);
 		}
 
@@ -75,7 +76,7 @@ package com.macro.gUI.renders.layeredRender
 
 			viewRect = viewRect.intersection(controlRect);
 
-			var b:Bitmap = _twoWayList.getBitmap(control);
+			var b:Bitmap = _controlToBitmap[control];
 			b.x = controlRect.x;
 			b.y = controlRect.y;
 
@@ -107,7 +108,7 @@ package com.macro.gUI.renders.layeredRender
 				return;
 			}
 
-			var b:Bitmap = _twoWayList.getBitmap(control);
+			var b:Bitmap = _controlToBitmap[control];
 			if (b != null && isRebuild)
 			{
 				b.bitmapData = control.bitmapData;
@@ -144,7 +145,7 @@ package com.macro.gUI.renders.layeredRender
 			var control:IControl = container.getChildAt(index + 1);
 			if (control != null)
 			{
-				var b:Bitmap = _twoWayList.getBitmap(control)
+				var b:Bitmap = _controlToBitmap[control];
 				return _displayObjectContainer.getChildIndex(b);
 			}
 			else if (container.parent != null)
@@ -165,11 +166,11 @@ package com.macro.gUI.renders.layeredRender
 		 */
 		private function createBitmapList(control:IControl, childBitmapList:Vector.<Bitmap>):void
 		{
-			var b:Bitmap = _twoWayList.getBitmap(control);
+			var b:Bitmap = _controlToBitmap[control];
 			if (b == null)
 			{
 				b = new Bitmap(control.bitmapData);
-				_twoWayList.add(control, b);
+				_controlToBitmap[control] = b;
 			}
 			
 			childBitmapList.push(b);
@@ -225,14 +226,13 @@ package com.macro.gUI.renders.layeredRender
 		 */
 		private function getBitmapList(control:IControl, childBitmapList:Vector.<Bitmap>, isRemove:Boolean = true):void
 		{
-			var b:Bitmap;
+			var b:Bitmap = _controlToBitmap[control];
 			if (isRemove)
 			{
-				b = _twoWayList.removeByControl(control);
-			}
-			else
-			{
-				b = _twoWayList.getBitmap(control);
+				b.mask = null;
+				
+				_controlToBitmap[control] = null;
+				delete _controlToBitmap[control];
 			}
 			childBitmapList.push(b);
 			

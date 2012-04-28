@@ -77,7 +77,6 @@
     <classEntry path="com.macro.gUI.events.TabEvent"/>
     <classEntry path="com.macro.gUI.controls.ImageButton"/>
     <classEntry path="com.macro.utils.ImageUtil"/>
-    <classEntry path="com.macro.gUI.renders.layeredRender.TwoWayList"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
