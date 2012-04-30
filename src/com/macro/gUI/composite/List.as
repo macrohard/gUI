@@ -136,7 +136,7 @@ package com.macro.gUI.composite
 		 */
 		public function get selectedIndex():int
 		{
-			return _itemContainer.children.indexOf(_selectItem);
+			return _itemContainer.getChildIndex(_selectItem);
 		}
 
 		public function set selectedIndex(value:int):void

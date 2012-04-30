@@ -217,15 +217,8 @@ package com.macro.gUI.core
 
 		public override function resize(width:int = 0, height:int = 0):void
 		{
-			if (width == 0)
-			{
-				width = _rect.width;
-			}
-			
-			if (height == 0)
-			{
-				height = _rect.height;
-			}
+			width = width <= 0 ? _rect.width : width;
+			height = height <= 0 ? _rect.height : height;
 			
 			_container.resize(width, height);
 			_rect = _container.rect;

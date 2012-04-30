@@ -426,27 +426,13 @@ package com.macro.gUI.core
 		 */
 		public function resize(width:int = 0, height:int = 0):void
 		{
-			if (width <= 0)
-			{
-				width = _rect.width;
-			}
-
-			if (height <= 0)
-			{
-				height = _rect.height;
-			}
+			width = width <= 0 ? _rect.width : width;
+			height = height <= 0 ? _rect.height : height;
 
 			if (_skin != null)
 			{
-				if (width < _skin.minWidth)
-				{
-					width = _skin.minWidth;
-				}
-
-				if (height < _skin.minHeight)
-				{
-					height = _skin.minHeight;
-				}
+				width = width < _skin.minWidth ? _skin.minWidth : width;
+				height = height < _skin.minHeight ? _skin.minHeight : height;
 			}
 
 			if (_rect.width != width || _rect.height != height)

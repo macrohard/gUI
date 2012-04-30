@@ -155,11 +155,10 @@ package com.macro.gUI.core
 			if (p != -1)
 			{
 				_children.splice(p, 1);
+				uiManager.renderer.removeChild(this, child);
 
 				(child as AbstractControl).setParent(null);
 				setChildStage(child, null);
-
-				uiManager.renderer.removeChild(this, child);
 			}
 		}
 
@@ -169,11 +168,10 @@ package com.macro.gUI.core
 			if (index >= 0 && index < _children.length)
 			{
 				child = _children.splice(index, 1)[0];
-
+				uiManager.renderer.removeChild(this, child);
+				
 				(child as AbstractControl).setParent(null);
 				setChildStage(child, null);
-
-				uiManager.renderer.removeChild(this, child);
 			}
 
 			return child;
@@ -197,6 +195,9 @@ package com.macro.gUI.core
 				endIndex = length;
 			}
 
+			var removedControl:Vector.<IControl> = _children.splice(beginIndex, endIndex - beginIndex);
+			uiManager.renderer.removeChildren(this, removedControl);
+			
 			var child:IControl;
 			for (var i:int = beginIndex; i < endIndex; i++)
 			{
@@ -204,9 +205,6 @@ package com.macro.gUI.core
 				(child as AbstractControl).setParent(null);
 				setChildStage(child, null);
 			}
-			var removedControl:Vector.<IControl> = _children.splice(beginIndex, endIndex - beginIndex);
-
-			uiManager.renderer.removeChildren(this, removedControl);
 		}
 
 		public function getChildAt(index:int):IControl

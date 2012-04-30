@@ -1,7 +1,8 @@
 package com.macro.gUI.containers
 {
 	import com.macro.gUI.core.AbstractContainer;
-
+	import com.macro.gUI.events.UIEvent;
+	
 	import flash.geom.Rectangle;
 
 
@@ -18,5 +19,19 @@ package com.macro.gUI.containers
 			super(width, height);
 		}
 
+		public override function resize(width:int=0, height:int=0):void
+		{
+			if (_bitmapData == null)
+			{
+				_rect.width = width <= 0 ? _rect.width : width;
+				_rect.height = height <= 0 ? _rect.height : height;
+				uiManager.renderer.updatePaint(this, true);
+				dispatchEvent(new UIEvent(UIEvent.RESIZE));
+			}
+			else
+			{
+				super.resize(width, height);
+			}
+		}
 	}
 }

@@ -75,10 +75,11 @@ package com.macro.gUI.renders.layeredRender
 			}
 
 			var container:IContainer = control.parent;
+			var m:Margin = container.margin;
 			var p:Point = container.localToGlobal();
 			var s:Shape = _containerToMask[container];
 			var r:Rectangle = s.getRect(null);
-			updateCoordAndMask(control, r, p.x, p.y);
+			updateCoordAndMask(control, r, p.x + m.left, p.y + m.top);
 		}
 
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
@@ -114,7 +115,7 @@ package com.macro.gUI.renders.layeredRender
 			// 将子控件的Bitmap列表加入显示列表
 			addToDisplayList(childBitmapList, getIndex(container, child));
 			// 更新子控件的坐标及遮罩
-			updateCoord(container);
+			updateCoord(child);
 		}
 
 		public function removeChild(container:IContainer, child:IControl):void
@@ -181,7 +182,7 @@ package com.macro.gUI.renders.layeredRender
 				updateCoordAndMask((control as IComposite).container, viewRect, globalX, globalY);
 				return;
 			}
-			
+trace(control);			
 			// 当前控件的全局区域
 			var controlRect:Rectangle = control.rect;
 			controlRect.x += globalX;
@@ -191,7 +192,7 @@ package com.macro.gUI.renders.layeredRender
 			b.x = controlRect.x;
 			b.y = controlRect.y;
 			b.mask = _containerToMask[control.parent];
-
+trace("assign:" + b.mask.getRect(null));
 			if (control is IContainer)
 			{
 				var container:IContainer = control as IContainer;
@@ -201,7 +202,7 @@ package com.macro.gUI.renders.layeredRender
 				globalX = controlRect.x + m.left;
 				globalY = controlRect.y + m.top;
 				
-				// 处理容器类控件的边距
+				// 处理容器边距
 				controlRect.left += m.left;
 				controlRect.top += m.top;
 				controlRect.right -= m.right;
@@ -212,7 +213,7 @@ package com.macro.gUI.renders.layeredRender
 				s.graphics.clear();
 				s.graphics.beginFill(0);
 				s.graphics.drawRect(viewRect.x, viewRect.y, viewRect.width, viewRect.height);
-
+trace("draw:" + viewRect);
 				for each (var ic:IControl in container.children)
 				{
 					updateCoordAndMask(ic, viewRect, globalX, globalY);
@@ -232,10 +233,31 @@ package com.macro.gUI.renders.layeredRender
 		private function getIndex(container:IContainer, child:IControl):int
 		{
 			var index:int = container.getChildIndex(child);
+			if (index == -1)
+			{
+				for (var i:int = container.numChildren; i >= 0; i--)
+				{
+					var ic:IControl = container.getChildAt(i);
+					if (ic is IComposite && (ic as IComposite).container == child)
+					{
+						index = i;
+						break;
+					}
+				}
+			}
+			
 			var control:IControl = container.getChildAt(index + 1);
 			if (control != null)
 			{
-				var b:Bitmap = _controlToBitmap[control];
+				var b:Bitmap;
+				if (control is IComposite)
+				{
+					b = _controlToBitmap[(control as IComposite).container]
+				}
+				else
+				{
+					b = _controlToBitmap[control];
+				}
 				return _displayObjectContainer.getChildIndex(b);
 			}
 			else if (container.parent != null)
@@ -257,6 +279,12 @@ package com.macro.gUI.renders.layeredRender
 		 */
 		private function createBitmapList(control:IControl, childBitmapList:Vector.<Bitmap>):void
 		{
+			if (control is IComposite)
+			{
+				createBitmapList((control as IComposite).container, childBitmapList);
+				return;
+			}
+			
 			var b:Bitmap = _controlToBitmap[control];
 			if (b == null)
 			{
@@ -288,6 +316,12 @@ package com.macro.gUI.renders.layeredRender
 		 */
 		private function getBitmapList(control:IControl, childBitmapList:Vector.<Bitmap>, isRemove:Boolean):void
 		{
+			if (control is IComposite)
+			{
+				getBitmapList((control as IComposite).container, childBitmapList, isRemove);
+				return;
+			}
+			
 			var b:Bitmap = _controlToBitmap[control];
 			if (isRemove)
 			{
@@ -307,7 +341,7 @@ package com.macro.gUI.renders.layeredRender
 				}
 				
 				var container:IContainer = control as IContainer;
-				for each (var ic:IControl in container)
+				for each (var ic:IControl in container.children)
 				{
 					getBitmapList(ic, childBitmapList, isRemove);
 				}

@@ -196,7 +196,7 @@ package com.macro.gUI.core
 					var container:IContainer = control as IContainer;
 					for (var i:int = container.numChildren - 1; i >= 0; i--)
 					{
-						if (findTargetControl(container.children[i], mouseX, mouseY))
+						if (findTargetControl(container.getChildAt(i), mouseX, mouseY))
 						{
 							return true;
 						}

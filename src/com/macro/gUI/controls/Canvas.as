@@ -1,6 +1,8 @@
 package com.macro.gUI.controls
 {
 	import com.macro.gUI.core.AbstractControl;
+	
+	import flash.display.BitmapData;
 
 
 	/**
@@ -25,12 +27,19 @@ package com.macro.gUI.controls
 			resize();
 		}
 		
+		
+		public function set bitmapData(value:BitmapData):void
+		{
+			_bitmapData = value;
+			uiManager.renderer.updatePaint(this, true);
+		}
+		
+		
 		/**
 		 * 绘制后更新
-		 * @param rebuild 是否重建了BitmapData
 		 * 
 		 */
-		public function update(rebuild:Boolean = false):void
+		public function update():void
 		{
 			uiManager.renderer.updatePaint(this, false);
 		}
