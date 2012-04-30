@@ -5,7 +5,7 @@ package com.macro.gUI.renders.mergedRender
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.renders.IRenderEngine;
-	
+
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
@@ -46,11 +46,60 @@ package com.macro.gUI.renders.mergedRender
 		public function MergeRenderEngine(root:IContainer, displayObjectContainer:DisplayObjectContainer)
 		{
 			_root = root;
-			_canvas = new BitmapData(_root.rect.width, _root.rect.height, true, 0);
+			_canvas = new BitmapData(_root.width, _root.height, true, 0);
 
 			displayObjectContainer.addChild(new Bitmap(_canvas));
 			displayObjectContainer.addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
 		}
+
+		public function updateCoord(control:IControl):void
+		{
+			if (control.stage != null)
+			{
+				_needRedraw = true;
+			}
+		}
+
+		public function updatePaint(control:IControl, isRebuild:Boolean):void
+		{
+			if (control.stage != null)
+			{
+				_needRedraw = true;
+			}
+		}
+
+		public function addChild(container:IContainer, child:IControl):void
+		{
+			if (container.stage != null)
+			{
+				_needRedraw = true;
+			}
+		}
+
+		public function removeChild(container:IContainer, child:IControl):void
+		{
+			if (container.stage != null)
+			{
+				_needRedraw = true;
+			}
+		}
+
+		public function removeChildren(container:IContainer, childList:Vector.<IControl>):void
+		{
+			if (container.stage != null)
+			{
+				_needRedraw = true;
+			}
+		}
+
+		public function updateChildIndex(container:IContainer, child:IControl):void
+		{
+			if (container.stage != null)
+			{
+				_needRedraw = true;
+			}
+		}
+
 
 
 		protected function enterFrameHandler(e:Event):void
@@ -73,7 +122,7 @@ package com.macro.gUI.renders.mergedRender
 		 * @param viewRect 控件的全局可视范围
 		 * @param globalX 父控件的全局横坐标
 		 * @param globalY 父控件的全局纵坐标
-		 * 
+		 *
 		 */
 		private function render(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
 		{
@@ -88,86 +137,40 @@ package com.macro.gUI.renders.mergedRender
 			controlRect.x += globalX;
 			controlRect.y += globalY;
 
-			// 父控件全局可视区域与当前控件全局区域的交集
-			viewRect = viewRect.intersection(controlRect);
-			if (viewRect.width == 0 || viewRect.height == 0)
+			// 全局可视区域与当前控件全局区域的交集
+			var drawRect:Rectangle = viewRect.intersection(controlRect);
+			if (drawRect.width == 0 || drawRect.height == 0)
 			{
 				return;
 			}
 
 			if (control.bitmapData != null)
 			{
-				_canvas.copyPixels(control.bitmapData, new Rectangle(viewRect.x - controlRect.x, viewRect.y - controlRect.y, viewRect.width, viewRect.height),
-								   viewRect.topLeft, null, null, true);
+				_canvas.copyPixels(control.bitmapData, new Rectangle(drawRect.x - controlRect.x, drawRect.y - controlRect.y, drawRect.width,
+																	 drawRect.height), drawRect.topLeft, null, null, true);
 			}
 
 			if (control is IContainer)
 			{
 				var container:IContainer = control as IContainer;
-
-				// 处理容器类控件的边距
 				var m:Margin = container.margin;
-				viewRect.left += m.left;
-				viewRect.top += m.top;
-				viewRect.right -= m.right;
-				viewRect.bottom -= m.bottom;
 				
+				// 处理容器的本地坐标
 				globalX = controlRect.x + m.left;
 				globalY = controlRect.y + m.top;
+				
+				// 处理容器类控件的边距
+				controlRect.left += m.left;
+				controlRect.top += m.top;
+				controlRect.right -= m.right;
+				controlRect.bottom -= m.bottom;
+				viewRect = viewRect.intersection(controlRect);
 
 				for each (var ic:IControl in container.children)
 				{
 					render(ic, viewRect, globalX, globalY);
 				}
 
-			}
-		}
-
-		public function updateCoord(control:IControl, x:int, y:int):void
-		{
-			if (control.stage != null)
-			{
-				_needRedraw = true;
-			}
-		}
-
-		public function updatePaint(control:IControl, isRebuild:Boolean):void
-		{
-			if (control.stage != null)
-			{
-				_needRedraw = true;
-			}
-		}
-		
-		public function addChild(container:IContainer, child:IControl):void
-		{
-			if (container.stage != null)
-			{
-				_needRedraw = true;
-			}
-		}
-		
-		public function removeChild(container:IContainer, child:IControl):void
-		{
-			if (container.stage != null)
-			{
-				_needRedraw = true;
-			}
-		}
-		
-		public function removeChildren(container:IContainer, childList:Vector.<IControl>):void
-		{
-			if (container.stage != null)
-			{
-				_needRedraw = true;
-			}
-		}
-		
-		public function updateChildIndex(container:IContainer, child:IControl):void
-		{
-			if (container.stage != null)
-			{
-				_needRedraw = true;
 			}
 		}
 	}
