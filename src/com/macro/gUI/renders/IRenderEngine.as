@@ -15,16 +15,14 @@ package com.macro.gUI.renders
 		/**
 		 * 更新控件坐标
 		 * @param control
-		 * @param x
-		 * @param y
 		 *
 		 */
-		function updateCoord(control:IControl, x:int, y:int):void;
+		function updateCoord(control:IControl):void;
 
 		/**
 		 * 更新控件绘制
 		 * @param control
-		 * @param isRebuild 是否重建了BitmapData，一般是因为控件尺寸的变更
+		 * @param isRebuild 是否重建了BitmapData，通常是因为控件尺寸的变更
 		 *
 		 */
 		function updatePaint(control:IControl, isRebuild:Boolean):void;

@@ -29,7 +29,28 @@ package com.macro.gUI.assist
 		{
 			return null;
 		}
-
+		
+		public function get height():int
+		{
+			return 0;
+		}
+		
+		public function get width():int
+		{
+			return 0;
+		}
+		
+		public function get x():int
+		{
+			return 0;
+		}
+		
+		public function get y():int
+		{
+			return 0;
+		}
+		
+		
 		public function get enabled():Boolean
 		{
 			return true;

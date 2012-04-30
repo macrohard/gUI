@@ -49,6 +49,7 @@ package com.macro.gUI.core
 			if (value != null)
 			{
 				_margin = value;
+				uiManager.renderer.updateCoord(this);
 			}
 		}
 

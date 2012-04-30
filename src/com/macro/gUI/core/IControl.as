@@ -21,11 +21,40 @@ package com.macro.gUI.core
 		function get bitmapData():BitmapData;
 
 		/**
-		 * 控件区域，注意，不可使用此接口设置控件的坐标及尺寸
+		 * 控件区域
+		 * 返回的是一个Clone对象，因此直接对rect的修改并不会影响控件
 		 * @return
 		 *
 		 */
 		function get rect():Rectangle;
+		
+		/**
+		 * 横坐标
+		 * @return 
+		 * 
+		 */
+		function get x():int;
+		
+		/**
+		 * 纵坐标
+		 * @return 
+		 * 
+		 */
+		function get y():int;
+		
+		/**
+		 * 宽度
+		 * @return 
+		 * 
+		 */
+		function get width():int;
+		
+		/**
+		 * 高度
+		 * @return 
+		 * 
+		 */
+		function get height():int;
 
 		/**
 		 * 是否启用

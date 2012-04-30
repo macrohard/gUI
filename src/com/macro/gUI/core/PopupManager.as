@@ -62,7 +62,7 @@ package com.macro.gUI.core
 		{
 			if (_modalBg == null)
 			{
-				_modalBg = new Canvas(_popupContainer.rect.width, _popupContainer.rect.height);
+				_modalBg = new Canvas(_popupContainer.width, _popupContainer.height);
 				_modalBg.backgroundColor = 0x33000000;
 			}
 			return _modalBg;

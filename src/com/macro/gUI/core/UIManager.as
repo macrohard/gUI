@@ -151,7 +151,7 @@ package com.macro.gUI.core
 		 */
 		public function get stageWidth():int
 		{
-			return _stage.rect.width;
+			return _stage.width;
 		}
 		
 		/**
@@ -161,7 +161,7 @@ package com.macro.gUI.core
 		 */
 		public function get stageHeight():int
 		{
-			return _stage.rect.height;
+			return _stage.height;
 		}
 	}
 }

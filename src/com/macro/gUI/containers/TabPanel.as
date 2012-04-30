@@ -222,8 +222,12 @@ package com.macro.gUI.containers
 
 		public function set margin(value:Margin):void
 		{
-			_margin = value;
-			layout();
+			if (value != null)
+			{
+				_margin = value;
+				layout();
+				uiManager.renderer.updateCoord(this);
+			}
 		}
 
 

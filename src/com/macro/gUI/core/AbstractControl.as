@@ -152,7 +152,7 @@ package com.macro.gUI.core
 		public function set x(value:int):void
 		{
 			_rect.x = value;
-			uiManager.renderer.updateCoord(this, _rect.x, _rect.y);
+			uiManager.renderer.updateCoord(this);
 		}
 
 
@@ -169,7 +169,7 @@ package com.macro.gUI.core
 		public function set y(value:int):void
 		{
 			_rect.y = value;
-			uiManager.renderer.updateCoord(this, _rect.x, _rect.y);
+			uiManager.renderer.updateCoord(this);
 		}
 
 
@@ -382,7 +382,7 @@ package com.macro.gUI.core
 			var container:IContainer = this.parent;
 			while (container != null)
 			{
-				m.translate(container.rect.x + container.margin.left, container.rect.y + container.margin.top);
+				m.translate(container.x + container.margin.left, container.y + container.margin.top);
 				container = container.parent;
 			}
 
