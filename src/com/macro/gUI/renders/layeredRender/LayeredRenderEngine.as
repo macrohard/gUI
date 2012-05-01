@@ -5,7 +5,7 @@ package com.macro.gUI.renders.layeredRender
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.renders.IRenderEngine;
-	
+
 	import flash.display.Bitmap;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Shape;
@@ -33,11 +33,6 @@ package com.macro.gUI.renders.layeredRender
 		private var _controlToBitmap:Dictionary;
 
 		/**
-		 * 容器遮罩对应表
-		 */
-		private var _containerToMask:Dictionary;
-
-		/**
 		 * 显示对象容器
 		 */
 		private var _displayObjectContainer:DisplayObjectContainer;
@@ -54,16 +49,11 @@ package com.macro.gUI.renders.layeredRender
 			_root = root;
 			_displayObjectContainer = displayObjectContainer;
 			_controlToBitmap = new Dictionary(true);
-			_containerToMask = new Dictionary(true);
 
 			var b:Bitmap = new Bitmap(_root.bitmapData);
-			_displayObjectContainer.addChild(b);
+			b.scrollRect = _root.rect;
 			_controlToBitmap[_root] = b;
-			
-			var mask:Shape = new Shape();
-			mask.graphics.beginFill(0);
-			mask.graphics.drawRect(0, 0, _root.width, _root.height);
-			_containerToMask[_root] = mask;
+			_displayObjectContainer.addChild(b);
 		}
 
 
@@ -76,10 +66,13 @@ package com.macro.gUI.renders.layeredRender
 
 			var container:IContainer = control.parent;
 			var m:Margin = container.margin;
+
 			var p:Point = container.localToGlobal();
-			var s:Shape = _containerToMask[container];
-			var r:Rectangle = s.getRect(null);
-			updateCoordAndMask(control, r, p.x + m.left, p.y + m.top);
+			var b:Bitmap = _controlToBitmap[container];
+			var s:Rectangle = b.scrollRect;
+			var r:Rectangle = new Rectangle(p.x + s.x, p.y + s.y, s.width, s.height);
+
+			updateBitmap(control, r, p.x + m.left, p.y + m.top);
 		}
 
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
@@ -93,12 +86,7 @@ package com.macro.gUI.renders.layeredRender
 			if (b != null && isRebuild)
 			{
 				b.bitmapData = control.bitmapData;
-
-				// 如果是容器，要更新控件的坐标及遮罩
-				if (control is IContainer)
-				{
-					updateCoord(control);
-				}
+				updateCoord(control);
 			}
 		}
 
@@ -170,53 +158,51 @@ package com.macro.gUI.renders.layeredRender
 		/**
 		 * 更新坐标及遮罩
 		 * @param control
-		 * @param viewRect 控件的可视范围
-		 * @param x
-		 * @param y
+		 * @param viewRect 控件的全局可视范围
+		 * @param globalX 父控件的全局横坐标
+		 * @param globalY 父控件的全局纵坐标
 		 *
 		 */
-		private function updateCoordAndMask(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
+		private function updateBitmap(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
 		{
 			if (control is IComposite)
 			{
-				updateCoordAndMask((control as IComposite).container, viewRect, globalX, globalY);
+				updateBitmap((control as IComposite).container, viewRect, globalX, globalY);
 				return;
 			}
-trace(control);			
+
 			// 当前控件的全局区域
 			var controlRect:Rectangle = control.rect;
 			controlRect.x += globalX;
 			controlRect.y += globalY;
 
 			var b:Bitmap = _controlToBitmap[control];
-			b.x = controlRect.x;
-			b.y = controlRect.y;
-			b.mask = _containerToMask[control.parent];
-trace("assign:" + b.mask.getRect(null));
+			var scrollRect:Rectangle = viewRect.intersection(controlRect);
+			var p:Point = scrollRect.topLeft;
+			scrollRect.offset(-controlRect.x, -controlRect.y);
+			b.x = p.x;
+			b.y = p.y;
+			b.scrollRect = scrollRect;
+
 			if (control is IContainer)
 			{
 				var container:IContainer = control as IContainer;
 				var m:Margin = container.margin;
-				
+
 				// 处理容器的本地坐标
 				globalX = controlRect.x + m.left;
 				globalY = controlRect.y + m.top;
-				
+
 				// 处理容器边距
 				controlRect.left += m.left;
 				controlRect.top += m.top;
 				controlRect.right -= m.right;
 				controlRect.bottom -= m.bottom;
 				viewRect = viewRect.intersection(controlRect);
-				
-				var s:Shape = _containerToMask[container];
-				s.graphics.clear();
-				s.graphics.beginFill(0);
-				s.graphics.drawRect(viewRect.x, viewRect.y, viewRect.width, viewRect.height);
-trace("draw:" + viewRect);
+
 				for each (var ic:IControl in container.children)
 				{
-					updateCoordAndMask(ic, viewRect, globalX, globalY);
+					updateBitmap(ic, viewRect, globalX, globalY);
 				}
 			}
 		}
@@ -245,7 +231,7 @@ trace("draw:" + viewRect);
 					}
 				}
 			}
-			
+
 			var control:IControl = container.getChildAt(index + 1);
 			if (control != null)
 			{
@@ -284,7 +270,7 @@ trace("draw:" + viewRect);
 				createBitmapList((control as IComposite).container, childBitmapList);
 				return;
 			}
-			
+
 			var b:Bitmap = _controlToBitmap[control];
 			if (b == null)
 			{
@@ -296,8 +282,6 @@ trace("draw:" + viewRect);
 
 			if (control is IContainer)
 			{
-				_containerToMask[control] = new Shape();
-				
 				var container:IContainer = control as IContainer;
 				for each (var ic:IControl in container.children)
 				{
@@ -321,7 +305,7 @@ trace("draw:" + viewRect);
 				getBitmapList((control as IComposite).container, childBitmapList, isRemove);
 				return;
 			}
-			
+
 			var b:Bitmap = _controlToBitmap[control];
 			if (isRemove)
 			{
@@ -334,12 +318,6 @@ trace("draw:" + viewRect);
 
 			if (control is IContainer)
 			{
-				if (isRemove)
-				{
-					_containerToMask[control] = null;
-					delete _containerToMask[control];
-				}
-				
 				var container:IContainer = control as IContainer;
 				for each (var ic:IControl in container.children)
 				{
