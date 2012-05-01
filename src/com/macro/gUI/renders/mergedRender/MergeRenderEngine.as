@@ -5,11 +5,12 @@ package com.macro.gUI.renders.mergedRender
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.renders.IRenderEngine;
-
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
 
@@ -137,17 +138,17 @@ package com.macro.gUI.renders.mergedRender
 			controlRect.x += globalX;
 			controlRect.y += globalY;
 
-			// 全局可视区域与当前控件全局区域的交集
-			var drawRect:Rectangle = viewRect.intersection(controlRect);
-			if (drawRect.width == 0 || drawRect.height == 0)
-			{
-				return;
-			}
-
 			if (control.bitmapData != null)
 			{
-				_canvas.copyPixels(control.bitmapData, new Rectangle(drawRect.x - controlRect.x, drawRect.y - controlRect.y, drawRect.width,
-																	 drawRect.height), drawRect.topLeft, null, null, true);
+				// 全局可视区域与当前控件全局区域的交集
+				var drawRect:Rectangle = viewRect.intersection(controlRect);
+				if (drawRect.width == 0 || drawRect.height == 0)
+				{
+					return;
+				}
+				var p:Point = drawRect.topLeft;
+				drawRect.offset(-controlRect.x, -controlRect.y);
+				_canvas.copyPixels(control.bitmapData, drawRect, p, null, null, true);
 			}
 
 			if (control is IContainer)
