@@ -63,6 +63,7 @@ package com.macro.gUI.renders.layeredRender
 				return;
 			}
 
+			// 获取父控件的可视区域及全局坐标
 			var container:IContainer = control.parent;
 			var m:Margin = container.margin;
 
@@ -109,7 +110,16 @@ package com.macro.gUI.renders.layeredRender
 		
 		public function updateAlpha(control:IControl):void
 		{
-			// TODO 未完成
+			if (control.stage == null)
+			{
+				return;
+			}
+			
+			// 获取父控件的透明度
+			var container:IContainer = control.parent;
+			var b:Bitmap = _controlToBitmap[container];
+			
+			updateBitmapAlpha(control, b.alpha);
 		}
 
 		public function addChild(container:IContainer, child:IControl):void
@@ -124,8 +134,12 @@ package com.macro.gUI.renders.layeredRender
 			createBitmapList(child, childBitmapList);
 			// 将子控件的Bitmap列表加入显示列表
 			addToDisplayList(childBitmapList, getBitmapInsertIndex(container, child));
-			// 更新子控件
+			// 更新子控件坐标
 			updateCoord(child);
+			// 更新子控件可见性
+			updateVisible(child);
+			// 更新子控件透明度
+			updateAlpha(child);
 		}
 
 		public function removeChild(container:IContainer, child:IControl):void
@@ -178,7 +192,7 @@ package com.macro.gUI.renders.layeredRender
 
 
 		/**
-		 * 更新控件对应的位图显示对象
+		 * 更新控件对应的位图显示对象的坐标及滚动区域
 		 * @param control
 		 * @param viewRect 控件的全局可视范围
 		 * @param globalX 父控件的全局横坐标
@@ -226,6 +240,36 @@ package com.macro.gUI.renders.layeredRender
 				for each (var ic:IControl in container.children)
 				{
 					updateBitmapCoordAndScrollRect(ic, viewRect, globalX, globalY);
+				}
+			}
+		}
+		
+		
+		/**
+		 * 更新控件对应的位图显示对象的透明度
+		 * @param control
+		 * @param alpha 父控件的Alpha值
+		 * 
+		 */
+		private function updateBitmapAlpha(control:IControl, alpha:Number):void
+		{
+			if (control is IComposite)
+			{
+				updateBitmapAlpha((control as IComposite).container, alpha);
+				return;
+			}
+			
+			alpha *= control.alpha;
+			
+			var b:Bitmap = _controlToBitmap[control];
+			b.alpha = alpha;
+			
+			if (control is IContainer)
+			{
+				var container:IContainer = control as IContainer;
+				for each (var ic:IControl in container.children)
+				{
+					updateBitmapAlpha(ic, alpha);
 				}
 			}
 		}

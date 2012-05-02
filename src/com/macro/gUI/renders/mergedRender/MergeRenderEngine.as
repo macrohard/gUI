@@ -120,7 +120,7 @@ package com.macro.gUI.renders.mergedRender
 			var controlRect:Rectangle = control.rect;
 			controlRect.x += globalX;
 			controlRect.y += globalY;
-			
+
 			alpha *= control.alpha;
 
 			if (control.bitmapData != null)
@@ -131,7 +131,7 @@ package com.macro.gUI.renders.mergedRender
 				{
 					return;
 				}
-				
+
 				if (alpha == 1)
 				{
 					var p:Point = drawRect.topLeft;
@@ -140,9 +140,9 @@ package com.macro.gUI.renders.mergedRender
 				}
 				else if (alpha > 0)
 				{
-					// TODO 未完成
-					_canvas.draw(control.bitmapData, new Matrix(1, 0, 0, 1, -drawRect.x, -drawRect.y), new ColorTransform(1, 1, 1, alpha),
-								 null, drawRect, true);
+					var colorTransform:ColorTransform = new ColorTransform(1, 1, 1, alpha);
+					var matrix:Matrix = new Matrix(1, 0, 0, 1, controlRect.x, controlRect.y);
+					_canvas.draw(control.bitmapData, matrix, colorTransform, null, drawRect, true);
 				}
 			}
 
