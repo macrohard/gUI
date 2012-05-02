@@ -52,13 +52,13 @@ package com.macro.gUI.composite
 
 			_textInput = new TextInput(text);
 			_textInput.editable = false;
-			_textInput.skin = skinManager.getSkin(SkinDef.COMBO_INPUT_BG);
+			_textInput.bgSkin = skinManager.getSkin(SkinDef.COMBO_INPUT_BG);
 			_textInput.disableSkin = skinManager.getSkin(SkinDef.COMBO_INPUT_BG_DISABLE);
 			_textInput.style = skinManager.getStyle(StyleDef.COMBO_INPUT);
 			_textInput.disableStyle = skinManager.getStyle(StyleDef.COMBO_INPUT_DISABLE);
 
 			_downBtn = new Button();
-			_downBtn.skin = skinManager.getSkin(SkinDef.COMBO_BUTTON);
+			_downBtn.upSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON);
 			_downBtn.overSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON_OVER);
 			_downBtn.downSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON_DOWN);
 			_downBtn.disableSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON_DISABLE);
@@ -287,7 +287,7 @@ package com.macro.gUI.composite
 		 */
 		public function setTextInputSkin(upSkin:ISkin, disableSkin:ISkin):void
 		{
-			_textInput.skin = upSkin;
+			_textInput.bgSkin = upSkin;
 			_textInput.disableSkin = disableSkin;
 			if (_autoSize)
 			{
@@ -310,7 +310,7 @@ package com.macro.gUI.composite
 		 */
 		public function setButtonSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_downBtn.skin = upSkin;
+			_downBtn.upSkin = upSkin;
 			_downBtn.overSkin = overSkin;
 			_downBtn.downSkin = downSkin;
 			_downBtn.disableSkin = disableSkin;
@@ -418,7 +418,7 @@ package com.macro.gUI.composite
 		{
 			if (_autoSize)
 			{
-				var min:int = (_textInput.skin ? _textInput.skin.minWidth : 10) + _downBtn.width;
+				var min:int = (_textInput.bgSkin ? _textInput.bgSkin.minWidth : 10) + _downBtn.width;
 				width = width < min ? min : width;
 				height = _textInput.height > _downBtn.height ? _textInput.height : _downBtn.height;
 			}
@@ -430,7 +430,7 @@ package com.macro.gUI.composite
 
 		override public function setDefaultSize():void
 		{
-			resize((_textInput.skin ? _textInput.skin.minWidth : 10) + _downBtn.width,
+			resize((_textInput.bgSkin ? _textInput.bgSkin.minWidth : 10) + _downBtn.width,
 				   _textInput.height > _downBtn.height ? _textInput.height : _downBtn.height);
 		}
 

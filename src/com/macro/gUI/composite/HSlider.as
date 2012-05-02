@@ -70,7 +70,7 @@ package com.macro.gUI.composite
 			_bg = new Slice(skin, width, skin.bitmapData.height);
 
 			_blockBtn = new Button();
-			_blockBtn.skin = skinManager.getSkin(SkinDef.SLIDER_BLOCK);
+			_blockBtn.upSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK);
 			_blockBtn.overSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_OVER);
 			_blockBtn.downSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_DOWN);
 			_blockBtn.disableSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);
@@ -249,7 +249,7 @@ package com.macro.gUI.composite
 		 */
 		public function setBlockSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_blockBtn.skin = upSkin;
+			_blockBtn.upSkin = upSkin;
 			_blockBtn.overSkin = overSkin;
 			_blockBtn.downSkin = downSkin;
 			_blockBtn.disableSkin = disableSkin;
@@ -270,7 +270,7 @@ package com.macro.gUI.composite
 		 */
 		public function setTrackSkin(value:ISkin):void
 		{
-			_bg.skin = value;
+			_bg.bgSkin = value;
 			_bg.height = value.bitmapData.height;
 			if (_autoSize)
 			{
@@ -335,13 +335,13 @@ package com.macro.gUI.composite
 				oy += _height - h;
 			}
 
-			_bg.x = _padding.left - _bg.skin.gridLeft;
-			_bg.y = oy - _bg.skin.gridTop;
-			_bg.width = _width - _padding.right + _bg.skin.paddingRight - _bg.x;
+			_bg.x = _padding.left - _bg.bgSkin.gridLeft;
+			_bg.y = oy - _bg.bgSkin.gridTop;
+			_bg.width = _width - _padding.right + _bg.bgSkin.paddingRight - _bg.x;
 
-			_minX = _padding.left - _blockBtn.skin.gridLeft;
-			_maxX = _width - _padding.right - _blockBtn.skin.gridLeft;
-			_blockBtn.y = oy - _blockBtn.skin.gridTop;
+			_minX = _padding.left - _blockBtn.upSkin.gridLeft;
+			_maxX = _width - _padding.right - _blockBtn.upSkin.gridLeft;
+			_blockBtn.y = oy - _blockBtn.upSkin.gridTop;
 
 			relocateBlock();
 		}

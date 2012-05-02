@@ -106,6 +106,11 @@ package com.macro.gUI.renders.layeredRender
 				b.visible = v;
 			}
 		}
+		
+		public function updateAlpha(control:IControl):void
+		{
+			
+		}
 
 		public function addChild(container:IContainer, child:IControl):void
 		{

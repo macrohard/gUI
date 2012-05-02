@@ -140,7 +140,7 @@ package com.macro.gUI.core
 		function set pivotY(value:int):void;
 
 		/**
-		 * // TODO 透明度。有效值为 0（完全透明）到 1（完全不透明），默认值为 1。
+		 * 透明度。有效值为 0（完全透明）到 1（完全不透明），默认值为 1。
 		 * @return
 		 *
 		 */
@@ -149,7 +149,7 @@ package com.macro.gUI.core
 		function set alpha(value:Number):void;
 
 		/**
-		 * 控件是否可见。
+		 * 可见性。
 		 * @return
 		 *
 		 */

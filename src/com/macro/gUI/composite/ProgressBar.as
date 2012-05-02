@@ -122,7 +122,7 @@ package com.macro.gUI.composite
 		 */
 		public function setSkins(bgSkin:ISkin, fillingSkin:ISkin):void
 		{
-			_bg.skin = bgSkin;
+			_bg.bgSkin = bgSkin;
 			_bg.height = bgSkin.bitmapData.height;
 			_fillingSkin = fillingSkin;
 			_canvas.height = fillingSkin.bitmapData.height;
@@ -144,13 +144,13 @@ package com.macro.gUI.composite
 			{
 				if (_fillingSkin.gridRight <= _fillingSkin.gridLeft)
 				{
-					var w:int = width - _bg.skin.minWidth;
+					var w:int = width - _bg.bgSkin.minWidth;
 					w = Math.round(w / _fillingSkin.bitmapData.width) * _fillingSkin.bitmapData.width;
-					width = _bg.skin.minWidth + w;
+					width = _bg.bgSkin.minWidth + w;
 				}
 				else
 				{
-					width = width < _bg.skin.minWidth ? _bg.skin.minWidth : width;
+					width = width < _bg.bgSkin.minWidth ? _bg.bgSkin.minWidth : width;
 				}
 
 				height = _bg.height;
@@ -181,9 +181,9 @@ package com.macro.gUI.composite
 			_bg.y = oy;
 			_bg.width = _width;
 
-			_canvas.x = _bg.x + _bg.skin.gridLeft;
-			_canvas.y = _bg.y + _bg.skin.gridTop;
-			_canvas.width = _width - _bg.skin.minWidth;
+			_canvas.x = _bg.x + _bg.bgSkin.gridLeft;
+			_canvas.y = _bg.y + _bg.bgSkin.gridTop;
+			_canvas.width = _width - _bg.bgSkin.minWidth;
 			drawPercentImage();
 		}
 

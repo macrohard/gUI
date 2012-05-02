@@ -90,7 +90,7 @@ package com.macro.gUI.composite
 			_scrollBar = new VScrollBar();
 
 			_container = new Panel(width, height);
-			(_container as Panel).skin = skinManager.getSkin(SkinDef.LIST_BG);
+			(_container as Panel).bgSkin = skinManager.getSkin(SkinDef.LIST_BG);
 			_container.addChild(_itemContainer);
 
 			_itemStyle = skinManager.getStyle(StyleDef.LIST_ITEM);
@@ -172,7 +172,7 @@ package com.macro.gUI.composite
 		 */
 		public function setBgSkin(bgSkin:ISkin):void
 		{
-			(_container as Panel).skin = bgSkin;
+			(_container as Panel).bgSkin = bgSkin;
 		}
 
 
@@ -266,7 +266,7 @@ package com.macro.gUI.composite
 			var item:ToggleButton = new ToggleButton(text);
 			item.style = item.overStyle = item.downStyle = _itemStyle;
 			item.selectedStyle = item.selectedOverStyle = item.selectedDownStyle = _itemSelectedStyle;
-			item.skin = _itemSkin;
+			item.upSkin = _itemSkin;
 			item.overSkin = item.downSkin = _itemOverSkin;
 			item.selectedSkin = item.selectedOverSkin = item.selectedDownSkin = _itemSelectedSkin;
 			item.autoSize = false;
@@ -280,7 +280,7 @@ package com.macro.gUI.composite
 			{
 				item.style = item.overStyle = item.downStyle = _itemStyle;
 				item.selectedStyle = item.selectedOverStyle = item.selectedDownStyle = _itemSelectedStyle;
-				item.skin = _itemSkin;
+				item.upSkin = _itemSkin;
 				item.overSkin = item.downSkin = _itemOverSkin;
 				item.selectedSkin = item.selectedOverSkin = item.selectedDownSkin = _itemSelectedSkin;
 			}

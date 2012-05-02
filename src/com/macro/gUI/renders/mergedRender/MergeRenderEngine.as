@@ -60,6 +60,10 @@ package com.macro.gUI.renders.mergedRender
 		{
 		}
 		
+		public function updateAlpha(control:IControl):void
+		{
+		}
+		
 		public function addChild(container:IContainer, child:IControl):void
 		{
 		}
@@ -103,6 +107,7 @@ package com.macro.gUI.renders.mergedRender
 				return;
 			}
 			
+			// 控件不可见
 			if (control.visible == false)
 			{
 				return;

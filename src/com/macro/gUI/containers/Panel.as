@@ -29,12 +29,12 @@ package com.macro.gUI.containers
 		}
 
 
-		public function get skin():ISkin
+		public function get bgSkin():ISkin
 		{
 			return _skin
 		}
 
-		public function set skin(value:ISkin):void
+		public function set bgSkin(value:ISkin):void
 		{
 			if (_skin != value && value != null)
 			{

@@ -100,12 +100,12 @@ package com.macro.gUI.controls
 		}
 
 
-		public function get skin():ISkin
+		public function get upSkin():ISkin
 		{
 			return _skins[CtrlState.UP];
 		}
 
-		public function set skin(value:ISkin):void
+		public function set upSkin(value:ISkin):void
 		{
 			if (_skins[CtrlState.UP] == value)
 			{

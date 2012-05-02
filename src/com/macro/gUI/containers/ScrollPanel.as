@@ -65,7 +65,7 @@ package com.macro.gUI.containers
 			_displayContainer.addChild(_contentContainer);
 
 			_container = new Panel(width, height);
-			(_container as Panel).skin = skinManager.getSkin(SkinDef.SCROLLPANEL_BG);
+			(_container as Panel).bgSkin = skinManager.getSkin(SkinDef.SCROLLPANEL_BG);
 			_container.addChild(_displayContainer);
 
 			_width = _container.width;
@@ -103,7 +103,7 @@ package com.macro.gUI.containers
 		 */
 		public function setBgSkin(bgSkin:ISkin):void
 		{
-			(_container as Panel).skin = bgSkin;
+			(_container as Panel).bgSkin = bgSkin;
 		}
 
 

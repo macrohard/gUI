@@ -199,13 +199,13 @@ package com.macro.gUI.containers
 				{
 					return;
 				}
-				_tabs[index].skin = _tabSkin;
+				_tabs[index].bgSkin = _tabSkin;
 				_container.removeChild(_currentContainer);
 			}
 
 			_currentContainer = _tabContainers[value];
 			_container.addChild(_currentContainer);
-			_tabs[_tabContainers.indexOf(_currentContainer)].skin = _tabSelectedSkin;
+			_tabs[_tabContainers.indexOf(_currentContainer)].bgSkin = _tabSelectedSkin;
 
 			layout();
 
@@ -259,7 +259,7 @@ package com.macro.gUI.containers
 		 */
 		public function setBgSkin(bgSkin:ISkin):void
 		{
-			_bg.skin = bgSkin;
+			_bg.bgSkin = bgSkin;
 			setMargin();
 			layout();
 		}
@@ -316,11 +316,11 @@ package com.macro.gUI.containers
 			{
 				if (i == index)
 				{
-					_tabs[i].skin = _tabSelectedSkin;
+					_tabs[i].bgSkin = _tabSelectedSkin;
 				}
 				else
 				{
-					_tabs[i].skin = _tabSkin;
+					_tabs[i].bgSkin = _tabSkin;
 				}
 			}
 		}
@@ -347,17 +347,17 @@ package com.macro.gUI.containers
 		 */
 		private function setMargin():void
 		{
-			_margin = new Margin(_bg.skin.gridLeft, _bg.skin.gridTop, _bg.skin.paddingRight, _bg.skin.paddingBottom);
+			_margin = new Margin(_bg.bgSkin.gridLeft, _bg.bgSkin.gridTop, _bg.bgSkin.paddingRight, _bg.bgSkin.paddingBottom);
 			if (_tabs.length > 0)
 			{
 				var tab:TitleBar = _tabs[0];
 				if (_tabLayout == TAB_LAYOUT_TOP)
 				{
-					_margin.top = tab.height + _bg.skin.gridTop;
+					_margin.top = tab.height + _bg.bgSkin.gridTop;
 				}
 				else
 				{
-					_margin.bottom = tab.height + _bg.skin.paddingBottom;
+					_margin.bottom = tab.height + _bg.bgSkin.paddingBottom;
 				}
 			}
 		}

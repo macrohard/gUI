@@ -40,12 +40,12 @@ package com.macro.gUI.controls
 		 * @return
 		 *
 		 */
-		public function get skin():ISkin
+		public function get bgSkin():ISkin
 		{
 			return _skin;
 		}
 
-		public function set skin(value:ISkin):void
+		public function set bgSkin(value:ISkin):void
 		{
 			if (_skin != value)
 			{

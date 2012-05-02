@@ -66,7 +66,7 @@ package com.macro.gUI.composite
 			_displayContainer.addChild(_label);
 
 			_container = new Panel(width, height);
-			(_container as Panel).skin = skinManager.getSkin(SkinDef.TEXTAREA_BG);
+			(_container as Panel).bgSkin = skinManager.getSkin(SkinDef.TEXTAREA_BG);
 			_container.addChild(_displayContainer);
 
 			_width = _container.width;
@@ -118,7 +118,7 @@ package com.macro.gUI.composite
 		 */
 		public function setBgSkin(bgSkin:ISkin):void
 		{
-			(_container as Panel).skin = bgSkin;
+			(_container as Panel).bgSkin = bgSkin;
 		}
 
 

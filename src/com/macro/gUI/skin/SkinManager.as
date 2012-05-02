@@ -22,12 +22,12 @@ package com.macro.gUI.skin
 		/**
 		 * 皮肤样式列表
 		 */
-		private var _skin:Dictionary;
+		private var _skins:Dictionary;
 
 		/**
 		 * 文本样式列表
 		 */
-		private var _style:Dictionary;
+		private var _styles:Dictionary;
 
 
 
@@ -37,8 +37,8 @@ package com.macro.gUI.skin
 		 */
 		public function SkinManager()
 		{
-			_skin = new Dictionary();
-			_style = new Dictionary();
+			_skins = new Dictionary();
+			_styles = new Dictionary();
 		}
 
 
@@ -74,7 +74,7 @@ package com.macro.gUI.skin
 				throw new Error("Unsupport skin class type!");
 			}
 
-			_skin[id] = s;
+			_skins[id] = s;
 			return s;
 		}
 
@@ -87,7 +87,7 @@ package com.macro.gUI.skin
 		 */
 		public function getSkin(id:String):ISkin
 		{
-			return _skin[id];
+			return _skins[id];
 		}
 
 
@@ -100,7 +100,7 @@ package com.macro.gUI.skin
 		 */
 		public function setStyle(id:String, style:TextStyle):void
 		{
-			_style[id] = style;
+			_styles[id] = style;
 		}
 
 
@@ -112,7 +112,7 @@ package com.macro.gUI.skin
 		 */
 		public function getStyle(id:String):TextStyle
 		{
-			return _style[id];
+			return _styles[id];
 		}
 
 	}

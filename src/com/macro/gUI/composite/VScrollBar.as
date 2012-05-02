@@ -87,20 +87,20 @@ package com.macro.gUI.composite
 			_track = new Slice(skin, skin.bitmapData.width, height);
 
 			_blockBtn = new Button();
-			_blockBtn.skin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK);
+			_blockBtn.upSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK);
 			_blockBtn.overSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_OVER);
 			_blockBtn.downSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DOWN);
 			_blockBtn.disableSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DISABLE);
 			_blockBtn.autoSize = false;
 
 			_upBtn = new Button();
-			_upBtn.skin = skinManager.getSkin(SkinDef.SCROLLBAR_UP);
+			_upBtn.upSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP);
 			_upBtn.overSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_OVER);
 			_upBtn.downSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_DOWN);
 			_upBtn.disableSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_DISABLE);
 
 			_downBtn = new Button();
-			_downBtn.skin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN);
+			_downBtn.upSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN);
 			_downBtn.overSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_OVER);
 			_downBtn.downSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DOWN);
 			_downBtn.disableSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DISABLE);
@@ -319,7 +319,7 @@ package com.macro.gUI.composite
 		 */
 		public function setBlockSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_blockBtn.skin = upSkin;
+			_blockBtn.upSkin = upSkin;
 			_blockBtn.overSkin = overSkin;
 			_blockBtn.downSkin = downSkin;
 			_blockBtn.disableSkin = disableSkin;
@@ -343,7 +343,7 @@ package com.macro.gUI.composite
 		 */
 		public function setLeftButtonSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_upBtn.skin = upSkin;
+			_upBtn.upSkin = upSkin;
 			_upBtn.overSkin = overSkin;
 			_upBtn.downSkin = downSkin;
 			_upBtn.disableSkin = disableSkin;
@@ -367,7 +367,7 @@ package com.macro.gUI.composite
 		 */
 		public function setRightButtonSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
 		{
-			_downBtn.skin = upSkin;
+			_downBtn.upSkin = upSkin;
 			_downBtn.overSkin = overSkin;
 			_downBtn.downSkin = downSkin;
 			_downBtn.disableSkin = disableSkin;
@@ -388,7 +388,7 @@ package com.macro.gUI.composite
 		 */
 		public function setTrackSkin(value:ISkin):void
 		{
-			_track.skin = value;
+			_track.bgSkin = value;
 			_track.width = value.bitmapData.width;
 			if (_autoSize)
 			{
@@ -462,18 +462,18 @@ package com.macro.gUI.composite
 				ox += _width - w;
 			}
 
-			_track.x = ox - _track.skin.gridLeft;
+			_track.x = ox - _track.bgSkin.gridLeft;
 			_track.y = _padding.top
 			_track.height = _height - _padding.bottom - _track.y;
 
-			_upBtn.x = ox - _upBtn.skin.gridLeft;
+			_upBtn.x = ox - _upBtn.upSkin.gridLeft;
 			_upBtn.y = _padding.top - _upBtn.height;
 
-			_downBtn.x = ox - _downBtn.skin.gridLeft;
+			_downBtn.x = ox - _downBtn.upSkin.gridLeft;
 			_downBtn.y = _height - _padding.bottom;
 
 
-			_blockBtn.x = ox - _blockBtn.skin.gridLeft;
+			_blockBtn.x = ox - _blockBtn.upSkin.gridLeft;
 
 			resetScrollBar();
 		}

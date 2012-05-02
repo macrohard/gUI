@@ -98,16 +98,16 @@ package com.macro.gUI.controls
 
 
 		/**
-		 * 边框皮肤
+		 * 顶层皮肤
 		 * @return
 		 *
 		 */
-		public function get skin():ISkin
+		public function get coverSkin():ISkin
 		{
 			return _skin;
 		}
 
-		public function set skin(value:ISkin):void
+		public function set coverSkin(value:ISkin):void
 		{
 			if (_skin != value)
 			{

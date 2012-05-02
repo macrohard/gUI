@@ -34,6 +34,13 @@ package com.macro.gUI.renders
 		 */
 		function updateVisible(control:IControl):void;
 		
+		/**
+		 * 更新透明度
+		 * @param control
+		 * 
+		 */
+		function updateAlpha(control:IControl):void;
+		
 		
 		/**
 		 * 添加子控件

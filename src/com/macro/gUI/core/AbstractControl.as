@@ -54,7 +54,7 @@ package com.macro.gUI.core
 
 			// 默认透明度
 			_alpha = 1;
-			
+
 			// 默认可见
 			_visible = true;
 
@@ -233,7 +233,12 @@ package com.macro.gUI.core
 
 		public function set alpha(value:Number):void
 		{
-			_alpha = value < 0 ? 0 : (value > 1 ? 1 : value);
+			value = value < 0 ? 0 : (value > 1 ? 1 : value);
+			if (_alpha != value)
+			{
+				_alpha = value;
+				uiManager.renderer.updateAlpha(this);
+			}
 		}
 
 
