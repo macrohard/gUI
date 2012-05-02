@@ -1,11 +1,11 @@
 package com.macro.gUI.containers
 {
-	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.controls.TitleBar;
 	import com.macro.gUI.core.AbstractComposite;
+	import com.macro.gUI.core.AbstractContainer;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
@@ -14,7 +14,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.gUI.skin.impl.BitmapSkin;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
@@ -26,8 +26,7 @@ package com.macro.gUI.containers
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class TabPanel extends AbstractComposite implements IContainer,
-			IButton
+	public class TabPanel extends AbstractComposite implements IContainer, IButton
 	{
 
 		/**
@@ -209,7 +208,7 @@ package com.macro.gUI.containers
 			_tabs[_tabContainers.indexOf(_currentContainer)].skin = _tabSelectedSkin;
 
 			layout();
-			
+
 			dispatchEvent(new TabEvent(TabEvent.TAB_CHANGED));
 		}
 
@@ -473,7 +472,7 @@ package com.macro.gUI.containers
 
 			setMargin();
 			layout();
-			
+
 			dispatchEvent(new TabEvent(TabEvent.TAB_CHANGED));
 		}
 
@@ -512,10 +511,9 @@ package com.macro.gUI.containers
 				}
 			}
 
-			if (_currentContainer != null &&
-					_currentContainer.rect.containsPoint(p))
+			if (_currentContainer != null && _currentContainer.rect.containsPoint(p))
 			{
-				return new CHILD_REGION();
+				return AbstractContainer.CHILD_REGION;
 			}
 
 			return _container;

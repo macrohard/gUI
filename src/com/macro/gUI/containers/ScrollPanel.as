@@ -2,15 +2,15 @@ package com.macro.gUI.containers
 {
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.Viewport;
+	import com.macro.gUI.composite.HScrollBar;
+	import com.macro.gUI.composite.VScrollBar;
 	import com.macro.gUI.core.AbstractComposite;
+	import com.macro.gUI.core.AbstractContainer;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-	import com.macro.gUI.composite.HScrollBar;
-	import com.macro.gUI.composite.VScrollBar;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 
@@ -24,8 +24,7 @@ package com.macro.gUI.containers
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class ScrollPanel extends AbstractComposite implements IContainer,
-			IDrag, IButton
+	public class ScrollPanel extends AbstractComposite implements IContainer, IDrag, IButton
 	{
 		/**
 		 * 显示容器
@@ -140,7 +139,7 @@ package com.macro.gUI.containers
 
 			if (_displayContainer.rect.containsPoint(p))
 			{
-				return new CHILD_REGION();
+				return AbstractContainer.CHILD_REGION;
 			}
 
 			return _container;

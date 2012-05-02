@@ -153,12 +153,8 @@ package com.macro.gUI.core
 		 */
 		public function centerPopup(window:IControl):void
 		{
-			if (window is AbstractControl)
-			{
-				var c:AbstractControl = window as AbstractControl;
-				c.x = modalBg.width - c.width >> 1;
-				c.y = modalBg.height - c.height >> 1;
-			}
+			window.x = modalBg.width - window.width >> 1;
+			window.y = modalBg.height - window.height >> 1;
 		}
 
 		/**

@@ -1,10 +1,9 @@
 package com.macro.gUI.core
 {
 
-	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
@@ -114,7 +113,7 @@ package com.macro.gUI.core
 				// 结束拖拽
 				_dragManager.stopDrag();
 			}
-			
+
 			var tempC:IControl = _mouseControl;
 			var tempT:IControl = _mouseTarget;
 			findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
@@ -128,7 +127,7 @@ package com.macro.gUI.core
 					(tempC as IButton).mouseOut(tempT);
 				}
 			}
-			
+
 			// 处理鼠标弹起
 			if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
 			{
@@ -191,7 +190,7 @@ package com.macro.gUI.core
 			var target:IControl = control.hitTest(mouseX, mouseY);
 			if (target != null)
 			{
-				if (control is IContainer && target is CHILD_REGION)
+				if (control is IContainer && target == AbstractContainer.CHILD_REGION)
 				{
 					var container:IContainer = control as IContainer;
 					for (var i:int = container.numChildren - 1; i >= 0; i--)

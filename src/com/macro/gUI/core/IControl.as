@@ -21,8 +21,8 @@ package com.macro.gUI.core
 		function get bitmapData():BitmapData;
 
 		/**
-		 * 控件基本信息，x、y代表控件的坐标，width、height代表控件的宽高。
-		 * 只处理了注册点的平移，未处理缩放、旋转等形变。
+		 * 控件区域信息，x、y代表控件的坐标，width、height代表控件的宽高。
+		 * 注意，只处理了注册点的平移，未处理缩放、旋转等形变。
 		 * @return
 		 *
 		 */
@@ -35,12 +35,16 @@ package com.macro.gUI.core
 		 */
 		function get x():int;
 		
+		function set x(value:int):void;
+		
 		/**
 		 * 纵坐标
 		 * @return 
 		 * 
 		 */
 		function get y():int;
+		
+		function set y(value:int):void;
 		
 		/**
 		 * 宽度
@@ -49,12 +53,16 @@ package com.macro.gUI.core
 		 */
 		function get width():int;
 		
+		function set width(value:int):void;
+		
 		/**
 		 * 高度
 		 * @return 
 		 * 
 		 */
 		function get height():int;
+		
+		function set height(value:int):void;
 
 		/**
 		 * 是否启用
@@ -62,6 +70,8 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get enabled():Boolean;
+		
+		function set enabled(value:Boolean):void;
 
 		/**
 		 * 获取父容器
@@ -118,12 +128,16 @@ package com.macro.gUI.core
 		 */
 		function get pivotX():int;
 		
+		function set pivotX(value:int):void;
+		
 		/**
 		 * 注册点纵坐标
 		 * @return
 		 *
 		 */
 		function get pivotY():int;
+		
+		function set pivotY(value:int):void;
 
 		/**
 		 * // TODO 透明度。有效值为 0（完全透明）到 1（完全不透明），默认值为 1。
@@ -132,6 +146,8 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get alpha():Number;
+		
+		function set alpha(value:Number):void;
 
 		/**
 		 * // TODO 控件是否可见。
@@ -140,6 +156,8 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get visible():Boolean;
+		
+		function set visible(value:Boolean):void;
 
 		/**
 		 * // TODO 水平缩放比，1.0是100%。
@@ -148,6 +166,8 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get scaleX():Number;
+		
+		function set scaleX(value:Number):void;
 
 		/**
 		 * // TODO 垂直缩放比，1.0是100%。
@@ -156,6 +176,8 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get scaleY():Number;
+		
+		function set scaleY(value:Number):void;
 
 		/**
 		 * // TODO 以注册点为原点旋转，弧度单位
@@ -163,5 +185,7 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get rotation():Number;
+		
+		function set rotation(value:Number):void;
 	}
 }

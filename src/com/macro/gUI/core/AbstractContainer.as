@@ -2,10 +2,10 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-	
-	import com.macro.gUI.assist.CHILD_REGION;
+
 	import com.macro.gUI.assist.Margin;
-	
+	import com.macro.gUI.controls.Canvas;
+
 	import flash.geom.Point;
 
 
@@ -16,6 +16,12 @@ package com.macro.gUI.core
 	 */
 	public class AbstractContainer extends AbstractControl implements IContainer
 	{
+
+		/**
+		 * 用于辅助交互管理器判定是否下探搜索子控件的交互功能
+		 */
+		public static const CHILD_REGION:Canvas = new Canvas();
+
 
 		/**
 		 * 抽象容器，不允许直接实例化
@@ -98,11 +104,9 @@ package com.macro.gUI.core
 				return null;
 			}
 
-			if (p.x >= _margin.left && p.x <= _width - _margin.right &&
-					p.y >= _margin.top &&
-					p.y <= _height - _margin.bottom)
+			if (p.x >= _margin.left && p.x <= _width - _margin.right && p.y >= _margin.top && p.y <= _height - _margin.bottom)
 			{
-				return new CHILD_REGION();
+				return CHILD_REGION;
 			}
 
 			return this;
@@ -116,7 +120,7 @@ package com.macro.gUI.core
 			{
 				child.parent.removeChild(child);
 			}
-			
+
 			_children.push(child);
 			(child as AbstractControl).setParent(this);
 			setChildStage(child, stage);
@@ -130,7 +134,7 @@ package com.macro.gUI.core
 			{
 				child.parent.removeChild(child);
 			}
-			
+
 			if (index < 1)
 			{
 				_children.unshift(child);
@@ -169,7 +173,7 @@ package com.macro.gUI.core
 			{
 				child = _children.splice(index, 1)[0];
 				uiManager.renderer.removeChild(this, child);
-				
+
 				(child as AbstractControl).setParent(null);
 				setChildStage(child, null);
 			}
@@ -197,7 +201,7 @@ package com.macro.gUI.core
 
 			var removedControl:Vector.<IControl> = _children.splice(beginIndex, endIndex - beginIndex);
 			uiManager.renderer.removeChildren(this, removedControl);
-			
+
 			var child:IControl;
 			for (var i:int = beginIndex; i < endIndex; i++)
 			{
@@ -245,9 +249,7 @@ package com.macro.gUI.core
 		public function swapChildrenAt(index1:int, index2:int):void
 		{
 			var length:int = _children.length;
-			if (index1 < 0 || index1 >= length || index2 < 0 ||
-					index2 >= length ||
-					index1 == index2)
+			if (index1 < 0 || index1 >= length || index2 < 0 || index2 >= length || index1 == index2)
 			{
 				return;
 			}

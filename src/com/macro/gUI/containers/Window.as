@@ -1,6 +1,5 @@
 package com.macro.gUI.containers
 {
-	import com.macro.gUI.assist.CHILD_REGION;
 	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
@@ -9,6 +8,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.controls.Label;
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.core.AbstractComposite;
+	import com.macro.gUI.core.AbstractContainer;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
@@ -17,7 +17,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
+
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -381,14 +381,14 @@ package com.macro.gUI.containers
 
 			if (_contentContainer.rect.containsPoint(p))
 			{
-				return new CHILD_REGION();
+				return AbstractContainer.CHILD_REGION;
 			}
 
 			return _container;
 		}
-		
-		
-		public override function resize(width:int=0, height:int=0):void
+
+
+		public override function resize(width:int = 0, height:int = 0):void
 		{
 			if (_bg.skin != null)
 			{
@@ -396,13 +396,13 @@ package com.macro.gUI.containers
 				{
 					width = _bg.skin.minWidth;
 				}
-				
+
 				if (height < _bg.skin.minHeight)
 				{
 					height = _bg.skin.minHeight;
 				}
 			}
-			
+
 			super.resize(width, height);
 		}
 

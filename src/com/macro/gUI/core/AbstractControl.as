@@ -2,13 +2,13 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-	
+
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -139,7 +139,7 @@ package com.macro.gUI.core
 
 
 		protected var _x:int;
-		
+
 		/**
 		 * 横坐标
 		 * @return
@@ -158,7 +158,7 @@ package com.macro.gUI.core
 
 
 		protected var _y:int;
-		
+
 		/**
 		 * 纵坐标
 		 * @return
@@ -177,7 +177,7 @@ package com.macro.gUI.core
 
 
 		protected var _width:int;
-		
+
 		/**
 		 * 控件宽度，最小宽度是1
 		 * @return
@@ -198,7 +198,7 @@ package com.macro.gUI.core
 
 
 		protected var _height:int;
-		
+
 		/**
 		 * 控件高度，最小高度是1
 		 * @return
@@ -547,7 +547,6 @@ package com.macro.gUI.core
 
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-		// 静态绘图方法
 
 
 		/**

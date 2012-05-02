@@ -19,6 +19,8 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get margin():Margin;
+		
+		function set margin(value:Margin):void;
 
 		/**
 		 * 子控件

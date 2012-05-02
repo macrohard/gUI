@@ -46,7 +46,7 @@ package com.macro.gUI.core
 		/**
 		 * 根容器
 		 */
-		private var _root:IContainer;
+		private var _root:Container;
 
 
 
@@ -86,7 +86,7 @@ package com.macro.gUI.core
 			AbstractControl.init(this);
 
 			// 初始化整个UI体系层级结构
-			(_root as AbstractControl).setStage(_stage as AbstractContainer);
+			_root.setStage(_stage);
 			_stage.addChild(_main);
 			_stage.addChild(_popup);
 			
@@ -96,7 +96,7 @@ package com.macro.gUI.core
 		
 		
 
-		private var _stage:IContainer;
+		private var _stage:Container;
 
 		/**
 		 * 根容器
@@ -107,7 +107,7 @@ package com.macro.gUI.core
 		}
 
 
-		private var _main:IContainer;
+		private var _main:Container;
 
 		/**
 		 * 主容器，所有控件都在此容器中
@@ -120,7 +120,7 @@ package com.macro.gUI.core
 		}
 
 
-		private var _popup:IContainer;
+		private var _popup:Container;
 
 		/**
 		 * 弹出窗口容器
@@ -131,7 +131,7 @@ package com.macro.gUI.core
 		}
 
 
-		private var _top:IContainer;
+		private var _top:Container;
 
 		/**
 		 * 最上层容器，一般用于交互管理器绘制焦点框、拖拽替身图像、Tip信息显示等
