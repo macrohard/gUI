@@ -108,7 +108,7 @@ package com.macro.gUI.containers
 
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var target:IControl;
 
@@ -146,7 +146,7 @@ package com.macro.gUI.containers
 		}
 
 
-		protected override function layout():void
+		override protected function layout():void
 		{
 			if (_contentContainer.numChildren == 0)
 			{

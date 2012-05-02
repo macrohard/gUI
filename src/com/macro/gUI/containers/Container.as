@@ -19,7 +19,7 @@ package com.macro.gUI.containers
 			super(width, height);
 		}
 
-		public override function resize(width:int=0, height:int=0):void
+		override public function resize(width:int=0, height:int=0):void
 		{
 			if (_bitmapData == null)
 			{

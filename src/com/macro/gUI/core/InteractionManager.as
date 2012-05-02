@@ -3,7 +3,7 @@ package com.macro.gUI.core
 
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-	
+
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;

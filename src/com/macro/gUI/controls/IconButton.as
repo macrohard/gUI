@@ -98,7 +98,7 @@ package com.macro.gUI.controls
 
 
 
-		protected override function prePaint():void
+		override protected function prePaint():void
 		{
 			if (_icon)
 			{

@@ -137,12 +137,12 @@ package com.macro.gUI.composite
 		}
 
 
-		public override function get enabled():Boolean
+		override public function get enabled():Boolean
 		{
 			return _icon.enabled;
 		}
 
-		public override function set enabled(value:Boolean):void
+		override public function set enabled(value:Boolean):void
 		{
 			_icon.enabled = value;
 		}
@@ -211,7 +211,7 @@ package com.macro.gUI.composite
 
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 
@@ -225,7 +225,7 @@ package com.macro.gUI.composite
 
 
 
-		public override function resize(width:int = 0, height:int = 0):void
+		override public function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize)
 			{
@@ -236,12 +236,12 @@ package com.macro.gUI.composite
 			super.resize(width, height);
 		}
 
-		public override function setDefaultSize():void
+		override public function setDefaultSize():void
 		{
 			resize(_icon.width + gap + _label.width, _icon.height > _label.height ? _icon.height : _label.height);
 		}
 
-		protected override function layout():void
+		override protected function layout():void
 		{
 			var w:int = _icon.width + gap + _label.width;
 

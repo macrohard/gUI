@@ -52,19 +52,22 @@ package com.macro.gUI.core
 			}
 
 
-			//默认透明度
+			// 默认透明度
 			_alpha = 1;
+			
+			// 默认可见
+			_visible = true;
 
-			//默认无色，0x00000000
+			// 默认无色，0x00000000
 			_bgColor = 0;
 
-			//默认透明
+			// 默认透明
 			_transparent = true;
 
-			//默认控件可用
+			// 默认控件可用
 			_enabled = true;
 
-			//默认尺寸
+			// 默认尺寸
 			_width = width;
 			_height = height;
 		}
@@ -243,7 +246,11 @@ package com.macro.gUI.core
 
 		public function set visible(value:Boolean):void
 		{
-			_visible = value;
+			if (_visible != value)
+			{
+				_visible = value;
+				uiManager.renderer.updateVisible(this);
+			}
 		}
 
 
@@ -282,7 +289,11 @@ package com.macro.gUI.core
 
 		public function set pivotX(value:int):void
 		{
-			_pivotX = value;
+			if (_pivotX != value)
+			{
+				_pivotX = value;
+				uiManager.renderer.updateCoord(this);
+			}
 		}
 
 
@@ -295,7 +306,11 @@ package com.macro.gUI.core
 
 		public function set pivotY(value:int):void
 		{
-			_pivotY = value;
+			if (_pivotY != value)
+			{
+				_pivotY = value;
+				uiManager.renderer.updateCoord(this);
+			}
 		}
 
 
@@ -421,7 +436,7 @@ package com.macro.gUI.core
 		 * <b>注意，gUI的事件不支持冒泡</b>
 		 *
 		 */
-		public override function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0,
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0,
 												  useWeakReference:Boolean = true):void
 		{
 			super.addEventListener(type, listener, useCapture, priority, useWeakReference);

@@ -63,46 +63,46 @@ package com.macro.gUI.core
 
 
 
-		public override function get backgroundColor():int
+		override public function get backgroundColor():int
 		{
 			return _container.backgroundColor;
 		}
 
-		public override function set backgroundColor(value:int):void
+		override public function set backgroundColor(value:int):void
 		{
 			_container.backgroundColor = value;
 		}
 
 
-		public override function get transparent():Boolean
+		override public function get transparent():Boolean
 		{
 			return _container.transparent;
 		}
 
-		public override function set transparent(value:Boolean):void
+		override public function set transparent(value:Boolean):void
 		{
 			_container.transparent = value;
 		}
 
 
-		public override function get bitmapData():BitmapData
+		override public function get bitmapData():BitmapData
 		{
 			return _container.bitmapData;
 		}
 
 
-		public override function get rect():Rectangle
+		override public function get rect():Rectangle
 		{
 			return _container.rect;
 		}
 
 
-		public override function get enabled():Boolean
+		override public function get enabled():Boolean
 		{
 			return _container.enabled;
 		}
 
-		public override function set enabled(value:Boolean):void
+		override public function set enabled(value:Boolean):void
 		{
 			_container.enabled;
 		}
@@ -113,12 +113,12 @@ package com.macro.gUI.core
 		 * @return
 		 *
 		 */
-		public override function get x():int
+		override public function get x():int
 		{
 			return _container.x;
 		}
 
-		public override function set x(value:int):void
+		override public function set x(value:int):void
 		{
 			_x = _container.x = value;
 		}
@@ -129,12 +129,12 @@ package com.macro.gUI.core
 		 * @return
 		 *
 		 */
-		public override function get y():int
+		override public function get y():int
 		{
 			return _container.y;
 		}
 
-		public override function set y(value:int):void
+		override public function set y(value:int):void
 		{
 			_y = _container.y = value;
 		}
@@ -145,12 +145,12 @@ package com.macro.gUI.core
 		 * @return
 		 *
 		 */
-		public override function get width():int
+		override public function get width():int
 		{
 			return _container.width;
 		}
 
-		public override function set width(value:int):void
+		override public function set width(value:int):void
 		{
 			_width = _container.width = value;
 			resize(value, _height);
@@ -162,12 +162,12 @@ package com.macro.gUI.core
 		 * @return
 		 *
 		 */
-		public override function get height():int
+		override public function get height():int
 		{
 			return _container.height
 		}
 
-		public override function set height(value:int):void
+		override public function set height(value:int):void
 		{
 			_height = _container.height = value;
 			resize(_width, value);
@@ -253,47 +253,47 @@ package com.macro.gUI.core
 		
 
 
-		public override function get parent():IContainer
+		override public function get parent():IContainer
 		{
 			return _container.parent;
 		}
 		
-		public override function get stage():IContainer
+		override public function get stage():IContainer
 		{
 			return _container.stage;
 		}
 
 
-		internal override function setParent(container:IContainer):void
+		override internal function setParent(container:IContainer):void
 		{
 			_container.setParent(container);
 		}
 		
 		
-		internal override function setStage(stage:IContainer):void
+		override internal function setStage(stage:IContainer):void
 		{
 			_container.setStage(stage);
 		}
 
 
-		public override function localToGlobal(point:Point = null):Point
+		override public function localToGlobal(point:Point = null):Point
 		{
 			return _container.localToGlobal(point);
 		}
 		
-		public override function globalToLocal(point:Point):Point
+		override public function globalToLocal(point:Point):Point
 		{
 			return _container.globalToLocal(point);
 		}
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			return _container.hitTest(x, y);
 		}
 
 
-		public override function resize(width:int = 0, height:int = 0):void
+		override public function resize(width:int = 0, height:int = 0):void
 		{
 			width = width <= 0 ? _width : width;
 			height = height <= 0 ? _height : height;
@@ -304,7 +304,7 @@ package com.macro.gUI.core
 			layout();
 		}
 
-		public override function setDefaultSize():void
+		override public function setDefaultSize():void
 		{
 			_container.setDefaultSize();
 			_width = _container.width;

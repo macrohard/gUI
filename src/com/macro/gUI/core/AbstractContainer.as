@@ -2,10 +2,10 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
+	import com.macro.gUI.assist.ChildRegion;
 	import com.macro.gUI.assist.Margin;
-	import com.macro.gUI.controls.Canvas;
-
+	
 	import flash.geom.Point;
 
 
@@ -20,7 +20,7 @@ package com.macro.gUI.core
 		/**
 		 * 用于辅助交互管理器判定是否下探搜索子控件的交互功能
 		 */
-		public static const CHILD_REGION:Canvas = new Canvas();
+		public static const CHILD_REGION:ChildRegion = new ChildRegion();
 
 
 		/**
@@ -96,7 +96,7 @@ package com.macro.gUI.core
 
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 			if (p.x < 0 || p.y < 0 || p.x > _width || p.y > _height)

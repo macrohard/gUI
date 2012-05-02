@@ -288,7 +288,7 @@ package com.macro.gUI.composite
 
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var target:IControl;
 
@@ -350,7 +350,7 @@ package com.macro.gUI.composite
 
 
 
-		protected override function layout():void
+		override protected function layout():void
 		{
 			if (_itemContainer.numChildren == 0)
 			{

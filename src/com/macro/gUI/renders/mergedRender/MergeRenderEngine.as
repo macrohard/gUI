@@ -55,7 +55,11 @@ package com.macro.gUI.renders.mergedRender
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
 		}
-
+		
+		public function updateVisible(control:IControl):void
+		{
+		}
+		
 		public function addChild(container:IContainer, child:IControl):void
 		{
 		}
@@ -96,6 +100,11 @@ package com.macro.gUI.renders.mergedRender
 			if (control is IComposite)
 			{
 				render((control as IComposite).container, viewRect, globalX, globalY);
+				return;
+			}
+			
+			if (control.visible == false)
+			{
 				return;
 			}
 

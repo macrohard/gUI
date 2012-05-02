@@ -13,7 +13,7 @@ package com.macro.gUI.renders
 	{
 
 		/**
-		 * 更新控件坐标
+		 * 更新控件，包括坐标、遮罩、可见性及透明度等等
 		 * @param control
 		 *
 		 */
@@ -26,7 +26,14 @@ package com.macro.gUI.renders
 		 *
 		 */
 		function updatePaint(control:IControl, isRebuild:Boolean):void;
-
+		
+		/**
+		 * 更新可见性
+		 * @param control
+		 * 
+		 */
+		function updateVisible(control:IControl):void;
+		
 		
 		/**
 		 * 添加子控件

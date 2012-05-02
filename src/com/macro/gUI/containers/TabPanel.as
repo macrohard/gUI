@@ -494,7 +494,7 @@ package com.macro.gUI.containers
 
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 			if (p.x < 0 || p.y < 0 || p.x > _width || p.y > _height)
@@ -521,7 +521,7 @@ package com.macro.gUI.containers
 
 
 
-		protected override function layout():void
+		override protected function layout():void
 		{
 			var length:int = _tabs.length;
 

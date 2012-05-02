@@ -55,7 +55,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 

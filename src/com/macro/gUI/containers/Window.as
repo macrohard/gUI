@@ -353,7 +353,7 @@ package com.macro.gUI.containers
 
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			_originalCoord = new Point(_x, _y);
 			_mouseCoord = new Point(x, y);
@@ -388,7 +388,7 @@ package com.macro.gUI.containers
 		}
 
 
-		public override function resize(width:int = 0, height:int = 0):void
+		override public function resize(width:int = 0, height:int = 0):void
 		{
 			if (_bg.skin != null)
 			{
@@ -408,7 +408,7 @@ package com.macro.gUI.containers
 
 
 
-		protected override function layout():void
+		override protected function layout():void
 		{
 			var pad:int = 5; // 四周边距
 			var gap:int; // 按钮间距

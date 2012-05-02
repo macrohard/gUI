@@ -141,7 +141,6 @@ package com.macro.gUI.core
 
 		/**
 		 * // TODO 透明度。有效值为 0（完全透明）到 1（完全不透明），默认值为 1。
-		 * 通过渲染过程实现，控件实现类不要处理它
 		 * @return
 		 *
 		 */
@@ -150,8 +149,7 @@ package com.macro.gUI.core
 		function set alpha(value:Number):void;
 
 		/**
-		 * // TODO 控件是否可见。
-		 * 通过渲染过程实现，控件实现类不要处理它
+		 * 控件是否可见。
 		 * @return
 		 *
 		 */
@@ -161,7 +159,6 @@ package com.macro.gUI.core
 
 		/**
 		 * // TODO 水平缩放比，1.0是100%。
-		 * 通过渲染过程实现，控件实现类不要处理它
 		 * @return
 		 *
 		 */
@@ -171,7 +168,6 @@ package com.macro.gUI.core
 
 		/**
 		 * // TODO 垂直缩放比，1.0是100%。
-		 * 通过渲染过程实现，控件实现类不要处理它
 		 * @return
 		 *
 		 */
@@ -181,8 +177,8 @@ package com.macro.gUI.core
 
 		/**
 		 * // TODO 以注册点为原点旋转，弧度单位
-		 * @param value
-		 *
+		 * @return 
+		 * 
 		 */
 		function get rotation():Number;
 		

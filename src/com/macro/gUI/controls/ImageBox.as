@@ -136,7 +136,7 @@ package com.macro.gUI.controls
 
 
 
-		public override function resize(width:int = 0, height:int = 0):void
+		override public function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize && _image != null)
 			{
@@ -148,7 +148,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function setDefaultSize():void
+		override public function setDefaultSize():void
 		{
 			if (_image != null)
 			{
@@ -158,7 +158,7 @@ package com.macro.gUI.controls
 
 
 
-		protected override function prePaint():void
+		override protected function prePaint():void
 		{
 			if (_image != null)
 			{

@@ -8,7 +8,6 @@ package com.macro.gUI.renders.layeredRender
 	
 	import flash.display.Bitmap;
 	import flash.display.DisplayObjectContainer;
-	import flash.display.Shape;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
@@ -72,7 +71,7 @@ package com.macro.gUI.renders.layeredRender
 			var s:Rectangle = b.scrollRect;
 			var r:Rectangle = new Rectangle(p.x + s.x, p.y + s.y, s.width, s.height);
 
-			updateBitmap(control, r, p.x + m.left, p.y + m.top);
+			updateBitmapCoordAndScrollRect(control, r, p.x + m.left, p.y + m.top);
 		}
 
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
@@ -89,6 +88,24 @@ package com.macro.gUI.renders.layeredRender
 				updateCoord(control);
 			}
 		}
+		
+		public function updateVisible(control:IControl):void
+		{
+			if (control.stage == null)
+			{
+				return;
+			}
+			
+			// 获取子控件对应的Bitmap列表
+			var childBitmapList:Vector.<Bitmap> = new Vector.<Bitmap>();
+			getBitmapList(control, childBitmapList, false);
+			// 更新可见性
+			var v:Boolean = control.visible;
+			for each (var b:Bitmap in childBitmapList)
+			{
+				b.visible = v;
+			}
+		}
 
 		public function addChild(container:IContainer, child:IControl):void
 		{
@@ -101,8 +118,8 @@ package com.macro.gUI.renders.layeredRender
 			var childBitmapList:Vector.<Bitmap> = new Vector.<Bitmap>();
 			createBitmapList(child, childBitmapList);
 			// 将子控件的Bitmap列表加入显示列表
-			addToDisplayList(childBitmapList, getIndex(container, child));
-			// 更新子控件的坐标及遮罩
+			addToDisplayList(childBitmapList, getBitmapInsertIndex(container, child));
+			// 更新子控件
 			updateCoord(child);
 		}
 
@@ -150,38 +167,24 @@ package com.macro.gUI.renders.layeredRender
 			// 将子控件相关的Bitmap从显示列表移除
 			removeFromDisplayList(childBitmapList);
 			// 将子控件的Bitmap列表加入显示列表
-			addToDisplayList(childBitmapList, getIndex(container, child));
-		}
-		
-		
-		
-		/**
-		 * 获取控件对应的位图显示对象。
-		 * 注意，未加入舞台的控件没有对应的位图显示对象。
-		 * @param control
-		 * @return 
-		 * 
-		 */
-		public function getBitmap(control:IControl):Bitmap
-		{
-			return _controlToBitmap[control];
+			addToDisplayList(childBitmapList, getBitmapInsertIndex(container, child));
 		}
 
 
 
 		/**
-		 * 更新坐标及遮罩
+		 * 更新控件对应的位图显示对象
 		 * @param control
 		 * @param viewRect 控件的全局可视范围
 		 * @param globalX 父控件的全局横坐标
 		 * @param globalY 父控件的全局纵坐标
 		 *
 		 */
-		private function updateBitmap(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
+		private function updateBitmapCoordAndScrollRect(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
 		{
 			if (control is IComposite)
 			{
-				updateBitmap((control as IComposite).container, viewRect, globalX, globalY);
+				updateBitmapCoordAndScrollRect((control as IComposite).container, viewRect, globalX, globalY);
 				return;
 			}
 
@@ -192,10 +195,11 @@ package com.macro.gUI.renders.layeredRender
 
 			var b:Bitmap = _controlToBitmap[control];
 			var scrollRect:Rectangle = viewRect.intersection(controlRect);
-			var p:Point = scrollRect.topLeft;
+
+			b.x = scrollRect.x;
+			b.y = scrollRect.y;
+
 			scrollRect.offset(-controlRect.x, -controlRect.y);
-			b.x = p.x;
-			b.y = p.y;
 			b.scrollRect = scrollRect;
 
 			if (control is IContainer)
@@ -216,7 +220,7 @@ package com.macro.gUI.renders.layeredRender
 
 				for each (var ic:IControl in container.children)
 				{
-					updateBitmap(ic, viewRect, globalX, globalY);
+					updateBitmapCoordAndScrollRect(ic, viewRect, globalX, globalY);
 				}
 			}
 		}
@@ -230,7 +234,7 @@ package com.macro.gUI.renders.layeredRender
 		 * @return
 		 *
 		 */
-		private function getIndex(container:IContainer, child:IControl):int
+		private function getBitmapInsertIndex(container:IContainer, child:IControl):int
 		{
 			var index:int = container.getChildIndex(child);
 			if (index == -1)
@@ -262,7 +266,7 @@ package com.macro.gUI.renders.layeredRender
 			}
 			else if (container.parent != null)
 			{
-				return getIndex(container.parent, container);
+				return getBitmapInsertIndex(container.parent, container);
 			}
 			else
 			{
@@ -367,6 +371,20 @@ package com.macro.gUI.renders.layeredRender
 			{
 				_displayObjectContainer.removeChild(b);
 			}
+		}
+		
+		
+		
+		/**
+		 * 获取控件对应的位图显示对象。
+		 * 注意，未加入舞台的控件没有对应的位图显示对象。
+		 * @param control
+		 * @return
+		 *
+		 */
+		public function getBitmap(control:IControl):Bitmap
+		{
+			return _controlToBitmap[control];
 		}
 	}
 }

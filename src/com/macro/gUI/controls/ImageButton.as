@@ -78,7 +78,7 @@ package com.macro.gUI.controls
 		}
 		
 		
-		public override function set enabled(value:Boolean):void
+		override public function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
 			{
@@ -98,7 +98,7 @@ package com.macro.gUI.controls
 		}
 		
 		
-		public override function set image(value:IBitmapDrawable):void
+		override public function set image(value:IBitmapDrawable):void
 		{
 			var tmp:BitmapData = _states[CtrlState.UP];
 			var img:BitmapData = ImageUtil.getBitmapData(value);
@@ -148,7 +148,7 @@ package com.macro.gUI.controls
 		}
 		
 		
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 			

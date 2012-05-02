@@ -138,7 +138,7 @@ package com.macro.gUI.composite
 
 
 
-		public override function resize(width:int = 0, height:int = 0):void
+		override public function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize)
 			{
@@ -159,14 +159,14 @@ package com.macro.gUI.composite
 			super.resize(width, height);
 		}
 
-		public override function setDefaultSize():void
+		override public function setDefaultSize():void
 		{
 			resize(_width, _bg.height);
 		}
 
 
 
-		protected override function layout():void
+		override protected function layout():void
 		{
 			var oy:int;
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)

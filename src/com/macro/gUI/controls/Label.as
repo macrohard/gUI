@@ -186,7 +186,7 @@ package com.macro.gUI.controls
 
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 
@@ -204,7 +204,7 @@ package com.macro.gUI.controls
 		 * @param height
 		 *
 		 */
-		public override function resize(width:int = 0, height:int = 0):void
+		override public function resize(width:int = 0, height:int = 0):void
 		{
 			if (width == 0)
 			{
@@ -227,7 +227,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function setDefaultSize():void
+		override public function setDefaultSize():void
 		{
 			if (_textImg)
 			{
@@ -238,7 +238,7 @@ package com.macro.gUI.controls
 		}
 
 
-		protected override function postPaint():void
+		override protected function postPaint():void
 		{
 			if (_textImg)
 			{

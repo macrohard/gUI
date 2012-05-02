@@ -97,7 +97,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function set enabled(value:Boolean):void
+		override public function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
 			{
@@ -254,7 +254,7 @@ package com.macro.gUI.controls
 
 
 
-		public override function mouseDown(target:IControl):void
+		override public function mouseDown(target:IControl):void
 		{
 			if (_selected)
 			{
@@ -285,7 +285,7 @@ package com.macro.gUI.controls
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_DOWN));
 		}
 		
-		public override function mouseUp(target:IControl):void
+		override public function mouseUp(target:IControl):void
 		{
 			_selected = !_selected;
 			
@@ -318,7 +318,7 @@ package com.macro.gUI.controls
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_UP));
 		}
 
-		public override function mouseOut(target:IControl):void
+		override public function mouseOut(target:IControl):void
 		{
 			if (_selected)
 			{
@@ -347,7 +347,7 @@ package com.macro.gUI.controls
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OUT));
 		}
 
-		public override function mouseOver(target:IControl):void
+		override public function mouseOver(target:IControl):void
 		{
 			if (_selected)
 			{

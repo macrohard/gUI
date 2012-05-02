@@ -231,12 +231,12 @@ package com.macro.gUI.composite
 		}
 
 
-		public override function get enabled():Boolean
+		override public function get enabled():Boolean
 		{
 			return _textInput.enabled;
 		}
 
-		public override function set enabled(value:Boolean):void
+		override public function set enabled(value:Boolean):void
 		{
 			_textInput.enabled = value;
 			_downBtn.enabled = value;
@@ -395,7 +395,7 @@ package com.macro.gUI.composite
 
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 
@@ -414,7 +414,7 @@ package com.macro.gUI.composite
 
 
 
-		public override function resize(width:int = 0, height:int = 0):void
+		override public function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize)
 			{
@@ -428,7 +428,7 @@ package com.macro.gUI.composite
 
 
 
-		public override function setDefaultSize():void
+		override public function setDefaultSize():void
 		{
 			resize((_textInput.skin ? _textInput.skin.minWidth : 10) + _downBtn.width,
 				   _textInput.height > _downBtn.height ? _textInput.height : _downBtn.height);
@@ -436,7 +436,7 @@ package com.macro.gUI.composite
 
 
 
-		protected override function layout():void
+		override protected function layout():void
 		{
 			if ((_align & LayoutAlign.TOP) == LayoutAlign.TOP)
 			{

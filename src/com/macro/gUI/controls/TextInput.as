@@ -112,7 +112,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function set enabled(value:Boolean):void
+		override public function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
 			{
@@ -139,12 +139,12 @@ package com.macro.gUI.controls
 		 * @return
 		 *
 		 */
-		public override function get style():TextStyle
+		override public function get style():TextStyle
 		{
 			return _styles[CtrlState.UP];
 		}
 
-		public override function set style(value:TextStyle):void
+		override public function set style(value:TextStyle):void
 		{
 			if (_style == _styles[CtrlState.UP])
 			{
@@ -230,7 +230,7 @@ package com.macro.gUI.controls
 
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 

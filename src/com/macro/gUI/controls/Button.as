@@ -78,7 +78,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function set enabled(value:Boolean):void
+		override public function set enabled(value:Boolean):void
 		{
 			if (_enabled != value)
 			{
@@ -164,7 +164,7 @@ package com.macro.gUI.controls
 
 
 
-		public override function resize(width:int = 0, height:int = 0):void
+		override public function resize(width:int = 0, height:int = 0):void
 		{
 			if (_autoSize && _skin && (text == null || text.length == 0))
 			{
@@ -175,7 +175,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function hitTest(x:int, y:int):IControl
+		override public function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 
@@ -202,7 +202,7 @@ package com.macro.gUI.controls
 		}
 
 
-		public override function mouseDown(target:IControl):void
+		override public function mouseDown(target:IControl):void
 		{
 			if (_skin != _skins[CtrlState.DOWN] ||
 					_style != _styles[CtrlState.DOWN])
@@ -216,7 +216,7 @@ package com.macro.gUI.controls
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_DOWN));
 		}
 		
-		public override function mouseUp(target:IControl):void
+		override public function mouseUp(target:IControl):void
 		{
 			if (_skin != _skins[CtrlState.OVER] ||
 				_style != _styles[CtrlState.OVER])
@@ -230,7 +230,7 @@ package com.macro.gUI.controls
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_UP));
 		}
 		
-		public override function mouseOver(target:IControl):void
+		override public function mouseOver(target:IControl):void
 		{
 			if (_skin != _skins[CtrlState.OVER] ||
 				_style != _styles[CtrlState.OVER])
@@ -244,7 +244,7 @@ package com.macro.gUI.controls
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OVER));
 		}
 
-		public override function mouseOut(target:IControl):void
+		override public function mouseOut(target:IControl):void
 		{
 			if (_skin != _skins[CtrlState.UP] ||
 					_style != _styles[CtrlState.UP])

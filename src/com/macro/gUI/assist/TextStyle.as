@@ -85,27 +85,27 @@ package com.macro.gUI.assist
 
 		// 以下属性不予支持
 
-		public override function set bullet(value:Object):void
+		override public function set bullet(value:Object):void
 		{
 			throw new Error("Unsupport text style!");
 		}
 
-		public override function set display(value:String):void
+		override public function set display(value:String):void
 		{
 			throw new Error("Unsupport text style!");
 		}
 
-		public override function set tabStops(value:Array):void
+		override public function set tabStops(value:Array):void
 		{
 			throw new Error("Unsupport text style!");
 		}
 
-		public override function set target(value:String):void
+		override public function set target(value:String):void
 		{
 			throw new Error("Unsupport text style!");
 		}
 
-		public override function set url(value:String):void
+		override public function set url(value:String):void
 		{
 			throw new Error("Unsupport text style!");
 		}
