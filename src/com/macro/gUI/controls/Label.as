@@ -295,7 +295,7 @@ package com.macro.gUI.controls
 			}
 
 			var img:BitmapData = new BitmapData(tf.width, tf.height, true, 0);
-			img.draw(tf, null, null, null, null, smoothing);
+			img.draw(tf, null, null, null, null, true);
 			return img;
 		}
 	}

@@ -2,13 +2,13 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -570,11 +570,6 @@ package com.macro.gUI.core
 
 
 		/**
-		 * 平滑绘制
-		 */
-		protected static var smoothing:Boolean;
-
-		/**
 		 * 界面管理器
 		 */
 		protected static var uiManager:UIManager;
@@ -592,11 +587,10 @@ package com.macro.gUI.core
 		 * @param smoothing
 		 *
 		 */
-		internal static function init(uiManager:UIManager, smoothing:Boolean = true):void
+		internal static function init(uiManager:UIManager):void
 		{
 			AbstractControl.uiManager = uiManager;
 			AbstractControl.skinManager = uiManager.skinManager;
-			AbstractControl.smoothing = smoothing;
 		}
 
 
@@ -634,27 +628,27 @@ package com.macro.gUI.core
 			matrix = new Matrix();
 			matrix.scale(scaleX, 1);
 			matrix.translate(skin.gridLeft * (1 - scaleX), 0);
-			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(skin.gridLeft, 0, scaleW, skin.gridTop), smoothing);
+			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(skin.gridLeft, 0, scaleW, skin.gridTop), true);
 
 			matrix.translate(0, height - skin.bitmapData.height);
 			canvas.draw(skin.bitmapData, matrix, null, null,
-						new Rectangle(skin.gridLeft, height - skin.paddingBottom, scaleW, skin.paddingBottom), smoothing);
+						new Rectangle(skin.gridLeft, height - skin.paddingBottom, scaleW, skin.paddingBottom), true);
 
 			//绘制左、右两边
 			matrix = new Matrix();
 			matrix.scale(1, scaleY);
 			matrix.translate(0, skin.gridTop * (1 - scaleY));
-			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(0, skin.gridTop, skin.gridLeft, scaleH), smoothing);
+			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(0, skin.gridTop, skin.gridLeft, scaleH), true);
 
 			matrix.translate(width - skin.bitmapData.width, 0);
 			canvas.draw(skin.bitmapData, matrix, null, null,
-						new Rectangle(width - skin.paddingRight, skin.gridTop, skin.paddingRight, scaleH), smoothing);
+						new Rectangle(width - skin.paddingRight, skin.gridTop, skin.paddingRight, scaleH), true);
 
 			//绘制中心
 			matrix = new Matrix();
 			matrix.scale(scaleX, scaleY);
 			matrix.translate(skin.gridLeft * (1 - scaleX), skin.gridTop * (1 - scaleY));
-			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(skin.gridLeft, skin.gridTop, scaleW, scaleH), smoothing);
+			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(skin.gridLeft, skin.gridTop, scaleW, scaleH), true);
 
 			canvas.unlock();
 
@@ -696,7 +690,7 @@ package com.macro.gUI.core
 			matrix = new Matrix();
 			matrix.scale(1, scaleY);
 			matrix.translate(ox, skin.gridTop * (1 - scaleY));
-			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(ox, skin.gridTop, skin.bitmapData.width, scaleH), smoothing);
+			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(ox, skin.gridTop, skin.bitmapData.width, scaleH), true);
 
 			canvas.unlock();
 
@@ -740,7 +734,7 @@ package com.macro.gUI.core
 			matrix = new Matrix();
 			matrix.scale(scaleX, 1);
 			matrix.translate(skin.gridLeft * (1 - scaleX), oy);
-			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(skin.gridLeft, oy, scaleW, skin.bitmapData.height), smoothing);
+			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(skin.gridLeft, oy, scaleW, skin.bitmapData.height), true);
 
 			canvas.unlock();
 

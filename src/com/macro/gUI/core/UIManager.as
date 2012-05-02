@@ -18,7 +18,7 @@ package com.macro.gUI.core
 	 */
 	public class UIManager
 	{
-
+		
 		/**
 		 * 皮肤管理器
 		 */

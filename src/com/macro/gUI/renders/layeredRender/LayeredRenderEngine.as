@@ -109,7 +109,7 @@ package com.macro.gUI.renders.layeredRender
 		
 		public function updateAlpha(control:IControl):void
 		{
-			
+			// TODO 未完成
 		}
 
 		public function addChild(container:IContainer, child:IControl):void

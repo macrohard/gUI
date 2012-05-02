@@ -4,12 +4,15 @@ package com.macro.gUI.renders.mergedRender
 	import com.macro.gUI.core.IComposite;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
+	import com.macro.gUI.core.UIManager;
 	import com.macro.gUI.renders.IRenderEngine;
-	
+
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
+	import flash.geom.ColorTransform;
+	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -55,15 +58,15 @@ package com.macro.gUI.renders.mergedRender
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
 		}
-		
+
 		public function updateVisible(control:IControl):void
 		{
 		}
-		
+
 		public function updateAlpha(control:IControl):void
 		{
 		}
-		
+
 		public function addChild(container:IContainer, child:IControl):void
 		{
 		}
@@ -86,7 +89,7 @@ package com.macro.gUI.renders.mergedRender
 		{
 			_canvas.lock();
 			_canvas.fillRect(_root.rect, 0);
-			render(_root, _root.rect, 0, 0);
+			render(_root, _root.rect, 0, 0, 1);
 			_canvas.unlock();
 		}
 
@@ -99,14 +102,14 @@ package com.macro.gUI.renders.mergedRender
 		 * @param globalY 父控件的全局纵坐标
 		 *
 		 */
-		private function render(control:IControl, viewRect:Rectangle, globalX:int, globalY:int):void
+		private function render(control:IControl, viewRect:Rectangle, globalX:int, globalY:int, alpha:Number):void
 		{
 			if (control is IComposite)
 			{
-				render((control as IComposite).container, viewRect, globalX, globalY);
+				render((control as IComposite).container, viewRect, globalX, globalY, alpha);
 				return;
 			}
-			
+
 			// 控件不可见
 			if (control.visible == false)
 			{
@@ -117,6 +120,8 @@ package com.macro.gUI.renders.mergedRender
 			var controlRect:Rectangle = control.rect;
 			controlRect.x += globalX;
 			controlRect.y += globalY;
+			
+			alpha *= control.alpha;
 
 			if (control.bitmapData != null)
 			{
@@ -126,20 +131,30 @@ package com.macro.gUI.renders.mergedRender
 				{
 					return;
 				}
-				var p:Point = drawRect.topLeft;
-				drawRect.offset(-controlRect.x, -controlRect.y);
-				_canvas.copyPixels(control.bitmapData, drawRect, p, null, null, true);
+				
+				if (alpha == 1)
+				{
+					var p:Point = drawRect.topLeft;
+					drawRect.offset(-controlRect.x, -controlRect.y);
+					_canvas.copyPixels(control.bitmapData, drawRect, p, null, null, true);
+				}
+				else if (alpha > 0)
+				{
+					// TODO 未完成
+					_canvas.draw(control.bitmapData, new Matrix(1, 0, 0, 1, -drawRect.x, -drawRect.y), new ColorTransform(1, 1, 1, alpha),
+								 null, drawRect, true);
+				}
 			}
 
 			if (control is IContainer)
 			{
 				var container:IContainer = control as IContainer;
 				var m:Margin = container.margin;
-				
+
 				// 处理容器的本地坐标
 				globalX = controlRect.x + m.left;
 				globalY = controlRect.y + m.top;
-				
+
 				// 处理容器类控件的边距
 				controlRect.left += m.left;
 				controlRect.top += m.top;
@@ -149,7 +164,7 @@ package com.macro.gUI.renders.mergedRender
 
 				for each (var ic:IControl in container.children)
 				{
-					render(ic, viewRect, globalX, globalY);
+					render(ic, viewRect, globalX, globalY, alpha);
 				}
 
 			}
