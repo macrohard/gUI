@@ -2,13 +2,13 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-	
+
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
-	
+
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -216,12 +216,12 @@ package com.macro.gUI.core
 
 		private var _alpha:Number;
 
-		public final function get alpha():Number
+		public function get alpha():Number
 		{
 			return _alpha;
 		}
 
-		public final function set alpha(value:Number):void
+		public function set alpha(value:Number):void
 		{
 			_alpha = value < 0 ? 0 : (value > 1 ? 1 : value);
 		}
@@ -229,12 +229,12 @@ package com.macro.gUI.core
 
 		private var _visible:Boolean;
 
-		public final function get visible():Boolean
+		public function get visible():Boolean
 		{
 			return _visible;
 		}
 
-		public final function set visible(value:Boolean):void
+		public function set visible(value:Boolean):void
 		{
 			_visible = value;
 		}
@@ -242,12 +242,12 @@ package com.macro.gUI.core
 
 		private var _scaleX:Number;
 
-		public final function get scaleX():Number
+		public function get scaleX():Number
 		{
 			return _scaleX;
 		}
 
-		public final function set scaleX(value:Number):void
+		public function set scaleX(value:Number):void
 		{
 			_scaleX = value;
 		}
@@ -255,38 +255,38 @@ package com.macro.gUI.core
 
 		private var _scaleY:Number;
 
-		public final function get scaleY():Number
+		public function get scaleY():Number
 		{
 			return _scaleY;
 		}
 
-		public final function set scaleY(value:Number):void
+		public function set scaleY(value:Number):void
 		{
 			_scaleY = value;
 		}
 
 
-		private var _pivotX:Number;
+		private var _pivotX:int;
 
-		public final function get pivotX():Number
+		public function get pivotX():int
 		{
 			return _pivotX;
 		}
 
-		public final function set pivotX(value:Number):void
+		public function set pivotX(value:int):void
 		{
 			_pivotX = value;
 		}
 
 
-		private var _pivotY:Number;
+		private var _pivotY:int;
 
-		public final function get pivotY():Number
+		public function get pivotY():int
 		{
 			return _pivotY;
 		}
 
-		public final function set pivotY(value:Number):void
+		public function set pivotY(value:int):void
 		{
 			_pivotY = value;
 		}
@@ -294,12 +294,12 @@ package com.macro.gUI.core
 
 		private var _rotation:Number;
 
-		public final function get rotation():Number
+		public function get rotation():Number
 		{
 			return _rotation;
 		}
 
-		public final function set rotation(value:Number):void
+		public function set rotation(value:Number):void
 		{
 			_rotation = value;
 		}
@@ -315,10 +315,10 @@ package com.macro.gUI.core
 		{
 			return _parent;
 		}
-		
-		
+
+
 		private var _stage:IContainer;
-		
+
 		public function get stage():IContainer
 		{
 			return _stage;
@@ -334,12 +334,12 @@ package com.macro.gUI.core
 		{
 			_parent = container;
 		}
-		
-		
+
+
 		/**
 		 * 设置根容器，内部行为，外部无法访问
 		 * @param stage
-		 * 
+		 *
 		 */
 		internal function setStage(stage:IContainer):void
 		{
@@ -374,15 +374,20 @@ package com.macro.gUI.core
 		}
 
 
+		/**
+		 * 获取变形矩阵
+		 * @return
+		 *
+		 */
 		private function getTransformMatrix():Matrix
 		{
 			var m:Matrix = new Matrix();
-			m.translate(_rect.x, _rect.y);
-			// TODO 处理旋转、缩放
+			m.translate(_rect.x - _pivotX, _rect.y - _pivotY);
+
 			var container:IContainer = this.parent;
 			while (container != null)
 			{
-				m.translate(container.x + container.margin.left, container.y + container.margin.top);
+				m.translate(container.x + container.margin.left - container.pivotX, container.y + container.margin.top - container.pivotY);
 				container = container.parent;
 			}
 
@@ -394,8 +399,7 @@ package com.macro.gUI.core
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 
-			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 &&
-					p.y <= _rect.height)
+			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
 			{
 				return this;
 			}
@@ -445,7 +449,7 @@ package com.macro.gUI.core
 			{
 				paint();
 			}
-			
+
 			dispatchEvent(new UIEvent(UIEvent.RESIZE));
 		}
 
@@ -465,7 +469,7 @@ package com.macro.gUI.core
 		/**
 		 * 将当前皮肤绘制到画布上
 		 * @param rebuild 是否重建BitmapData
-		 * 
+		 *
 		 */
 		private function paint(rebuild:Boolean = false):void
 		{
@@ -548,12 +552,12 @@ package com.macro.gUI.core
 		 * 界面管理器
 		 */
 		protected static var uiManager:UIManager;
-		
+
 		/**
 		 * 皮肤管理器
 		 */
 		protected static var skinManager:SkinManager;
-		
+
 
 		/**
 		 * 初始化控件基类

@@ -172,7 +172,85 @@ package com.macro.gUI.core
 			_rect.height = _container.height = value;
 			resize(_rect.width, value);
 		}
-
+		
+		
+		
+		override public function get alpha():Number
+		{
+			return _container.alpha;
+		}
+		
+		override public function set alpha(value:Number):void
+		{
+			_container.alpha = value;
+		}
+		
+		
+		override public function get pivotX():int
+		{
+			return _container.pivotX;
+		}
+		
+		override public function set pivotX(value:int):void
+		{
+			_container.pivotX = value;
+		}
+		
+		
+		override public function get pivotY():int
+		{
+			return _container.pivotY;
+		}
+		
+		override public function set pivotY(value:int):void
+		{
+			_container.pivotY = value;
+		}
+		
+		
+		override public function get rotation():Number
+		{
+			return _container.rotation;
+		}
+		
+		override public function set rotation(value:Number):void
+		{
+			_container.rotation = value;
+		}
+		
+		
+		override public function get scaleX():Number
+		{
+			return _container.scaleX;
+		}
+		
+		override public function set scaleX(value:Number):void
+		{
+			_container.scaleX = value;
+		}
+		
+		
+		override public function get scaleY():Number
+		{
+			return _container.scaleY;
+		}
+		
+		override public function set scaleY(value:Number):void
+		{
+			_container.scaleY = value;
+		}
+		
+		
+		override public function get visible():Boolean
+		{
+			return _container.visible;
+		}
+		
+		override public function set visible(value:Boolean):void
+		{
+			_container.visible = value;
+		}
+		
 
 
 		public override function get parent():IContainer

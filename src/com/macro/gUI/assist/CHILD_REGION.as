@@ -101,12 +101,12 @@ package com.macro.gUI.assist
 			return 0;
 		}
 
-		public function get pivotX():Number
+		public function get pivotX():int
 		{
 			return 0;
 		}
 
-		public function get pivotY():Number
+		public function get pivotY():int
 		{
 			return 0;
 		}

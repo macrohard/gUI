@@ -187,8 +187,8 @@ package com.macro.gUI.renders.layeredRender
 
 			// 当前控件的全局区域
 			var controlRect:Rectangle = control.rect;
-			controlRect.x += globalX;
-			controlRect.y += globalY;
+			controlRect.x += globalX - control.pivotX;
+			controlRect.y += globalY - control.pivotY;
 
 			var b:Bitmap = _controlToBitmap[control];
 			var scrollRect:Rectangle = viewRect.intersection(controlRect);

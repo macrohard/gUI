@@ -21,8 +21,9 @@ package com.macro.gUI.core
 		function get bitmapData():BitmapData;
 
 		/**
-		 * 控件区域
-		 * 返回的是一个Clone对象，因此直接对rect的修改并不会影响控件
+		 * 控件基本信息，x、y代表控件的坐标，width、height代表控件的宽高。
+		 * 未处理平移、缩放、旋转等形变。
+		 * 通过clone()返回，因此直接对rect的修改并不会影响控件
 		 * @return
 		 *
 		 */
@@ -109,7 +110,21 @@ package com.macro.gUI.core
 		function hitTest(x:int, y:int):IControl;
 
 
-
+		
+		
+		/**
+		 * 注册点横坐标
+		 * @return
+		 *
+		 */
+		function get pivotX():int;
+		
+		/**
+		 * 注册点纵坐标
+		 * @return
+		 *
+		 */
+		function get pivotY():int;
 
 		/**
 		 * // TODO 透明度。有效值为 0（完全透明）到 1（完全不透明），默认值为 1。
@@ -142,20 +157,6 @@ package com.macro.gUI.core
 		 *
 		 */
 		function get scaleY():Number;
-
-		/**
-		 * // TODO 注册点横坐标
-		 * @return
-		 *
-		 */
-		function get pivotX():Number;
-
-		/**
-		 * // TODO 注册点纵坐标
-		 * @return
-		 *
-		 */
-		function get pivotY():Number;
 
 		/**
 		 * // TODO 以注册点为原点旋转，弧度单位
