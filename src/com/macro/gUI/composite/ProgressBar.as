@@ -61,7 +61,7 @@ package com.macro.gUI.composite
 			_container.addChild(_bg);
 			_container.addChild(_canvas);
 
-			resize(_rect.width);
+			resize(_width);
 		}
 
 
@@ -85,7 +85,7 @@ package com.macro.gUI.composite
 				_autoSize = value;
 				if (_autoSize)
 				{
-					resize(_rect.width);
+					resize(_width);
 				}
 			}
 		}
@@ -128,7 +128,7 @@ package com.macro.gUI.composite
 			_canvas.height = fillingSkin.bitmapData.height;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -161,7 +161,7 @@ package com.macro.gUI.composite
 
 		public override function setDefaultSize():void
 		{
-			resize(_rect.width, _bg.height);
+			resize(_width, _bg.height);
 		}
 
 
@@ -171,19 +171,19 @@ package com.macro.gUI.composite
 			var oy:int;
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				oy += _rect.height - _bg.height >> 1;
+				oy += _height - _bg.height >> 1;
 			}
 			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
 			{
-				oy += _rect.height - _bg.height;
+				oy += _height - _bg.height;
 			}
 
 			_bg.y = oy;
-			_bg.width = _rect.width;
+			_bg.width = _width;
 
 			_canvas.x = _bg.x + _bg.skin.gridLeft;
 			_canvas.y = _bg.y + _bg.skin.gridTop;
-			_canvas.width = _rect.width - _bg.skin.minWidth;
+			_canvas.width = _width - _bg.skin.minWidth;
 			drawPercentImage();
 		}
 
@@ -203,13 +203,13 @@ package com.macro.gUI.composite
 				if (_mask)
 				{
 					var m:BitmapData = new BitmapData(bmd.width, bmd.height, true, 0);
-					drawHorizontal(m, m.rect, _fillingSkin);
+					drawHorizontal(m, m.width, m.height, _fillingSkin);
 					bmd.copyPixels(m, new Rectangle(0, 0, m.width * _percent / 100, m.height), new Point(), null, null, true);
 					m.dispose();
 				}
 				else
 				{
-					drawHorizontal(bmd, new Rectangle(0, 0, bmd.width * _percent / 100, bmd.height), _fillingSkin);
+					drawHorizontal(bmd, bmd.width * _percent / 100, bmd.height, _fillingSkin);
 				}
 			}
 			else

@@ -111,7 +111,7 @@ package com.macro.gUI.composite
 			_container.addChild(_upBtn);
 			_container.addChild(_downBtn);
 
-			resize(0, _rect.height);
+			resize(0, _height);
 		}
 
 
@@ -134,7 +134,7 @@ package com.macro.gUI.composite
 				_autoSize = value;
 				if (_autoSize)
 				{
-					resize(0, _rect.height);
+					resize(0, _height);
 				}
 			}
 		}
@@ -157,7 +157,7 @@ package com.macro.gUI.composite
 			_padding = value;
 			if (_autoSize)
 			{
-				resize(0, _rect.height);
+				resize(0, _height);
 			}
 			else
 			{
@@ -325,7 +325,7 @@ package com.macro.gUI.composite
 			_blockBtn.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(0, _rect.height);
+				resize(0, _height);
 			}
 			else
 			{
@@ -349,7 +349,7 @@ package com.macro.gUI.composite
 			_upBtn.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(0, _rect.height);
+				resize(0, _height);
 			}
 			else
 			{
@@ -373,7 +373,7 @@ package com.macro.gUI.composite
 			_downBtn.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(0, _rect.height);
+				resize(0, _height);
 			}
 			else
 			{
@@ -392,7 +392,7 @@ package com.macro.gUI.composite
 			_track.width = value.bitmapData.width;
 			if (_autoSize)
 			{
-				resize(0, _rect.height);
+				resize(0, _height);
 			}
 			else
 			{
@@ -445,7 +445,7 @@ package com.macro.gUI.composite
 
 		public override function setDefaultSize():void
 		{
-			resize(_padding.left + _padding.right, _rect.height);
+			resize(_padding.left + _padding.right, _height);
 		}
 
 
@@ -455,22 +455,22 @@ package com.macro.gUI.composite
 			var w:int = _padding.left + _padding.right;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
-				ox += _rect.width - w >> 1;
+				ox += _width - w >> 1;
 			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
 			{
-				ox += _rect.width - w;
+				ox += _width - w;
 			}
 
 			_track.x = ox - _track.skin.gridLeft;
 			_track.y = _padding.top
-			_track.height = _rect.height - _padding.bottom - _track.y;
+			_track.height = _height - _padding.bottom - _track.y;
 
 			_upBtn.x = ox - _upBtn.skin.gridLeft;
 			_upBtn.y = _padding.top - _upBtn.height;
 
 			_downBtn.x = ox - _downBtn.skin.gridLeft;
-			_downBtn.y = _rect.height - _padding.bottom;
+			_downBtn.y = _height - _padding.bottom;
 
 
 			_blockBtn.x = ox - _blockBtn.skin.gridLeft;

@@ -111,7 +111,7 @@ package com.macro.gUI.composite
 			_container.addChild(_leftBtn);
 			_container.addChild(_rightBtn);
 
-			resize(_rect.width);
+			resize(_width);
 		}
 
 
@@ -134,7 +134,7 @@ package com.macro.gUI.composite
 				_autoSize = value;
 				if (_autoSize)
 				{
-					resize(_rect.width);
+					resize(_width);
 				}
 			}
 		}
@@ -157,7 +157,7 @@ package com.macro.gUI.composite
 			_padding = value;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -325,7 +325,7 @@ package com.macro.gUI.composite
 			_blockBtn.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -349,7 +349,7 @@ package com.macro.gUI.composite
 			_leftBtn.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -373,7 +373,7 @@ package com.macro.gUI.composite
 			_rightBtn.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -392,7 +392,7 @@ package com.macro.gUI.composite
 			_track.height = value.bitmapData.height;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -445,7 +445,7 @@ package com.macro.gUI.composite
 
 		public override function setDefaultSize():void
 		{
-			resize(_rect.width, _padding.top + _padding.bottom);
+			resize(_width, _padding.top + _padding.bottom);
 		}
 
 		protected override function layout():void
@@ -454,21 +454,21 @@ package com.macro.gUI.composite
 			var h:int = _padding.top + _padding.bottom;
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				oy += _rect.height - h >> 1;
+				oy += _height - h >> 1;
 			}
 			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
 			{
-				oy += _rect.height - h;
+				oy += _height - h;
 			}
 
 			_track.x = _padding.left;
 			_track.y = oy - _track.skin.gridTop;
-			_track.width = _rect.width - _padding.right - _track.x;
+			_track.width = _width - _padding.right - _track.x;
 
 			_leftBtn.x = _padding.left - _leftBtn.width;
 			_leftBtn.y = oy - _leftBtn.skin.gridTop;
 
-			_rightBtn.x = _rect.width - _padding.right;
+			_rightBtn.x = _width - _padding.right;
 			_rightBtn.y = oy - _rightBtn.skin.gridTop;
 
 			_blockBtn.y = oy - _blockBtn.skin.gridTop;

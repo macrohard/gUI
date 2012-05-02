@@ -169,7 +169,8 @@ package com.macro.gUI.containers
 			_container.addChild(_title);
 			_container.addChild(_contentContainer);
 
-			_rect = _container.rect;
+			_width = _container.width;
+			_height = _container.height;
 			setButtonState();
 			layout();
 		}
@@ -354,11 +355,11 @@ package com.macro.gUI.containers
 
 		public override function hitTest(x:int, y:int):IControl
 		{
-			_originalCoord = _rect.topLeft;
+			_originalCoord = new Point(_x, _y);
 			_mouseCoord = new Point(x, y);
 
 			var p:Point = _container.globalToLocal(new Point(x, y));
-			if (p.x < 0 || p.y < 0 || p.x > _rect.width || p.y > _rect.height)
+			if (p.x < 0 || p.y < 0 || p.x > _width || p.y > _height)
 			{
 				return null;
 			}
@@ -417,7 +418,7 @@ package com.macro.gUI.containers
 			{
 				gap = 2;
 
-				_closeBtn.x = _rect.width - pad - _closeBtn.width;
+				_closeBtn.x = _width - pad - _closeBtn.width;
 				_closeBtn.y = titleH - _closeBtn.height >> 1;
 
 				_maxBtn.x = _closeBtn.x - gap - _maxBtn.width;
@@ -431,7 +432,7 @@ package com.macro.gUI.containers
 			{
 				gap = -1;
 
-				_closeBtn.x = _rect.width - pad - _closeBtn.width;
+				_closeBtn.x = _width - pad - _closeBtn.width;
 				_closeBtn.y = 0;
 
 				_maxBtn.x = _closeBtn.x - gap - _maxBtn.width;
@@ -444,11 +445,11 @@ package com.macro.gUI.containers
 			var ox:int = pad;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
-				ox = _rect.width - _title.width >> 1;
+				ox = _width - _title.width >> 1;
 			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
 			{
-				ox = _rect.width - pad - _title.width;
+				ox = _width - pad - _title.width;
 			}
 
 			var oy:int;
@@ -464,10 +465,10 @@ package com.macro.gUI.containers
 			_title.x = ox;
 			_title.y = oy;
 
-			_bg.resize(_rect.width, _rect.height);
+			_bg.resize(_width, _height);
 			_contentContainer.x = _margin.left;
 			_contentContainer.y = _margin.top;
-			_contentContainer.resize(_rect.width - _margin.left - _margin.right, _rect.height - _margin.top - _margin.bottom);
+			_contentContainer.resize(_width - _margin.left - _margin.right, _height - _margin.top - _margin.bottom);
 		}
 
 
@@ -548,7 +549,7 @@ package com.macro.gUI.containers
 				if (!_canDragOutStage && this.parent != null)
 				{
 					var p1:Point = this.parent.globalToLocal(new Point());
-					var p2:Point = this.parent.globalToLocal(new Point(uiManager.stageWidth - _rect.width, uiManager.stageHeight - _rect.height));
+					var p2:Point = this.parent.globalToLocal(new Point(uiManager.stageWidth - _width, uiManager.stageHeight - _height));
 					_dragArea = new Rectangle(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
 				}
 

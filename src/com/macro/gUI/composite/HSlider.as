@@ -79,7 +79,7 @@ package com.macro.gUI.composite
 			_container.addChild(_bg);
 			_container.addChild(_blockBtn);
 
-			resize(_rect.width);
+			resize(_width);
 		}
 
 
@@ -102,7 +102,7 @@ package com.macro.gUI.composite
 				_autoSize = value;
 				if (_autoSize)
 				{
-					resize(_rect.width);
+					resize(_width);
 				}
 			}
 		}
@@ -125,7 +125,7 @@ package com.macro.gUI.composite
 			_padding = value;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -255,7 +255,7 @@ package com.macro.gUI.composite
 			_blockBtn.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -274,7 +274,7 @@ package com.macro.gUI.composite
 			_bg.height = value.bitmapData.height;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -316,7 +316,7 @@ package com.macro.gUI.composite
 
 		public override function setDefaultSize():void
 		{
-			resize(_rect.width, _padding.top + _padding.bottom);
+			resize(_width, _padding.top + _padding.bottom);
 		}
 
 
@@ -328,19 +328,19 @@ package com.macro.gUI.composite
 			var h:int = _padding.top + _padding.bottom;
 			if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				oy += _rect.height - h >> 1;
+				oy += _height - h >> 1;
 			}
 			else if ((_align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
 			{
-				oy += _rect.height - h;
+				oy += _height - h;
 			}
 
 			_bg.x = _padding.left - _bg.skin.gridLeft;
 			_bg.y = oy - _bg.skin.gridTop;
-			_bg.width = _rect.width - _padding.right + _bg.skin.paddingRight - _bg.x;
+			_bg.width = _width - _padding.right + _bg.skin.paddingRight - _bg.x;
 
 			_minX = _padding.left - _blockBtn.skin.gridLeft;
-			_maxX = _rect.width - _padding.right - _blockBtn.skin.gridLeft;
+			_maxX = _width - _padding.right - _blockBtn.skin.gridLeft;
 			_blockBtn.y = oy - _blockBtn.skin.gridTop;
 
 			relocateBlock();
@@ -427,7 +427,7 @@ package com.macro.gUI.composite
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 
-			var w:int = _rect.width - _padding.right - _padding.left;
+			var w:int = _width - _padding.right - _padding.left;
 			var d:int = p.x - _padding.left;
 			this.value = Math.round(d / w * (_maximum - _minimum)) + _minimum;
 		}

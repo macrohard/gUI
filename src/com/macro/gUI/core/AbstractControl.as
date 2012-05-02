@@ -2,13 +2,13 @@ package com.macro.gUI.core
 {
 
 	import avmplus.getQualifiedClassName;
-
+	
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinManager;
-
+	
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
@@ -65,7 +65,8 @@ package com.macro.gUI.core
 			_enabled = true;
 
 			//默认尺寸
-			_rect = new Rectangle(0, 0, width, height);
+			_width = width;
+			_height = height;
 		}
 
 
@@ -118,11 +119,9 @@ package com.macro.gUI.core
 		}
 
 
-		protected var _rect:Rectangle;
-
 		public function get rect():Rectangle
 		{
-			return _rect.clone();
+			return new Rectangle(_x - _pivotX, _y - _pivotY, _width, _height);
 		}
 
 
@@ -139,6 +138,8 @@ package com.macro.gUI.core
 		}
 
 
+		protected var _x:int;
+		
 		/**
 		 * 横坐标
 		 * @return
@@ -146,16 +147,18 @@ package com.macro.gUI.core
 		 */
 		public function get x():int
 		{
-			return _rect.x;
+			return _x;
 		}
 
 		public function set x(value:int):void
 		{
-			_rect.x = value;
+			_x = value;
 			uiManager.renderer.updateCoord(this);
 		}
 
 
+		protected var _y:int;
+		
 		/**
 		 * 纵坐标
 		 * @return
@@ -163,16 +166,18 @@ package com.macro.gUI.core
 		 */
 		public function get y():int
 		{
-			return _rect.y;
+			return _y;
 		}
 
 		public function set y(value:int):void
 		{
-			_rect.y = value;
+			_y = value;
 			uiManager.renderer.updateCoord(this);
 		}
 
 
+		protected var _width:int;
+		
 		/**
 		 * 控件宽度，最小宽度是1
 		 * @return
@@ -180,18 +185,20 @@ package com.macro.gUI.core
 		 */
 		public function get width():int
 		{
-			return _rect.width;
+			return _width;
 		}
 
 		public function set width(value:int):void
 		{
-			if (_rect.width != value && value > 0)
+			if (_width != value && value > 0)
 			{
-				resize(value, _rect.height);
+				resize(value, _height);
 			}
 		}
 
 
+		protected var _height:int;
+		
 		/**
 		 * 控件高度，最小高度是1
 		 * @return
@@ -199,14 +206,14 @@ package com.macro.gUI.core
 		 */
 		public function get height():int
 		{
-			return _rect.height;
+			return _height;
 		}
 
 		public function set height(value:int):void
 		{
-			if (_rect.height != value && value > 0)
+			if (_height != value && value > 0)
 			{
-				resize(_rect.width, value);
+				resize(_width, value);
 			}
 		}
 
@@ -382,7 +389,7 @@ package com.macro.gUI.core
 		private function getTransformMatrix():Matrix
 		{
 			var m:Matrix = new Matrix();
-			m.translate(_rect.x - _pivotX, _rect.y - _pivotY);
+			m.translate(_x - _pivotX, _y - _pivotY);
 
 			var container:IContainer = this.parent;
 			while (container != null)
@@ -399,7 +406,7 @@ package com.macro.gUI.core
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 
-			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 && p.y <= _rect.height)
+			if (p.x >= 0 && p.x <= _width && p.y >= 0 && p.y <= _height)
 			{
 				return this;
 			}
@@ -430,8 +437,8 @@ package com.macro.gUI.core
 		 */
 		public function resize(width:int = 0, height:int = 0):void
 		{
-			width = width <= 0 ? _rect.width : width;
-			height = height <= 0 ? _rect.height : height;
+			width = width <= 0 ? _width : width;
+			height = height <= 0 ? _height : height;
 
 			if (_skin != null)
 			{
@@ -439,10 +446,10 @@ package com.macro.gUI.core
 				height = height < _skin.minHeight ? _skin.minHeight : height;
 			}
 
-			if (_rect.width != width || _rect.height != height)
+			if (_width != width || _height != height)
 			{
-				_rect.width = width;
-				_rect.height = height;
+				_width = width;
+				_height = height;
 				paint(true);
 			}
 			else
@@ -480,7 +487,7 @@ package com.macro.gUI.core
 					_bitmapData.dispose();
 				}
 
-				_bitmapData = new BitmapData(_rect.width, _rect.height, _transparent, _bgColor);
+				_bitmapData = new BitmapData(_width, _height, _transparent, _bgColor);
 				uiManager.renderer.updatePaint(this, true);
 			}
 			else
@@ -497,22 +504,22 @@ package com.macro.gUI.core
 				{
 					if (_skin.gridBottom > _skin.gridTop)
 					{
-						_skinDrawRect = drawFull(_bitmapData, _rect, _skin);
+						_skinDrawRect = drawFull(_bitmapData, _width, _height, _skin);
 					}
 					else
 					{
-						_skinDrawRect = drawHorizontal(_bitmapData, _rect, _skin);
+						_skinDrawRect = drawHorizontal(_bitmapData, _width, _height, _skin);
 					}
 				}
 				else
 				{
 					if (_skin.gridBottom > _skin.gridTop)
 					{
-						_skinDrawRect = drawVertical(_bitmapData, _rect, _skin);
+						_skinDrawRect = drawVertical(_bitmapData, _width, _height, _skin);
 					}
 					else
 					{
-						_skinDrawRect = drawFixed(_bitmapData, _rect, _skin.align, _skin.bitmapData);
+						_skinDrawRect = drawFixed(_bitmapData, _width, _height, _skin.align, _skin.bitmapData);
 					}
 				}
 			}
@@ -583,12 +590,12 @@ package com.macro.gUI.core
 		 * @return 绘制区域
 		 *
 		 */
-		public static function drawFull(canvas:BitmapData, rect:Rectangle, skin:ISkin):Rectangle
+		public static function drawFull(canvas:BitmapData, width:int, height:int, skin:ISkin):Rectangle
 		{
-			var scaleW:int = rect.width - skin.minWidth;
+			var scaleW:int = width - skin.minWidth;
 			var scaleX:Number = scaleW / (skin.gridRight - skin.gridLeft);
 
-			var scaleH:int = rect.height - skin.minHeight;
+			var scaleH:int = height - skin.minHeight;
 			var scaleY:Number = scaleH / (skin.gridBottom - skin.gridTop);
 
 
@@ -597,11 +604,11 @@ package com.macro.gUI.core
 			//绘制四角
 			canvas.copyPixels(skin.bitmapData, new Rectangle(0, 0, skin.gridLeft, skin.gridTop), new Point(0, 0), null, null, true);
 			canvas.copyPixels(skin.bitmapData, new Rectangle(skin.gridRight, 0, skin.paddingRight, skin.gridTop),
-							  new Point(rect.width - skin.paddingRight, 0), null, null, true);
+							  new Point(width - skin.paddingRight, 0), null, null, true);
 			canvas.copyPixels(skin.bitmapData, new Rectangle(0, skin.gridBottom, skin.gridLeft, skin.paddingBottom),
-							  new Point(0, rect.height - skin.paddingBottom), null, null, true);
+							  new Point(0, height - skin.paddingBottom), null, null, true);
 			canvas.copyPixels(skin.bitmapData, new Rectangle(skin.gridRight, skin.gridBottom, skin.paddingRight, skin.paddingBottom),
-							  new Point(rect.width - skin.paddingRight, rect.height - skin.paddingBottom), null, null, true);
+							  new Point(width - skin.paddingRight, height - skin.paddingBottom), null, null, true);
 
 			var matrix:Matrix;
 			//绘制上、下两边
@@ -610,9 +617,9 @@ package com.macro.gUI.core
 			matrix.translate(skin.gridLeft * (1 - scaleX), 0);
 			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(skin.gridLeft, 0, scaleW, skin.gridTop), smoothing);
 
-			matrix.translate(0, rect.height - skin.bitmapData.height);
+			matrix.translate(0, height - skin.bitmapData.height);
 			canvas.draw(skin.bitmapData, matrix, null, null,
-						new Rectangle(skin.gridLeft, rect.height - skin.paddingBottom, scaleW, skin.paddingBottom), smoothing);
+						new Rectangle(skin.gridLeft, height - skin.paddingBottom, scaleW, skin.paddingBottom), smoothing);
 
 			//绘制左、右两边
 			matrix = new Matrix();
@@ -620,9 +627,9 @@ package com.macro.gUI.core
 			matrix.translate(0, skin.gridTop * (1 - scaleY));
 			canvas.draw(skin.bitmapData, matrix, null, null, new Rectangle(0, skin.gridTop, skin.gridLeft, scaleH), smoothing);
 
-			matrix.translate(rect.width - skin.bitmapData.width, 0);
+			matrix.translate(width - skin.bitmapData.width, 0);
 			canvas.draw(skin.bitmapData, matrix, null, null,
-						new Rectangle(rect.width - skin.paddingRight, skin.gridTop, skin.paddingRight, scaleH), smoothing);
+						new Rectangle(width - skin.paddingRight, skin.gridTop, skin.paddingRight, scaleH), smoothing);
 
 			//绘制中心
 			matrix = new Matrix();
@@ -643,19 +650,19 @@ package com.macro.gUI.core
 		 * @return 绘制区域
 		 *
 		 */
-		public static function drawVertical(canvas:BitmapData, rect:Rectangle, skin:ISkin):Rectangle
+		public static function drawVertical(canvas:BitmapData, width:int, height:int, skin:ISkin):Rectangle
 		{
 			var ox:int;
 			if ((skin.align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
-				ox = rect.width - skin.bitmapData.width >> 1;
+				ox = width - skin.bitmapData.width >> 1;
 			}
 			else if ((skin.align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
 			{
-				ox = rect.width - skin.bitmapData.width;
+				ox = width - skin.bitmapData.width;
 			}
 
-			var scaleH:int = rect.height - skin.minHeight;
+			var scaleH:int = height - skin.minHeight;
 			var scaleY:Number = scaleH / (skin.gridBottom - skin.gridTop);
 
 			canvas.lock();
@@ -663,7 +670,7 @@ package com.macro.gUI.core
 			//绘制上、下端
 			canvas.copyPixels(skin.bitmapData, new Rectangle(0, 0, skin.bitmapData.width, skin.gridTop), new Point(ox, 0), null, null, true);
 			canvas.copyPixels(skin.bitmapData, new Rectangle(0, skin.gridBottom, skin.bitmapData.width, skin.paddingBottom),
-							  new Point(ox, rect.height - skin.paddingBottom), null, null, true);
+							  new Point(ox, height - skin.paddingBottom), null, null, true);
 
 			var matrix:Matrix;
 			//绘制中心
@@ -685,19 +692,19 @@ package com.macro.gUI.core
 		 * @return 绘制区域
 		 *
 		 */
-		public static function drawHorizontal(canvas:BitmapData, rect:Rectangle, skin:ISkin):Rectangle
+		public static function drawHorizontal(canvas:BitmapData, width:int, height:int, skin:ISkin):Rectangle
 		{
 			var oy:int;
 			if ((skin.align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				oy = rect.height - skin.bitmapData.height >> 1;
+				oy = height - skin.bitmapData.height >> 1;
 			}
 			else if ((skin.align & LayoutAlign.BOTTOM) == LayoutAlign.BOTTOM)
 			{
-				oy = rect.height - skin.bitmapData.height;
+				oy = height - skin.bitmapData.height;
 			}
 
-			var scaleW:int = rect.width - skin.minWidth;
+			var scaleW:int = width - skin.minWidth;
 			var scaleX:Number = scaleW / (skin.gridRight - skin.gridLeft);
 
 			canvas.lock();
@@ -706,7 +713,7 @@ package com.macro.gUI.core
 			canvas.copyPixels(skin.bitmapData, new Rectangle(0, 0, skin.gridLeft, skin.bitmapData.height), new Point(0, oy), null, null,
 							  true);
 			canvas.copyPixels(skin.bitmapData, new Rectangle(skin.gridRight, 0, skin.paddingRight, skin.bitmapData.height),
-							  new Point(rect.width - skin.paddingRight, oy), null, null, true);
+							  new Point(width - skin.paddingRight, oy), null, null, true);
 
 
 			var matrix:Matrix;
@@ -731,10 +738,10 @@ package com.macro.gUI.core
 		 * @return 绘制区域
 		 *
 		 */
-		public static function drawFixed(canvas:BitmapData, rect:Rectangle, align:int, bitmapData:BitmapData,
+		public static function drawFixed(canvas:BitmapData, width:int, height:int, align:int, bitmapData:BitmapData,
 										 padding:Margin = null):Rectangle
 		{
-			var r:Rectangle = new Rectangle(0, 0, rect.width, rect.height);
+			var r:Rectangle = new Rectangle(0, 0, width, height);
 			if (padding)
 			{
 				r.left = padding.left;

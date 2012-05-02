@@ -100,7 +100,8 @@ package com.macro.gUI.composite
 			_itemOverSkin = skinManager.getSkin(SkinDef.LIST_ITEM_OVER_BG);
 			_itemSelectedSkin = skinManager.getSkin(SkinDef.LIST_ITEM_SELECTED_BG);
 
-			_rect = _container.rect;
+			_width = _container.width;
+			_height = _container.height;
 			layout();
 		}
 
@@ -303,8 +304,8 @@ package com.macro.gUI.composite
 			// 检测是否在控件范围内
 			var p:Point = _container.globalToLocal(new Point(x, y));
 
-			if (p.x >= 0 && p.x <= _rect.width && p.y >= 0 &&
-					p.y <= _rect.height)
+			if (p.x >= 0 && p.x <= _width && p.y >= 0 &&
+					p.y <= _height)
 			{
 				target = _container;
 

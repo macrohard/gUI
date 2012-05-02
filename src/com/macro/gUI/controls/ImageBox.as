@@ -162,7 +162,7 @@ package com.macro.gUI.controls
 		{
 			if (_image != null)
 			{
-				drawFixed(_bitmapData, _rect, _align, _image);
+				drawFixed(_bitmapData, _width, _height, _align, _image);
 			}
 		}
 	}

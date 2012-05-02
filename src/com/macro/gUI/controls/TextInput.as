@@ -301,8 +301,8 @@ package com.macro.gUI.controls
 			var txtW:int = _editBox.textWidth + 4 + _style.leftMargin + _style.rightMargin + _style.indent + _style.blockIndent;
 			var txtH:int = _editBox.textHeight + 4;
 			
-			var w:int = _padding ? _rect.width - _padding.left - _padding.right : _rect.width;
-			var h:int = _padding ? _rect.height - _padding.top - _padding.bottom : _rect.height;
+			var w:int = _padding ? _width - _padding.left - _padding.right : _width;
+			var h:int = _padding ? _height - _padding.top - _padding.bottom : _height;
 			
 			if (txtW > w)
 			{

@@ -117,7 +117,8 @@ package com.macro.gUI.containers
 			_container = new Container(width, height);
 			_container.addChild(_bg);
 
-			_rect = _container.rect;
+			_width = _container.width;
+			_height = _container.height;
 			layout();
 		}
 
@@ -497,7 +498,7 @@ package com.macro.gUI.containers
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
-			if (p.x < 0 || p.y < 0 || p.x > _rect.width || p.y > _rect.height)
+			if (p.x < 0 || p.y < 0 || p.x > _width || p.y > _height)
 			{
 				return null;
 			}
@@ -529,12 +530,12 @@ package com.macro.gUI.containers
 			if (length == 0)
 			{
 				_bg.y = 0;
-				_bg.resize(_rect.width, _rect.height);
+				_bg.resize(_width, _height);
 				return;
 			}
 
 			var h:int = _tabs[0].height;
-			_bg.resize(_rect.width, _rect.height - h);
+			_bg.resize(_width, _height - h);
 
 			var ox:int;
 			var oy:int;
@@ -563,7 +564,7 @@ package com.macro.gUI.containers
 
 			_currentContainer.x = _margin.left;
 			_currentContainer.y = _margin.top;
-			_currentContainer.resize(_rect.width - _margin.left - _margin.right, _rect.height - _margin.top - _margin.bottom);
+			_currentContainer.resize(_width - _margin.left - _margin.right, _height - _margin.top - _margin.bottom);
 		}
 
 

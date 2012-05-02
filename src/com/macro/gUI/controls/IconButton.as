@@ -102,7 +102,7 @@ package com.macro.gUI.controls
 		{
 			if (_icon)
 			{
-				drawFixed(_bitmapData, _rect, _alignIcon, _icon);
+				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon);
 			}
 		}
 	}

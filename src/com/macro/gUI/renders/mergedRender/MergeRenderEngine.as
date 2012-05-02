@@ -101,8 +101,8 @@ package com.macro.gUI.renders.mergedRender
 
 			// 当前控件的全局区域
 			var controlRect:Rectangle = control.rect;
-			controlRect.x += globalX - control.pivotX;
-			controlRect.y += globalY - control.pivotY;
+			controlRect.x += globalX;
+			controlRect.y += globalY;
 
 			if (control.bitmapData != null)
 			{

@@ -248,11 +248,11 @@ package com.macro.gUI.composite
 			var ox:int;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
-				ox = _rect.width - w >> 1;
+				ox = _width - w >> 1;
 			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
 			{
-				ox = _rect.width - w;
+				ox = _width - w;
 			}
 
 			_icon.x = ox;
@@ -266,13 +266,13 @@ package com.macro.gUI.composite
 			}
 			else if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				_icon.y = _rect.height - _icon.height >> 1;
-				_label.y = _rect.height - _label.height >> 1;
+				_icon.y = _height - _icon.height >> 1;
+				_label.y = _height - _label.height >> 1;
 			}
 			else
 			{
-				_icon.y = _rect.height - _icon.height;
-				_label.y = _rect.height - _label.height;
+				_icon.y = _height - _icon.height;
+				_label.y = _height - _label.height;
 			}
 		}
 

@@ -208,12 +208,12 @@ package com.macro.gUI.controls
 		{
 			if (width == 0)
 			{
-				width = _rect.width;
+				width = _width;
 			}
 
 			if (height == 0)
 			{
-				height = _rect.height;
+				height = _height;
 			}
 
 			drawText(width);
@@ -242,7 +242,7 @@ package com.macro.gUI.controls
 		{
 			if (_textImg)
 			{
-				_textDrawRect = drawFixed(_bitmapData, _rect, _align, _textImg, _padding);
+				_textDrawRect = drawFixed(_bitmapData, _width, _height, _align, _textImg, _padding);
 			}
 		}
 

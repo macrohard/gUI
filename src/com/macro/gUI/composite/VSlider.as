@@ -78,7 +78,7 @@ package com.macro.gUI.composite
 			_container.addChild(_bg);
 			_container.addChild(_blockBtn);
 
-			resize(0, _rect.height);
+			resize(0, _height);
 		}
 
 
@@ -101,7 +101,7 @@ package com.macro.gUI.composite
 				_autoSize = value;
 				if (_autoSize)
 				{
-					resize(0, _rect.height);
+					resize(0, _height);
 				}
 			}
 		}
@@ -124,7 +124,7 @@ package com.macro.gUI.composite
 			_padding = value;
 			if (_autoSize)
 			{
-				resize(0, _rect.height);
+				resize(0, _height);
 			}
 			else
 			{
@@ -254,7 +254,7 @@ package com.macro.gUI.composite
 			_blockBtn.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(0, _rect.height);
+				resize(0, _height);
 			}
 			else
 			{
@@ -273,7 +273,7 @@ package com.macro.gUI.composite
 			_bg.width = value.bitmapData.width;
 			if (_autoSize)
 			{
-				resize(0, _rect.height);
+				resize(0, _height);
 			}
 			else
 			{
@@ -315,7 +315,7 @@ package com.macro.gUI.composite
 
 		public override function setDefaultSize():void
 		{
-			resize(_padding.left + _padding.right, _rect.height);
+			resize(_padding.left + _padding.right, _height);
 		}
 
 
@@ -325,19 +325,19 @@ package com.macro.gUI.composite
 			var w:int = _padding.left + _padding.right;
 			if ((_align & LayoutAlign.CENTER) == LayoutAlign.CENTER)
 			{
-				ox += _rect.width - w >> 1;
+				ox += _width - w >> 1;
 			}
 			else if ((_align & LayoutAlign.RIGHT) == LayoutAlign.RIGHT)
 			{
-				ox += _rect.width - w;
+				ox += _width - w;
 			}
 
 			_bg.x = ox - _bg.skin.gridLeft;
 			_bg.y = _padding.top - _bg.skin.gridTop;
-			_bg.height = _rect.height - _padding.bottom + _bg.skin.paddingBottom - _bg.y;
+			_bg.height = _height - _padding.bottom + _bg.skin.paddingBottom - _bg.y;
 
 			_minY = _padding.top - _blockBtn.skin.gridTop;
-			_maxY = _rect.height - _padding.bottom - _blockBtn.skin.gridTop;
+			_maxY = _height - _padding.bottom - _blockBtn.skin.gridTop;
 			_blockBtn.x = ox - _blockBtn.skin.gridLeft;
 
 			relocateBlock();
@@ -424,7 +424,7 @@ package com.macro.gUI.composite
 		{
 			var p:Point = globalToLocal(new Point(x, y));
 
-			var h:int = _rect.height - _padding.top - _padding.bottom;
+			var h:int = _height - _padding.top - _padding.bottom;
 			var d:int = p.y - _padding.top;
 			this.value = Math.round(d / h * (_maximum - _minimum)) + _minimum;
 		}

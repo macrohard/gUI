@@ -23,8 +23,8 @@ package com.macro.gUI.containers
 		{
 			if (_bitmapData == null)
 			{
-				_rect.width = width <= 0 ? _rect.width : width;
-				_rect.height = height <= 0 ? _rect.height : height;
+				_width = width <= 0 ? _width : width;
+				_height = height <= 0 ? _height : height;
 				uiManager.renderer.updatePaint(this, true);
 				dispatchEvent(new UIEvent(UIEvent.RESIZE));
 			}

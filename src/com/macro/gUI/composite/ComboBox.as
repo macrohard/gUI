@@ -270,7 +270,7 @@ package com.macro.gUI.composite
 			_textInput.disableStyle = disableStyle;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -291,7 +291,7 @@ package com.macro.gUI.composite
 			_textInput.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -316,7 +316,7 @@ package com.macro.gUI.composite
 			_downBtn.disableSkin = disableSkin;
 			if (_autoSize)
 			{
-				resize(_rect.width);
+				resize(_width);
 			}
 			else
 			{
@@ -445,16 +445,16 @@ package com.macro.gUI.composite
 			}
 			else if ((_align & LayoutAlign.MIDDLE) == LayoutAlign.MIDDLE)
 			{
-				_textInput.y = _rect.height - _textInput.height >> 1;
-				_downBtn.y = _rect.height - _downBtn.height >> 1;
+				_textInput.y = _height - _textInput.height >> 1;
+				_downBtn.y = _height - _downBtn.height >> 1;
 			}
 			else
 			{
-				_textInput.y = _rect.height - _textInput.height;
-				_downBtn.y = _rect.height - _downBtn.height;
+				_textInput.y = _height - _textInput.height;
+				_downBtn.y = _height - _downBtn.height;
 			}
 
-			_textInput.width = _rect.width - _downBtn.width;
+			_textInput.width = _width - _downBtn.width;
 			_downBtn.x = _textInput.width;
 		}
 
@@ -472,7 +472,7 @@ package com.macro.gUI.composite
 					var p:Point = _textInput.localToGlobal();
 					_list.x = p.x;
 					_list.y = p.y + _textInput.height;
-					_list.width = _rect.width;
+					_list.width = _width;
 					_list.setHeightByLines(Math.min(_showItems, _list.items.length));
 					if (_list.y + _list.height > uiManager.stageHeight)
 					{

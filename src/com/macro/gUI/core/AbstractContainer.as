@@ -61,7 +61,7 @@ package com.macro.gUI.core
 		 */
 		public function get contentWidth():int
 		{
-			return _rect.width - _margin.left - _margin.right;
+			return _width - _margin.left - _margin.right;
 		}
 
 		/**
@@ -71,7 +71,7 @@ package com.macro.gUI.core
 		 */
 		public function get contentHeight():int
 		{
-			return _rect.height - _margin.top - _margin.bottom;
+			return _height - _margin.top - _margin.bottom;
 		}
 
 
@@ -93,14 +93,14 @@ package com.macro.gUI.core
 		public override function hitTest(x:int, y:int):IControl
 		{
 			var p:Point = globalToLocal(new Point(x, y));
-			if (p.x < 0 || p.y < 0 || p.x > _rect.width || p.y > _rect.height)
+			if (p.x < 0 || p.y < 0 || p.x > _width || p.y > _height)
 			{
 				return null;
 			}
 
-			if (p.x >= _margin.left && p.x <= _rect.width - _margin.right &&
+			if (p.x >= _margin.left && p.x <= _width - _margin.right &&
 					p.y >= _margin.top &&
-					p.y <= _rect.height - _margin.bottom)
+					p.y <= _height - _margin.bottom)
 			{
 				return new CHILD_REGION();
 			}
