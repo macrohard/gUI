@@ -1,4 +1,4 @@
-﻿package com.macro.utils.serialize
+﻿package com.macro.gUI.ani
 {
 
 	import flash.display.Bitmap;
@@ -18,10 +18,6 @@
 	 */
 	public class MovieClipSerials
 	{
-		/**
-		 * 绘制MovieClip时初始大小，绘制完成后，再进行裁剪
-		 */
-		private static const detectArea:Point = new Point(500, 500);
 
 		private var _mc:MovieClip;
 
@@ -29,21 +25,31 @@
 
 		private var _scale:Point;
 
+		private var _detectWidth:int;
+
+		private var _detectHeight:int;
+
 		private var _serials:Vector.<Frame>;
 
 		/**
-		 * MovieClip转位图序列化
+		 * MovieClip转位图序列化。
+		 * 由于可能使用了滤镜、嵌套等方式，因此在初期一次性获取不可行，需要在运行时逐帧处理，
+		 * 一旦取得完整的帧后，MovieClip对象将被释放
 		 * @param mc 用于转换的动画影片剪辑
 		 * @param frameNum 总帧数。由于MovieClip可能嵌套，自动探测帧数不可行。
 		 * @param scale 缩放比，默认原大
+		 * @param detectWidth 探测宽度，默认值200
+		 * @param detectHeight 探测高度，默认值200
 		 *
 		 */
-		public function MovieClipSerials(mc:MovieClip, frameNum:int, scale:Point = null)
+		public function MovieClipSerials(mc:MovieClip, frameNum:int, scale:Point = null, detectWidth:int = 200, detectHeight:int = 200)
 		{
 			_mc = mc;
 			_frameNum = frameNum;
 			_serials = new Vector.<Frame>(frameNum, true);
 			_scale = (scale == null ? new Point(1, 1) : scale);
+			_detectWidth = detectWidth;
+			_detectHeight = detectHeight;
 		}
 
 		/**
@@ -55,8 +61,8 @@
 		public function getFrame(playHead:int):Frame
 		{
 			var f:int = playHead % _frameNum;
-			var temp:BitmapData = new BitmapData(detectArea.x, detectArea.y, true, 0);
-			;
+			var temp:BitmapData = new BitmapData(_detectWidth, _detectHeight, true, 0);
+
 			var m:Matrix = new Matrix(_scale.x, 0, 0, _scale.y);
 			var r:Rectangle;
 			var frame:Frame = _serials[f];

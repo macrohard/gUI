@@ -15,7 +15,7 @@ package com.macro.gUI.renders.mergedRender
 
 
 	/**
-	 * 合并渲染器，由于每帧强制重绘，无须关心BitmapData的重建或重绘问题
+	 * 合并渲染器，每帧重绘
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
@@ -31,11 +31,6 @@ package com.macro.gUI.renders.mergedRender
 		 * 根容器
 		 */
 		private var _root:IContainer;
-
-		/**
-		 * 重绘标记
-		 */
-		private var _needRedraw:Boolean;
 
 
 		/**
@@ -55,65 +50,36 @@ package com.macro.gUI.renders.mergedRender
 
 		public function updateCoord(control:IControl):void
 		{
-			if (control.stage != null)
-			{
-				_needRedraw = true;
-			}
 		}
 
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
-			if (control.stage != null)
-			{
-				_needRedraw = true;
-			}
 		}
 
 		public function addChild(container:IContainer, child:IControl):void
 		{
-			if (container.stage != null)
-			{
-				_needRedraw = true;
-			}
 		}
 
 		public function removeChild(container:IContainer, child:IControl):void
 		{
-			if (container.stage != null)
-			{
-				_needRedraw = true;
-			}
 		}
 
 		public function removeChildren(container:IContainer, childList:Vector.<IControl>):void
 		{
-			if (container.stage != null)
-			{
-				_needRedraw = true;
-			}
 		}
 
 		public function updateChildIndex(container:IContainer, child:IControl):void
 		{
-			if (container.stage != null)
-			{
-				_needRedraw = true;
-			}
 		}
 
 
 
 		protected function enterFrameHandler(e:Event):void
 		{
-			if (_needRedraw)
-			{
-				_canvas.lock();
-				_canvas.fillRect(_root.rect, 0);
-				render(_root, _root.rect, 0, 0);
-				_canvas.unlock();
-
-				_needRedraw = false;
-			}
+			_canvas.lock();
+			_canvas.fillRect(_root.rect, 0);
+			render(_root, _root.rect, 0, 0);
+			_canvas.unlock();
 		}
 
 

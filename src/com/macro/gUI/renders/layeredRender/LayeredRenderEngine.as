@@ -5,7 +5,7 @@ package com.macro.gUI.renders.layeredRender
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.renders.IRenderEngine;
-
+	
 	import flash.display.Bitmap;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Shape;
@@ -151,6 +151,20 @@ package com.macro.gUI.renders.layeredRender
 			removeFromDisplayList(childBitmapList);
 			// 将子控件的Bitmap列表加入显示列表
 			addToDisplayList(childBitmapList, getIndex(container, child));
+		}
+		
+		
+		
+		/**
+		 * 获取控件对应的位图显示对象。
+		 * 注意，未加入舞台的控件没有对应的位图显示对象。
+		 * @param control
+		 * @return 
+		 * 
+		 */
+		public function getBitmap(control:IControl):Bitmap
+		{
+			return _controlToBitmap[control];
 		}
 
 

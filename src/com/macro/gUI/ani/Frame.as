@@ -1,11 +1,11 @@
-package com.macro.utils.serialize
+package com.macro.gUI.ani
 {
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 
 
 	/**
-	 * MovieClip转换后的帧，包含对应的BitmapData及OffsetPoint偏移量
+	 * 帧，包含对应的BitmapData及OffsetPoint偏移量
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
