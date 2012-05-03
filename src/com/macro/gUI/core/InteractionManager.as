@@ -187,7 +187,11 @@ package com.macro.gUI.core
 		 */
 		protected function findTargetControl(control:IControl, mouseX:int, mouseY:int):Boolean
 		{
-			var target:IControl = control.hitTest(mouseX, mouseY);
+			var target:IControl;
+			if (control.visible)
+			{
+				target = control.hitTest(mouseX, mouseY);
+			}
 			if (target != null)
 			{
 				if (control is IContainer && target == AbstractContainer.CHILD_REGION)
