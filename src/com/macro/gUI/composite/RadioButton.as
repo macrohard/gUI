@@ -148,19 +148,19 @@ package com.macro.gUI.composite
 
 
 		/**
-		 * 单选按钮分组标识，不允许使用0<br>
-		 * 注意，由于整个UI体系使用同一个单选按钮群组管理器，因此标识建议使用时间戳，避免重复
+		 * 单选按钮分组标识<br>
+		 * 注意，由于整个UI体系使用同一个单选按钮群组管理器，因此标识要避免重复
 		 * @return
 		 *
 		 */
-		public function get radioGroup():int
+		public function get radioGroup():String
 		{
 			return group.getGroupId(this);
 		}
 
-		public function set radioGroup(value:int):void
+		public function set radioGroup(value:String):void
 		{
-			if (value == 0)
+			if (value == null)
 			{
 				throw new Error("Invalid value!");
 			}

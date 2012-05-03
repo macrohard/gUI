@@ -26,7 +26,7 @@ package com.macro.gUI.assist
 		 * @return
 		 *
 		 */
-		public function getGroupId(rdb:RadioButton):int
+		public function getGroupId(rdb:RadioButton):String
 		{
 			return _rdbGroups[rdb];
 		}
@@ -37,7 +37,7 @@ package com.macro.gUI.assist
 		 * @param groupId
 		 *
 		 */
-		public function setGroupId(rdb:RadioButton, groupId:int):void
+		public function setGroupId(rdb:RadioButton, groupId:String):void
 		{
 			_rdbGroups[rdb] = groupId;
 		}
@@ -49,8 +49,8 @@ package com.macro.gUI.assist
 		 */
 		public function unselect(rdb:RadioButton):void
 		{
-			var id:int = _rdbGroups[rdb];
-			if (id == 0)
+			var id:String = _rdbGroups[rdb];
+			if (id == null)
 			{
 				return;
 			}
