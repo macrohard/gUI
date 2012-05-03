@@ -1,6 +1,5 @@
 package com.macro.gUI.containers
 {
-	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.Viewport;
 	import com.macro.gUI.composite.HScrollBar;
@@ -14,7 +13,6 @@ package com.macro.gUI.containers
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 
-	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -281,22 +279,17 @@ package com.macro.gUI.containers
 			}
 		}
 
-		public function getDragImage():BitmapData
-		{
-			return null;
-		}
-
-		public function getDragMode(target:IControl):int
+		public function getDraggable(target:IControl):Boolean
 		{
 			if (target.parent == _vScrollBar.container)
 			{
-				return _vScrollBar.getDragMode(target);
+				return _vScrollBar.getDraggable(target);
 			}
 			else if (target.parent == _hScrollBar.container)
 			{
-				return _hScrollBar.getDragMode(target);
+				return _hScrollBar.getDraggable(target);
 			}
-			return DragMode.NONE;
+			return false;
 		}
 
 		public function setDragCoord(target:IControl, x:int, y:int):void

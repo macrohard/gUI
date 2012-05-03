@@ -13,19 +13,12 @@ package com.macro.gUI.core.feature
 	public interface IDrag extends IControl
 	{
 		/**
-		 * 拖拽方式，参见DragMode枚举
+		 * 能否拖拽
 		 * @param target 点击的目标控件，基本控件或复合控件的内部控件
 		 * @return
 		 *
 		 */
-		function getDragMode(target:IControl):int;
-
-		/**
-		 * DragMode为AVATAR时调用，获取拖拽图像
-		 * @return 返回null时，放弃拖拽操作
-		 *
-		 */
-		function getDragImage():BitmapData;
+		function getDraggable(target:IControl):Boolean;
 
 		/**
 		 * DragMode为DIRECT时调用，由控件内部自行实现拖拽操作

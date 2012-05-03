@@ -1,7 +1,5 @@
 package com.macro.gUI.core
 {
-	import com.macro.gUI.assist.DragMode;
-	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
 	
 	import flash.display.BitmapData;
@@ -38,11 +36,6 @@ package com.macro.gUI.core
 		private var _dragTarget:IControl;
 
 		/**
-		 * 拖拽模式
-		 */
-		private var _dragMode:int;
-
-		/**
 		 * 拖拽替身图像
 		 */
 		private var _dragAvatar:BitmapData;
@@ -50,6 +43,7 @@ package com.macro.gUI.core
 
 		/**
 		 * 拖拽管理器
+		 * // TODO 实现拖拽任意控件
 		 *
 		 */
 		public function DragManager(top:IContainer)
@@ -66,30 +60,18 @@ package com.macro.gUI.core
 		 */
 		public function startDrag(control:IDrag, target:IControl):void
 		{
-			_dragControl = control;
-			_dragTarget = target;
-			_dragMode = _dragControl.getDragMode(_dragTarget);
-
-			if (_dragMode == DragMode.NONE)
+			if (control.getDraggable(target))
+			{
+				_dragControl = control;
+				_dragTarget = target;
+				
+				Mouse.cursor = MouseCursor.BUTTON;
+				isDragging = true;
+			}
+			else
 			{
 				_dragControl = null;
 				_dragTarget = null;
-			}
-			else if (_dragMode == DragMode.AVATAR)
-			{
-				_dragAvatar = _dragControl.getDragImage();
-				if (_dragAvatar == null)
-				{
-					_dragControl = null;
-					_dragTarget = null;
-				}
-			}
-
-			// 确认开始拖拽
-			if (_dragControl != null)
-			{
-				Mouse.cursor = MouseCursor.BUTTON;
-				isDragging = true;
 			}
 		}
 
@@ -116,15 +98,7 @@ package com.macro.gUI.core
 		 */
 		public function setDragCoord(mouseX:int, mouseY:int):void
 		{
-			// 拖拽中
-			if (_dragMode == DragMode.DIRECT)
-			{
-				_dragControl.setDragCoord(_dragTarget, mouseX, mouseY);
-			}
-			else
-			{
-				// TODO 实现拖拽替身
-			}
+			_dragControl.setDragCoord(_dragTarget, mouseX, mouseY);
 		}
 	}
 }

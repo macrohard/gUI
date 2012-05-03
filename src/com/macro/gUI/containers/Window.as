@@ -1,6 +1,5 @@
 package com.macro.gUI.containers
 {
-	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.assist.TextStyle;
@@ -18,7 +17,6 @@ package com.macro.gUI.containers
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 
-	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -541,7 +539,7 @@ package com.macro.gUI.containers
 		}
 
 
-		public function getDragMode(target:IControl):int
+		public function getDraggable(target:IControl):Boolean
 		{
 			if (target == _container && _isDraggable)
 			{
@@ -553,14 +551,9 @@ package com.macro.gUI.containers
 					_dragArea = new Rectangle(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
 				}
 
-				return DragMode.DIRECT;
+				return true;
 			}
-			return DragMode.NONE;
-		}
-
-		public function getDragImage():BitmapData
-		{
-			return null;
+			return false;
 		}
 
 		public function setDragCoord(target:IControl, x:int, y:int):void

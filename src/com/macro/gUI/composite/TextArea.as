@@ -1,20 +1,18 @@
 package com.macro.gUI.composite
 {
-	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.assist.Viewport;
+	import com.macro.gUI.containers.Container;
+	import com.macro.gUI.containers.Panel;
+	import com.macro.gUI.controls.Label;
 	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-	import com.macro.gUI.containers.Container;
-	import com.macro.gUI.containers.Panel;
-	import com.macro.gUI.controls.Label;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 
-	import flash.display.BitmapData;
 	import flash.geom.Point;
 
 
@@ -148,8 +146,7 @@ package com.macro.gUI.composite
 			// 检测是否在控件范围内
 			var p:Point = _container.globalToLocal(new Point(x, y));
 
-			if (p.x >= 0 && p.x <= _width && p.y >= 0 &&
-					p.y <= _height)
+			if (p.x >= 0 && p.x <= _width && p.y >= 0 && p.y <= _height)
 			{
 				target = _container;
 			}
@@ -292,22 +289,17 @@ package com.macro.gUI.composite
 			}
 		}
 
-		public function getDragImage():BitmapData
-		{
-			return null;
-		}
-
-		public function getDragMode(target:IControl):int
+		public function getDraggable(target:IControl):Boolean
 		{
 			if (target.parent == _vScrollBar.container)
 			{
-				return _vScrollBar.getDragMode(target);
+				return _vScrollBar.getDraggable(target);
 			}
 			else if (target.parent == _hScrollBar.container)
 			{
-				return _hScrollBar.getDragMode(target);
+				return _hScrollBar.getDraggable(target);
 			}
-			return DragMode.NONE;
+			return false;
 		}
 
 		public function setDragCoord(target:IControl, x:int, y:int):void

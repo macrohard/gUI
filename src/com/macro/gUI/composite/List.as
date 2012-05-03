@@ -1,6 +1,5 @@
 package com.macro.gUI.composite
 {
-	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.assist.Viewport;
 	import com.macro.gUI.containers.Container;
@@ -14,8 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-	
-	import flash.display.BitmapData;
+
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -42,7 +40,7 @@ package com.macro.gUI.composite
 		 * 选中的列表项
 		 */
 		protected var _selectItem:ToggleButton;
-		
+
 		/**
 		 * 列表项数据
 		 */
@@ -115,7 +113,7 @@ package com.macro.gUI.composite
 		{
 			return _items;
 		}
-		
+
 		public function set items(value:Vector.<String>):void
 		{
 			_itemContainer.removeChildren();
@@ -144,7 +142,7 @@ package com.macro.gUI.composite
 		{
 			_selectItem = _itemContainer.getChildAt(value) as ToggleButton;
 			resetSkin();
-			
+
 			dispatchEvent(new UIEvent(UIEvent.SELECT));
 		}
 
@@ -304,8 +302,7 @@ package com.macro.gUI.composite
 			// 检测是否在控件范围内
 			var p:Point = _container.globalToLocal(new Point(x, y));
 
-			if (p.x >= 0 && p.x <= _width && p.y >= 0 &&
-					p.y <= _height)
+			if (p.x >= 0 && p.x <= _width && p.y >= 0 && p.y <= _height)
 			{
 				target = _container;
 
@@ -313,8 +310,7 @@ package com.macro.gUI.composite
 				p.x -= _container.margin.left;
 				p.y -= _container.margin.top;
 
-				if (p.x >= 0 && p.x <= _container.contentWidth && p.y >= 0 &&
-						p.y <= _container.contentHeight)
+				if (p.x >= 0 && p.x <= _container.contentWidth && p.y >= 0 && p.y <= _container.contentHeight)
 				{
 					// 检测是否在列表项范围内
 					for each (var item:ToggleButton in _itemContainer.children)
@@ -329,13 +325,13 @@ package com.macro.gUI.composite
 
 			return target;
 		}
-		
-		
-		
+
+
+
 		/**
 		 * 根据行数设置高度
 		 * @param lines
-		 * 
+		 *
 		 */
 		public function setHeightByLines(lines:int):void
 		{
@@ -344,7 +340,7 @@ package com.macro.gUI.composite
 			{
 				itemH = (_itemContainer.getChildAt(0) as ToggleButton).height;
 			}
-			
+
 			this.height = itemH * lines + _container.margin.top + _container.margin.bottom;
 		}
 
@@ -413,7 +409,7 @@ package com.macro.gUI.composite
 				}
 				_selectItem = target as ToggleButton;
 				_selectItem.mouseUp(target);
-				
+
 				dispatchEvent(new UIEvent(UIEvent.SELECT));
 			}
 			else if (target.parent == _scrollBar.container)
@@ -448,23 +444,18 @@ package com.macro.gUI.composite
 
 
 
-		public function getDragMode(target:IControl):int
+		public function getDraggable(target:IControl):Boolean
 		{
 			if (target.parent == _scrollBar.container)
 			{
-				return _scrollBar.getDragMode(target);
+				return _scrollBar.getDraggable(target);
 			}
-			return DragMode.NONE;
+			return false;
 		}
 
 		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
 			_scrollBar.setDragCoord(target, x, y);
-		}
-
-		public function getDragImage():BitmapData
-		{
-			return null;
 		}
 	}
 }

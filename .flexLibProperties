@@ -3,7 +3,6 @@
   <includeClasses>
     <classEntry path="com.macro.gUI.GameUI"/>
     <classEntry path="com.macro.gUI.assist.CtrlState"/>
-    <classEntry path="com.macro.gUI.assist.DragMode"/>
     <classEntry path="com.macro.gUI.assist.LayoutAlign"/>
     <classEntry path="com.macro.gUI.assist.RadioButtonGroup"/>
     <classEntry path="com.macro.gUI.assist.TextStyle"/>

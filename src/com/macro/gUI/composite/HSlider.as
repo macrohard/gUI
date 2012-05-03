@@ -1,6 +1,5 @@
 package com.macro.gUI.composite
 {
-	import com.macro.gUI.assist.DragMode;
 	import com.macro.gUI.assist.LayoutAlign;
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.containers.Container;
@@ -14,8 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-	
-	import flash.display.BitmapData;
+
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -26,8 +24,7 @@ package com.macro.gUI.composite
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class HSlider extends AbstractComposite implements IKeyboard, IDrag,
-			IButton
+	public class HSlider extends AbstractComposite implements IKeyboard, IDrag, IButton
 	{
 
 		protected var _bg:Slice;
@@ -207,7 +204,7 @@ package com.macro.gUI.composite
 			value = Math.round((value - _minimum) / _stepSize) * _stepSize + _minimum;
 			_value = value < _minimum ? _minimum : (value > _maximum ? _maximum : value);
 			relocateBlock();
-			
+
 			dispatchEvent(new UIEvent(UIEvent.VALUE_CHANGED));
 		}
 
@@ -409,18 +406,13 @@ package com.macro.gUI.composite
 
 
 
-		public function getDragMode(target:IControl):int
+		public function getDraggable(target:IControl):Boolean
 		{
 			if (target == _blockBtn)
 			{
-				return DragMode.DIRECT;
+				return true;
 			}
-			return DragMode.NONE;
-		}
-
-		public function getDragImage():BitmapData
-		{
-			return null;
+			return false;
 		}
 
 		public function setDragCoord(target:IControl, x:int, y:int):void
