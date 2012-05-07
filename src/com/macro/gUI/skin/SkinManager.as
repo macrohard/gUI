@@ -4,10 +4,10 @@ package com.macro.gUI.skin
 	import com.macro.gUI.skin.impl.BitmapSkin;
 	import com.macro.gUI.skin.impl.SpriteSkin;
 
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
-	import flash.text.TextFormatAlign;
 	import flash.utils.Dictionary;
 
 
@@ -61,13 +61,17 @@ package com.macro.gUI.skin
 			}
 
 			var s:ISkin;
+			if (value is Bitmap)
+			{
+				s = new BitmapSkin((value as Bitmap).bitmapData, grid, align);
+			}
 			if (value is BitmapData)
 			{
-				s = new BitmapSkin(BitmapData(value), grid, align);
+				s = new BitmapSkin(value as BitmapData, grid, align);
 			}
 			else if (value is Sprite)
 			{
-				s = new SpriteSkin(Sprite(value), grid, align);
+				s = new SpriteSkin(value as Sprite, grid, align);
 			}
 			else
 			{
