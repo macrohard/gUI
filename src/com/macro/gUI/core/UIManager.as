@@ -81,6 +81,7 @@ package com.macro.gUI.core
 
 			skinManager = new SkinManager();
 			popupManager = new PopupManager(this);
+			popupManager.initModalBg(width, height);
 			interactionManager = new InteractionManager(this, displayObjectContainer);
 
 			AbstractControl.init(this);
@@ -162,6 +163,17 @@ package com.macro.gUI.core
 		public function get stageHeight():int
 		{
 			return _stage.height;
+		}
+		
+		
+		public function resize(width:int, height:int):void
+		{
+			_root.resize(width, height);
+			_stage.resize(width, height);
+			_main.resize(width, height);
+			_popup.resize(width, height);
+			_top.resize(width, height);
+			popupManager.initModalBg(width, height);
 		}
 	}
 }

@@ -6,7 +6,7 @@ package com.macro.gUI.renders.mergedRender
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.UIManager;
 	import com.macro.gUI.renders.IRenderEngine;
-
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
@@ -29,6 +29,8 @@ package com.macro.gUI.renders.mergedRender
 		 * 画布
 		 */
 		private var _canvas:BitmapData;
+		
+		private var _bitmap:Bitmap;
 
 		/**
 		 * 根容器
@@ -46,8 +48,8 @@ package com.macro.gUI.renders.mergedRender
 		{
 			_root = root;
 			_canvas = new BitmapData(_root.width, _root.height, true, 0);
-
-			displayObjectContainer.addChild(new Bitmap(_canvas));
+			_bitmap = new Bitmap(_canvas);
+			displayObjectContainer.addChild(_bitmap);
 			displayObjectContainer.addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
 		}
 
@@ -57,6 +59,11 @@ package com.macro.gUI.renders.mergedRender
 
 		public function updatePaint(control:IControl, isRebuild:Boolean):void
 		{
+			if (control == _root && isRebuild)
+			{
+				_canvas = new BitmapData(_root.width, _root.height, true, 0);
+				_bitmap.bitmapData = _canvas;
+			}
 		}
 
 		public function updateVisible(control:IControl):void
