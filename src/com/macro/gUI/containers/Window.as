@@ -144,21 +144,21 @@ package com.macro.gUI.containers
 			_title.style = skinManager.getStyle(StyleDef.WINDOW_TITLE);
 
 			_minBtn = new Button();
-			_minBtn.upSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON);
-			_minBtn.overSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_OVER);
-			_minBtn.downSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_DOWN);
-			_minBtn.disableSkin = skinManager.getSkin(SkinDef.MINIMIZE_BUTTON_DISABLE);
+			_minBtn.upSkin = skinManager.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON);
+			_minBtn.overSkin = skinManager.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON_OVER);
+			_minBtn.downSkin = skinManager.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON_DOWN);
+			_minBtn.disableSkin = skinManager.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON_DISABLE);
 
 			_maxBtn = new Button();
-			_maxBtn.upSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON);
-			_maxBtn.overSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_OVER);
-			_maxBtn.downSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_DOWN);
-			_maxBtn.disableSkin = skinManager.getSkin(SkinDef.MAXIMIZE_BUTTON_DISABLE);
+			_maxBtn.upSkin = skinManager.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON);
+			_maxBtn.overSkin = skinManager.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON_OVER);
+			_maxBtn.downSkin = skinManager.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON_DOWN);
+			_maxBtn.disableSkin = skinManager.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON_DISABLE);
 
 			_closeBtn = new Button();
-			_closeBtn.upSkin = skinManager.getSkin(SkinDef.CLOSE_BUTTON);
-			_closeBtn.overSkin = skinManager.getSkin(SkinDef.CLOSE_BUTTON_OVER);
-			_closeBtn.downSkin = skinManager.getSkin(SkinDef.CLOSE_BUTTON_DOWN);
+			_closeBtn.upSkin = skinManager.getSkin(SkinDef.WINDOW_CLOSE_BUTTON);
+			_closeBtn.overSkin = skinManager.getSkin(SkinDef.WINDOW_CLOSE_BUTTON_OVER);
+			_closeBtn.downSkin = skinManager.getSkin(SkinDef.WINDOW_CLOSE_BUTTON_DOWN);
 
 			_contentContainer = new Container();
 

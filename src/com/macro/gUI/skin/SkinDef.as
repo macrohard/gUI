@@ -199,29 +199,29 @@ package com.macro.gUI.skin
 		public static const WINDOW_BG:String = "window.background";
 
 
-		public static const MINIMIZE_BUTTON:String = "minimize.button.up";
+		public static const WINDOW_MINIMIZE_BUTTON:String = "minimize.button.up";
 
-		public static const MINIMIZE_BUTTON_OVER:String = "minimize.button.over";
+		public static const WINDOW_MINIMIZE_BUTTON_OVER:String = "minimize.button.over";
 
-		public static const MINIMIZE_BUTTON_DOWN:String = "minimize.button.down";
+		public static const WINDOW_MINIMIZE_BUTTON_DOWN:String = "minimize.button.down";
 
-		public static const MINIMIZE_BUTTON_DISABLE:String = "minimize.button.disable";
-
-
-		public static const MAXIMIZE_BUTTON:String = "maximize.button.up";
-
-		public static const MAXIMIZE_BUTTON_OVER:String = "maximize.button.over";
-
-		public static const MAXIMIZE_BUTTON_DOWN:String = "maximize.button.down";
-
-		public static const MAXIMIZE_BUTTON_DISABLE:String = "maximize.button.disable";
+		public static const WINDOW_MINIMIZE_BUTTON_DISABLE:String = "minimize.button.disable";
 
 
-		public static const CLOSE_BUTTON:String = "close.button.up";
+		public static const WINDOW_MAXIMIZE_BUTTON:String = "maximize.button.up";
 
-		public static const CLOSE_BUTTON_OVER:String = "close.button.over";
+		public static const WINDOW_MAXIMIZE_BUTTON_OVER:String = "maximize.button.over";
 
-		public static const CLOSE_BUTTON_DOWN:String = "close.button.down";
+		public static const WINDOW_MAXIMIZE_BUTTON_DOWN:String = "maximize.button.down";
+
+		public static const WINDOW_MAXIMIZE_BUTTON_DISABLE:String = "maximize.button.disable";
+
+
+		public static const WINDOW_CLOSE_BUTTON:String = "close.button.up";
+
+		public static const WINDOW_CLOSE_BUTTON_OVER:String = "close.button.over";
+
+		public static const WINDOW_CLOSE_BUTTON_DOWN:String = "close.button.down";
 
 
 
