@@ -81,11 +81,11 @@ package com.macro.gUI.core
 
 			skinManager = new SkinManager();
 			popupManager = new PopupManager(this);
-			popupManager.initModalBg(width, height);
 			interactionManager = new InteractionManager(this, displayObjectContainer);
 
 			AbstractControl.init(this);
-
+			popupManager.initModalBg(width, height);
+			
 			// 初始化整个UI体系层级结构
 			_root.setStage(_stage);
 			_stage.addChild(_main);
