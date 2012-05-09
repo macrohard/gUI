@@ -9,6 +9,7 @@ package com.macro.gUI
 	import com.macro.logging.TraceAppender;
 	
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Stage;
 
 
 	/**
@@ -75,12 +76,19 @@ package com.macro.gUI
 		 * @param renderMode 渲染模式，默认使用合并渲染
 		 *
 		 */
-		public static function init(container:DisplayObjectContainer, width:int, height:int, renderMode:int = 0):void
+		public static function init(container:DisplayObjectContainer, width:int = 1340, height:int = 620, renderMode:int = 0):void
 		{
 			if (container == null)
 			{
 				throw new Error("Stage can not be null.");
 			}
+			
+			if (container is Stage && width == 1340 && height == 620)
+			{
+				width = (container as Stage).stageWidth;
+				height = (container as Stage).stageHeight;
+			}
+			
 			_uiManager = new UIManager(renderMode, container, width, height);
 
 			Logger.init(new TraceAppender(), new LogFilter(LogLevel.ALL));

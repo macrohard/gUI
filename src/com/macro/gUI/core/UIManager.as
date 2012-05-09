@@ -166,7 +166,7 @@ package com.macro.gUI.core
 		}
 		
 		
-		public function resize(width:int, height:int):void
+		public function resizeStage(width:int, height:int):void
 		{
 			_root.resize(width, height);
 			_stage.resize(width, height);
