@@ -36,7 +36,7 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.BUTTON_NORMAL);
+				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.BUTTON);
 				_styles[CtrlState.OVER] = skinManager.getStyle(StyleDef.BUTTON_OVER);
 				_styles[CtrlState.DOWN] = skinManager.getStyle(StyleDef.BUTTON_DOWN);
 				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.BUTTON_DISABLE);

@@ -38,7 +38,7 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.LINKBUTTON_NORMAL);
+				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.LINKBUTTON);
 				_styles[CtrlState.OVER] = skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
 				_styles[CtrlState.DOWN] = skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
 				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);

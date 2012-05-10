@@ -42,7 +42,7 @@ package com.macro.gUI.skin
 
 
 
-		public static const LINKBUTTON_NORMAL:String = "linkbutton.up";
+		public static const LINKBUTTON:String = "linkbutton.up";
 
 		public static const LINKBUTTON_OVER:String = "linkbutton.over";
 
@@ -52,7 +52,7 @@ package com.macro.gUI.skin
 
 
 
-		public static const BUTTON_NORMAL:String = "button.up";
+		public static const BUTTON:String = "button.up";
 
 		public static const BUTTON_OVER:String = "button.over";
 
