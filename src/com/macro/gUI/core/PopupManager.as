@@ -89,6 +89,7 @@ package com.macro.gUI.core
 
 			if (isModal)
 			{
+				// TODO 允许多重弹出模态窗口，每个模态窗口使用Container封装
 				if (_modalWindow == null)
 				{
 					var layer:int = getPopupWindowLayer(true);
