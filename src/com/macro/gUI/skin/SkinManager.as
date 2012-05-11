@@ -65,7 +65,7 @@ package com.macro.gUI.skin
 			{
 				s = new BitmapSkin((value as Bitmap).bitmapData, grid, align);
 			}
-			if (value is BitmapData)
+			else if (value is BitmapData)
 			{
 				s = new BitmapSkin(value as BitmapData, grid, align);
 			}
