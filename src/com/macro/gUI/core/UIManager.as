@@ -34,7 +34,7 @@ package com.macro.gUI.core
 		 * 弹出窗口管理器
 		 *
 		 */
-		public var popupManager:PopupManager;
+		public var popupManager:PopUpManager;
 
 
 		/**
@@ -61,8 +61,8 @@ package com.macro.gUI.core
 		public function UIManager(renderMode:int, displayObjectContainer:DisplayObjectContainer, width:int, height:int)
 		{
 			_root = new Container(width, height);
-			_stage = new Container(width, height);
 			_main = new Container(width, height);
+			_stage = new Container(width, height);
 			_popup = new Container(width, height);
 			_top = new Container(width, height);
 
@@ -80,43 +80,43 @@ package com.macro.gUI.core
 			}
 
 			skinManager = new SkinManager();
-			popupManager = new PopupManager(this);
+			popupManager = new PopUpManager(this);
 			interactionManager = new InteractionManager(this, displayObjectContainer);
 
 			AbstractControl.init(this);
 			
 			// 初始化整个UI体系层级结构
 			_root.setStage(_stage);
-			_stage.addChild(_main);
-			_stage.addChild(_popup);
+			_main.addChild(_stage);
+			_main.addChild(_popup);
 			
-			_root.addChild(_stage);
+			_root.addChild(_main);
 			_root.addChild(_top);
 		}
 		
 		
 
+		private var _main:Container;
+
+		/**
+		 * 主容器，此容器中的控件会被交互管理器监测
+		 */
+		internal function get main():IContainer
+		{
+			return _main;
+		}
+
+
 		private var _stage:Container;
 
 		/**
-		 * 根容器
+		 * 舞台容器，所有控件都在此容器中
+		 * @return
+		 *
 		 */
 		public function get stage():IContainer
 		{
 			return _stage;
-		}
-
-
-		private var _main:Container;
-
-		/**
-		 * 主容器，所有控件都在此容器中
-		 * @return
-		 *
-		 */
-		public function get mainContainer():IContainer
-		{
-			return _main;
 		}
 
 
@@ -125,7 +125,7 @@ package com.macro.gUI.core
 		/**
 		 * 弹出窗口容器
 		 */
-		public function get popupContainer():IContainer
+		internal function get popup():IContainer
 		{
 			return _popup;
 		}
@@ -137,7 +137,7 @@ package com.macro.gUI.core
 		 * 最上层容器，一般用于交互管理器绘制焦点框、拖拽替身图像、Tip信息显示等
 		 * 此容器中的控件不参与交互
 		 */
-		public function get topContainer():IContainer
+		internal function get top():IContainer
 		{
 			return _top;
 		}
@@ -168,8 +168,8 @@ package com.macro.gUI.core
 		public function resizeStage(width:int, height:int):void
 		{
 			_root.resize(width, height);
-			_stage.resize(width, height);
 			_main.resize(width, height);
+			_stage.resize(width, height);
 			_popup.resize(width, height);
 			_top.resize(width, height);
 			popupManager.resize(width, height);

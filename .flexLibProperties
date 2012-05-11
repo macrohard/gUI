@@ -66,7 +66,7 @@
     <classEntry path="com.macro.gUI.skin.IAnimationSkin"/>
     <classEntry path="com.macro.gUI.core.UIManager"/>
     <classEntry path="com.macro.gUI.renders.RenderMode"/>
-    <classEntry path="com.macro.gUI.core.PopupManager"/>
+    <classEntry path="com.macro.gUI.core.PopUpManager"/>
     <classEntry path="com.macro.gUI.events.UIEvent"/>
     <classEntry path="com.macro.gUI.events.ButtonEvent"/>
     <classEntry path="com.macro.gUI.events.TextInputEvent"/>

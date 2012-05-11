@@ -23,16 +23,16 @@ package com.macro.gUI.core
 		private var _displayObjectContainer:DisplayObjectContainer;
 
 		/**
-		 * 根容器控件
+		 * 主容器控件
 		 */
-		private var _stage:IContainer;
+		private var _main:IContainer;
 
 
 
 		/**
 		 * 弹出窗口管理器
 		 */
-		private var _popupManager:PopupManager;
+		private var _popupManager:PopUpManager;
 
 		/**
 		 * 拖拽管理器
@@ -66,21 +66,21 @@ package com.macro.gUI.core
 		 */
 		public function InteractionManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
 		{
-			_stage = uiManager.stage;
+			_main = uiManager.main;
 			_displayObjectContainer = displayObjectContainer;
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
 
 			_popupManager = uiManager.popupManager;
-			_dragManager = new DragManager(uiManager.topContainer);
-			_focusManager = new FocusManager(uiManager.topContainer, _displayObjectContainer);
+			_dragManager = new DragManager(uiManager.top);
+			_focusManager = new FocusManager(uiManager.top, _displayObjectContainer);
 		}
 
 
 		protected function mouseDownHandler(e:MouseEvent):void
 		{
-			findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			findTargetControl(_main, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 			// 处理弹出菜单
 			_popupManager.autoClosePopupMenu(_mouseControl);
@@ -116,7 +116,7 @@ package com.macro.gUI.core
 
 			var tempC:IControl = _mouseControl;
 			var tempT:IControl = _mouseTarget;
-			findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			findTargetControl(_main, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 			if (tempT != _mouseTarget)
 			{
@@ -151,7 +151,7 @@ package com.macro.gUI.core
 
 			var tempC:IControl = _mouseControl;
 			var tempT:IControl = _mouseTarget;
-			findTargetControl(_stage, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			findTargetControl(_main, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 
 			// 在同一个目标控件范围内移动时不作处理
 			if (tempT == _mouseTarget)

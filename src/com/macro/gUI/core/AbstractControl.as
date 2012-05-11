@@ -378,7 +378,7 @@ package com.macro.gUI.core
 
 
 		/**
-		 * 设置根容器，内部行为，外部无法访问
+		 * 设置舞台容器，内部行为，外部无法访问
 		 * @param stage
 		 *
 		 */

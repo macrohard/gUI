@@ -1,6 +1,6 @@
 package com.macro.gUI
 {
-	import com.macro.gUI.core.PopupManager;
+	import com.macro.gUI.core.PopUpManager;
 	import com.macro.gUI.core.UIManager;
 	import com.macro.gUI.skin.SkinManager;
 	import com.macro.logging.LogFilter;
@@ -46,7 +46,7 @@ package com.macro.gUI
 		 * @return 
 		 * 
 		 */
-		public static function get popupManager():PopupManager
+		public static function get popupManager():PopUpManager
 		{
 			return _uiManager.popupManager;
 		}

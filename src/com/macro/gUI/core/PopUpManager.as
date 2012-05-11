@@ -13,7 +13,7 @@ package com.macro.gUI.core
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class PopupManager
+	public class PopUpManager
 	{
 
 		/**
@@ -43,9 +43,9 @@ package com.macro.gUI.core
 		 * @param popupContainer 弹出窗口容器
 		 *
 		 */
-		public function PopupManager(uiManager:UIManager)
+		public function PopUpManager(uiManager:UIManager)
 		{
-			_popupContainer = uiManager.popupContainer;
+			_popupContainer = uiManager.popup;
 			_modalWindows = new Dictionary(true);
 		}
 		
