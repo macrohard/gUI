@@ -1,13 +1,15 @@
 package com.macro.gUI.core
 {
+	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Canvas;
+	
+	import flash.utils.Dictionary;
 
 
 	/**
 	 * 弹出窗口管理器<br/>
-	 * 窗口层级按从底到顶：普通弹出窗口 -> 模态弹出窗口 -> 弹出菜单<br/>
-	 * 非模态窗口允许同时弹出多个容器，模态窗口一次只允许弹出一个，
-	 * 如果有多个模态窗口，将会被队列。
+	 * 弹出菜单始终处于最顶层，同时最多只有一个菜单弹出，弹出新菜单时会自动关闭旧菜单<br/>
+	 * 模态窗口和非模态窗口允许同时弹出多个，模态窗口会使用Container封装，并添加半透明背景，以隔离鼠标操作
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
@@ -31,19 +33,9 @@ package com.macro.gUI.core
 		private var _initiator:IControl;
 
 		/**
-		 * 当前模态窗口
+		 * 模态窗口哈希表
 		 */
-		private var _modalWindow:IControl;
-
-		/**
-		 * 模态窗口队列
-		 */
-		private var _modals:Vector.<IControl>;
-
-		/**
-		 * 模态窗口半透明背景
-		 */
-		private var _modalBg:Canvas;
+		private var _modalWindows:Dictionary;
 
 
 		/**
@@ -54,21 +46,7 @@ package com.macro.gUI.core
 		public function PopupManager(uiManager:UIManager)
 		{
 			_popupContainer = uiManager.popupContainer;
-			_modals = new Vector.<IControl>();
-		}
-		
-		
-		public function initModalBg(width:int, height:int):void
-		{
-			if (_modalBg == null)
-			{
-				_modalBg = new Canvas(width, height);
-				_modalBg.backgroundColor = 0x33000000;
-			}
-			else
-			{
-				_modalBg.resize(width, height);
-			}
+			_modalWindows = new Dictionary(true);
 		}
 		
 		
@@ -89,66 +67,56 @@ package com.macro.gUI.core
 
 			if (isModal)
 			{
-				// TODO 允许多重弹出模态窗口，每个模态窗口使用Container封装
-				if (_modalWindow == null)
-				{
-					var layer:int = getPopupWindowLayer(true);
-					_popupContainer.addChildAt(window, layer);
-					_popupContainer.addChildAt(_modalBg, layer);
-					_modalWindow = window;
-				}
-				else
-				{
-					_modals.push(window);
-				}
+				var c:Container = new Container(_popupContainer.width, _popupContainer.height);
+				c.backgroundColor = 0x33000000;
+				c.addChild(window);
+				_modalWindows[window] = c;
+				_popupContainer.addChildAt(c, getPopupWindowLayer());
 			}
 			else
 			{
-				_popupContainer.addChildAt(window, getPopupWindowLayer(false));
+				_popupContainer.addChildAt(window, getPopupWindowLayer());
 			}
 		}
 
 		/**
-		 * 移除弹出菜单或窗口
+		 * 移除弹出窗口
 		 * @param window
 		 *
 		 */
 		public function removePopupWindow(window:IControl):void
 		{
-			_popupContainer.removeChild(window);
-
-			if (_modalWindow == window)
+			var c:Container = _modalWindows[window];
+			if (c != null)
 			{
-				// 模态窗口队列中还有元素时，立即弹出新的模态窗口
-				if (_modals.length > 0)
-				{
-					window = _modals.shift();
-					_popupContainer.addChildAt(window, getPopupWindowLayer(true));
-					_modalWindow = window;
-				}
-				else // 模态窗口队列中没有元素了，则移除模态窗口背景控件
-				{
-					_popupContainer.removeChild(_modalBg);
-					_modalWindow = null;
-				}
+				_popupContainer.removeChild(c);
+				_modalWindows[window] = null;
+				delete _modalWindows[window];
+			}
+			else
+			{
+				_popupContainer.removeChild(window);
 			}
 		}
 
 		/**
 		 * 将弹出窗口移到其它弹出窗口之前
-		 * @param window 普通弹出窗口
+		 * @param window 弹出窗口
 		 *
 		 */
 		public function bringToFront(window:IControl):void
 		{
-			// 如果调整层级的窗口是模态窗口，则不处理
-			if (_modalWindow != null && window == _modalWindow)
+			var c:Container = _modalWindows[window];
+			if (c != null)
 			{
-				return;
+				_popupContainer.removeChild(c);
+				_popupContainer.addChildAt(c, getPopupWindowLayer());
 			}
-
-			_popupContainer.removeChild(window);
-			_popupContainer.addChildAt(window, getPopupWindowLayer(false));
+			else
+			{
+				_popupContainer.removeChild(window);
+				_popupContainer.addChildAt(window, getPopupWindowLayer());
+			}
 		}
 
 		/**
@@ -158,8 +126,8 @@ package com.macro.gUI.core
 		 */
 		public function centerPopup(window:IControl):void
 		{
-			window.x = _modalBg.width - window.width >> 1;
-			window.y = _modalBg.height - window.height >> 1;
+			window.x = _popupContainer.width - window.width >> 1;
+			window.y = _popupContainer.height - window.height >> 1;
 		}
 
 		/**
@@ -213,18 +181,11 @@ package com.macro.gUI.core
 
 		/**
 		 * 取得弹出窗口的层级
-		 * @param isModal 是否模态窗口
 		 * @return
 		 *
 		 */
-		private function getPopupWindowLayer(isModal:Boolean):int
+		private function getPopupWindowLayer():int
 		{
-			// 如果不是模态窗口，且当前已有模态窗口，则返回模态窗口背景控件所在的层级
-			if (!isModal && _modalWindow != null)
-			{
-				return _popupContainer.getChildIndex(_modalBg);
-			}
-
 			// 如果当前有弹出菜单，则返回弹出菜单所在的层级
 			if (_popupMenu != null)
 			{
@@ -233,6 +194,15 @@ package com.macro.gUI.core
 
 			// 返回最高层级
 			return _popupContainer.numChildren;
+		}
+		
+		
+		public function resize(width:int, height:int):void
+		{
+			for each (var c:Container in _modalWindows)
+			{
+				c.resize(width, height);
+			}
 		}
 	}
 }

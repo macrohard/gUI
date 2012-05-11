@@ -84,7 +84,6 @@ package com.macro.gUI.core
 			interactionManager = new InteractionManager(this, displayObjectContainer);
 
 			AbstractControl.init(this);
-			popupManager.initModalBg(width, height);
 			
 			// 初始化整个UI体系层级结构
 			_root.setStage(_stage);
@@ -173,7 +172,7 @@ package com.macro.gUI.core
 			_main.resize(width, height);
 			_popup.resize(width, height);
 			_top.resize(width, height);
-			popupManager.initModalBg(width, height);
+			popupManager.resize(width, height);
 		}
 	}
 }
