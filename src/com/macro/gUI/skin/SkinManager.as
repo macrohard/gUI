@@ -43,7 +43,7 @@ package com.macro.gUI.skin
 
 
 		/**
-		 * 注册皮肤
+		 * 创建皮肤
 		 * @param id 皮肤定义关键字，参见SkinDef
 		 * @param value 皮肤图元，目前支持BitmapData, Sprite等格式
 		 * @param grid 九切片中心区域矩形。注意，缩放将使用此矩形的left, top, right, bottom值，而不是width, height。
@@ -53,7 +53,7 @@ package com.macro.gUI.skin
 		 * @return
 		 *
 		 */
-		public function setSkin(id:String, value:Object, grid:Rectangle = null, align:int = 0x11):ISkin
+		public function addSkin(id:String, value:Object, grid:Rectangle = null, align:int = 0x11):ISkin
 		{
 			if (grid == null)
 			{
@@ -80,6 +80,17 @@ package com.macro.gUI.skin
 
 			_skins[id] = s;
 			return s;
+		}
+		
+		/**
+		 * 设置皮肤
+		 * @param id
+		 * @param skin
+		 * 
+		 */
+		public function setSkin(id:String, skin:ISkin):void
+		{
+			_skins[id] = skin;
 		}
 
 
