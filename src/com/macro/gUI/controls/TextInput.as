@@ -96,6 +96,19 @@ package com.macro.gUI.controls
 		{
 			_editable = value;
 		}
+		
+		
+		private var _restrict:String;
+		
+		public function get restrict():String
+		{
+			return _restrict;
+		}
+		
+		public function set restrict(value:String):void
+		{
+			_restrict = value;
+		}
 
 
 
@@ -256,6 +269,7 @@ package com.macro.gUI.controls
 			_editBox = new TextField();
 			_editBox.autoSize = TextFieldAutoSize.LEFT;
 			_editBox.displayAsPassword = _displayAsPassword;
+			_editBox.restrict = _restrict;
 			_editBox.maxChars = _style.maxChars;
 			_editBox.filters = _style.filters;
 			_editBox.defaultTextFormat = _style;

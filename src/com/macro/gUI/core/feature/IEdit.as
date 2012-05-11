@@ -18,6 +18,17 @@ package com.macro.gUI.core.feature
 		 */
 		function get editable():Boolean;
 		
+		function set editable(value:Boolean):void;
+		
+		/**
+		 * 限制用户输入的字符集
+		 * @return 
+		 * 
+		 */
+		function get restrict():String;
+		
+		function set restrict(value:String):void;
+		
 		/**
 		 * 开始编辑
 		 * @return

@@ -229,6 +229,18 @@ package com.macro.gUI.composite
 				selectedIndex = 0;
 			}
 		}
+		
+		
+		public function get restrict():String
+		{
+			return _textInput.restrict;
+		}
+		
+		public function set restrict(value:String):void
+		{
+			_textInput.restrict = value;
+		}
+		
 
 
 		override public function get enabled():Boolean
