@@ -81,6 +81,14 @@ package com.macro.gUI.core
 		 *
 		 */
 		function getChildAt(index:int):IControl;
+		
+		/**
+		 * 根据实例名称获取控件
+		 * @param name
+		 * @return 
+		 * 
+		 */
+		function getChildByName(name:String):IControl;
 
 		/**
 		 * 获取指定控件的深度

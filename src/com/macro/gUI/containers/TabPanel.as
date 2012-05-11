@@ -611,23 +611,18 @@ package com.macro.gUI.containers
 
 		public function getChildAt(index:int):IControl
 		{
-			if (_currentContainer != null)
-			{
-				return _currentContainer.getChildAt(index);
-			}
-			return null;
+			return _currentContainer != null ? _currentContainer.getChildAt(index) : null;
+		}
+		
+		public function getChildByName(name:String):IControl
+		{
+			return _currentContainer != null ? _currentContainer.getChildByName(name) : null;
 		}
 
 		public function getChildIndex(child:IControl):int
 		{
-			if (_currentContainer != null)
-			{
-				return _currentContainer.getChildIndex(child);
-			}
-			return 0;
+			return _currentContainer != null ? _currentContainer.getChildIndex(child) : -1;
 		}
-
-
 
 		public function removeChild(child:IControl):void
 		{
@@ -639,11 +634,7 @@ package com.macro.gUI.containers
 
 		public function removeChildAt(index:int):IControl
 		{
-			if (_currentContainer != null)
-			{
-				return _currentContainer.removeChildAt(index);
-			}
-			return null;
+			return _currentContainer != null ? _currentContainer.removeChildAt(index) : null;
 		}
 
 		public function removeChildren(beginIndex:int = 0, endIndex:int = -1):void

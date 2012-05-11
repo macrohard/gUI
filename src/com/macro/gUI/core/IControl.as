@@ -14,6 +14,15 @@ package com.macro.gUI.core
 	public interface IControl extends IEventDispatcher
 	{
 		/**
+		 * 名称
+		 * @return 
+		 * 
+		 */
+		function get name():String;
+		
+		function set name(value:String):void;
+		
+		/**
 		 * 画布
 		 * @return
 		 *

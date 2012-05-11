@@ -600,6 +600,11 @@ package com.macro.gUI.containers
 		{
 			return _contentContainer.getChildAt(index);
 		}
+		
+		public function getChildByName(name:String):IControl
+		{
+			return _contentContainer.getChildByName(name);
+		}
 
 		public function getChildIndex(child:IControl):int
 		{

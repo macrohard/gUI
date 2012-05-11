@@ -71,6 +71,20 @@ package com.macro.gUI.core
 			_width = width;
 			_height = height;
 		}
+		
+		
+		
+		private var _name:String;
+		
+		public function get name():String
+		{
+			return _name;
+		}
+		
+		public function set name(value:String):void
+		{
+			_name = value;
+		}
 
 
 

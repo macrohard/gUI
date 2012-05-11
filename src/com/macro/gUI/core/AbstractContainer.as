@@ -219,6 +219,18 @@ package com.macro.gUI.core
 			}
 			return null;
 		}
+		
+		public function getChildByName(name:String):IControl
+		{
+			for each (var ic:IControl in _children)
+			{
+				if (ic.name == name)
+				{
+					return ic;
+				}
+			}
+			return null;
+		}
 
 		public function getChildIndex(child:IControl):int
 		{
