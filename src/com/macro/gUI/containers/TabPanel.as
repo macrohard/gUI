@@ -84,13 +84,13 @@ package com.macro.gUI.containers
 		/**
 		 * 标签页面板，仅支持顶部和底部布局样式。<br/>
 		 * 只需定义顶部标签样式即可，底部标签样式将通过垂直翻转得到
-		 * @param tabLayout 标签页布局，默认在顶部，参见TAB_LAYOUT_常量
-		 * @param tabGap 标签间距
 		 * @param width
 		 * @param height
+		 * @param tabLayout 标签页布局，默认在顶部，参见TAB_LAYOUT_常量
+		 * @param tabGap 标签间距
 		 *
 		 */
-		public function TabPanel(tabLayout:int = 0, tabGap:int = -1, width:int = 300, height:int = 200)
+		public function TabPanel(width:int = 100, height:int = 100, tabLayout:int = 0, tabGap:int = -1)
 		{
 			super(width, height);
 

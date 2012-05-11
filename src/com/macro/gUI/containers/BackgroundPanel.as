@@ -2,7 +2,7 @@ package com.macro.gUI.containers
 {
 	import com.macro.gUI.core.AbstractContainer;
 	import com.macro.utils.ImageUtil;
-	
+
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.IBitmapDrawable;
@@ -21,14 +21,14 @@ package com.macro.gUI.containers
 
 		/**
 		 * 背景面板容器，使用外部图元作为面板背景
-		 * @param source 要显示的可绘制对象
-		 * @param autoSize 是否自动根据显示内容设置尺寸
 		 * @param width 初始宽度
 		 * @param height 初始高度
+		 * @param source 要显示的可绘制对象
+		 * @param autoSize 是否自动根据显示内容设置尺寸
 		 * @param align 显示内容的对齐方式，默认左上角对齐
 		 *
 		 */
-		public function BackgroundPanel(source:IBitmapDrawable = null, autoSize:Boolean = true, width:int = 100, height:int = 100,
+		public function BackgroundPanel(width:int = 100, height:int = 100, source:IBitmapDrawable = null, autoSize:Boolean = true,
 										align:int = 0x11)
 		{
 			// 默认大小

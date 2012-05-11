@@ -120,14 +120,14 @@ package com.macro.gUI.containers
 		 * 窗口容器。align属性用于设置标题栏对齐方式<br/>
 		 * 根据margin属性的top确定标题栏的高度，margin的值是根据窗口背景皮肤的九切片定义来设置的，也可以直接设置<br/>
 		 * 默认情况下，窗口可以拖拽，标题栏居中对齐
+		 * @param width
+		 * @param height
 		 * @param title 标题文本
 		 * @param buttonVisible 按钮可见性，默认所有按钮可见，参见BUTTON_VISIBLE_常量
 		 * @param buttonLayout 标题栏按钮布局样式，默认使用XP样式布局，参见BUTTON_LAYOUT_常量
-		 * @param width
-		 * @param height
 		 *
 		 */
-		public function Window(title:String = null, buttonVisible:int = 4, buttonLayout:int = 0, width:int = 300, height:int = 200)
+		public function Window(width:int = 100, height:int = 100, title:String = null, buttonVisible:int = 4, buttonLayout:int = 0)
 		{
 			// 标题栏默认居中对齐
 			super(width, height, 0x22);
