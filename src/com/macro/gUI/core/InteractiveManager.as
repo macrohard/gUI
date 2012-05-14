@@ -17,7 +17,7 @@ package com.macro.gUI.core
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class InteractionManager
+	public class InteractiveManager
 	{
 
 		private var _displayObjectContainer:DisplayObjectContainer;
@@ -64,7 +64,7 @@ package com.macro.gUI.core
 		 * @param displayObjectContainer
 		 *
 		 */
-		public function InteractionManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
+		public function InteractiveManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
 		{
 			_main = uiManager.main;
 			_displayObjectContainer = displayObjectContainer;
@@ -75,6 +75,11 @@ package com.macro.gUI.core
 			_popupManager = uiManager.popupManager;
 			_dragManager = new DragManager(uiManager.top);
 			_focusManager = new FocusManager(uiManager.top, _displayObjectContainer);
+		}
+		
+		public function get mouseControl():IControl
+		{
+			return _mouseControl;
 		}
 
 

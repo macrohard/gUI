@@ -40,7 +40,7 @@ package com.macro.gUI.core
 		/**
 		 * 交互管理器
 		 */
-		internal var interactionManager:InteractionManager;
+		public var interactiveManager:InteractiveManager;
 		
 		
 		/**
@@ -81,7 +81,7 @@ package com.macro.gUI.core
 
 			skinManager = new SkinManager();
 			popupManager = new PopUpManager(this);
-			interactionManager = new InteractionManager(this, displayObjectContainer);
+			interactiveManager = new InteractiveManager(this, displayObjectContainer);
 
 			AbstractControl.init(this);
 			

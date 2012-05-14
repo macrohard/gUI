@@ -35,7 +35,7 @@
     <classEntry path="com.macro.gUI.controls.Slice"/>
     <classEntry path="com.macro.gUI.controls.TextInput"/>
     <classEntry path="com.macro.gUI.controls.ToggleButton"/>
-    <classEntry path="com.macro.gUI.core.InteractionManager"/>
+    <classEntry path="com.macro.gUI.core.InteractiveManager"/>
     <classEntry path="com.macro.gUI.skin.SkinManager"/>
     <classEntry path="com.macro.gUI.renders.mergedRender.MergeRenderEngine"/>
     <classEntry path="com.macro.gUI.render.RComposite"/>
