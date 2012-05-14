@@ -53,7 +53,7 @@ package com.macro.gUI.skin
 		 * @return
 		 *
 		 */
-		public function addSkin(id:String, value:Object, grid:Rectangle = null, align:int = 0x11):ISkin
+		public function createSkin(id:String, value:Object, grid:Rectangle = null, align:int = 0x11):ISkin
 		{
 			if (grid == null)
 			{
@@ -78,7 +78,10 @@ package com.macro.gUI.skin
 				throw new Error("Unsupport skin class type!");
 			}
 
-			_skins[id] = s;
+			if (id != null)
+			{
+				_skins[id] = s;
+			}
 			return s;
 		}
 		
