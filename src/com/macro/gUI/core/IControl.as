@@ -127,7 +127,14 @@ package com.macro.gUI.core
 		 */
 		function hitTest(x:int, y:int):IControl;
 
-
+		/**
+		 * 设置尺寸
+		 * @param width 宽度值，如果为0，则取原值
+		 * @param height 高度值，如果为0，则取原值
+		 * 
+		 */
+		function resize(width:int = 0, height:int = 0):void;
+		
 		
 		
 		/**

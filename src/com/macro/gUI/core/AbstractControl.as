@@ -463,12 +463,6 @@ package com.macro.gUI.core
 
 
 
-		/**
-		 * 重设尺寸
-		 * @param width
-		 * @param height
-		 *
-		 */
 		public function resize(width:int = 0, height:int = 0):void
 		{
 			width = width <= 0 ? _width : width;
