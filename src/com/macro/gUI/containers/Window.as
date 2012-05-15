@@ -16,7 +16,8 @@ package com.macro.gUI.containers
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
+	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -171,6 +172,12 @@ package com.macro.gUI.containers
 			_height = _container.height;
 			setButtonState();
 			layout();
+		}
+		
+		
+		override public function get bitmapData():BitmapData
+		{
+			return _bg.bitmapData;
 		}
 
 

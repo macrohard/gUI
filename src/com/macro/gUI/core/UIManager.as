@@ -61,10 +61,15 @@ package com.macro.gUI.core
 		public function UIManager(renderMode:int, displayObjectContainer:DisplayObjectContainer, width:int, height:int)
 		{
 			_root = new Container(width, height);
+			_root.name = "Root";
 			_main = new Container(width, height);
+			_main.name = "Main";
 			_stage = new Container(width, height);
+			_stage.name = "Stage";
 			_popup = new Container(width, height);
+			_popup.name = "Popup";
 			_top = new Container(width, height);
+			_top.name = "Top";
 
 			if (renderMode == RenderMode.RENDER_MODE_MERGE)
 			{

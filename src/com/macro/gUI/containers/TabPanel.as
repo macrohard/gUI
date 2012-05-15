@@ -120,6 +120,12 @@ package com.macro.gUI.containers
 			_height = _container.height;
 			layout();
 		}
+		
+		
+		override public function get bitmapData():BitmapData
+		{
+			return _bg.bitmapData;
+		}
 
 
 		private var _tabLayout:int;
