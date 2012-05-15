@@ -3,7 +3,7 @@ package com.macro.gUI.core
 
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
@@ -85,7 +85,7 @@ package com.macro.gUI.core
 
 		protected function mouseDownHandler(e:MouseEvent):void
 		{
-			findTargetControl(_main, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			search();
 
 			// 处理弹出菜单
 			_popupManager.autoClosePopupMenu(_mouseControl);
@@ -121,7 +121,7 @@ package com.macro.gUI.core
 
 			var tempC:IControl = _mouseControl;
 			var tempT:IControl = _mouseTarget;
-			findTargetControl(_main, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			search();
 
 			if (tempT != _mouseTarget)
 			{
@@ -156,7 +156,7 @@ package com.macro.gUI.core
 
 			var tempC:IControl = _mouseControl;
 			var tempT:IControl = _mouseTarget;
-			findTargetControl(_main, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			search();
 
 			// 在同一个目标控件范围内移动时不作处理
 			if (tempT == _mouseTarget)
@@ -181,21 +181,39 @@ package com.macro.gUI.core
 				(_mouseControl as IButton).mouseOver(_mouseTarget);
 			}
 		}
+		
+		
+		private function search():void
+		{
+			var ret:Vector.<IControl> = findTargetControl(_main, _displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+			if (ret == null)
+			{
+				_mouseControl = null;
+				_mouseTarget = null;
+			}
+			else
+			{
+				_mouseControl = ret[0];
+				_mouseTarget = ret[1];
+			}
+		}
 
 
 
 		/**
-		 * 遍历查找鼠标所在的控件
-		 * @param control
-		 * @return
-		 *
+		 * 遍历查找坐标位置所在的控件
+		 * @param control 查找的起点控件
+		 * @param x 全局坐标，即显示对象容器的本地坐标
+		 * @param y 全局坐标，即显示对象容器的本地坐标
+		 * @return 如果未找到目标，则返回null，找到目标时，返回一个数组，第一项是找到的外层控件，第二项是实际目标控件
+		 * 
 		 */
-		protected function findTargetControl(control:IControl, mouseX:int, mouseY:int):Boolean
+		public function findTargetControl(control:IControl, x:int, y:int):Vector.<IControl>
 		{
 			var target:IControl;
 			if (control.visible)
 			{
-				target = control.hitTest(mouseX, mouseY);
+				target = control.hitTest(x, y);
 			}
 			if (target != null)
 			{
@@ -204,29 +222,24 @@ package com.macro.gUI.core
 					var container:IContainer = control as IContainer;
 					for (var i:int = container.numChildren - 1; i >= 0; i--)
 					{
-						if (findTargetControl(container.getChildAt(i), mouseX, mouseY))
+						var ret:Vector.<IControl> = findTargetControl(container.getChildAt(i), x, y);
+						if (ret != null)
 						{
-							return true;
+							return ret;
 						}
 					}
 
 					if (control.bitmapData == null)
 					{
-						_mouseTarget = null;
-						_mouseControl = null;
-						return false;
+						return null;
 					}
 				}
 
-				_mouseTarget = target;
-				_mouseControl = control;
-				return true;
+				return new <IControl> [control, target];
 			}
 			else
 			{
-				_mouseTarget = null;
-				_mouseControl = null;
-				return false;
+				return null;
 			}
 
 		}
