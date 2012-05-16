@@ -62,14 +62,14 @@ package com.macro.gUI.composite
 			//四周边距均默认为10
 			_padding = new Margin(10, 10, 10, 10);
 
-			var skin:ISkin = skinManager.getSkin(SkinDef.SLIDER_VERTICAL_BG);
+			var skin:ISkin = skinMgr.getSkin(SkinDef.SLIDER_VERTICAL_BG);
 			_bg = new Slice(skin, skin.bitmapData.width, height);
 
 			_blockBtn = new Button();
-			_blockBtn.upSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK);
-			_blockBtn.overSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_OVER);
-			_blockBtn.downSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_DOWN);
-			_blockBtn.disableSkin = skinManager.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);
+			_blockBtn.upSkin = skinMgr.getSkin(SkinDef.SLIDER_BLOCK);
+			_blockBtn.overSkin = skinMgr.getSkin(SkinDef.SLIDER_BLOCK_OVER);
+			_blockBtn.downSkin = skinMgr.getSkin(SkinDef.SLIDER_BLOCK_DOWN);
+			_blockBtn.disableSkin = skinMgr.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);
 
 			_container = new Container();
 			_container.addChild(_bg);

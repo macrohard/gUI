@@ -61,10 +61,10 @@ package com.macro.gUI.composite
 
 			_label = new Label(text);
 			_icon = new ToggleButton(null, 0x22);
-			_icon.overSkin = _icon.downSkin = _icon.upSkin = skinManager.getSkin(SkinDef.RADIOBUTTON);
-			_icon.disableSkin = skinManager.getSkin(SkinDef.RADIOBUTTON_DISABLE);
-			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = skinManager.getSkin(SkinDef.RADIOBUTTON_SELECTED);
-			_icon.selectedDisableSkin = skinManager.getSkin(SkinDef.RADIOBUTTON_SELECTED_DISABLE);
+			_icon.overSkin = _icon.downSkin = _icon.upSkin = skinMgr.getSkin(SkinDef.RADIOBUTTON);
+			_icon.disableSkin = skinMgr.getSkin(SkinDef.RADIOBUTTON_DISABLE);
+			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = skinMgr.getSkin(SkinDef.RADIOBUTTON_SELECTED);
+			_icon.selectedDisableSkin = skinMgr.getSkin(SkinDef.RADIOBUTTON_SELECTED_DISABLE);
 
 			_container = new Container();
 			_container.addChild(_icon);

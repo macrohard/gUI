@@ -58,13 +58,13 @@ package com.macro.gUI.composite
 			_hScrollBar = new HScrollBar();
 
 			_label = new Label();
-			_label.style = skinManager.getStyle(StyleDef.TEXTAREA);
+			_label.style = skinMgr.getStyle(StyleDef.TEXTAREA);
 
 			_displayContainer = new Container();
 			_displayContainer.addChild(_label);
 
 			_container = new Panel(width, height);
-			(_container as Panel).bgSkin = skinManager.getSkin(SkinDef.TEXTAREA_BG);
+			(_container as Panel).bgSkin = skinMgr.getSkin(SkinDef.TEXTAREA_BG);
 			_container.addChild(_displayContainer);
 
 			_width = _container.width;

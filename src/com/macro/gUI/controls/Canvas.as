@@ -31,7 +31,7 @@ package com.macro.gUI.controls
 		public function set bitmapData(value:BitmapData):void
 		{
 			_bitmapData = value;
-			uiManager.renderer.updatePaint(this, true);
+			uiMgr.renderer.updatePaint(this, true);
 		}
 		
 		
@@ -41,7 +41,7 @@ package com.macro.gUI.controls
 		 */
 		public function update():void
 		{
-			uiManager.renderer.updatePaint(this, false);
+			uiMgr.renderer.updatePaint(this, false);
 		}
 	}
 }

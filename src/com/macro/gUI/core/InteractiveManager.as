@@ -32,17 +32,17 @@ package com.macro.gUI.core
 		/**
 		 * 弹出窗口管理器
 		 */
-		private var _popupManager:PopUpManager;
+		private var _popupMgr:PopUpManager;
 
 		/**
 		 * 拖拽管理器
 		 */
-		private var _dragManager:DragManager;
+		private var _dragMgr:DragManager;
 
 		/**
 		 * 焦点管理器
 		 */
-		private var _focusManager:FocusManager;
+		private var _focusMgr:FocusManager;
 
 
 
@@ -66,15 +66,15 @@ package com.macro.gUI.core
 		 */
 		public function InteractiveManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
 		{
-			_main = uiManager.main;
+			_main = uiManager._main;
 			_displayObjectContainer = displayObjectContainer;
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
 
-			_popupManager = uiManager.popupManager;
-			_dragManager = new DragManager(uiManager.top);
-			_focusManager = new FocusManager(uiManager.top, _displayObjectContainer);
+			_popupMgr = uiManager.popupManager;
+			_dragMgr = uiManager.dragManager;
+			_focusMgr = uiManager.focusManager;
 		}
 		
 		public function get mouseControl():IControl
@@ -88,10 +88,10 @@ package com.macro.gUI.core
 			search();
 
 			// 处理弹出菜单
-			_popupManager.autoClosePopupMenu(_mouseControl);
+			_popupMgr.autoClosePopupMenu(_mouseControl);
 
 			// 处理焦点
-			_focusManager.focus(_mouseControl, _mouseTarget);
+			_focusMgr.focus(_mouseControl, _mouseTarget);
 
 			if (_mouseControl == null || _mouseControl.enabled == false || _mouseTarget.enabled == false)
 			{
@@ -107,16 +107,16 @@ package com.macro.gUI.core
 			// 处理拖拽
 			if (_mouseControl is IDrag)
 			{
-				_dragManager.startDrag(_mouseControl as IDrag, _mouseTarget);
+				_dragMgr.startDrag(_mouseControl as IDrag, _mouseTarget);
 			}
 		}
 
 		protected function mouseUpHandler(e:MouseEvent):void
 		{
-			if (_dragManager.isDragging)
+			if (_dragMgr.isDragging)
 			{
 				// 结束拖拽
-				_dragManager.stopDrag();
+				_dragMgr.stopDrag();
 			}
 
 			var tempC:IControl = _mouseControl;
@@ -146,10 +146,10 @@ package com.macro.gUI.core
 
 		protected function mouseMoveHandler(e:MouseEvent):void
 		{
-			if (_dragManager.isDragging)
+			if (_dragMgr.isDragging)
 			{
 				// 正在拖拽
-				_dragManager.setDragCoord(_displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
+				_dragMgr.setDragCoord(_displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 				return;
 			}
 

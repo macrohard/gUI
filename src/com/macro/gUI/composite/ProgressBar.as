@@ -51,10 +51,10 @@ package com.macro.gUI.composite
 			_autoSize = true;
 			_mask = mask;
 
-			var skin:ISkin = skinManager.getSkin(SkinDef.PROGRESSBAR_BG);
+			var skin:ISkin = skinMgr.getSkin(SkinDef.PROGRESSBAR_BG);
 			_bg = new Slice(skin, width, skin.bitmapData.height);
 
-			_fillingSkin = skinManager.getSkin(SkinDef.PROGRESSBAR_FILLING);
+			_fillingSkin = skinMgr.getSkin(SkinDef.PROGRESSBAR_FILLING);
 			_canvas = new Canvas(width - skin.gridLeft - skin.gridRight, _fillingSkin.bitmapData.height);
 
 			_container = new Container();

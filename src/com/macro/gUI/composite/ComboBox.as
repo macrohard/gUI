@@ -52,16 +52,16 @@ package com.macro.gUI.composite
 
 			_textInput = new TextInput(text);
 			_textInput.editable = false;
-			_textInput.bgSkin = skinManager.getSkin(SkinDef.COMBO_INPUT_BG);
-			_textInput.disableSkin = skinManager.getSkin(SkinDef.COMBO_INPUT_BG_DISABLE);
-			_textInput.style = skinManager.getStyle(StyleDef.COMBO_INPUT);
-			_textInput.disableStyle = skinManager.getStyle(StyleDef.COMBO_INPUT_DISABLE);
+			_textInput.bgSkin = skinMgr.getSkin(SkinDef.COMBO_INPUT_BG);
+			_textInput.disableSkin = skinMgr.getSkin(SkinDef.COMBO_INPUT_BG_DISABLE);
+			_textInput.style = skinMgr.getStyle(StyleDef.COMBO_INPUT);
+			_textInput.disableStyle = skinMgr.getStyle(StyleDef.COMBO_INPUT_DISABLE);
 
 			_downBtn = new Button();
-			_downBtn.upSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON);
-			_downBtn.overSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON_OVER);
-			_downBtn.downSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON_DOWN);
-			_downBtn.disableSkin = skinManager.getSkin(SkinDef.COMBO_BUTTON_DISABLE);
+			_downBtn.upSkin = skinMgr.getSkin(SkinDef.COMBO_BUTTON);
+			_downBtn.overSkin = skinMgr.getSkin(SkinDef.COMBO_BUTTON_OVER);
+			_downBtn.downSkin = skinMgr.getSkin(SkinDef.COMBO_BUTTON_DOWN);
+			_downBtn.disableSkin = skinMgr.getSkin(SkinDef.COMBO_BUTTON_DISABLE);
 
 			_container = new Container();
 			_container.addChild(_textInput);
@@ -72,38 +72,38 @@ package com.macro.gUI.composite
 			_list.addEventListener(UIEvent.SELECT, listSelectHandler);
 
 			var skin:ISkin;
-			skin = skinManager.getSkin(SkinDef.COMBO_LIST_BG);
+			skin = skinMgr.getSkin(SkinDef.COMBO_LIST_BG);
 			if (skin != null)
 			{
 				_list.setBgSkin(skin);
 			}
 
-			var itemSkin:ISkin = skinManager.getSkin(SkinDef.COMBO_LIST_ITEM_BG);
+			var itemSkin:ISkin = skinMgr.getSkin(SkinDef.COMBO_LIST_ITEM_BG);
 			if (itemSkin == null)
 			{
-				itemSkin = skinManager.getSkin(SkinDef.LIST_ITEM_BG);
+				itemSkin = skinMgr.getSkin(SkinDef.LIST_ITEM_BG);
 			}
-			var itemOverSkin:ISkin = skinManager.getSkin(SkinDef.COMBO_LIST_ITEM_OVER_BG);
+			var itemOverSkin:ISkin = skinMgr.getSkin(SkinDef.COMBO_LIST_ITEM_OVER_BG);
 			if (itemOverSkin == null)
 			{
-				itemOverSkin = skinManager.getSkin(SkinDef.LIST_ITEM_OVER_BG);
+				itemOverSkin = skinMgr.getSkin(SkinDef.LIST_ITEM_OVER_BG);
 			}
-			var itemSelectedSkin:ISkin = skinManager.getSkin(SkinDef.COMBO_LIST_ITEM_SELECTED_BG);
+			var itemSelectedSkin:ISkin = skinMgr.getSkin(SkinDef.COMBO_LIST_ITEM_SELECTED_BG);
 			if (itemSelectedSkin == null)
 			{
-				itemSelectedSkin = skinManager.getSkin(SkinDef.LIST_ITEM_SELECTED_BG);
+				itemSelectedSkin = skinMgr.getSkin(SkinDef.LIST_ITEM_SELECTED_BG);
 			}
 			_list.setItemSkin(itemSkin, itemOverSkin, itemSelectedSkin);
 
-			var itemStyle:TextStyle = skinManager.getStyle(StyleDef.COMBO_LIST_ITEM);
+			var itemStyle:TextStyle = skinMgr.getStyle(StyleDef.COMBO_LIST_ITEM);
 			if (itemStyle == null)
 			{
-				itemStyle = skinManager.getStyle(StyleDef.LIST_ITEM);
+				itemStyle = skinMgr.getStyle(StyleDef.LIST_ITEM);
 			}
-			var itemSelectedStyle:TextStyle = skinManager.getStyle(StyleDef.COMBO_LIST_ITEM_SELECTED);
+			var itemSelectedStyle:TextStyle = skinMgr.getStyle(StyleDef.COMBO_LIST_ITEM_SELECTED);
 			if (itemSelectedStyle == null)
 			{
-				itemSelectedStyle = skinManager.getStyle(StyleDef.LIST_ITEM_SELECTED);
+				itemSelectedStyle = skinMgr.getStyle(StyleDef.LIST_ITEM_SELECTED);
 			}
 			_list.setItemStyle(itemStyle, itemSelectedStyle);
 
@@ -400,7 +400,7 @@ package com.macro.gUI.composite
 		private function listSelectHandler(e:UIEvent):void
 		{
 			_textInput.text = _list.selectedText;
-			uiManager.popupManager.removePopupMenu();
+			uiMgr.popupManager.removePopupMenu();
 			
 			dispatchEvent(new UIEvent(UIEvent.SELECT));
 		}
@@ -486,20 +486,20 @@ package com.macro.gUI.composite
 					_list.y = p.y + _textInput.height;
 					_list.width = _width;
 					_list.setHeightByLines(Math.min(_showItems, _list.items.length));
-					if (_list.y + _list.height > uiManager.stageHeight)
+					if (_list.y + _list.height > uiMgr.stageHeight)
 					{
 						_list.y = p.y - _list.height;
 					}
-					uiManager.popupManager.addPopupMenu(_list, this);
+					uiMgr.popupManager.addPopupMenu(_list, this);
 				}
 				else
 				{
-					uiManager.popupManager.removePopupMenu();
+					uiMgr.popupManager.removePopupMenu();
 				}
 			}
 			else if (target == _textInput)
 			{
-				uiManager.popupManager.removePopupMenu();
+				uiMgr.popupManager.removePopupMenu();
 			}
 		}
 

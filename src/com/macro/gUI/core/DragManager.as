@@ -46,9 +46,9 @@ package com.macro.gUI.core
 		 * // TODO 实现拖拽任意控件
 		 *
 		 */
-		public function DragManager(top:IContainer)
+		public function DragManager(uiManager:UIManager)
 		{
-			_top = top;
+			_top = uiManager._top;
 		}
 
 

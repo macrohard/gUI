@@ -45,7 +45,7 @@ package com.macro.gUI.core
 		 */
 		public function PopUpManager(uiManager:UIManager)
 		{
-			_popupContainer = uiManager.popup;
+			_popupContainer = uiManager._popup;
 			_modalWindows = new Dictionary(true);
 		}
 		

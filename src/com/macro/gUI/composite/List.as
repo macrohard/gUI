@@ -88,15 +88,15 @@ package com.macro.gUI.composite
 			_scrollBar = new VScrollBar();
 
 			_container = new Panel(width, height);
-			(_container as Panel).bgSkin = skinManager.getSkin(SkinDef.LIST_BG);
+			(_container as Panel).bgSkin = skinMgr.getSkin(SkinDef.LIST_BG);
 			_container.addChild(_itemContainer);
 
-			_itemStyle = skinManager.getStyle(StyleDef.LIST_ITEM);
-			_itemSelectedStyle = skinManager.getStyle(StyleDef.LIST_ITEM_SELECTED);
+			_itemStyle = skinMgr.getStyle(StyleDef.LIST_ITEM);
+			_itemSelectedStyle = skinMgr.getStyle(StyleDef.LIST_ITEM_SELECTED);
 
-			_itemSkin = skinManager.getSkin(SkinDef.LIST_ITEM_BG);
-			_itemOverSkin = skinManager.getSkin(SkinDef.LIST_ITEM_OVER_BG);
-			_itemSelectedSkin = skinManager.getSkin(SkinDef.LIST_ITEM_SELECTED_BG);
+			_itemSkin = skinMgr.getSkin(SkinDef.LIST_ITEM_BG);
+			_itemOverSkin = skinMgr.getSkin(SkinDef.LIST_ITEM_OVER_BG);
+			_itemSelectedSkin = skinMgr.getSkin(SkinDef.LIST_ITEM_SELECTED_BG);
 
 			_width = _container.width;
 			_height = _container.height;

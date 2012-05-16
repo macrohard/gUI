@@ -36,19 +36,19 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.BUTTON);
-				_styles[CtrlState.OVER] = skinManager.getStyle(StyleDef.BUTTON_OVER);
-				_styles[CtrlState.DOWN] = skinManager.getStyle(StyleDef.BUTTON_DOWN);
-				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.BUTTON_DISABLE);
+				_styles[CtrlState.UP] = skinMgr.getStyle(StyleDef.BUTTON);
+				_styles[CtrlState.OVER] = skinMgr.getStyle(StyleDef.BUTTON_OVER);
+				_styles[CtrlState.DOWN] = skinMgr.getStyle(StyleDef.BUTTON_DOWN);
+				_styles[CtrlState.DISABLE] = skinMgr.getStyle(StyleDef.BUTTON_DISABLE);
 			}
 
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.UP] = skinManager.getSkin(SkinDef.BUTTON);
-				_skins[CtrlState.OVER] = skinManager.getSkin(SkinDef.BUTTON_OVER);
-				_skins[CtrlState.DOWN] = skinManager.getSkin(SkinDef.BUTTON_DOWN);
-				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.BUTTON_DISABLE);
+				_skins[CtrlState.UP] = skinMgr.getSkin(SkinDef.BUTTON);
+				_skins[CtrlState.OVER] = skinMgr.getSkin(SkinDef.BUTTON_OVER);
+				_skins[CtrlState.DOWN] = skinMgr.getSkin(SkinDef.BUTTON_DOWN);
+				_skins[CtrlState.DISABLE] = skinMgr.getSkin(SkinDef.BUTTON_DISABLE);
 			}
 
 			_skin = _skin ? _skin : _skins[CtrlState.UP];

@@ -49,7 +49,7 @@ package com.macro.gUI.controls
 
 			_align = align;
 
-			_style = _style ? _style : skinManager.getStyle(StyleDef.LABEL);
+			_style = _style ? _style : skinMgr.getStyle(StyleDef.LABEL);
 
 			_text = text;
 

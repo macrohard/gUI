@@ -79,27 +79,27 @@ package com.macro.gUI.composite
 			_padding = new Margin(8, 10, 8, 10);
 
 
-			var skin:ISkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BG);
+			var skin:ISkin = skinMgr.getSkin(SkinDef.SCROLLBAR_VERTICAL_BG);
 			_track = new Slice(skin, skin.bitmapData.width, height);
 
 			_blockBtn = new Button();
-			_blockBtn.upSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK);
-			_blockBtn.overSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_OVER);
-			_blockBtn.downSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DOWN);
-			_blockBtn.disableSkin = skinManager.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DISABLE);
+			_blockBtn.upSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK);
+			_blockBtn.overSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_OVER);
+			_blockBtn.downSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DOWN);
+			_blockBtn.disableSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_VERTICAL_BLOCK_DISABLE);
 			_blockBtn.autoSize = false;
 
 			_upBtn = new Button();
-			_upBtn.upSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP);
-			_upBtn.overSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_OVER);
-			_upBtn.downSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_DOWN);
-			_upBtn.disableSkin = skinManager.getSkin(SkinDef.SCROLLBAR_UP_DISABLE);
+			_upBtn.upSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_UP);
+			_upBtn.overSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_UP_OVER);
+			_upBtn.downSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_UP_DOWN);
+			_upBtn.disableSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_UP_DISABLE);
 
 			_downBtn = new Button();
-			_downBtn.upSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN);
-			_downBtn.overSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_OVER);
-			_downBtn.downSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DOWN);
-			_downBtn.disableSkin = skinManager.getSkin(SkinDef.SCROLLBAR_DOWN_DISABLE);
+			_downBtn.upSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_DOWN);
+			_downBtn.overSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_DOWN_OVER);
+			_downBtn.downSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_DOWN_DOWN);
+			_downBtn.disableSkin = skinMgr.getSkin(SkinDef.SCROLLBAR_DOWN_DISABLE);
 
 			_container = new Container();
 			_container.addChild(_track);

@@ -170,7 +170,7 @@ package com.macro.gUI.core
 		public function set x(value:int):void
 		{
 			_x = value;
-			uiManager.renderer.updateCoord(this);
+			uiMgr.renderer.updateCoord(this);
 		}
 
 
@@ -189,7 +189,7 @@ package com.macro.gUI.core
 		public function set y(value:int):void
 		{
 			_y = value;
-			uiManager.renderer.updateCoord(this);
+			uiMgr.renderer.updateCoord(this);
 		}
 
 
@@ -251,7 +251,7 @@ package com.macro.gUI.core
 			if (_alpha != value)
 			{
 				_alpha = value;
-				uiManager.renderer.updateAlpha(this);
+				uiMgr.renderer.updateAlpha(this);
 			}
 		}
 
@@ -268,7 +268,7 @@ package com.macro.gUI.core
 			if (_visible != value)
 			{
 				_visible = value;
-				uiManager.renderer.updateVisible(this);
+				uiMgr.renderer.updateVisible(this);
 			}
 		}
 
@@ -311,7 +311,7 @@ package com.macro.gUI.core
 			if (_pivotX != value)
 			{
 				_pivotX = value;
-				uiManager.renderer.updateCoord(this);
+				uiMgr.renderer.updateCoord(this);
 			}
 		}
 
@@ -328,7 +328,7 @@ package com.macro.gUI.core
 			if (_pivotY != value)
 			{
 				_pivotY = value;
-				uiManager.renderer.updateCoord(this);
+				uiMgr.renderer.updateCoord(this);
 			}
 		}
 
@@ -516,12 +516,12 @@ package com.macro.gUI.core
 				}
 
 				_bitmapData = new BitmapData(_width, _height, _transparent, _bgColor);
-				uiManager.renderer.updatePaint(this, true);
+				uiMgr.renderer.updatePaint(this, true);
 			}
 			else
 			{
 				_bitmapData.fillRect(_bitmapData.rect, _bgColor);
-				uiManager.renderer.updatePaint(this, false);
+				uiMgr.renderer.updatePaint(this, false);
 			}
 
 			prePaint();
@@ -580,12 +580,12 @@ package com.macro.gUI.core
 		/**
 		 * 界面管理器
 		 */
-		protected static var uiManager:UIManager;
+		protected static var uiMgr:UIManager;
 
 		/**
 		 * 皮肤管理器
 		 */
-		protected static var skinManager:SkinManager;
+		protected static var skinMgr:SkinManager;
 
 
 		/**
@@ -597,8 +597,8 @@ package com.macro.gUI.core
 		 */
 		internal static function init(uiManager:UIManager):void
 		{
-			AbstractControl.uiManager = uiManager;
-			AbstractControl.skinManager = uiManager.skinManager;
+			AbstractControl.uiMgr = uiManager;
+			AbstractControl.skinMgr = uiManager.skinManager;
 		}
 
 

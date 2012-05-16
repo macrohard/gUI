@@ -27,8 +27,8 @@ package com.macro.gUI.controls
 		 */
 		public function TitleBar(text:String = null, skin:ISkin = null, autoSize:Boolean = false, align:int = 0x22)
 		{
-			_style = _style ? _style : skinManager.getStyle(StyleDef.TITLEBAR);
-			_skin = skin ? skin : skinManager.getSkin(SkinDef.TITLEBAR_BG);
+			_style = _style ? _style : skinMgr.getStyle(StyleDef.TITLEBAR);
+			_skin = skin ? skin : skinMgr.getSkin(SkinDef.TITLEBAR_BG);
 			_padding = _padding ? _padding : new Margin(5, 0, 5, 0);
 
 			super(text, autoSize, align);

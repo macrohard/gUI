@@ -55,7 +55,7 @@ package com.macro.gUI.core
 			if (value != null)
 			{
 				_margin = value;
-				uiManager.renderer.updateCoord(this);
+				uiMgr.renderer.updateCoord(this);
 			}
 		}
 
@@ -125,7 +125,7 @@ package com.macro.gUI.core
 			(child as AbstractControl).setParent(this);
 			setChildStage(child, stage);
 
-			uiManager.renderer.addChild(this, child);
+			uiMgr.renderer.addChild(this, child);
 		}
 
 		public function addChildAt(child:IControl, index:int):void
@@ -150,7 +150,7 @@ package com.macro.gUI.core
 			(child as AbstractControl).setParent(this);
 			setChildStage(child, stage);
 
-			uiManager.renderer.addChild(this, child);
+			uiMgr.renderer.addChild(this, child);
 		}
 
 		public function removeChild(child:IControl):void
@@ -159,7 +159,7 @@ package com.macro.gUI.core
 			if (p != -1)
 			{
 				_children.splice(p, 1);
-				uiManager.renderer.removeChild(this, child);
+				uiMgr.renderer.removeChild(this, child);
 
 				(child as AbstractControl).setParent(null);
 				setChildStage(child, null);
@@ -172,7 +172,7 @@ package com.macro.gUI.core
 			if (index >= 0 && index < _children.length)
 			{
 				child = _children.splice(index, 1)[0];
-				uiManager.renderer.removeChild(this, child);
+				uiMgr.renderer.removeChild(this, child);
 
 				(child as AbstractControl).setParent(null);
 				setChildStage(child, null);
@@ -200,7 +200,7 @@ package com.macro.gUI.core
 			}
 
 			var removedControl:Vector.<IControl> = _children.splice(beginIndex, endIndex - beginIndex);
-			uiManager.renderer.removeChildren(this, removedControl);
+			uiMgr.renderer.removeChildren(this, removedControl);
 
 			var child:IControl;
 			for (var i:int = beginIndex; i < endIndex; i++)
@@ -248,7 +248,7 @@ package com.macro.gUI.core
 			_children.splice(p, 1);
 			_children.splice(index, 0, child);
 
-			uiManager.renderer.updateChildIndex(this, child);
+			uiMgr.renderer.updateChildIndex(this, child);
 		}
 
 		public function swapChildren(child1:IControl, child2:IControl):void
@@ -272,8 +272,8 @@ package com.macro.gUI.core
 			_children.splice(index2, 1, child1);
 			_children.splice(index1, 1, child2);
 
-			uiManager.renderer.updateChildIndex(this, child1);
-			uiManager.renderer.updateChildIndex(this, child2);
+			uiMgr.renderer.updateChildIndex(this, child1);
+			uiMgr.renderer.updateChildIndex(this, child2);
 		}
 
 

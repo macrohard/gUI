@@ -137,29 +137,29 @@ package com.macro.gUI.containers
 			_buttonLayout = buttonLayout;
 			_buttonStyle = buttonVisible;
 
-			var skin:ISkin = skinManager.getSkin(SkinDef.WINDOW_BG);
+			var skin:ISkin = skinMgr.getSkin(SkinDef.WINDOW_BG);
 			_bg = new Slice(skin, width, height);
 			_margin = new Margin(skin.gridLeft, skin.gridTop, skin.paddingRight, skin.paddingBottom);
 
 			_title = new Label(title);
-			_title.style = skinManager.getStyle(StyleDef.WINDOW_TITLE);
+			_title.style = skinMgr.getStyle(StyleDef.WINDOW_TITLE);
 
 			_minBtn = new Button();
-			_minBtn.upSkin = skinManager.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON);
-			_minBtn.overSkin = skinManager.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON_OVER);
-			_minBtn.downSkin = skinManager.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON_DOWN);
-			_minBtn.disableSkin = skinManager.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON_DISABLE);
+			_minBtn.upSkin = skinMgr.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON);
+			_minBtn.overSkin = skinMgr.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON_OVER);
+			_minBtn.downSkin = skinMgr.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON_DOWN);
+			_minBtn.disableSkin = skinMgr.getSkin(SkinDef.WINDOW_MINIMIZE_BUTTON_DISABLE);
 
 			_maxBtn = new Button();
-			_maxBtn.upSkin = skinManager.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON);
-			_maxBtn.overSkin = skinManager.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON_OVER);
-			_maxBtn.downSkin = skinManager.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON_DOWN);
-			_maxBtn.disableSkin = skinManager.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON_DISABLE);
+			_maxBtn.upSkin = skinMgr.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON);
+			_maxBtn.overSkin = skinMgr.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON_OVER);
+			_maxBtn.downSkin = skinMgr.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON_DOWN);
+			_maxBtn.disableSkin = skinMgr.getSkin(SkinDef.WINDOW_MAXIMIZE_BUTTON_DISABLE);
 
 			_closeBtn = new Button();
-			_closeBtn.upSkin = skinManager.getSkin(SkinDef.WINDOW_CLOSE_BUTTON);
-			_closeBtn.overSkin = skinManager.getSkin(SkinDef.WINDOW_CLOSE_BUTTON_OVER);
-			_closeBtn.downSkin = skinManager.getSkin(SkinDef.WINDOW_CLOSE_BUTTON_DOWN);
+			_closeBtn.upSkin = skinMgr.getSkin(SkinDef.WINDOW_CLOSE_BUTTON);
+			_closeBtn.overSkin = skinMgr.getSkin(SkinDef.WINDOW_CLOSE_BUTTON_OVER);
+			_closeBtn.downSkin = skinMgr.getSkin(SkinDef.WINDOW_CLOSE_BUTTON_DOWN);
 
 			_contentContainer = new Container();
 
@@ -282,7 +282,7 @@ package com.macro.gUI.containers
 			{
 				_margin = value;
 				layout();
-				uiManager.renderer.updateCoord(this);
+				uiMgr.renderer.updateCoord(this);
 			}
 		}
 
@@ -554,7 +554,7 @@ package com.macro.gUI.containers
 				if (!_canDragOutStage && this.parent != null)
 				{
 					var p1:Point = this.parent.globalToLocal(new Point());
-					var p2:Point = this.parent.globalToLocal(new Point(uiManager.stageWidth - _width, uiManager.stageHeight - _height));
+					var p2:Point = this.parent.globalToLocal(new Point(uiMgr.stageWidth - _width, uiMgr.stageHeight - _height));
 					_dragArea = new Rectangle(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
 				}
 

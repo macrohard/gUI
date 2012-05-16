@@ -18,37 +18,64 @@ package com.macro.gUI.core
 	 */
 	public class UIManager
 	{
-		
-		/**
-		 * 皮肤管理器
-		 */
-		public var skinManager:SkinManager;
-
-
 		/**
 		 * 渲染器
 		 */
 		public var renderer:IRenderEngine;
 		
 		/**
-		 * 弹出窗口管理器
-		 *
+		 * 皮肤管理器
 		 */
-		public var popupManager:PopUpManager;
-
+		public var skinManager:SkinManager;
 
 		/**
 		 * 交互管理器
 		 */
 		public var interactiveManager:InteractiveManager;
 		
+		/**
+		 * 拖放管理器
+		 */
+		public var dragManager:DragManager;
+		
+		/**
+		 * 焦点管理器
+		 */
+		public var focusManager:FocusManager;
+		
+		/**
+		 * 弹出窗口管理器
+		 *
+		 */
+		public var popupManager:PopUpManager;
+		
 		
 		/**
 		 * 根容器
 		 */
 		private var _root:Container;
+		
+		/**
+		 * 主容器，此容器中的控件会被交互管理器监测
+		 */
+		internal var _main:Container;
+		
+		/**
+		 * 舞台容器，所有控件都在此容器中
+		 */
+		private var _stage:Container;
 
-
+		/**
+		 * 弹出窗口容器
+		 */
+		internal var _popup:Container;
+		
+		/**
+		 * 最上层容器，一般用于交互管理器绘制焦点框、拖拽替身图像、Tip信息显示等
+		 * 此容器中的控件不参与交互
+		 */
+		internal var _top:Container;
+		
 
 		/**
 		 * 界面管理器
@@ -86,6 +113,8 @@ package com.macro.gUI.core
 
 			skinManager = new SkinManager();
 			popupManager = new PopUpManager(this);
+			dragManager = new DragManager(this);
+			focusManager = new FocusManager(this, displayObjectContainer);
 			interactiveManager = new InteractiveManager(this, displayObjectContainer);
 
 			AbstractControl.init(this);
@@ -100,20 +129,6 @@ package com.macro.gUI.core
 		}
 		
 		
-
-		private var _main:Container;
-
-		/**
-		 * 主容器，此容器中的控件会被交互管理器监测
-		 */
-		internal function get main():IContainer
-		{
-			return _main;
-		}
-
-
-		private var _stage:Container;
-
 		/**
 		 * 舞台容器，所有控件都在此容器中
 		 * @return
@@ -125,30 +140,6 @@ package com.macro.gUI.core
 		}
 
 
-		private var _popup:Container;
-
-		/**
-		 * 弹出窗口容器
-		 */
-		internal function get popup():IContainer
-		{
-			return _popup;
-		}
-
-
-		private var _top:Container;
-
-		/**
-		 * 最上层容器，一般用于交互管理器绘制焦点框、拖拽替身图像、Tip信息显示等
-		 * 此容器中的控件不参与交互
-		 */
-		internal function get top():IContainer
-		{
-			return _top;
-		}
-		
-		
-		
 		/**
 		 * 舞台宽度
 		 * @return 

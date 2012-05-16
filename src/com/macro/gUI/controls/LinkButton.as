@@ -38,10 +38,10 @@ package com.macro.gUI.controls
 			if (_styles == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.LINKBUTTON);
-				_styles[CtrlState.OVER] = skinManager.getStyle(StyleDef.LINKBUTTON_OVER);
-				_styles[CtrlState.DOWN] = skinManager.getStyle(StyleDef.LINKBUTTON_DOWN);
-				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.LINKBUTTON_DISABLE);
+				_styles[CtrlState.UP] = skinMgr.getStyle(StyleDef.LINKBUTTON);
+				_styles[CtrlState.OVER] = skinMgr.getStyle(StyleDef.LINKBUTTON_OVER);
+				_styles[CtrlState.DOWN] = skinMgr.getStyle(StyleDef.LINKBUTTON_DOWN);
+				_styles[CtrlState.DISABLE] = skinMgr.getStyle(StyleDef.LINKBUTTON_DISABLE);
 			}
 
 			_style = _style ? _style : _styles[CtrlState.UP];

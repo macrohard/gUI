@@ -25,7 +25,7 @@ package com.macro.gUI.containers
 			{
 				_width = width <= 0 ? _width : width;
 				_height = height <= 0 ? _height : height;
-				uiManager.renderer.updatePaint(this, true);
+				uiMgr.renderer.updatePaint(this, true);
 				dispatchEvent(new UIEvent(UIEvent.RESIZE));
 			}
 			else

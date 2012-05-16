@@ -100,17 +100,17 @@ package com.macro.gUI.containers
 			_tabContainers = new Vector.<Container>();
 			_tabs = new Vector.<TitleBar>();
 
-			_tabSkin = skinManager.getSkin(SkinDef.TABPANEL_TAB);
-			_tabSelectedSkin = skinManager.getSkin(SkinDef.TABPANEL_TAB_SELECTED);
+			_tabSkin = skinMgr.getSkin(SkinDef.TABPANEL_TAB);
+			_tabSelectedSkin = skinMgr.getSkin(SkinDef.TABPANEL_TAB_SELECTED);
 			if (_tabLayout == TAB_LAYOUT_BOTTOM)
 			{
 				_tabSkin = flipVerticalSkin(_tabSkin);
 				_tabSelectedSkin = flipVerticalSkin(_tabSelectedSkin);
 			}
 
-			_tabStyle = skinManager.getStyle(StyleDef.TAPPANEL_TITLE);
+			_tabStyle = skinMgr.getStyle(StyleDef.TAPPANEL_TITLE);
 
-			_bg = new Slice(skinManager.getSkin(SkinDef.TABPANEL_BG), width, height);
+			_bg = new Slice(skinMgr.getSkin(SkinDef.TABPANEL_BG), width, height);
 			setMargin();
 
 			_container = new Container(width, height);
@@ -232,7 +232,7 @@ package com.macro.gUI.containers
 			{
 				_margin = value;
 				layout();
-				uiManager.renderer.updateCoord(this);
+				uiMgr.renderer.updateCoord(this);
 			}
 		}
 

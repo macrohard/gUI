@@ -59,16 +59,16 @@ package com.macro.gUI.controls
 			if (_style == null)
 			{
 				_styles = new Dictionary();
-				_styles[CtrlState.UP] = skinManager.getStyle(StyleDef.TEXTINPUT);
-				_styles[CtrlState.DISABLE] = skinManager.getStyle(StyleDef.TEXTINPUT_DISABLE);
+				_styles[CtrlState.UP] = skinMgr.getStyle(StyleDef.TEXTINPUT);
+				_styles[CtrlState.DISABLE] = skinMgr.getStyle(StyleDef.TEXTINPUT_DISABLE);
 			}
 
 			//背景皮肤
 			if (_skins == null)
 			{
 				_skins = new Dictionary();
-				_skins[CtrlState.UP] = skinManager.getSkin(SkinDef.TEXTINPUT_BG);
-				_skins[CtrlState.DISABLE] = skinManager.getSkin(SkinDef.TEXTINPUT_BG_DISABLE);
+				_skins[CtrlState.UP] = skinMgr.getSkin(SkinDef.TEXTINPUT_BG);
+				_skins[CtrlState.DISABLE] = skinMgr.getSkin(SkinDef.TEXTINPUT_BG_DISABLE);
 			}
 
 			_style = _style ? _style : _styles[CtrlState.UP];

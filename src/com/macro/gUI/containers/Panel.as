@@ -23,7 +23,7 @@ package com.macro.gUI.containers
 		{
 			super(width, height);
 
-			_skin = _skin ? _skin : skinManager.getSkin(SkinDef.PANEL_BG);
+			_skin = _skin ? _skin : skinMgr.getSkin(SkinDef.PANEL_BG);
 			_margin = new Margin(_skin.gridLeft, _skin.gridTop, _skin.paddingRight, _skin.paddingBottom);
 			resize();
 		}

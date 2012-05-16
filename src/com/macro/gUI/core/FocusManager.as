@@ -58,13 +58,27 @@ package com.macro.gUI.core
 		 * @param displayObjectContainer 显示对象容器，用于处理临时TextField
 		 *
 		 */
-		public function FocusManager(top:IContainer, displayObjectContainer:DisplayObjectContainer)
+		public function FocusManager(uiManager:UIManager, displayObjectContainer:DisplayObjectContainer)
 		{
-			_top = top;
+			_top = uiManager._top;
 
 			_displayObjectContainer = displayObjectContainer;
 			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler, false, 0, true);
+		}
+		
+		
+		/**
+		 * 设置焦点控件
+		 * @param control
+		 * 
+		 */
+		public function setFocus(control:IControl):void
+		{
+			if (control.stage != null)
+			{
+				focus(control, control);
+			}
 		}
 
 
@@ -74,7 +88,7 @@ package com.macro.gUI.core
 		 * @param target
 		 * 
 		 */
-		public function focus(control:IControl, target:IControl):void
+		internal function focus(control:IControl, target:IControl):void
 		{
 			// 已有编辑框时
 			if (_editControl != null)
