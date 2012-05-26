@@ -339,13 +339,20 @@ package com.macro.gUI.core
 		
 		
 		/**
-		 * 提供给复合式容器设置子控件的parent属性
+		 * 复合式容器控件应在添加了子控件后调用此方法设置子控件的Parent属性
 		 * @param child
 		 * 
 		 */
 		protected function setChildParent(child:AbstractControl):void
 		{
-			child.setParent(this as IContainer);
+			if (this is IContainer)
+			{
+				child.setParent(this as IContainer);
+			}
+			else
+			{
+				throw new Error("Only composite containers, can call this method");
+			}
 		}
 	}
 }
