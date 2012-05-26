@@ -83,6 +83,13 @@ package com.macro.gUI.core
 		function set enabled(value:Boolean):void;
 
 		/**
+		 * 直系父级容器，与Parent不同的是，它包含了真实的层级对象，复合控件被解析为内部封装对象
+		 * @return 
+		 * 
+		 */
+		function get holder():IContainer;
+		
+		/**
 		 * 获取父容器
 		 * @return
 		 *

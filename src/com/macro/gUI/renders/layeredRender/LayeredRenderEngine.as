@@ -64,7 +64,7 @@ package com.macro.gUI.renders.layeredRender
 			}
 
 			// 获取父控件的可视区域及全局坐标
-			var container:IContainer = control.parent;
+			var container:IContainer = control.holder;
 			var m:Margin = container.margin;
 
 			var p:Point = container.localToGlobal();
@@ -116,7 +116,7 @@ package com.macro.gUI.renders.layeredRender
 			}
 			
 			// 获取父控件的透明度
-			var container:IContainer = control.parent;
+			var container:IContainer = control.holder;
 			var b:Bitmap = _controlToBitmap[container];
 			
 			updateBitmapAlpha(control, b.alpha);
@@ -313,9 +313,9 @@ package com.macro.gUI.renders.layeredRender
 				}
 				return _displayObjectContainer.getChildIndex(b);
 			}
-			else if (container.parent != null)
+			else if (container.holder != null)
 			{
-				return getBitmapInsertIndex(container.parent, container);
+				return getBitmapInsertIndex(container.holder, container);
 			}
 			else
 			{

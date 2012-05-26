@@ -6,6 +6,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.controls.TitleBar;
 	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.core.AbstractContainer;
+	import com.macro.gUI.core.AbstractControl;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
@@ -14,7 +15,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
 	import com.macro.gUI.skin.impl.BitmapSkin;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
@@ -602,6 +603,7 @@ package com.macro.gUI.containers
 			if (_currentContainer != null)
 			{
 				_currentContainer.addChild(child);
+				setChildParent(child as AbstractControl);
 			}
 		}
 
@@ -610,6 +612,7 @@ package com.macro.gUI.containers
 			if (_currentContainer != null)
 			{
 				_currentContainer.addChildAt(child, index);
+				setChildParent(child as AbstractControl);
 			}
 		}
 

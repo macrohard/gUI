@@ -125,7 +125,7 @@ package com.macro.gUI.composite
 		{
 			var target:IControl;
 
-			if (_vScrollBar.parent != null)
+			if (_vScrollBar.holder != null)
 			{
 				target = _vScrollBar.hitTest(x, y);
 				if (target != null)
@@ -134,7 +134,7 @@ package com.macro.gUI.composite
 				}
 			}
 
-			if (_hScrollBar.parent != null)
+			if (_hScrollBar.holder != null)
 			{
 				target = _hScrollBar.hitTest(x, y);
 				if (target != null)
@@ -243,11 +243,11 @@ package com.macro.gUI.composite
 
 		public function mouseDown(target:IControl):void
 		{
-			if (target.parent == _vScrollBar.container)
+			if (target.holder == _vScrollBar.container)
 			{
 				_vScrollBar.mouseDown(target);
 			}
-			else if (target.parent == _hScrollBar.container)
+			else if (target.holder == _hScrollBar.container)
 			{
 				_hScrollBar.mouseDown(target);
 			}
@@ -255,11 +255,11 @@ package com.macro.gUI.composite
 
 		public function mouseOut(target:IControl):void
 		{
-			if (target.parent == _vScrollBar.container)
+			if (target.holder == _vScrollBar.container)
 			{
 				_vScrollBar.mouseOut(target);
 			}
-			else if (target.parent == _hScrollBar.container)
+			else if (target.holder == _hScrollBar.container)
 			{
 				_hScrollBar.mouseOut(target);
 			}
@@ -267,11 +267,11 @@ package com.macro.gUI.composite
 
 		public function mouseOver(target:IControl):void
 		{
-			if (target.parent == _vScrollBar.container)
+			if (target.holder == _vScrollBar.container)
 			{
 				_vScrollBar.mouseOver(target);
 			}
-			else if (target.parent == _hScrollBar.container)
+			else if (target.holder == _hScrollBar.container)
 			{
 				_hScrollBar.mouseOver(target);
 			}
@@ -279,11 +279,11 @@ package com.macro.gUI.composite
 
 		public function mouseUp(target:IControl):void
 		{
-			if (target.parent == _vScrollBar.container)
+			if (target.holder == _vScrollBar.container)
 			{
 				_vScrollBar.mouseUp(target);
 			}
-			else if (target.parent == _hScrollBar.container)
+			else if (target.holder == _hScrollBar.container)
 			{
 				_hScrollBar.mouseUp(target);
 			}
@@ -291,11 +291,11 @@ package com.macro.gUI.composite
 
 		public function getDraggable(target:IControl):Boolean
 		{
-			if (target.parent == _vScrollBar.container)
+			if (target.holder == _vScrollBar.container)
 			{
 				return _vScrollBar.getDraggable(target);
 			}
-			else if (target.parent == _hScrollBar.container)
+			else if (target.holder == _hScrollBar.container)
 			{
 				return _hScrollBar.getDraggable(target);
 			}
@@ -304,11 +304,11 @@ package com.macro.gUI.composite
 
 		public function setDragCoord(target:IControl, x:int, y:int):void
 		{
-			if (target.parent == _vScrollBar.container)
+			if (target.holder == _vScrollBar.container)
 			{
 				return _vScrollBar.setDragCoord(target, x, y);
 			}
-			else if (target.parent == _hScrollBar.container)
+			else if (target.holder == _hScrollBar.container)
 			{
 				return _hScrollBar.setDragCoord(target, x, y);
 			}

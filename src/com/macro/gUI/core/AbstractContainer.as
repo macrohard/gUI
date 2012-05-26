@@ -116,13 +116,13 @@ package com.macro.gUI.core
 
 		public function addChild(child:IControl):void
 		{
-			if (child.parent != null)
+			if (child.holder != null)
 			{
-				child.parent.removeChild(child);
+				child.holder.removeChild(child);
 			}
 
 			_children.push(child);
-			(child as AbstractControl).setParent(this);
+			(child as AbstractControl).setHolder(this);
 			setChildStage(child, stage);
 
 			uiMgr.renderer.addChild(this, child);
@@ -130,9 +130,9 @@ package com.macro.gUI.core
 
 		public function addChildAt(child:IControl, index:int):void
 		{
-			if (child.parent != null)
+			if (child.holder != null)
 			{
-				child.parent.removeChild(child);
+				child.holder.removeChild(child);
 			}
 
 			if (index < 1)
@@ -147,7 +147,7 @@ package com.macro.gUI.core
 			{
 				_children.splice(index, 0, child);
 			}
-			(child as AbstractControl).setParent(this);
+			(child as AbstractControl).setHolder(this);
 			setChildStage(child, stage);
 
 			uiMgr.renderer.addChild(this, child);
@@ -161,7 +161,7 @@ package com.macro.gUI.core
 				_children.splice(p, 1);
 				uiMgr.renderer.removeChild(this, child);
 
-				(child as AbstractControl).setParent(null);
+				(child as AbstractControl).setHolder(null);
 				setChildStage(child, null);
 			}
 		}
@@ -174,7 +174,7 @@ package com.macro.gUI.core
 				child = _children.splice(index, 1)[0];
 				uiMgr.renderer.removeChild(this, child);
 
-				(child as AbstractControl).setParent(null);
+				(child as AbstractControl).setHolder(null);
 				setChildStage(child, null);
 			}
 
@@ -206,7 +206,7 @@ package com.macro.gUI.core
 			for (var i:int = beginIndex; i < endIndex; i++)
 			{
 				child = _children[i];
-				(child as AbstractControl).setParent(null);
+				(child as AbstractControl).setHolder(null);
 				setChildStage(child, null);
 			}
 		}

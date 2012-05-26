@@ -8,6 +8,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.controls.Slice;
 	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.core.AbstractContainer;
+	import com.macro.gUI.core.AbstractControl;
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
@@ -369,17 +370,17 @@ package com.macro.gUI.containers
 				return null;
 			}
 
-			if (_minBtn.parent != null && _minBtn.rect.containsPoint(p))
+			if (_minBtn.holder != null && _minBtn.rect.containsPoint(p))
 			{
 				return _minBtn;
 			}
 
-			if (_maxBtn.parent != null && _maxBtn.rect.containsPoint(p))
+			if (_maxBtn.holder != null && _maxBtn.rect.containsPoint(p))
 			{
 				return _maxBtn;
 			}
 
-			if (_closeBtn.parent != null && _closeBtn.rect.containsPoint(p))
+			if (_closeBtn.holder != null && _closeBtn.rect.containsPoint(p))
 			{
 				return _closeBtn;
 			}
@@ -551,10 +552,10 @@ package com.macro.gUI.containers
 			if (target == _container && _isDraggable)
 			{
 				_dragArea = null;
-				if (!_canDragOutStage && this.parent != null)
+				if (!_canDragOutStage && this.holder != null)
 				{
-					var p1:Point = this.parent.globalToLocal(new Point());
-					var p2:Point = this.parent.globalToLocal(new Point(uiMgr.stageWidth - _width, uiMgr.stageHeight - _height));
+					var p1:Point = this.holder.globalToLocal(new Point());
+					var p2:Point = this.holder.globalToLocal(new Point(uiMgr.stageWidth - _width, uiMgr.stageHeight - _height));
 					_dragArea = new Rectangle(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
 				}
 
@@ -581,11 +582,13 @@ package com.macro.gUI.containers
 		public function addChild(child:IControl):void
 		{
 			_contentContainer.addChild(child);
+			setChildParent(child as AbstractControl);
 		}
 
 		public function addChildAt(child:IControl, index:int):void
 		{
 			_contentContainer.addChildAt(child, index);
+			setChildParent(child as AbstractControl);
 		}
 
 		public function removeChild(child:IControl):void

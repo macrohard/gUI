@@ -143,7 +143,7 @@ package com.macro.gUI.core
 			if (_focusControl != null)
 			{
 				// 按下Tab键时焦点移到下一个tabIndex控件
-				var parent:IContainer = (_focusControl as IControl).parent;
+				var parent:IContainer = (_focusControl as IControl).holder;
 				if (parent != null && e.keyCode == Keyboard.TAB)
 				{
 					var temp:Vector.<IFocus> = new Vector.<IFocus>();

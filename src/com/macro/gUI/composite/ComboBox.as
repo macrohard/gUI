@@ -479,7 +479,7 @@ package com.macro.gUI.composite
 			{
 				_downBtn.mouseDown(target);
 
-				if (_list.parent == null)
+				if (_list.holder == null)
 				{
 					var p:Point = _textInput.localToGlobal();
 					_list.x = p.x;

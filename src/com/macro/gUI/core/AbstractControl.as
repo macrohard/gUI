@@ -350,8 +350,16 @@ package com.macro.gUI.core
 
 
 
-		private var _parent:IContainer;
+		private var _holder:IContainer;
 
+		public function get holder():IContainer
+		{
+			return _holder;
+		}
+		
+		
+		private var _parent:IContainer;
+		
 		public function get parent():IContainer
 		{
 			return _parent;
@@ -367,7 +375,19 @@ package com.macro.gUI.core
 
 
 		/**
-		 * 设置父容器，内部行为，外部无法访问
+		 * 设置直系父容器，内部行为
+		 * @param container
+		 *
+		 */
+		internal function setHolder(container:IContainer):void
+		{
+			_holder = container;
+			_parent = container;
+		}
+		
+		
+		/**
+		 * 设置父容器，内部行为
 		 * @param container
 		 *
 		 */
@@ -375,10 +395,10 @@ package com.macro.gUI.core
 		{
 			_parent = container;
 		}
-
-
+		
+		
 		/**
-		 * 设置舞台容器，内部行为，外部无法访问
+		 * 设置舞台容器，内部行为
 		 * @param stage
 		 *
 		 */
@@ -425,11 +445,11 @@ package com.macro.gUI.core
 			var m:Matrix = new Matrix();
 			m.translate(_x - _pivotX, _y - _pivotY);
 
-			var container:IContainer = this.parent;
+			var container:IContainer = this.holder;
 			while (container != null)
 			{
 				m.translate(container.x + container.margin.left - container.pivotX, container.y + container.margin.top - container.pivotY);
-				container = container.parent;
+				container = container.holder;
 			}
 
 			return m;

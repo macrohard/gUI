@@ -60,8 +60,19 @@ package com.macro.gUI.core
 		{
 			return _container;
 		}
-
-
+		
+		
+		
+		override public function get name():String
+		{
+			return _container.name;
+		}
+		
+		override public function set name(value:String):void
+		{
+			_container.name = value;
+		}
+		
 
 		override public function get backgroundColor():int
 		{
@@ -253,6 +264,11 @@ package com.macro.gUI.core
 		
 
 
+		override public function get holder():IContainer
+		{
+			return _container.holder;
+		}
+		
 		override public function get parent():IContainer
 		{
 			return _container.parent;
@@ -264,11 +280,10 @@ package com.macro.gUI.core
 		}
 
 
-		override internal function setParent(container:IContainer):void
+		override internal function setHolder(container:IContainer):void
 		{
-			_container.setParent(container);
+			_container.setHolder(container);
 		}
-		
 		
 		override internal function setStage(stage:IContainer):void
 		{
@@ -320,6 +335,17 @@ package com.macro.gUI.core
 		 */
 		protected function layout():void
 		{
+		}
+		
+		
+		/**
+		 * 提供给复合式容器设置子控件的parent属性
+		 * @param child
+		 * 
+		 */
+		protected function setChildParent(child:AbstractControl):void
+		{
+			child.setParent(this as IContainer);
 		}
 	}
 }

@@ -290,7 +290,7 @@ package com.macro.gUI.composite
 		{
 			var target:IControl;
 
-			if (_scrollBar.parent != null)
+			if (_scrollBar.holder != null)
 			{
 				target = _scrollBar.hitTest(x, y);
 				if (target != null)
@@ -393,7 +393,7 @@ package com.macro.gUI.composite
 			{
 				(target as ToggleButton).mouseDown(target);
 			}
-			else if (target.parent == _scrollBar.container)
+			else if (target.holder == _scrollBar.container)
 			{
 				_scrollBar.mouseDown(target);
 			}
@@ -412,7 +412,7 @@ package com.macro.gUI.composite
 
 				dispatchEvent(new UIEvent(UIEvent.SELECT));
 			}
-			else if (target.parent == _scrollBar.container)
+			else if (target.holder == _scrollBar.container)
 			{
 				_scrollBar.mouseUp(target);
 			}
@@ -424,7 +424,7 @@ package com.macro.gUI.composite
 			{
 				(target as ToggleButton).mouseOut(target);
 			}
-			else if (target.parent == _scrollBar.container)
+			else if (target.holder == _scrollBar.container)
 			{
 				_scrollBar.mouseOut(target);
 			}
@@ -436,7 +436,7 @@ package com.macro.gUI.composite
 			{
 				(target as ToggleButton).mouseOver(target);
 			}
-			else if (target.parent == _scrollBar.container)
+			else if (target.holder == _scrollBar.container)
 			{
 				_scrollBar.mouseOver(target);
 			}
@@ -446,7 +446,7 @@ package com.macro.gUI.composite
 
 		public function getDraggable(target:IControl):Boolean
 		{
-			if (target.parent == _scrollBar.container)
+			if (target.holder == _scrollBar.container)
 			{
 				return _scrollBar.getDraggable(target);
 			}
