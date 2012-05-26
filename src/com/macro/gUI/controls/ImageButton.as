@@ -40,10 +40,10 @@ package com.macro.gUI.controls
 		 */
 		public function ImageButton(upState:IBitmapDrawable = null, autoSize:Boolean = true, align:int = 0x11, skin:ISkin = null)
 		{
-			super(upState, autoSize, align, skin);
-			
 			_states = new Dictionary();
 			_states[CtrlState.UP] = _image;
+			
+			super(upState, autoSize, align, skin);
 		}
 		
 		
