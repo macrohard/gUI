@@ -285,6 +285,11 @@ package com.macro.gUI.core
 			_container.setHolder(container);
 		}
 		
+		override internal function setParent(container:IContainer):void
+		{
+			_container.setParent(container);
+		}
+		
 		override internal function setStage(stage:IContainer):void
 		{
 			_container.setStage(stage);
