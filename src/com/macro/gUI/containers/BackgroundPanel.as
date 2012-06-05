@@ -91,9 +91,9 @@ package com.macro.gUI.containers
 				}
 			}
 		}
-
-
-
+		
+		
+		
 		/**
 		 * 设置新的显示对象，旧显示对象相关的BitmapData将被自动销毁
 		 * @param value
@@ -109,6 +109,21 @@ package com.macro.gUI.containers
 			_image = ImageUtil.getBitmapData(value);
 			resize();
 		}
+		
+		
+		
+		override public function set height(value:int):void
+		{
+			_autoSize = false;
+			super.height = value;
+		}
+		
+		override public function set width(value:int):void
+		{
+			_autoSize = false;
+			super.width = value;
+		}
+		
 
 
 		override public function resize(width:int = 0, height:int = 0):void

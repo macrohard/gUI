@@ -275,6 +275,20 @@ package com.macro.gUI.composite
 			dispatchEvent(new UIEvent(UIEvent.VALUE_CHANGED));
 		}
 
+		
+		
+		override public function set height(value:int):void
+		{
+			_autoSize = false;
+			super.height = value;
+		}
+		
+		override public function set width(value:int):void
+		{
+			_autoSize = false;
+			super.width = value;
+		}
+		
 
 
 		override public function get enabled():Boolean

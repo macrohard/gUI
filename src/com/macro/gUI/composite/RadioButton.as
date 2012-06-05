@@ -166,6 +166,20 @@ package com.macro.gUI.composite
 			}
 			group.setGroupId(this, value);
 		}
+		
+		
+		
+		override public function set height(value:int):void
+		{
+			_autoSize = false;
+			super.height = value;
+		}
+		
+		override public function set width(value:int):void
+		{
+			_autoSize = false;
+			super.width = value;
+		}
 
 
 

@@ -15,7 +15,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
@@ -274,7 +274,21 @@ package com.macro.gUI.composite
 
 			dispatchEvent(new UIEvent(UIEvent.VALUE_CHANGED));
 		}
-
+		
+		
+		
+		override public function set height(value:int):void
+		{
+			_autoSize = false;
+			super.height = value;
+		}
+		
+		override public function set width(value:int):void
+		{
+			_autoSize = false;
+			super.width = value;
+		}
+		
 
 
 		override public function get enabled():Boolean
