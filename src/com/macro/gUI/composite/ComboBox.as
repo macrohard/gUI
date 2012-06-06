@@ -75,7 +75,7 @@ package com.macro.gUI.composite
 			skin = skinMgr.getSkin(SkinDef.COMBO_LIST_BG);
 			if (skin != null)
 			{
-				_list.setBgSkin(skin);
+				_list.bgSkin = skin;
 			}
 
 			var itemSkin:ISkin = skinMgr.getSkin(SkinDef.COMBO_LIST_ITEM_BG);
@@ -93,7 +93,9 @@ package com.macro.gUI.composite
 			{
 				itemSelectedSkin = skinMgr.getSkin(SkinDef.LIST_ITEM_SELECTED_BG);
 			}
-			_list.setItemSkin(itemSkin, itemOverSkin, itemSelectedSkin);
+			_list.itemUpSkin = itemSkin;
+			_list.itemOverSkin = itemOverSkin;
+			_list.itemSelectedSkin = itemSelectedSkin;
 
 			var itemStyle:TextStyle = skinMgr.getStyle(StyleDef.COMBO_LIST_ITEM);
 			if (itemStyle == null)
@@ -105,7 +107,8 @@ package com.macro.gUI.composite
 			{
 				itemSelectedStyle = skinMgr.getStyle(StyleDef.LIST_ITEM_SELECTED);
 			}
-			_list.setItemStyle(itemStyle, itemSelectedStyle);
+			_list.itemUpStyle = itemStyle;
+			_list.itemSelectedStyle = itemSelectedStyle;
 
 			resize();
 		}
@@ -284,16 +287,90 @@ package com.macro.gUI.composite
 
 
 
-		/**
-		 * 设置输入框样式
-		 * @param upStyle 常态样式
-		 * @param disableStyle 禁用态样式
-		 *
-		 */
-		public function setTextInputStyle(upStyle:TextStyle, disableStyle:TextStyle):void
+		public function set textInputUpStyle(value:TextStyle):void
 		{
-			_textInput.style = upStyle;
-			_textInput.disableStyle = disableStyle;
+			_textInput.style = value;
+			update();
+		}
+		
+		public function set textInputDisableStyle(value:TextStyle):void
+		{
+			_textInput.disableStyle = value;
+			update();
+		}
+
+
+		public function set textInputUpSkin(value:ISkin):void
+		{
+			_textInput.bgSkin = value;
+			update();
+		}
+		
+		public function set textInputDisableSkin(value:ISkin):void
+		{
+			_textInput.disableSkin = value;
+			update();
+		}
+
+
+		public function set buttonUpSkin(value:ISkin):void
+		{
+			_downBtn.upSkin = value;
+			update();
+		}
+		
+		public function set buttonOverSkin(value:ISkin):void
+		{
+			_downBtn.overSkin = value;
+		}
+		
+		public function set buttonDownSkin(value:ISkin):void
+		{
+			_downBtn.downSkin = value;
+		}
+		
+		public function set buttonDisableSkin(value:ISkin):void
+		{
+			_downBtn.disableSkin = value;
+			update();
+		}
+
+
+		public function set listBgSkin(value:ISkin):void
+		{
+			_list.bgSkin = value;
+		}
+		
+		
+		public function set listItemUpSkin(value:ISkin):void
+		{
+			_list.itemUpSkin = value;
+		}
+		
+		public function set listItemOverSkin(value:ISkin):void
+		{
+			_list.itemOverSkin = value;
+		}
+		
+		public function set listItemSelectedSkin(value:ISkin):void
+		{
+			_list.itemSelectedSkin = value;
+		}
+		
+		
+		public function set listItemUpStyle(value:TextStyle):void
+		{
+			_list.itemUpStyle = value;
+		}
+		
+		public function set listItemSelectedStyle(value:TextStyle):void
+		{
+			_list.itemSelectedStyle = value;
+		}
+		
+		
+		private function update():void
+		{
 			if (_autoSize)
 			{
 				resize(_width);
@@ -302,79 +379,6 @@ package com.macro.gUI.composite
 			{
 				layout();
 			}
-		}
-
-
-		/**
-		 * 设置输入框皮肤
-		 * @param upSkin 常态皮肤
-		 * @param disableSkin 禁用态皮肤
-		 *
-		 */
-		public function setTextInputSkin(upSkin:ISkin, disableSkin:ISkin):void
-		{
-			_textInput.bgSkin = upSkin;
-			_textInput.disableSkin = disableSkin;
-			if (_autoSize)
-			{
-				resize(_width);
-			}
-			else
-			{
-				layout();
-			}
-		}
-
-
-		/**
-		 * 设置按钮皮肤
-		 * @param upSkin
-		 * @param overSkin
-		 * @param downSkin
-		 * @param disableSkin
-		 *
-		 */
-		public function setButtonSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
-		{
-			_downBtn.upSkin = upSkin;
-			_downBtn.overSkin = overSkin;
-			_downBtn.downSkin = downSkin;
-			_downBtn.disableSkin = disableSkin;
-			if (_autoSize)
-			{
-				resize(_width);
-			}
-			else
-			{
-				layout();
-			}
-		}
-
-
-		/**
-		 * 设置列表框文本样式
-		 * @param itemStyle
-		 * @param itemSelectedStyle
-		 *
-		 */
-		public function setListStyle(itemStyle:TextStyle, itemSelectedStyle:TextStyle):void
-		{
-			_list.setItemStyle(itemStyle, itemSelectedStyle);
-		}
-
-
-		/**
-		 * 设置列表框皮肤
-		 * @param bgSkin
-		 * @param itemSkin
-		 * @param itemOverSkin
-		 * @param itemSelectedSkin
-		 *
-		 */
-		public function setListSkin(bgSkin:ISkin, itemSkin:ISkin, itemOverSkin:ISkin, itemSelectedSkin:ISkin):void
-		{
-			_list.setBgSkin(bgSkin);
-			_list.setItemSkin(itemSkin, itemOverSkin, itemSelectedSkin);
 		}
 
 

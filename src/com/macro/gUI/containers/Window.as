@@ -304,10 +304,10 @@ package com.macro.gUI.containers
 		 * @param bgSkin
 		 *
 		 */
-		public function setBgSkin(bgSkin:ISkin):void
+		public function set bgSkin(value:ISkin):void
 		{
-			_bg.bgSkin = bgSkin;
-			_margin = new Margin(bgSkin.gridLeft, bgSkin.gridTop, bgSkin.paddingRight, bgSkin.paddingBottom);
+			_bg.bgSkin = value;
+			_margin = new Margin(value.gridLeft, value.gridTop, value.paddingRight, value.paddingBottom);
 			layout();
 		}
 
@@ -316,9 +316,9 @@ package com.macro.gUI.containers
 		 * @param style
 		 *
 		 */
-		public function setTitleStyle(style:TextStyle):void
+		public function set titleStyle(value:TextStyle):void
 		{
-			_title.style = style;
+			_title.style = value;
 			layout();
 		}
 

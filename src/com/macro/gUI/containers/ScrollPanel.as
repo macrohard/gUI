@@ -100,9 +100,9 @@ package com.macro.gUI.containers
 		 * @param bgSkin
 		 *
 		 */
-		public function setBgSkin(bgSkin:ISkin):void
+		public function set bgSkin(value:ISkin):void
 		{
-			(_container as Panel).bgSkin = bgSkin;
+			(_container as Panel).bgSkin = value;
 		}
 
 

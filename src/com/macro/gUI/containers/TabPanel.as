@@ -264,9 +264,9 @@ package com.macro.gUI.containers
 		 * @param bgSkin
 		 *
 		 */
-		public function setBgSkin(bgSkin:ISkin):void
+		public function set bgSkin(value:ISkin):void
 		{
-			_bg.bgSkin = bgSkin;
+			_bg.bgSkin = value;
 			setMargin();
 			layout();
 		}
@@ -278,17 +278,30 @@ package com.macro.gUI.containers
 		 * @param tabSelectedSkin
 		 *
 		 */
-		public function setTabSkin(tabSkin:ISkin, tabSelectedSkin:ISkin):void
+		public function set tabSkin(value:ISkin):void
 		{
 			if (_tabLayout == TAB_LAYOUT_TOP)
 			{
-				_tabSkin = tabSkin;
-				_tabSelectedSkin = tabSelectedSkin;
+				_tabSkin = value;
 			}
 			else
 			{
-				_tabSkin = flipVerticalSkin(tabSkin);
-				_tabSelectedSkin = flipVerticalSkin(tabSelectedSkin);
+				_tabSkin = flipVerticalSkin(value);
+			}
+			resetTabSkin();
+			setMargin();
+			layout();
+		}
+		
+		public function set tabSelectedSkin(value:ISkin):void
+		{
+			if (_tabLayout == TAB_LAYOUT_TOP)
+			{
+				_tabSelectedSkin = value;
+			}
+			else
+			{
+				_tabSelectedSkin = flipVerticalSkin(value);
 			}
 			resetTabSkin();
 			setMargin();
@@ -300,9 +313,9 @@ package com.macro.gUI.containers
 		 * @param tabStyle
 		 *
 		 */
-		public function setTabStyle(tabStyle:TextStyle):void
+		public function set tabStyle(value:TextStyle):void
 		{
-			_tabStyle = tabStyle;
+			_tabStyle = value;
 			for each (var tab:TitleBar in _tabs)
 			{
 				tab.style = _tabStyle;

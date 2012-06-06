@@ -13,7 +13,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -141,7 +141,7 @@ package com.macro.gUI.composite
 		public function set selectedIndex(value:int):void
 		{
 			_selectItem = _itemContainer.getChildAt(value) as ToggleButton;
-			resetSkin();
+			update();
 
 			dispatchEvent(new UIEvent(UIEvent.SELECT));
 		}
@@ -163,43 +163,53 @@ package com.macro.gUI.composite
 
 
 
-		/**
-		 * 设置背景皮肤
-		 * @param bgSkin
-		 *
-		 */
-		public function setBgSkin(bgSkin:ISkin):void
+		public function set bgSkin(value:ISkin):void
 		{
-			(_container as Panel).bgSkin = bgSkin;
+			(_container as Panel).bgSkin = value;
 		}
 
 
-		/**
-		 * 设置列表项皮肤
-		 * @param cellSkin
-		 * @param cellSelectedSkin
-		 *
-		 */
-		public function setItemSkin(itemSkin:ISkin, itemOverSkin:ISkin, itemSelectedSkin:ISkin):void
+		public function set itemUpSkin(value:ISkin):void
 		{
-			_itemSkin = itemSkin;
-			_itemOverSkin = itemOverSkin;
-			_itemSelectedSkin = itemSelectedSkin;
-			resetSkin();
+			_itemSkin = value;
+			update();
+		}
+		
+		public function set itemOverSkin(value:ISkin):void
+		{
+			_itemOverSkin = value;
+		}
+		
+		public function set itemSelectedSkin(value:ISkin):void
+		{
+			_itemSelectedSkin = value;
+			update();
 		}
 
 
-		/**
-		 * 设置列表项文本样式
-		 * @param itemStyle
-		 * @param itemSelectedStyle
-		 *
-		 */
-		public function setItemStyle(itemStyle:TextStyle, itemSelectedStyle:TextStyle):void
+		public function set itemUpStyle(value:TextStyle):void
 		{
-			_itemStyle = itemStyle;
-			_itemSelectedStyle = itemSelectedStyle;
-			resetSkin();
+			_itemStyle = value;
+			update();
+		}
+		
+		public function set itemSelectedStyle(value:TextStyle):void
+		{
+			_itemSelectedStyle = value;
+			update();
+		}
+		
+		
+		private function update():void
+		{
+			for each (var item:ToggleButton in _itemContainer.children)
+			{
+				item.style = item.overStyle = item.downStyle = _itemStyle;
+				item.selectedStyle = item.selectedOverStyle = item.selectedDownStyle = _itemSelectedStyle;
+				item.upSkin = _itemSkin;
+				item.overSkin = item.downSkin = _itemOverSkin;
+				item.selectedSkin = item.selectedOverSkin = item.selectedDownSkin = _itemSelectedSkin;
+			}
 		}
 
 
@@ -272,20 +282,7 @@ package com.macro.gUI.composite
 		}
 
 
-		private function resetSkin():void
-		{
-			for each (var item:ToggleButton in _itemContainer.children)
-			{
-				item.style = item.overStyle = item.downStyle = _itemStyle;
-				item.selectedStyle = item.selectedOverStyle = item.selectedDownStyle = _itemSelectedStyle;
-				item.upSkin = _itemSkin;
-				item.overSkin = item.downSkin = _itemOverSkin;
-				item.selectedSkin = item.selectedOverSkin = item.selectedDownSkin = _itemSelectedSkin;
-			}
-		}
-
-
-
+		
 		override public function hitTest(x:int, y:int):IControl
 		{
 			var target:IControl;

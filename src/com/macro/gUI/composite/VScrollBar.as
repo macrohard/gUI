@@ -319,87 +319,84 @@ package com.macro.gUI.composite
 
 
 
-		/**
-		 * 设置滑块皮肤
-		 * @param upSkin 常态皮肤
-		 * @param disableSkin 禁用态皮肤
-		 * @param selectedSkin 选中态皮肤
-		 * @param selectedDisableSkin 选中禁用态皮肤
-		 *
-		 */
-		public function setBlockSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
+		public function set blockUpSkin(value:ISkin):void
 		{
-			_blockBtn.upSkin = upSkin;
-			_blockBtn.overSkin = overSkin;
-			_blockBtn.downSkin = downSkin;
-			_blockBtn.disableSkin = disableSkin;
-			if (_autoSize)
-			{
-				resize(0, _height);
-			}
-			else
-			{
-				layout();
-			}
+			_blockBtn.upSkin = value;
+			update();
+		}
+		
+		public function set blockOverSkin(value:ISkin):void
+		{
+			_blockBtn.overSkin = value;
+		}
+		
+		public function set blockDownSkin(value:ISkin):void
+		{
+			_blockBtn.downSkin = value;
+		}
+		
+		public function set blockDisableSkin(value:ISkin):void
+		{
+			_blockBtn.disableSkin = value;
+			update();
 		}
 
-		/**
-		 * 设置上按钮皮肤
-		 * @param upSkin 常态皮肤
-		 * @param disableSkin 禁用态皮肤
-		 * @param selectedSkin 选中态皮肤
-		 * @param selectedDisableSkin 选中禁用态皮肤
-		 *
-		 */
-		public function setLeftButtonSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
+		
+		public function set leftButtonUpSkin(value:ISkin):void
 		{
-			_upBtn.upSkin = upSkin;
-			_upBtn.overSkin = overSkin;
-			_upBtn.downSkin = downSkin;
-			_upBtn.disableSkin = disableSkin;
-			if (_autoSize)
-			{
-				resize(0, _height);
-			}
-			else
-			{
-				layout();
-			}
+			_upBtn.upSkin = value;
+			update();
+		}
+		
+		public function set leftButtonOverSkin(value:ISkin):void
+		{
+			_upBtn.overSkin = value;
+		}
+		
+		public function set leftButtonDownSkin(value:ISkin):void
+		{
+			_upBtn.downSkin = value;
+		}
+		
+		public function set leftButtonDisableSkin(value:ISkin):void
+		{
+			_upBtn.disableSkin = value;
+			update();
 		}
 
-		/**
-		 * 设置下按钮皮肤
-		 * @param upSkin 常态皮肤
-		 * @param disableSkin 禁用态皮肤
-		 * @param selectedSkin 选中态皮肤
-		 * @param selectedDisableSkin 选中禁用态皮肤
-		 *
-		 */
-		public function setRightButtonSkin(upSkin:ISkin, overSkin:ISkin, downSkin:ISkin, disableSkin:ISkin):void
+		
+		public function set rightButtonUpSkin(value:ISkin):void
 		{
-			_downBtn.upSkin = upSkin;
-			_downBtn.overSkin = overSkin;
-			_downBtn.downSkin = downSkin;
-			_downBtn.disableSkin = disableSkin;
-			if (_autoSize)
-			{
-				resize(0, _height);
-			}
-			else
-			{
-				layout();
-			}
+			_downBtn.upSkin = value;
+			update();
+		}
+		
+		public function set rightButtonOverSkin(value:ISkin):void
+		{
+			_downBtn.overSkin = value;
+		}
+		
+		public function set rightButtonDownSkin(value:ISkin):void
+		{
+			_downBtn.downSkin = value;
+		}
+		
+		public function set rightButtonDisableSkin(value:ISkin):void
+		{
+			_downBtn.disableSkin = value;
+			update();
 		}
 
-		/**
-		 * 设置滑槽背景皮肤
-		 * @param value
-		 *
-		 */
-		public function setTrackSkin(value:ISkin):void
+		public function set trackSkin(value:ISkin):void
 		{
 			_track.bgSkin = value;
 			_track.width = value.bitmapData.width;
+			update();
+		}
+		
+		
+		private function update():void
+		{
 			if (_autoSize)
 			{
 				resize(0, _height);

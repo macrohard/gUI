@@ -176,42 +176,43 @@ package com.macro.gUI.composite
 
 
 
-		/**
-		 * 标签文本样式
-		 * @param style
-		 *
-		 */
-		public function setLabelStyle(style:TextStyle):void
+		public function set labelStyle(value:TextStyle):void
 		{
-			if (style)
+			if (value)
 			{
-				_label.style = style;
-				if (_autoSize)
-				{
-					resize();
-				}
-				else
-				{
-					layout();
-				}
+				_label.style = value;
+				update();
 			}
 		}
 
-		/**
-		 * 设置按钮皮肤
-		 * @param upSkin 常态皮肤
-		 * @param disableSkin 禁用态皮肤
-		 * @param selectedSkin 选中态皮肤
-		 * @param selectedDisableSkin 选中禁用态皮肤
-		 *
-		 */
-		public function setSkins(upSkin:ISkin, disableSkin:ISkin, selectedSkin:ISkin, selectedDisableSkin:ISkin):void
+		
+		public function set upSkin(value:ISkin):void
 		{
-			_icon.overSkin = _icon.downSkin = _icon.upSkin = upSkin;
-			_icon.disableSkin = disableSkin;
-			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = selectedSkin;
-			_icon.selectedDisableSkin = selectedDisableSkin;
-
+			_icon.overSkin = _icon.downSkin = _icon.upSkin = value;
+			update();
+		}
+		
+		public function set disableSkin(value:ISkin):void
+		{
+			_icon.disableSkin = value;
+			update();
+		}
+		
+		public function set selectedSkin(value:ISkin):void
+		{
+			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = value;
+			update();
+		}
+		
+		public function set selectedDisableSkin(value:ISkin):void
+		{
+			_icon.selectedDisableSkin = value;
+			update();
+		}
+		
+		
+		private function update():void
+		{
 			if (_autoSize)
 			{
 				resize();
@@ -220,6 +221,7 @@ package com.macro.gUI.composite
 			{
 				layout();
 			}
+			
 		}
 
 
