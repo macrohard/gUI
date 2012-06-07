@@ -111,21 +111,39 @@ package com.macro.gUI.composite
 				drawPercentImage();
 			}
 		}
-
-
-
-		/**
-		 * 设置皮肤
-		 * @param bgSkin 背景皮肤。注意将使用此皮肤的gridLeft和gridTop来定位填充物左上角坐标
-		 * @param fillingSkin 填充物皮肤
-		 *
-		 */
-		public function setSkins(bgSkin:ISkin, fillingSkin:ISkin):void
+		
+		
+		override public function set height(value:int):void
 		{
-			_bg.bgSkin = bgSkin;
-			_bg.height = bgSkin.bitmapData.height;
-			_fillingSkin = fillingSkin;
-			_canvas.height = fillingSkin.bitmapData.height;
+			_autoSize = false;
+			super.height = value;
+		}
+		
+		override public function set width(value:int):void
+		{
+			_autoSize = false;
+			super.width = value;
+		}
+
+
+
+		public function set bgSkin(value:ISkin):void
+		{
+			_bg.bgSkin = value;
+			_bg.height = value.bitmapData.height;
+			update();
+		}
+		
+		public function set fillingSkin(value:ISkin):void
+		{
+			_fillingSkin = value;
+			_canvas.height = value.bitmapData.height;
+			update();
+		}
+		
+		
+		private function update():void
+		{
 			if (_autoSize)
 			{
 				resize(_width);
