@@ -103,6 +103,7 @@ package com.macro.gUI.controls
 			var tmp:BitmapData = _states[CtrlState.UP];
 			var img:BitmapData = ImageUtil.getBitmapData(value);
 			
+			_states[CtrlState.UP] = img;
 			if (_image == tmp)
 			{
 				_image = img;
@@ -113,8 +114,6 @@ package com.macro.gUI.controls
 			{
 				tmp.dispose();
 			}
-			
-			_states[CtrlState.UP] = img;
 		}
 		
 		
@@ -133,6 +132,7 @@ package com.macro.gUI.controls
 			var tmp:BitmapData = _states[CtrlState.DISABLE];
 			var img:BitmapData = ImageUtil.getBitmapData(value);
 			
+			_states[CtrlState.DISABLE] = img;
 			if (_image == tmp)
 			{
 				_image = img;
@@ -143,8 +143,6 @@ package com.macro.gUI.controls
 			{
 				tmp.dispose();
 			}
-			
-			_states[CtrlState.DISABLE] = img;
 		}
 		
 		
@@ -161,7 +159,7 @@ package com.macro.gUI.controls
 			}
 			else
 			{
-				if (_skinDrawRect && _skinDrawRect.containsPoint(p))
+				if (_bitmapData.rect.containsPoint(p))
 				{
 					return this;
 				}
