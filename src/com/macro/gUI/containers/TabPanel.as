@@ -264,6 +264,11 @@ package com.macro.gUI.containers
 		 * @param bgSkin
 		 *
 		 */
+		public function get bgSkin():ISkin
+		{
+			return _bg.bgSkin;
+		}
+		
 		public function set bgSkin(value:ISkin):void
 		{
 			_bg.bgSkin = value;
@@ -278,6 +283,11 @@ package com.macro.gUI.containers
 		 * @param tabSelectedSkin
 		 *
 		 */
+		public function get tabSkin():ISkin
+		{
+			return _tabSkin;
+		}
+		
 		public function set tabSkin(value:ISkin):void
 		{
 			if (_tabLayout == TAB_LAYOUT_TOP)
@@ -291,6 +301,12 @@ package com.macro.gUI.containers
 			resetTabSkin();
 			setMargin();
 			layout();
+		}
+		
+		
+		public function get tabSelectedSkin():ISkin
+		{
+			return _tabSelectedSkin;
 		}
 		
 		public function set tabSelectedSkin(value:ISkin):void
@@ -313,6 +329,11 @@ package com.macro.gUI.containers
 		 * @param tabStyle
 		 *
 		 */
+		public function get tabStyle():TextStyle
+		{
+			return _tabStyle;
+		}
+		
 		public function set tabStyle(value:TextStyle):void
 		{
 			_tabStyle = value;

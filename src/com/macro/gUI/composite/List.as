@@ -162,12 +162,22 @@ package com.macro.gUI.composite
 		}
 
 
+		
+		public function get bgSkin():ISkin
+		{
+			return (_container as Panel).bgSkin;
+		}
 
 		public function set bgSkin(value:ISkin):void
 		{
 			(_container as Panel).bgSkin = value;
 		}
 
+		
+		public function get itemUpSkin():ISkin
+		{
+			return _itemSkin;
+		}
 
 		public function set itemUpSkin(value:ISkin):void
 		{
@@ -175,9 +185,19 @@ package com.macro.gUI.composite
 			update();
 		}
 		
+		public function get itemOverSkin():ISkin
+		{
+			return _itemOverSkin;
+		}
+		
 		public function set itemOverSkin(value:ISkin):void
 		{
 			_itemOverSkin = value;
+		}
+		
+		public function get itemSelectedSkin():ISkin
+		{
+			return _itemSelectedSkin;
 		}
 		
 		public function set itemSelectedSkin(value:ISkin):void
@@ -186,11 +206,21 @@ package com.macro.gUI.composite
 			update();
 		}
 
+		
+		public function get itemUpStyle():TextStyle
+		{
+			return _itemStyle;
+		}
 
 		public function set itemUpStyle(value:TextStyle):void
 		{
 			_itemStyle = value;
 			update();
+		}
+		
+		public function get itemSelectedStyle():TextStyle
+		{
+			return _itemSelectedStyle;
 		}
 		
 		public function set itemSelectedStyle(value:TextStyle):void

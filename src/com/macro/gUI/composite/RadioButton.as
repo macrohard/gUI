@@ -208,6 +208,11 @@ package com.macro.gUI.composite
 		}
 
 
+		
+		public function get labelStyle():TextStyle
+		{
+			return _label.style;
+		}
 
 		public function set labelStyle(value:TextStyle):void
 		{
@@ -219,10 +224,20 @@ package com.macro.gUI.composite
 		}
 
 		
+		public function get upSkin():ISkin
+		{
+			return _icon.upSkin;
+		}
+		
 		public function set upSkin(value:ISkin):void
 		{
 			_icon.overSkin = _icon.downSkin = _icon.upSkin = value;
 			update();
+		}
+		
+		public function get disableSkin():ISkin
+		{
+			return _icon.disableSkin;
 		}
 		
 		public function set disableSkin(value:ISkin):void
@@ -231,10 +246,20 @@ package com.macro.gUI.composite
 			update();
 		}
 		
+		public function get selectedSkin():ISkin
+		{
+			return _icon.selectedSkin;
+		}
+		
 		public function set selectedSkin(value:ISkin):void
 		{
 			_icon.selectedDownSkin = _icon.selectedOverSkin = _icon.selectedSkin = value;
 			update();
+		}
+		
+		public function get selectedDisableSkin():ISkin
+		{
+			return _icon.selectedDisableSkin;
 		}
 		
 		public function set selectedDisableSkin(value:ISkin):void

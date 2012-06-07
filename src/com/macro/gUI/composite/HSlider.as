@@ -27,7 +27,7 @@ package com.macro.gUI.composite
 	public class HSlider extends AbstractComposite implements IKeyboard, IDrag, IButton
 	{
 
-		protected var _bg:Slice;
+		protected var _track:Slice;
 
 		protected var _blockBtn:Button;
 
@@ -64,7 +64,7 @@ package com.macro.gUI.composite
 			_padding = new Margin(10, 10, 10, 10);
 
 			var skin:ISkin = skinMgr.getSkin(SkinDef.SLIDER_HORIZONTAL_BG);
-			_bg = new Slice(skin, width, skin.bitmapData.height);
+			_track = new Slice(skin, width, skin.bitmapData.height);
 
 			_blockBtn = new Button();
 			_blockBtn.upSkin = skinMgr.getSkin(SkinDef.SLIDER_BLOCK);
@@ -73,7 +73,7 @@ package com.macro.gUI.composite
 			_blockBtn.disableSkin = skinMgr.getSkin(SkinDef.SLIDER_BLOCK_DISABLE);
 
 			_container = new Container();
-			_container.addChild(_bg);
+			_container.addChild(_track);
 			_container.addChild(_blockBtn);
 
 			resize(_width);
@@ -249,6 +249,11 @@ package com.macro.gUI.composite
 		}
 
 
+		
+		public function get blockUpSkin():ISkin
+		{
+			return _blockBtn.upSkin;
+		}
 
 		public function set blockUpSkin(value:ISkin):void
 		{
@@ -256,9 +261,19 @@ package com.macro.gUI.composite
 			update();
 		}
 		
+		public function get blockOverSkin():ISkin
+		{
+			return _blockBtn.overSkin;
+		}
+		
 		public function set blockOverSkin(value:ISkin):void
 		{
 			_blockBtn.overSkin = value;
+		}
+		
+		public function get blockDownSkin():ISkin
+		{
+			return _blockBtn.downSkin;
 		}
 		
 		public function set blockDownSkin(value:ISkin):void
@@ -266,17 +281,27 @@ package com.macro.gUI.composite
 			_blockBtn.downSkin = value;
 		}
 		
+		public function get blockDisableSkin():ISkin
+		{
+			return _blockBtn.disableSkin;
+		}
+		
 		public function set blockDisableSkin(value:ISkin):void
 		{
 			_blockBtn.disableSkin = value;
 			update();
 		}
-			
+		
+		
+		public function get trackSkin():ISkin
+		{
+			return _track.bgSkin;
+		}
 
 		public function set trackSkin(value:ISkin):void
 		{
-			_bg.bgSkin = value;
-			_bg.height = value.bitmapData.height;
+			_track.bgSkin = value;
+			_track.height = value.bitmapData.height;
 			update();
 		}
 		
@@ -303,9 +328,9 @@ package com.macro.gUI.composite
 			{
 				return _blockBtn;
 			}
-			else if (_bg.rect.containsPoint(p))
+			else if (_track.rect.containsPoint(p))
 			{
-				return _bg;
+				return _track;
 			}
 
 			return null;
@@ -346,9 +371,9 @@ package com.macro.gUI.composite
 				oy += _height - h;
 			}
 
-			_bg.x = _padding.left - _bg.bgSkin.gridLeft;
-			_bg.y = oy - _bg.bgSkin.gridTop;
-			_bg.width = _width - _padding.right + _bg.bgSkin.paddingRight - _bg.x;
+			_track.x = _padding.left - _track.bgSkin.gridLeft;
+			_track.y = oy - _track.bgSkin.gridTop;
+			_track.width = _width - _padding.right + _track.bgSkin.paddingRight - _track.x;
 
 			_minX = _padding.left - _blockBtn.upSkin.gridLeft;
 			_maxX = _width - _padding.right - _blockBtn.upSkin.gridLeft;
