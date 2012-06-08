@@ -51,7 +51,7 @@ package com.macro.logging
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.ALL))
 			{
-				_appender.send(category, StrUtil.format(message.toString(), params), LogLevel.ALL);
+				_appender.send(category, getMessage(message, params), LogLevel.ALL);
 			}
 		}
 
@@ -60,7 +60,7 @@ package com.macro.logging
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.DEBUG))
 			{
-				_appender.send(category, StrUtil.format(message.toString(), params), LogLevel.DEBUG);
+				_appender.send(category, getMessage(message, params), LogLevel.DEBUG);
 			}
 		}
 
@@ -69,7 +69,7 @@ package com.macro.logging
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.INFO))
 			{
-				_appender.send(category, StrUtil.format(message.toString(), params), LogLevel.INFO);
+				_appender.send(category, getMessage(message, params), LogLevel.INFO);
 			}
 		}
 
@@ -78,7 +78,7 @@ package com.macro.logging
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.WARN))
 			{
-				_appender.send(category, StrUtil.format(message.toString(), params), LogLevel.WARN);
+				_appender.send(category, getMessage(message, params), LogLevel.WARN);
 			}
 		}
 
@@ -87,7 +87,7 @@ package com.macro.logging
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.ERROR))
 			{
-				_appender.send(category, StrUtil.format(message.toString(), params), LogLevel.ERROR);
+				_appender.send(category, getMessage(message, params), LogLevel.ERROR);
 			}
 		}
 
@@ -96,7 +96,7 @@ package com.macro.logging
 			var category:String = getCategory(cls);
 			if (_filter.filter(category, LogLevel.FATAL))
 			{
-				_appender.send(category, StrUtil.format(message.toString(), params), LogLevel.FATAL);
+				_appender.send(category, getMessage(message, params), LogLevel.FATAL);
 			}
 		}
 
@@ -104,6 +104,13 @@ package com.macro.logging
 		{
 			var category:String = (cls is String ? String(cls) : getQualifiedClassName(cls));
 			return category.replace("::", ".");
+		}
+		
+		private static function getMessage(msg:Object, params:Array):String
+		{
+			if (msg != null)
+				return StrUtil.format(msg.toString(), params);
+			return "null";
 		}
 
 	}
