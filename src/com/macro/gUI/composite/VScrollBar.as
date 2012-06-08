@@ -318,6 +318,11 @@ package com.macro.gUI.composite
 		}
 
 
+		
+		public function get blockUpSkin():ISkin
+		{
+			return _blockBtn.upSkin;
+		}
 
 		public function set blockUpSkin(value:ISkin):void
 		{
@@ -325,14 +330,29 @@ package com.macro.gUI.composite
 			update();
 		}
 		
+		public function get blockOverSkin():ISkin
+		{
+			return _blockBtn.overSkin;
+		}
+		
 		public function set blockOverSkin(value:ISkin):void
 		{
 			_blockBtn.overSkin = value;
 		}
 		
+		public function get blockDownSkin():ISkin
+		{
+			return _blockBtn.downSkin;
+		}
+		
 		public function set blockDownSkin(value:ISkin):void
 		{
 			_blockBtn.downSkin = value;
+		}
+		
+		public function get blockDisableSkin():ISkin
+		{
+			return _blockBtn.disableSkin;
 		}
 		
 		public function set blockDisableSkin(value:ISkin):void
@@ -342,49 +362,95 @@ package com.macro.gUI.composite
 		}
 
 		
-		public function set leftButtonUpSkin(value:ISkin):void
+		public function get upButtonUpSkin():ISkin
+		{
+			return _upBtn.upSkin;
+		}
+		
+		public function set upButtonUpSkin(value:ISkin):void
 		{
 			_upBtn.upSkin = value;
 			update();
 		}
 		
-		public function set leftButtonOverSkin(value:ISkin):void
+		public function get upButtonOverSkin():ISkin
+		{
+			return _upBtn.overSkin;
+		}
+		
+		public function set upButtonOverSkin(value:ISkin):void
 		{
 			_upBtn.overSkin = value;
 		}
 		
-		public function set leftButtonDownSkin(value:ISkin):void
+		public function get upButtonDownSkin():ISkin
+		{
+			return _upBtn.downSkin;
+		}
+		
+		public function set upButtonDownSkin(value:ISkin):void
 		{
 			_upBtn.downSkin = value;
 		}
 		
-		public function set leftButtonDisableSkin(value:ISkin):void
+		public function get upButtonDisableSkin():ISkin
+		{
+			return _upBtn.disableSkin;
+		}
+		
+		public function set upButtonDisableSkin(value:ISkin):void
 		{
 			_upBtn.disableSkin = value;
 			update();
 		}
 
 		
-		public function set rightButtonUpSkin(value:ISkin):void
+		public function get downButtonUpSkin():ISkin
+		{
+			return _downBtn.upSkin;
+		}
+		
+		public function set downButtonUpSkin(value:ISkin):void
 		{
 			_downBtn.upSkin = value;
 			update();
 		}
 		
-		public function set rightButtonOverSkin(value:ISkin):void
+		public function get downButtonOverSkin():ISkin
+		{
+			return _downBtn.overSkin;
+		}
+		
+		public function set downButtonOverSkin(value:ISkin):void
 		{
 			_downBtn.overSkin = value;
 		}
 		
-		public function set rightButtonDownSkin(value:ISkin):void
+		public function get downButtonDownSkin():ISkin
+		{
+			return _downBtn.downSkin;
+		}
+		
+		public function set downButtonDownSkin(value:ISkin):void
 		{
 			_downBtn.downSkin = value;
 		}
 		
-		public function set rightButtonDisableSkin(value:ISkin):void
+		public function get downButtonDisableSkin():ISkin
+		{
+			return _downBtn.disableSkin;
+		}
+		
+		public function set downButtonDisableSkin(value:ISkin):void
 		{
 			_downBtn.disableSkin = value;
 			update();
+		}
+		
+		
+		public function get trackSkin():ISkin
+		{
+			return _track.bgSkin;
 		}
 
 		public function set trackSkin(value:ISkin):void

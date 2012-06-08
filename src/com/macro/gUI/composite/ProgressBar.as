@@ -1,13 +1,13 @@
 package com.macro.gUI.composite
 {
 	import com.macro.gUI.assist.LayoutAlign;
-	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Canvas;
 	import com.macro.gUI.controls.Slice;
+	import com.macro.gUI.core.AbstractComposite;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -126,12 +126,22 @@ package com.macro.gUI.composite
 		}
 
 
+		
+		public function get bgSkin():ISkin
+		{
+			return _bg.bgSkin;
+		}
 
 		public function set bgSkin(value:ISkin):void
 		{
 			_bg.bgSkin = value;
 			_bg.height = value.bitmapData.height;
 			update();
+		}
+		
+		public function get fillingSkin():ISkin
+		{
+			return _fillingSkin;
 		}
 		
 		public function set fillingSkin(value:ISkin):void

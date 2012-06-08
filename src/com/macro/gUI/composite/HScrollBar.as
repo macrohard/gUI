@@ -318,6 +318,11 @@ package com.macro.gUI.composite
 		}
 
 
+		
+		public function get blockUpSkin():ISkin
+		{
+			return _blockBtn.upSkin;
+		}
 
 		public function set blockUpSkin(value:ISkin):void
 		{
@@ -325,9 +330,19 @@ package com.macro.gUI.composite
 			update();
 		}
 		
+		public function get blockOverSkin():ISkin
+		{
+			return _blockBtn.overSkin;
+		}
+		
 		public function set blockOverSkin(value:ISkin):void
 		{
 			_blockBtn.overSkin = value;
+		}
+		
+		public function get blockDownSkin():ISkin
+		{
+			return _blockBtn.downSkin;
 		}
 		
 		public function set blockDownSkin(value:ISkin):void
@@ -335,12 +350,22 @@ package com.macro.gUI.composite
 			_blockBtn.downSkin = value;
 		}
 		
+		public function get blockDisableSkin():ISkin
+		{
+			return _blockBtn.disableSkin;
+		}
+		
 		public function set blockDisableSkin(value:ISkin):void
 		{
 			_blockBtn.disableSkin = value;
 			update();
 		}
-			
+		
+		
+		public function get leftButtonUpSkin():ISkin
+		{
+			return _leftBtn.upSkin;
+		}
 
 		public function set leftButtonUpSkin(value:ISkin):void
 		{
@@ -348,14 +373,29 @@ package com.macro.gUI.composite
 			update();
 		}
 		
+		public function get leftButtonOverSkin():ISkin
+		{
+			return _leftBtn.overSkin;
+		}
+		
 		public function set leftButtonOverSkin(value:ISkin):void
 		{
 			_leftBtn.overSkin = value;
 		}
 		
+		public function get leftButtonDownSkin():ISkin
+		{
+			return _leftBtn.downSkin;
+		}
+		
 		public function set leftButtonDownSkin(value:ISkin):void
 		{
 			_leftBtn.downSkin = value;
+		}
+		
+		public function get leftButtonDisableSkin():ISkin
+		{
+			return _leftBtn.disableSkin;
 		}
 		
 		public function set leftButtonDisableSkin(value:ISkin):void
@@ -365,10 +405,20 @@ package com.macro.gUI.composite
 		}
 
 		
+		public function get rightButtonUpSkin():ISkin
+		{
+			return _rightBtn.upSkin;
+		}
+		
 		public function set rightButtonUpSkin(value:ISkin):void
 		{
 			_rightBtn.upSkin = value;
 			update();
+		}
+		
+		public function get rightButtonOverSkin():ISkin
+		{
+			return _rightBtn.overSkin;
 		}
 		
 		public function set rightButtonOverSkin(value:ISkin):void
@@ -376,9 +426,19 @@ package com.macro.gUI.composite
 			_rightBtn.overSkin = value;
 		}
 		
+		public function get rightButtonDownSkin():ISkin
+		{
+			return _rightBtn.downSkin;
+		}
+		
 		public function set rightButtonDownSkin(value:ISkin):void
 		{
 			_rightBtn.downSkin = value;
+		}
+		
+		public function get rightButtonDisableSkin():ISkin
+		{
+			return _rightBtn.disableSkin;
 		}
 		
 		public function set rightButtonDisableSkin(value:ISkin):void
@@ -387,6 +447,11 @@ package com.macro.gUI.composite
 			update();
 		}
 
+		
+		public function get trackSkin():ISkin
+		{
+			return _track.bgSkin;
+		}
 
 		public function set trackSkin(value:ISkin):void
 		{

@@ -286,11 +286,21 @@ package com.macro.gUI.composite
 		}
 
 
+		
+		public function get textInputUpStyle():TextStyle
+		{
+			return _textInput.style;
+		}
 
 		public function set textInputUpStyle(value:TextStyle):void
 		{
 			_textInput.style = value;
 			update();
+		}
+		
+		public function get textInputDisableStyle():TextStyle
+		{
+			return _textInput.disableStyle;
 		}
 		
 		public function set textInputDisableStyle(value:TextStyle):void
@@ -299,11 +309,21 @@ package com.macro.gUI.composite
 			update();
 		}
 
+		
+		public function get textInputUpSkin():ISkin
+		{
+			return _textInput.bgSkin;
+		}
 
 		public function set textInputUpSkin(value:ISkin):void
 		{
 			_textInput.bgSkin = value;
 			update();
+		}
+		
+		public function get textInputDisableSkin():ISkin
+		{
+			return _textInput.disableSkin;
 		}
 		
 		public function set textInputDisableSkin(value:ISkin):void
@@ -312,6 +332,11 @@ package com.macro.gUI.composite
 			update();
 		}
 
+		
+		public function get buttonUpSkin():ISkin
+		{
+			return _downBtn.upSkin;
+		}
 
 		public function set buttonUpSkin(value:ISkin):void
 		{
@@ -319,14 +344,29 @@ package com.macro.gUI.composite
 			update();
 		}
 		
+		public function get buttonOverSkin():ISkin
+		{
+			return _downBtn.overSkin;
+		}
+		
 		public function set buttonOverSkin(value:ISkin):void
 		{
 			_downBtn.overSkin = value;
 		}
 		
+		public function get buttonDownSkin():ISkin
+		{
+			return _downBtn.downSkin;
+		}
+		
 		public function set buttonDownSkin(value:ISkin):void
 		{
 			_downBtn.downSkin = value;
+		}
+		
+		public function get buttonDisableSkin():ISkin
+		{
+			return _downBtn.disableSkin;
 		}
 		
 		public function set buttonDisableSkin(value:ISkin):void
@@ -335,6 +375,11 @@ package com.macro.gUI.composite
 			update();
 		}
 
+		
+		public function get listBgSkin():ISkin
+		{
+			return _list.bgSkin;
+		}
 
 		public function set listBgSkin(value:ISkin):void
 		{
@@ -342,14 +387,29 @@ package com.macro.gUI.composite
 		}
 		
 		
+		public function get listItemUpSkin():ISkin
+		{
+			return _list.itemUpSkin;
+		}
+		
 		public function set listItemUpSkin(value:ISkin):void
 		{
 			_list.itemUpSkin = value;
 		}
 		
+		public function get listItemOverSkin():ISkin
+		{
+			return _list.itemOverSkin;
+		}
+		
 		public function set listItemOverSkin(value:ISkin):void
 		{
 			_list.itemOverSkin = value;
+		}
+		
+		public function get listItemSelectedSkin():ISkin
+		{
+			return _list.itemSelectedSkin;
 		}
 		
 		public function set listItemSelectedSkin(value:ISkin):void
@@ -358,9 +418,19 @@ package com.macro.gUI.composite
 		}
 		
 		
+		public function get listItemUpStyle():TextStyle
+		{
+			return _list.itemUpStyle;
+		}
+		
 		public function set listItemUpStyle(value:TextStyle):void
 		{
 			_list.itemUpStyle = value;
+		}
+		
+		public function get listItemSelectedStyle():TextStyle
+		{
+			return _list.itemSelectedStyle;
 		}
 		
 		public function set listItemSelectedStyle(value:TextStyle):void

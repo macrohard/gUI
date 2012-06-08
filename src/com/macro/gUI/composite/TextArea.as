@@ -12,7 +12,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.geom.Point;
 
 
@@ -109,11 +109,11 @@ package com.macro.gUI.composite
 		}
 
 
-		/**
-		 * 设置背景皮肤
-		 * @param bgSkin
-		 *
-		 */
+		public function get bgSkin():ISkin
+		{
+			return (_container as Panel).bgSkin;
+		}
+		
 		public function set bgSkin(value:ISkin):void
 		{
 			(_container as Panel).bgSkin = value;

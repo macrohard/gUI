@@ -304,6 +304,11 @@ package com.macro.gUI.containers
 		 * @param bgSkin
 		 *
 		 */
+		public function get bgSkin():ISkin
+		{
+			return _bg.bgSkin;
+		}
+		
 		public function set bgSkin(value:ISkin):void
 		{
 			_bg.bgSkin = value;
@@ -316,6 +321,11 @@ package com.macro.gUI.containers
 		 * @param style
 		 *
 		 */
+		public function get titleStyle():TextStyle
+		{
+			return _title.style;
+		}
+		
 		public function set titleStyle(value:TextStyle):void
 		{
 			_title.style = value;

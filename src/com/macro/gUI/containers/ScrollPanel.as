@@ -95,11 +95,11 @@ package com.macro.gUI.containers
 		}
 
 
-		/**
-		 * 设置背景皮肤
-		 * @param bgSkin
-		 *
-		 */
+		public function get bgSkin():ISkin
+		{
+			return (_container as Panel).bgSkin;
+		}
+		
 		public function set bgSkin(value:ISkin):void
 		{
 			(_container as Panel).bgSkin = value;
