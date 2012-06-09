@@ -128,6 +128,23 @@ package com.macro.gUI.controls
 				resize();
 			}
 		}
+		
+		
+		protected var _htmlText:String;
+		
+		public function get htmlText():String
+		{
+			return _htmlText;
+		}
+		
+		public function set htmlText(value:String):void
+		{
+			if (_htmlText != value)
+			{
+				_htmlText = value;
+				resize();
+			}
+		}
 
 
 		protected var _displayAsPassword:Boolean;
@@ -267,7 +284,14 @@ package com.macro.gUI.controls
 			var textWidth:int = _padding ? w - _padding.left - _padding.right : w;
 			if (textWidth > 0)
 			{
-				_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword);
+				if (_htmlText != null && _htmlText.length > 0)
+				{
+					_textImg = createTextImage(_htmlText, _style, textWidth, _displayAsPassword, true);
+				}
+				else
+				{
+					_textImg = createTextImage(_text, _style, textWidth, _displayAsPassword, false);
+				}
 			}
 		}
 
@@ -282,7 +306,7 @@ package com.macro.gUI.controls
 		 * @return
 		 *
 		 */
-		protected static function createTextImage(text:String, style:TextStyle, width:int, displayAsPassword:Boolean):BitmapData
+		protected static function createTextImage(text:String, style:TextStyle, width:int, displayAsPassword:Boolean, isHtml:Boolean):BitmapData
 		{
 			if (!text || text.length == 0 || !style)
 			{
@@ -300,7 +324,14 @@ package com.macro.gUI.controls
 			tf.maxChars = style.maxChars;
 			tf.filters = style.filters;
 			tf.defaultTextFormat = style;
-			tf.text = text;
+			if (isHtml)
+			{
+				tf.htmlText = text;
+			}
+			else
+			{
+				tf.text = text;
+			}
 
 			if (style.wordWrap && tf.width > width)
 			{
