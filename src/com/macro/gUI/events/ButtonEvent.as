@@ -27,6 +27,16 @@ package com.macro.gUI.events
 		 */
 		public static const MOUSE_OUT:String = "mouse.out";
 		
+		/**
+		 * 单击事件
+		 */
+		public static const CLICK:String = "click";
+		
+		/**
+		 * 双击事件
+		 */
+		public static const DOUBLE_CLICK:String = "double.click";
+		
 		
 		public function ButtonEvent(type:String)
 		{

@@ -10,6 +10,7 @@ package com.macro.gUI.controls
 	
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import flash.utils.getTimer;
 
 
 	/**
@@ -24,7 +25,8 @@ package com.macro.gUI.controls
 		 * 四态皮肤
 		 */
 		protected var _skins:Dictionary;
-
+		
+		
 		/**
 		 * 按钮。默认自动设置尺寸
 		 * @param text 作为文本的字符串
@@ -177,23 +179,23 @@ package com.macro.gUI.controls
 
 		override public function hitTest(x:int, y:int):IControl
 		{
-			var p:Point = globalToLocal(new Point(x, y));
+			_mousePoint = globalToLocal(new Point(x, y));
 
 			if (_precise)
 			{
-				if (_bitmapData.getPixel32(p.x, p.y) != 0)
+				if (_bitmapData.getPixel32(_mousePoint.x, _mousePoint.y) != 0)
 				{
 					return this;
 				}
 			}
 			else
 			{
-				if (_skinDrawRect && _skinDrawRect.containsPoint(p))
+				if (_skinDrawRect && _skinDrawRect.containsPoint(_mousePoint))
 				{
 					return this;
 				}
 
-				if (_textDrawRect && _textDrawRect.containsPoint(p))
+				if (_textDrawRect && _textDrawRect.containsPoint(_mousePoint))
 				{
 					return this;
 				}
@@ -214,6 +216,8 @@ package com.macro.gUI.controls
 			}
 			
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_DOWN));
+			// 记录鼠标按下位置
+			_mouseDownPoint = _mousePoint;
 		}
 		
 		override public function mouseUp(target:IControl):void
@@ -228,6 +232,23 @@ package com.macro.gUI.controls
 			}
 			
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_UP));
+			// 如果有按下位置，则执行Click测试
+			if (_mouseDownPoint != null)
+			{
+				var t:int = getTimer();
+				if (t - _clickTime < 400 && _clickPoint != null && _mouseDownPoint.equals(_clickPoint))
+				{
+					dispatchEvent(new ButtonEvent(ButtonEvent.DOUBLE_CLICK));
+					_clickPoint = null;
+				}
+				else
+				{
+					dispatchEvent(new ButtonEvent(ButtonEvent.CLICK));
+					_clickPoint = _mouseDownPoint;
+				}
+				_clickTime = t;
+				_mouseDownPoint = null;
+			}
 		}
 		
 		override public function mouseOver(target:IControl):void
