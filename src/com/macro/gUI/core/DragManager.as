@@ -65,7 +65,10 @@ package com.macro.gUI.core
 				_dragControl = control;
 				_dragTarget = target;
 				
-				Mouse.cursor = MouseCursor.BUTTON;
+				if (Mouse.cursor == MouseCursor.AUTO)
+				{
+					Mouse.cursor = MouseCursor.BUTTON;
+				}
 				isDragging = true;
 			}
 			else
@@ -82,7 +85,10 @@ package com.macro.gUI.core
 		 */
 		public function stopDrag():void
 		{
-			Mouse.cursor = MouseCursor.AUTO;
+			if (Mouse.cursor == MouseCursor.BUTTON)
+			{
+				Mouse.cursor = MouseCursor.AUTO;
+			}
 			_dragControl = null;
 			_dragTarget = null;
 			_dragAvatar = null;

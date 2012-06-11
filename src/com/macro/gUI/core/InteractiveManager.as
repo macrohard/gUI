@@ -128,7 +128,10 @@ package com.macro.gUI.core
 				// 处理鼠标离开
 				if (tempC is IButton && tempC.enabled && tempT.enabled)
 				{
-					Mouse.cursor = MouseCursor.AUTO;
+					if (Mouse.cursor == MouseCursor.BUTTON)
+					{
+						Mouse.cursor = MouseCursor.AUTO;
+					}
 					(tempC as IButton).mouseOut(tempT);
 				}
 			}
@@ -136,7 +139,7 @@ package com.macro.gUI.core
 			// 处理鼠标弹起
 			if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
 			{
-				if (_mouseTarget is IButton)
+				if (_mouseTarget is IButton && Mouse.cursor == MouseCursor.AUTO)
 				{
 					Mouse.cursor = MouseCursor.BUTTON;
 				}
@@ -167,14 +170,17 @@ package com.macro.gUI.core
 			// 处理鼠标离开
 			if (tempC is IButton && tempC.enabled && tempT.enabled)
 			{
-				Mouse.cursor = MouseCursor.AUTO;
+				if (Mouse.cursor == MouseCursor.BUTTON)
+				{
+					Mouse.cursor = MouseCursor.AUTO;
+				}
 				(tempC as IButton).mouseOut(tempT);
 			}
 
 			// 处理鼠标进入
 			if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
 			{
-				if (_mouseTarget is IButton)
+				if (_mouseTarget is IButton && Mouse.cursor == MouseCursor.AUTO)
 				{
 					Mouse.cursor = MouseCursor.BUTTON;
 				}
