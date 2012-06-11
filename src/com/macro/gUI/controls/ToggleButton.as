@@ -283,6 +283,8 @@ package com.macro.gUI.controls
 			resize();
 			
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_DOWN));
+			// 记录鼠标按下位置
+			_mouseDownPoint = _mousePoint;
 		}
 		
 		override public function mouseUp(target:IControl):void
@@ -316,6 +318,12 @@ package com.macro.gUI.controls
 			resize();
 			
 			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_UP));
+			// 如果有按下位置，则执行Click测试
+			if (_mouseDownPoint != null)
+			{
+				dispatchEvent(new ButtonEvent(ButtonEvent.CLICK));
+				_mouseDownPoint = null;
+			}
 		}
 
 		override public function mouseOut(target:IControl):void
