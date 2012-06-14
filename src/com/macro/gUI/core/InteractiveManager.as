@@ -71,6 +71,7 @@ package com.macro.gUI.core
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler, false, 0, true);
 
 			_popupMgr = uiManager.popupManager;
 			_dragMgr = uiManager.dragManager;
@@ -186,6 +187,22 @@ package com.macro.gUI.core
 				}
 				(_mouseControl as IButton).mouseOver(_mouseTarget);
 			}
+		}
+		
+		protected function mouseOutHandler(e:MouseEvent):void
+		{
+			// 处理鼠标离开
+			if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
+			{
+				if (Mouse.cursor == MouseCursor.BUTTON)
+				{
+					Mouse.cursor = MouseCursor.AUTO;
+				}
+				(_mouseControl as IButton).mouseOut(_mouseTarget);
+			}
+			
+			_mouseControl = null;
+			_mouseTarget = null;
 		}
 		
 		
