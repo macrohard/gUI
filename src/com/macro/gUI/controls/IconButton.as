@@ -128,7 +128,7 @@ package com.macro.gUI.controls
 		{
 			if (_icon && _iconLayer == ICON_UNDER_SKIN)
 			{
-				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon);
+				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon, _padding);
 			}
 		}
 		
@@ -136,7 +136,7 @@ package com.macro.gUI.controls
 		{
 			if (_icon && _iconLayer == ICON_ON_SKIN)
 			{
-				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon);
+				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon, _padding);
 			}
 		}
 	}
