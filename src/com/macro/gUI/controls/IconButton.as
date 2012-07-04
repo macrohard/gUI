@@ -4,7 +4,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.Margin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
-
+	
 	import flash.display.BitmapData;
 	import flash.utils.Dictionary;
 
@@ -16,6 +16,10 @@ package com.macro.gUI.controls
 	 */
 	public class IconButton extends Button
 	{
+		public static const ICON_ON_SKIN:int = 0;
+		
+		public static const ICON_UNDER_SKIN:int = 1;
+		
 		/**
 		 * 图标按钮。默认自动设置尺寸
 		 * @param text 作为文本的字符串
@@ -47,7 +51,8 @@ package com.macro.gUI.controls
 
 			_padding = _padding ? _padding : new Margin(3, 3, 3, 3);
 			_alignIcon = alignIcon;
-
+			_iconLayer = ICON_ON_SKIN;
+			
 			super(text, alignText);
 		}
 
@@ -76,6 +81,27 @@ package com.macro.gUI.controls
 				}
 			}
 		}
+		
+		
+		private var _iconLayer:int;
+		
+		/**
+		 * 图标层次，ICON_ON_SKIN或ICON_UNDER_SKIN
+		 * @return 
+		 * 
+		 */
+		public function get iconLayer():int
+		{
+			return _iconLayer;
+		}
+		
+		public function set iconLayer(value:int):void
+		{
+			_iconLayer = value;
+			resize();
+		}
+		
+		
 
 
 		private var _icon:BitmapData;
@@ -100,7 +126,15 @@ package com.macro.gUI.controls
 
 		override protected function prePaint():void
 		{
-			if (_icon)
+			if (_icon && _iconLayer == ICON_UNDER_SKIN)
+			{
+				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon);
+			}
+		}
+		
+		override protected function postPaint():void
+		{
+			if (_icon && _iconLayer == ICON_ON_SKIN)
 			{
 				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon);
 			}
