@@ -102,6 +102,26 @@ package com.macro.gUI.controls
 		}
 		
 		
+		
+		private var _iconPadding:Margin;
+		
+		/**
+		 * 定义图标与四周边距
+		 * @return 
+		 * 
+		 */
+		public function get iconPadding():Margin
+		{
+			return _iconPadding;
+		}
+		
+		public function set iconPadding(value:Margin):void
+		{
+			_iconPadding = value;
+			resize();
+		}
+		
+		
 
 
 		private var _icon:BitmapData;
@@ -128,7 +148,7 @@ package com.macro.gUI.controls
 		{
 			if (_icon && _iconLayer == ICON_UNDER_SKIN)
 			{
-				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon, _padding);
+				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon, _iconPadding);
 			}
 		}
 		
@@ -136,7 +156,12 @@ package com.macro.gUI.controls
 		{
 			if (_icon && _iconLayer == ICON_ON_SKIN)
 			{
-				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon, _padding);
+				drawFixed(_bitmapData, _width, _height, _alignIcon, _icon, _iconPadding);
+			}
+			
+			if (_textImg)
+			{
+				_textDrawRect = drawFixed(_bitmapData, _width, _height, _align, _textImg, _padding);
 			}
 		}
 	}
