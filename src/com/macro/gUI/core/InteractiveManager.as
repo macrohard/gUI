@@ -234,7 +234,7 @@ package com.macro.gUI.core
 		public function findTargetControl(control:IControl, x:int, y:int):Vector.<IControl>
 		{
 			var target:IControl;
-			if (control.visible)
+			if (control.visible && control.mouseEnabled)
 			{
 				target = control.hitTest(x, y);
 			}

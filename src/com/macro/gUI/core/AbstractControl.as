@@ -66,6 +66,9 @@ package com.macro.gUI.core
 
 			// 默认控件可用
 			_enabled = true;
+			
+			// 默认控件可交互
+			_mouseEnabled = true;
 
 			// 默认尺寸
 			_width = width;
@@ -152,6 +155,19 @@ package com.macro.gUI.core
 		public function set enabled(value:Boolean):void
 		{
 			_enabled = value;
+		}
+		
+		
+		protected var _mouseEnabled:Boolean;
+		
+		public function get mouseEnabled():Boolean
+		{
+			return _mouseEnabled;
+		}
+		
+		public function set mouseEnabled(value:Boolean):void
+		{
+			_mouseEnabled = value;
 		}
 
 
