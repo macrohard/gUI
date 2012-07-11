@@ -149,8 +149,6 @@ package com.macro.gUI.composite
 			{
 				_selectItem.selected = true;
 			}
-
-			dispatchEvent(new UIEvent(UIEvent.SELECT));
 		}
 
 
