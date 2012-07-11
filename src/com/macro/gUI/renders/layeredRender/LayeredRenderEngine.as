@@ -97,15 +97,7 @@ package com.macro.gUI.renders.layeredRender
 				return;
 			}
 			
-			// 获取子控件对应的Bitmap列表
-			var childBitmapList:Vector.<Bitmap> = new Vector.<Bitmap>();
-			getBitmapList(control, childBitmapList, false);
-			// 更新可见性
-			var v:Boolean = control.visible;
-			for each (var b:Bitmap in childBitmapList)
-			{
-				b.visible = v;
-			}
+			updateBitmapVisible(control, control.visible);
 		}
 		
 		public function updateAlpha(control:IControl):void
@@ -273,6 +265,36 @@ package com.macro.gUI.renders.layeredRender
 				}
 			}
 		}
+		
+		
+		/**
+		 * 更新控件对应的位图显示对象的可见性
+		 * @param control
+		 * @param visible
+		 * 
+		 */
+		private function updateBitmapVisible(control:IControl, visible:Boolean):void
+		{
+			if (control is IComposite)
+			{
+				updateBitmapVisible((control as IComposite).container, visible);
+				return;
+			}
+			
+			visible = visible ? control.visible : false;
+			
+			var b:Bitmap = _controlToBitmap[control];
+			b.visible = visible;
+			
+			if (control is IContainer)
+			{
+				var container:IContainer = control as IContainer;
+				for each (var ic:IControl in container.children)
+				{
+					updateBitmapVisible(ic, visible);
+				}
+			}
+		}
 
 
 		/**
@@ -344,6 +366,8 @@ package com.macro.gUI.renders.layeredRender
 				b = new Bitmap(control.bitmapData);
 				_controlToBitmap[control] = b;
 			}
+			
+			
 
 			childBitmapList.push(b);
 
