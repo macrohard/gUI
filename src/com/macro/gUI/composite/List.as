@@ -140,8 +140,15 @@ package com.macro.gUI.composite
 
 		public function set selectedIndex(value:int):void
 		{
+			if (_selectItem != null)
+			{
+				_selectItem.selected = false;
+			}
 			_selectItem = _itemContainer.getChildAt(value) as ToggleButton;
-			update();
+			if (_selectItem != null)
+			{
+				_selectItem.selected = true;
+			}
 
 			dispatchEvent(new UIEvent(UIEvent.SELECT));
 		}
