@@ -202,10 +202,8 @@ package com.macro.gUI.core
 			var removedControl:Vector.<IControl> = _children.splice(beginIndex, endIndex - beginIndex);
 			uiMgr.renderer.removeChildren(this, removedControl);
 
-			var child:IControl;
-			for (var i:int = beginIndex; i < endIndex; i++)
+			for each (var child:IControl in removedControl)
 			{
-				child = _children[i];
 				(child as AbstractControl).setHolder(null);
 				setChildStage(child, null);
 			}

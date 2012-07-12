@@ -1,7 +1,6 @@
 package com.macro.gUI.core
 {
 	import com.macro.gUI.containers.Container;
-	import com.macro.gUI.controls.Canvas;
 	
 	import flash.utils.Dictionary;
 
@@ -56,7 +55,7 @@ package com.macro.gUI.core
 		 * @param window
 		 * @param isModal 是否模态
 		 * @param isCenter 是否居中显示
-		 *
+		 * 
 		 */
 		public function addPopupWindow(window:IControl, isModal:Boolean = false, isCenter:Boolean = false):void
 		{
@@ -78,7 +77,7 @@ package com.macro.gUI.core
 				_popupContainer.addChildAt(window, getPopupWindowLayer());
 			}
 		}
-
+		
 		/**
 		 * 移除弹出窗口
 		 * @param window
@@ -98,7 +97,7 @@ package com.macro.gUI.core
 				_popupContainer.removeChild(window);
 			}
 		}
-
+		
 		/**
 		 * 将弹出窗口移到其它弹出窗口之前
 		 * @param window 弹出窗口
@@ -158,6 +157,25 @@ package com.macro.gUI.core
 				_popupMenu = null;
 				_initiator = null;
 			}
+		}
+		
+		
+		
+		/**
+		 * 移除所有弹出容器子项
+		 * 
+		 */
+		public function removeAll():void
+		{
+			_popupContainer.removeChildren();
+			for (var obj:Object in _modalWindows)
+			{
+				var window:IControl = obj as IControl;
+				_modalWindows[window] = null;
+				delete _modalWindows[window];
+			}
+			_popupMenu = null;
+			_initiator = null;
 		}
 
 

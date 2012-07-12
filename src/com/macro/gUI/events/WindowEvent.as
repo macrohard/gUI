@@ -10,17 +10,23 @@ package com.macro.gUI.events
 		/**
 		 * 最小化按钮被点击
 		 */
-		public static const MIN_BUTTON_CLICK:String = "minimize.button.click";
+		public static const MIN_BUTTON_CLICK:String = "window.minimize.button.click";
 		
 		/**
 		 * 最大化按钮被点击
 		 */
-		public static const MAX_BUTTON_CLICK:String = "maximize.button.click";
+		public static const MAX_BUTTON_CLICK:String = "window.maximize.button.click";
 		
 		/**
 		 * 关闭按钮被点击
 		 */
-		public static const CLOSE_BUTTON_CLICK:String = "close.button.click";
+		public static const CLOSE_BUTTON_CLICK:String = "window.close.button.click";
+		
+		
+		/**
+		 * 窗体被点击
+		 */
+		public static const WINDOW_ACTIVATE:String = "window.activate";
 		
 		
 		public function WindowEvent(type:String)

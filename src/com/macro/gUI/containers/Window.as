@@ -503,6 +503,7 @@ package com.macro.gUI.containers
 			{
 				_closeBtn.mouseDown(target);
 			}
+			dispatchEvent(new WindowEvent(WindowEvent.WINDOW_ACTIVATE));
 		}
 
 		public function mouseUp(target:IControl):void
