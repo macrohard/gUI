@@ -9,7 +9,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IKeyboard;
-	import com.macro.gUI.events.UIEvent;
+	import com.macro.gUI.events.CheckBoxEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	
@@ -108,7 +108,7 @@ package com.macro.gUI.composite
 			if (_icon.selected != value)
 			{
 				_icon.selected = value;
-				dispatchEvent(new UIEvent(UIEvent.SELECT));
+				dispatchEvent(new CheckBoxEvent(CheckBoxEvent.SELECT));
 			}
 		}
 

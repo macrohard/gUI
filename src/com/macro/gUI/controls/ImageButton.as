@@ -1,11 +1,9 @@
 package com.macro.gUI.controls
 {
 	import com.macro.gUI.assist.CtrlState;
-	import com.macro.gUI.core.AbstractControl;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IKeyboard;
-	import com.macro.gUI.events.ButtonEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.utils.ImageUtil;
 	
@@ -15,7 +13,6 @@ package com.macro.gUI.controls
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
-	import flash.utils.getTimer;
 	
 	/**
 	 * 图片按钮控件
@@ -198,10 +195,6 @@ package com.macro.gUI.controls
 				_image = _image ? _image : _states[CtrlState.UP];
 				resize();
 			}
-			
-			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_DOWN));
-			// 记录鼠标按下位置
-			_mouseDownPoint = _mousePoint;
 		}
 		
 		public function mouseUp(target:IControl):void
@@ -211,25 +204,6 @@ package com.macro.gUI.controls
 				_image = _states[CtrlState.OVER];
 				_image = _image ? _image : _states[CtrlState.UP];
 				resize();
-			}
-			
-			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_UP));
-			// 如果有按下位置，则执行Click测试
-			if (_mouseDownPoint != null)
-			{
-				var t:int = getTimer();
-				if (t - _clickTime < 400 && _clickPoint != null && _mouseDownPoint.equals(_clickPoint))
-				{
-					dispatchEvent(new ButtonEvent(ButtonEvent.DOUBLE_CLICK));
-					_clickPoint = null;
-				}
-				else
-				{
-					dispatchEvent(new ButtonEvent(ButtonEvent.CLICK));
-					_clickPoint = _mouseDownPoint;
-				}
-				_clickTime = t;
-				_mouseDownPoint = null;
 			}
 		}
 		
@@ -241,8 +215,6 @@ package com.macro.gUI.controls
 				_image = _image ? _image : _states[CtrlState.UP];
 				resize();
 			}
-			
-			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OVER));
 		}
 		
 		public function mouseOut(target:IControl):void
@@ -252,8 +224,6 @@ package com.macro.gUI.controls
 				_image = _states[CtrlState.UP];
 				resize();
 			}
-			
-			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OUT));
 		}
 		
 		

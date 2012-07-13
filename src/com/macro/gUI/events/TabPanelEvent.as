@@ -5,7 +5,7 @@ package com.macro.gUI.events
 	 * @author Macro <macro776@gmail.com>
 	 * 
 	 */
-	public class TabEvent extends UIEvent
+	public class TabPanelEvent extends UIEvent
 	{
 		/**
 		 * 当前标签变更
@@ -13,7 +13,7 @@ package com.macro.gUI.events
 		public static const TAB_CHANGED:String = "tab.changed";
 		
 		
-		public function TabEvent(type:String)
+		public function TabPanelEvent(type:String)
 		{
 			super(type);
 		}

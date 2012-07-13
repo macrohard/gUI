@@ -10,7 +10,7 @@ package com.macro.gUI.containers
 	import com.macro.gUI.core.IContainer;
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
-	import com.macro.gUI.events.TabEvent;
+	import com.macro.gUI.events.TabPanelEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
@@ -216,7 +216,7 @@ package com.macro.gUI.containers
 
 			layout();
 
-			dispatchEvent(new TabEvent(TabEvent.TAB_CHANGED));
+			dispatchEvent(new TabPanelEvent(TabPanelEvent.TAB_CHANGED));
 		}
 
 
@@ -514,7 +514,7 @@ package com.macro.gUI.containers
 			setMargin();
 			layout();
 
-			dispatchEvent(new TabEvent(TabEvent.TAB_CHANGED));
+			dispatchEvent(new TabPanelEvent(TabPanelEvent.TAB_CHANGED));
 		}
 
 

@@ -11,8 +11,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IDrag;
 	import com.macro.gUI.core.feature.IKeyboard;
-	import com.macro.gUI.events.ScrollEvent;
-	import com.macro.gUI.events.UIEvent;
+	import com.macro.gUI.events.ScrollBarEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	
@@ -272,7 +271,7 @@ package com.macro.gUI.composite
 			_value = value < _minimum ? _minimum : (value > _maximum ? _maximum : value);
 			relocateBlock();
 
-			dispatchEvent(new UIEvent(UIEvent.VALUE_CHANGED));
+			dispatchEvent(new ScrollBarEvent(ScrollBarEvent.VALUE_CHANGED));
 		}
 		
 		
@@ -601,7 +600,7 @@ package com.macro.gUI.composite
 			if (_viewport != null)
 			{
 				_viewport.scrollH(ratio);
-				dispatchEvent(new ScrollEvent(ScrollEvent.SCROLL));
+				dispatchEvent(new ScrollBarEvent(ScrollBarEvent.SCROLL));
 			}
 		}
 

@@ -1,12 +1,15 @@
 package com.macro.gUI.events
 {
+	import com.macro.gUI.core.IControl;
+
 	/**
-	 * 按钮事件
-	 * @author Macro <macro776@gmail.com>
+	 * 用户交互事件
+	 * @author yangyi
 	 * 
 	 */
-	public class ButtonEvent extends UIEvent
+	public class TouchEvent extends UIEvent
 	{
+		
 		/**
 		 * 鼠标悬停
 		 */
@@ -38,9 +41,17 @@ package com.macro.gUI.events
 		public static const DOUBLE_CLICK:String = "double.click";
 		
 		
-		public function ButtonEvent(type:String)
+		
+		/**
+		 * 触发的控件
+		 */
+		public var control:IControl;
+		
+		
+		public function TouchEvent(type:String, control:IControl = null)
 		{
 			super(type);
+			this.control = control;
 		}
 	}
 }

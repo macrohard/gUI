@@ -23,12 +23,6 @@ package com.macro.gUI.events
 		public static const CLOSE_BUTTON_CLICK:String = "window.close.button.click";
 		
 		
-		/**
-		 * 窗体被点击
-		 */
-		public static const WINDOW_ACTIVATE:String = "window.activate";
-		
-		
 		public function WindowEvent(type:String)
 		{
 			super(type);

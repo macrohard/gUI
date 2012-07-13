@@ -9,6 +9,8 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IEdit;
+	import com.macro.gUI.events.ComboBoxEvent;
+	import com.macro.gUI.events.ListEvent;
 	import com.macro.gUI.events.TextInputEvent;
 	import com.macro.gUI.events.UIEvent;
 	import com.macro.gUI.skin.ISkin;
@@ -69,7 +71,7 @@ package com.macro.gUI.composite
 
 			// 使用列表框控件作为弹出菜单
 			_list = new List();
-			_list.addEventListener(UIEvent.SELECT, listSelectHandler);
+			_list.addEventListener(ListEvent.SELECT, listSelectHandler);
 
 			var skin:ISkin;
 			skin = skinMgr.getSkin(SkinDef.COMBO_LIST_BG);
@@ -198,7 +200,7 @@ package com.macro.gUI.composite
 			_list.selectedIndex = value;
 			_textInput.text = _list.selectedText;
 			
-			dispatchEvent(new UIEvent(UIEvent.SELECT));
+			dispatchEvent(new ComboBoxEvent(ComboBoxEvent.SELECT));
 		}
 
 
@@ -490,7 +492,7 @@ package com.macro.gUI.composite
 			_textInput.text = _list.selectedText;
 			uiMgr.popupManager.removePopupMenu();
 			
-			dispatchEvent(new UIEvent(UIEvent.SELECT));
+			dispatchEvent(new ComboBoxEvent(ComboBoxEvent.SELECT));
 		}
 
 

@@ -115,9 +115,29 @@ package com.macro.gUI.core
 
 		override public function set enabled(value:Boolean):void
 		{
-			_container.enabled;
+			_container.enabled = value;
 		}
-
+		
+		override public function get mouseEnabled():Boolean
+		{
+			return _container.mouseEnabled;
+		}
+		
+		override public function set mouseEnabled(value:Boolean):void
+		{
+			_container.mouseEnabled = value;
+		}
+		
+		override public function get doubleClickEnabled():Boolean
+		{
+			return _container.doubleClickEnabled;
+		}
+		
+		override public function set doubleClickEnabled(value:Boolean):void
+		{
+			_container.doubleClickEnabled = value;
+		}
+		
 
 		/**
 		 * 横坐标

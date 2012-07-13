@@ -3,7 +3,6 @@ package com.macro.gUI.controls
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.core.IControl;
-	import com.macro.gUI.events.ButtonEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
@@ -281,10 +280,6 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.DOWN];
 			}
 			resize();
-			
-			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_DOWN));
-			// 记录鼠标按下位置
-			_mouseDownPoint = _mousePoint;
 		}
 		
 		override public function mouseUp(target:IControl):void
@@ -316,14 +311,6 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.OVER];
 			}
 			resize();
-			
-			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_UP));
-			// 如果有按下位置，则执行Click测试
-			if (_mouseDownPoint != null)
-			{
-				dispatchEvent(new ButtonEvent(ButtonEvent.CLICK));
-				_mouseDownPoint = null;
-			}
 		}
 
 		override public function mouseOut(target:IControl):void
@@ -351,8 +338,6 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.UP];
 			}
 			resize();
-			
-			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OUT));
 		}
 
 		override public function mouseOver(target:IControl):void
@@ -382,8 +367,6 @@ package com.macro.gUI.controls
 				_style = _styles[CtrlState.OVER];
 			}
 			resize();
-			
-			dispatchEvent(new ButtonEvent(ButtonEvent.MOUSE_OVER));
 		}
 	}
 }

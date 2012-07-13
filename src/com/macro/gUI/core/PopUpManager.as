@@ -1,6 +1,7 @@
 package com.macro.gUI.core
 {
 	import com.macro.gUI.containers.Container;
+	import com.macro.gUI.events.TouchEvent;
 	
 	import flash.utils.Dictionary;
 
@@ -55,9 +56,10 @@ package com.macro.gUI.core
 		 * @param window
 		 * @param isModal 是否模态
 		 * @param isCenter 是否居中显示
+		 * @param isAutoBringToFront 是否自动前置弹出窗口
 		 * 
 		 */
-		public function addPopupWindow(window:IControl, isModal:Boolean = false, isCenter:Boolean = false):void
+		public function addPopupWindow(window:IControl, isModal:Boolean = false, isCenter:Boolean = false, isAutoBringToFront:Boolean = true):void
 		{
 			if (isCenter)
 			{
@@ -76,6 +78,16 @@ package com.macro.gUI.core
 			{
 				_popupContainer.addChildAt(window, getPopupWindowLayer());
 			}
+			
+			if (isAutoBringToFront)
+			{
+				window.addEventListener(TouchEvent.MOUSE_DOWN, windowActivateHandler);
+			}
+		}
+		
+		private function windowActivateHandler(e:TouchEvent):void
+		{
+			bringToFront(e.control);
 		}
 		
 		/**
@@ -91,6 +103,7 @@ package com.macro.gUI.core
 				_popupContainer.removeChild(c);
 				_modalWindows[window] = null;
 				delete _modalWindows[window];
+				window.removeEventListener(TouchEvent.MOUSE_DOWN, windowActivateHandler);
 			}
 			else
 			{
@@ -173,6 +186,7 @@ package com.macro.gUI.core
 				var window:IControl = obj as IControl;
 				_modalWindows[window] = null;
 				delete _modalWindows[window];
+				window.removeEventListener(TouchEvent.MOUSE_DOWN, windowActivateHandler);
 			}
 			_popupMenu = null;
 			_initiator = null;

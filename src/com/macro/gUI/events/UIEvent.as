@@ -14,16 +14,6 @@ package com.macro.gUI.events
 		 */
 		public static const RESIZE:String = "resize";
 		
-		/**
-		 * 值变化
-		 */
-		public static const VALUE_CHANGED:String = "value.changed";
-		
-		/**
-		 * 用户选择
-		 */
-		public static const SELECT:String = "select";
-		
 		
 		public function UIEvent(type:String)
 		{

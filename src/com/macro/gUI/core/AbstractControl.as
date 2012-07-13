@@ -169,7 +169,21 @@ package com.macro.gUI.core
 		{
 			_mouseEnabled = value;
 		}
-
+		
+		
+		protected var _doubleClickEnabled:Boolean;
+		
+		public function get doubleClickEnabled():Boolean
+		{
+			return _doubleClickEnabled;
+		}
+		
+		public function set doubleClickEnabled(value:Boolean):void
+		{
+			_doubleClickEnabled = value;
+		}
+		
+		
 
 		protected var _x:int;
 
