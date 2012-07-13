@@ -114,36 +114,33 @@ package com.macro.gUI.core
 			// 处理焦点
 			_focusMgr.focus(_mouseControl, _mouseTarget);
 
-			if (_mouseControl == null || _mouseControl.enabled == false || _mouseTarget.enabled == false)
+			if (_mouseControl != null && _mouseControl.enabled == true && _mouseTarget.enabled == true)
 			{
-				return;
+				// 处理鼠标按下
+				if (_mouseControl is IButton)
+				{
+					(_mouseControl as IButton).mouseDown(_mouseTarget);
+				}
+				
+				// 处理拖拽
+				if (_mouseControl is IDrag)
+				{
+					_dragMgr.startDrag(_mouseControl as IDrag, _mouseTarget);
+				}
+				
+				// 记录鼠标按下位置
+				_mouseDownPoint = new Point(e.stageX, e.stageY);
+				// 处理鼠标按下事件
+				_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_DOWN, _mouseControl));
 			}
-
-			// 处理鼠标按下
-			if (_mouseControl is IButton)
-			{
-				(_mouseControl as IButton).mouseDown(_mouseTarget);
-			}
-
-			// 处理拖拽
-			if (_mouseControl is IDrag)
-			{
-				_dragMgr.startDrag(_mouseControl as IDrag, _mouseTarget);
-			}
-			
-			
-			// 处理鼠标按下事件
-			_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_DOWN, _mouseControl));
 			_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_DOWN, _mouseControl));
-			// 记录鼠标按下位置
-			_mouseDownPoint = new Point(e.stageX, e.stageY);
 		}
 
 		protected function mouseUpHandler(e:MouseEvent):void
 		{
+			// 结束拖拽
 			if (_dragMgr.isDragging)
 			{
-				// 结束拖拽
 				_dragMgr.stopDrag();
 			}
 
@@ -164,9 +161,12 @@ package com.macro.gUI.core
 				}
 				
 				// 处理鼠标离开事件
-				if (tempC != null && tempC != _mouseControl)
+				if (tempC != _mouseControl)
 				{
-					tempC.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OUT, tempC));
+					if (tempC != null)
+					{
+						tempC.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OUT, tempC));
+					}
 					_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OUT, tempC));
 				}
 			}
@@ -182,38 +182,39 @@ package com.macro.gUI.core
 			}
 			
 			
+			// 处理鼠标松开事件
 			if (_mouseControl != null)
 			{
-				// 处理鼠标松开事件
 				_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_UP, _mouseControl));
-				_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_UP, _mouseControl));
-				
-				// 如果有按下位置，则执行Click测试
-				if (_mouseDownPoint != null)
-				{
-					if (_mouseControl.doubleClickEnabled && getTimer() - _clickTime < 400 && _clickPoint != null && _mouseDownPoint.equals(_clickPoint))
-					{
-						_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.DOUBLE_CLICK, _mouseControl));
-						_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.DOUBLE_CLICK, _mouseControl));
-						_clickPoint = null;
-					}
-					else
-					{
-						_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.CLICK, _mouseControl));
-						_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.CLICK, _mouseControl));
-						_clickPoint = _mouseDownPoint;
-						_clickTime = getTimer();
-					}
-					_mouseDownPoint = null;
-				}
 			}
+			_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_UP, _mouseControl));
+				
+			// 如果有按下位置，则执行Click测试
+			if (_mouseControl != null && _mouseDownPoint != null)
+			{
+				if (_mouseControl.doubleClickEnabled && getTimer() - _clickTime < 400 && _clickPoint != null && _mouseDownPoint.equals(_clickPoint))
+				{
+					_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.DOUBLE_CLICK, _mouseControl));
+					_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.DOUBLE_CLICK, _mouseControl));
+					_clickPoint = null;
+				}
+				else
+				{
+					_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.CLICK, _mouseControl));
+					_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.CLICK, _mouseControl));
+					_clickPoint = _mouseDownPoint;
+					_clickTime = getTimer();
+				}
+				_mouseDownPoint = null;
+			}
+			
 		}
 
 		protected function mouseMoveHandler(e:MouseEvent):void
 		{
+			// 正在拖拽
 			if (_dragMgr.isDragging)
 			{
-				// 正在拖拽
 				_dragMgr.setDragCoord(_displayObjectContainer.mouseX, _displayObjectContainer.mouseY);
 				return;
 			}
@@ -256,37 +257,35 @@ package com.macro.gUI.core
 				if (tempC != null)
 				{
 					tempC.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OUT, tempC));
-					_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OUT, tempC));
 				}
+				_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OUT, tempC));
 				
 				// 处理鼠标进入事件
 				if (_mouseControl != null)
 				{
 					_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OVER, _mouseControl));
-					_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OVER, _mouseControl));
 				}
+				_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OVER, _mouseControl));
 			}
 		}
 		
 		protected function mouseOutHandler(e:MouseEvent):void
 		{
-			if (_mouseControl == null)
+			if (_mouseControl != null)
 			{
-				return;
-			}
-			
-			// 处理鼠标离开
-			if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
-			{
-				if (Mouse.cursor == MouseCursor.BUTTON)
+				// 处理鼠标离开
+				if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
 				{
-					Mouse.cursor = MouseCursor.AUTO;
+					if (Mouse.cursor == MouseCursor.BUTTON)
+					{
+						Mouse.cursor = MouseCursor.AUTO;
+					}
+					(_mouseControl as IButton).mouseOut(_mouseTarget);
 				}
-				(_mouseControl as IButton).mouseOut(_mouseTarget);
+				
+				// 处理鼠标离开事件
+				_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OUT, _mouseControl));
 			}
-			
-			// 处理鼠标离开事件
-			_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OUT, _mouseControl));
 			_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_OUT, _mouseControl));
 			
 			_mouseControl = null;

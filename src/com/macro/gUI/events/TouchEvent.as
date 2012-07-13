@@ -13,32 +13,32 @@ package com.macro.gUI.events
 		/**
 		 * 鼠标悬停
 		 */
-		public static const MOUSE_OVER:String = "mouse.over";
+		public static const MOUSE_OVER:String = "touch.mouse.over";
 		
 		/**
 		 * 鼠标按下
 		 */
-		public static const MOUSE_DOWN:String = "mouse.down";
+		public static const MOUSE_DOWN:String = "touch.mouse.down";
 		
 		/**
 		 * 鼠标松开
 		 */
-		public static const MOUSE_UP:String = "mouse.up";
+		public static const MOUSE_UP:String = "touch.mouse.up";
 		
 		/**
 		 * 鼠标移出
 		 */
-		public static const MOUSE_OUT:String = "mouse.out";
+		public static const MOUSE_OUT:String = "touch.mouse.out";
 		
 		/**
 		 * 单击事件
 		 */
-		public static const CLICK:String = "click";
+		public static const CLICK:String = "touch.click";
 		
 		/**
 		 * 双击事件
 		 */
-		public static const DOUBLE_CLICK:String = "double.click";
+		public static const DOUBLE_CLICK:String = "touch.double.click";
 		
 		
 		
