@@ -63,8 +63,16 @@ package com.macro.gUI.core
 			_top = uiManager._top;
 
 			_displayObjectContainer = displayObjectContainer;
-			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 0, true);
-			_displayObjectContainer.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler, false, 0, true);
+			if (_displayObjectContainer.stage != null)
+			{
+				_displayObjectContainer.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 0, true);
+				_displayObjectContainer.stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler, false, 0, true);
+			}
+			else
+			{
+				_displayObjectContainer.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 0, true);
+				_displayObjectContainer.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler, false, 0, true);
+			}
 		}
 		
 		

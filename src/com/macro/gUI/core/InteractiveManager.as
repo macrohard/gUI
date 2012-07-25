@@ -6,6 +6,7 @@ package com.macro.gUI.core
 	import com.macro.gUI.events.TouchEvent;
 	
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Stage;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Mouse;
@@ -88,9 +89,19 @@ package com.macro.gUI.core
 		{
 			_main = uiManager._main;
 			_displayObjectContainer = displayObjectContainer;
-			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
-			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
-			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+			
+			if (_displayObjectContainer.stage != null)
+			{
+				_displayObjectContainer.stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
+				_displayObjectContainer.stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
+				_displayObjectContainer.stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+			}
+			else
+			{
+				_displayObjectContainer.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
+				_displayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
+				_displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+			}
 			_displayObjectContainer.addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler, false, 0, true);
 
 			_popupMgr = uiManager.popupManager;
