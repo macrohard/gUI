@@ -748,6 +748,7 @@ package com.macro.gUI.composite
 			}
 			_value = ratio * (_maximum - _minimum) + _minimum;
 
+			dispatchEvent(new ScrollBarEvent(ScrollBarEvent.VALUE_CHANGED));
 			scrollViewport(ratio);
 		}
 
