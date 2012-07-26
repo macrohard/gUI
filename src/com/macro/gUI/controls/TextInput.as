@@ -12,6 +12,7 @@ package com.macro.gUI.controls
 	import com.macro.gUI.skin.StyleDef;
 	
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -284,6 +285,8 @@ package com.macro.gUI.controls
 			relocateEditBox(null);
 			
 			_editBox.addEventListener(Event.CHANGE, relocateEditBox, false, 0, true);
+			_editBox.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 0, true);
+			_editBox.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler, false, 0, true);
 			
 			// 清除现有文本
 			_text = null;
@@ -294,12 +297,14 @@ package com.macro.gUI.controls
 		}
 		
 		
-		public function endEdit(value:String):void
+		public function endEdit():void
 		{
+			_text = _editBox.text;
 			_editBox.removeEventListener(Event.CHANGE, relocateEditBox);
+			_editBox.removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			_editBox.removeEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 			_editBox = null;
 			
-			_text = value;
 			resize();
 			
 			dispatchEvent(new TextInputEvent(TextInputEvent.EDIT_FINISH));
@@ -356,6 +361,16 @@ package com.macro.gUI.controls
 			
 			_editBox.x = ox;
 			_editBox.y = oy;
+		}
+		
+		private function keyDownHandler(e:KeyboardEvent):void
+		{
+			dispatchEvent(e);
+		}
+		
+		private function keyUpHandler(e:KeyboardEvent):void
+		{
+			dispatchEvent(e);
 		}
 	}
 }

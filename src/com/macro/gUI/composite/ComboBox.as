@@ -625,8 +625,10 @@ package com.macro.gUI.composite
 			return _textInput.beginEdit();
 		}
 
-		public function endEdit(value:String):void
+		public function endEdit():void
 		{
+			_textInput.endEdit();
+			var value:String = _textInput.text;
 			if (_list.items != null && _list.items.length > 0)
 			{
 				var index:int = _list.items.indexOf(value);
@@ -635,7 +637,6 @@ package com.macro.gUI.composite
 					_list.selectedIndex = index;
 				}
 			}
-			_textInput.endEdit(value);
 			dispatchEvent(new TextInputEvent(TextInputEvent.EDIT_FINISH));
 		}
 	}

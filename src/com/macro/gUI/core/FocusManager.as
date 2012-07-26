@@ -255,7 +255,7 @@ package com.macro.gUI.core
 		 */
 		private function endEdit():void
 		{
-			_editControl.endEdit(_editBox.text);
+			_editControl.endEdit();
 			_editControl = null;
 			_editTarget = null;
 			

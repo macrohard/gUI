@@ -31,17 +31,15 @@ package com.macro.gUI.core.feature
 		
 		/**
 		 * 开始编辑
-		 * @return
 		 *
 		 */
 		function beginEdit():TextField;
 		
 		/**
 		 * 结束编辑
-		 * @param text
 		 * 
 		 */
-		function endEdit(text:String):void;
+		function endEdit():void;
 
 	}
 }
