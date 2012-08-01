@@ -400,8 +400,6 @@ package com.macro.gUI.renders.layeredRender
 			var b:Bitmap = _controlToBitmap[control];
 			if (isRemove)
 			{
-				b.mask = null;
-
 				_controlToBitmap[control] = null;
 				delete _controlToBitmap[control];
 			}

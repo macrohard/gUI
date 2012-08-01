@@ -40,7 +40,7 @@ package com.macro.gUI.composite
 		 * 默认自动设置尺寸
 		 * @param width 宽度
 		 * @param align 布局对齐方式
-		 * @param maskMode 使用遮罩
+		 * @param mask 使用遮罩
 		 *
 		 */
 		public function ProgressBar(width:int = 200, align:int = 0x20, mask:Boolean = false)
