@@ -97,7 +97,11 @@ package com.macro.gUI.renders.layeredRender
 				return;
 			}
 			
-			updateBitmapVisible(control, control.visible);
+			// 获取父控件的可见性
+			var container:IContainer = control.holder;
+			var b:Bitmap = _controlToBitmap[container];
+			
+			updateBitmapVisible(control, b.visible);
 		}
 		
 		public function updateAlpha(control:IControl):void
