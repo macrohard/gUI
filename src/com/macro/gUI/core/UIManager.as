@@ -53,7 +53,7 @@ package com.macro.gUI.core
 		/**
 		 * 根容器
 		 */
-		private var _root:Container;
+		internal var _root:Container;
 		
 		/**
 		 * 主容器，此容器中的控件会被交互管理器监测
@@ -120,7 +120,6 @@ package com.macro.gUI.core
 			AbstractControl.init(this);
 			
 			// 初始化整个UI体系层级结构
-			_root.setStage(_stage);
 			_main.addChild(_stage);
 			_main.addChild(_popup);
 			

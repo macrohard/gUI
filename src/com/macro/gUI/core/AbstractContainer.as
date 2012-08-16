@@ -123,7 +123,6 @@ package com.macro.gUI.core
 
 			_children.push(child);
 			(child as AbstractControl).setHolder(this);
-			setChildStage(child, stage);
 
 			uiMgr.renderer.addChild(this, child);
 		}
@@ -148,7 +147,6 @@ package com.macro.gUI.core
 				_children.splice(index, 0, child);
 			}
 			(child as AbstractControl).setHolder(this);
-			setChildStage(child, stage);
 
 			uiMgr.renderer.addChild(this, child);
 		}
@@ -162,7 +160,6 @@ package com.macro.gUI.core
 				uiMgr.renderer.removeChild(this, child);
 
 				(child as AbstractControl).setHolder(null);
-				setChildStage(child, null);
 			}
 		}
 
@@ -175,7 +172,6 @@ package com.macro.gUI.core
 				uiMgr.renderer.removeChild(this, child);
 
 				(child as AbstractControl).setHolder(null);
-				setChildStage(child, null);
 			}
 
 			return child;
@@ -205,7 +201,6 @@ package com.macro.gUI.core
 			for each (var child:IControl in removedControl)
 			{
 				(child as AbstractControl).setHolder(null);
-				setChildStage(child, null);
 			}
 		}
 
@@ -274,25 +269,5 @@ package com.macro.gUI.core
 			uiMgr.renderer.updateChildIndex(this, child2);
 		}
 
-
-		private function setChildStage(child:IControl, stage:IContainer):void
-		{
-			if (child is IComposite)
-			{
-				setChildStage((child as IComposite).container, stage);
-				return;
-			}
-
-			(child as AbstractControl).setStage(stage);
-
-			if (child is IContainer)
-			{
-				var container:IContainer = child as IContainer;
-				for each (var control:IControl in container.children)
-				{
-					setChildStage(control, stage);
-				}
-			}
-		}
 	}
 }

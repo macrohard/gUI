@@ -126,7 +126,7 @@ package com.macro.gUI.core
 			if (_transparent != value)
 			{
 				_transparent = value;
-				paint(true);
+				paint();
 			}
 		}
 
@@ -396,11 +396,13 @@ package com.macro.gUI.core
 		}
 
 
-		private var _stage:IContainer;
-
 		public function get stage():IContainer
 		{
-			return _stage;
+			var ic:IContainer = this is IContainer ? this as IContainer : this.holder;
+			var root:IContainer = uiMgr._root;
+			while (ic != null && ic != root)
+				ic = ic.holder;
+			return ic == root ? uiMgr.stage : null;
 		}
 
 
@@ -427,16 +429,6 @@ package com.macro.gUI.core
 		}
 		
 		
-		/**
-		 * 设置舞台容器，内部行为
-		 * @param stage
-		 *
-		 */
-		internal function setStage(stage:IContainer):void
-		{
-			_stage = stage;
-		}
-
 
 		public function localToGlobal(point:Point = null):Point
 		{
@@ -524,16 +516,9 @@ package com.macro.gUI.core
 				height = height < _skin.minHeight ? _skin.minHeight : height;
 			}
 
-			if (_width != width || _height != height)
-			{
-				_width = width;
-				_height = height;
-				paint(true);
-			}
-			else
-			{
-				paint();
-			}
+			_width = width;
+			_height = height;
+			paint();
 
 			dispatchEvent(new UIEvent(UIEvent.RESIZE));
 		}
@@ -556,15 +541,15 @@ package com.macro.gUI.core
 		 * @param rebuild 是否重建BitmapData
 		 *
 		 */
-		private function paint(rebuild:Boolean = false):void
+		private function paint():void
 		{
-			if (rebuild || _bitmapData == null)
+			if (_bitmapData == null || _width != _bitmapData.width || _height != _bitmapData.height || _transparent != _bitmapData.transparent)
 			{
 				if (_bitmapData != null)
 				{
 					_bitmapData.dispose();
 				}
-
+				
 				_bitmapData = new BitmapData(_width, _height, _transparent, _bgColor);
 				uiMgr.renderer.updatePaint(this, true);
 			}

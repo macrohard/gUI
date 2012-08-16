@@ -310,11 +310,6 @@ package com.macro.gUI.core
 			_container.setParent(container);
 		}
 		
-		override internal function setStage(stage:IContainer):void
-		{
-			_container.setStage(stage);
-		}
-
 
 		override public function localToGlobal(point:Point = null):Point
 		{
