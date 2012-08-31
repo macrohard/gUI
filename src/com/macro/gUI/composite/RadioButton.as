@@ -130,12 +130,12 @@ package com.macro.gUI.composite
 		 * @return
 		 *
 		 */
-		public function get radioGroup():String
+		public function get groupId():String
 		{
 			return group.getGroupId(this);
 		}
 		
-		public function set radioGroup(value:String):void
+		public function set groupId(value:String):void
 		{
 			if (value == null)
 			{
