@@ -4,7 +4,7 @@
     <classEntry path="com.macro.gUI.GameUI"/>
     <classEntry path="com.macro.gUI.assist.CtrlState"/>
     <classEntry path="com.macro.gUI.assist.LayoutAlign"/>
-    <classEntry path="com.macro.gUI.assist.RadioButtonGroup"/>
+    <classEntry path="com.macro.gUI.assist.ButtonGroup"/>
     <classEntry path="com.macro.gUI.assist.TextStyle"/>
     <classEntry path="com.macro.gUI.assist.Viewport"/>
     <classEntry path="com.macro.gUI.core.AbstractComposite"/>
@@ -80,6 +80,7 @@
     <classEntry path="com.macro.gUI.events.ListEvent"/>
     <classEntry path="com.macro.gUI.events.RadioButtonEvent"/>
     <classEntry path="com.macro.gUI.events.TouchEvent"/>
+    <classEntry path="com.macro.gUI.core.feature.ISelect"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

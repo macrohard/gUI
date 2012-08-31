@@ -1,7 +1,7 @@
 package com.macro.gUI.composite
 {
+	import com.macro.gUI.assist.ButtonGroup;
 	import com.macro.gUI.assist.LayoutAlign;
-	import com.macro.gUI.assist.RadioButtonGroup;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.containers.Container;
 	import com.macro.gUI.controls.Label;
@@ -10,6 +10,7 @@ package com.macro.gUI.composite
 	import com.macro.gUI.core.IControl;
 	import com.macro.gUI.core.feature.IButton;
 	import com.macro.gUI.core.feature.IKeyboard;
+	import com.macro.gUI.core.feature.ISelect;
 	import com.macro.gUI.events.RadioButtonEvent;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
@@ -25,13 +26,13 @@ package com.macro.gUI.composite
 	 *
 	 */
 	public class RadioButton extends AbstractComposite implements IButton,
-			IKeyboard
+			IKeyboard, ISelect
 	{
 
 		/**
-		 * 单选按钮群组
+		 * 按钮群组
 		 */
-		private static var group:RadioButtonGroup = new RadioButtonGroup();
+		private static var group:ButtonGroup = new ButtonGroup();
 
 		/**
 		 * 文本标签与图标之间的间距
@@ -121,6 +122,27 @@ package com.macro.gUI.composite
 				dispatchEvent(new RadioButtonEvent(RadioButtonEvent.SELECT));
 			}
 		}
+		
+		
+		/**
+		 * 单选按钮分组标识<br>
+		 * 注意，由于整个UI体系使用同一个单选按钮群组管理器，因此标识要避免重复
+		 * @return
+		 *
+		 */
+		public function get radioGroup():String
+		{
+			return group.getGroupId(this);
+		}
+		
+		public function set radioGroup(value:String):void
+		{
+			if (value == null)
+			{
+				throw new Error("Invalid value!");
+			}
+			group.setGroupId(this, value);
+		}
 
 
 		/**
@@ -147,28 +169,6 @@ package com.macro.gUI.composite
 		}
 
 
-		/**
-		 * 单选按钮分组标识<br>
-		 * 注意，由于整个UI体系使用同一个单选按钮群组管理器，因此标识要避免重复
-		 * @return
-		 *
-		 */
-		public function get radioGroup():String
-		{
-			return group.getGroupId(this);
-		}
-
-		public function set radioGroup(value:String):void
-		{
-			if (value == null)
-			{
-				throw new Error("Invalid value!");
-			}
-			group.setGroupId(this, value);
-		}
-		
-		
-		
 		override public function set height(value:int):void
 		{
 			_autoSize = false;

@@ -1,8 +1,10 @@
 package com.macro.gUI.controls
 {
+	import com.macro.gUI.assist.ButtonGroup;
 	import com.macro.gUI.assist.CtrlState;
 	import com.macro.gUI.assist.TextStyle;
 	import com.macro.gUI.core.IControl;
+	import com.macro.gUI.core.feature.ISelect;
 	import com.macro.gUI.skin.ISkin;
 	import com.macro.gUI.skin.SkinDef;
 	import com.macro.gUI.skin.StyleDef;
@@ -15,8 +17,15 @@ package com.macro.gUI.controls
 	 * @author Macro <macro776@gmail.com>
 	 *
 	 */
-	public class ToggleButton extends Button
+	public class ToggleButton extends Button implements ISelect
 	{
+		
+		/**
+		 * 按钮群组
+		 */
+		private static var group:ButtonGroup = new ButtonGroup();
+		
+		
 		/**
 		 * 切换按钮控件
 		 * @param text 作为文本的字符串
@@ -91,8 +100,33 @@ package com.macro.gUI.controls
 			if (_selected != value)
 			{
 				_selected = value;
+				if (value)
+				{
+					group.unselect(this);
+				}
 				mouseOut(this);
 			}
+		}
+		
+		
+		/**
+		 * 单选按钮分组标识<br>
+		 * 注意，由于整个UI体系使用同一个单选按钮群组管理器，因此标识要避免重复
+		 * @return
+		 *
+		 */
+		public function get radioGroup():String
+		{
+			return group.getGroupId(this);
+		}
+		
+		public function set radioGroup(value:String):void
+		{
+			if (value == null)
+			{
+				throw new Error("Invalid value!");
+			}
+			group.setGroupId(this, value);
 		}
 
 
