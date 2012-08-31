@@ -318,7 +318,7 @@ package com.macro.gUI.controls
 		
 		override public function mouseUp(target:IControl):void
 		{
-			_selected = !_selected;
+			selected = !_selected;
 			
 			if (_selected)
 			{
