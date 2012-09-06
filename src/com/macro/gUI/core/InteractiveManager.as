@@ -6,9 +6,7 @@ package com.macro.gUI.core
 	import com.macro.gUI.events.TouchEvent;
 	
 	import flash.display.DisplayObjectContainer;
-	import flash.display.Stage;
 	import flash.events.MouseEvent;
-	import flash.geom.Point;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
 	import flash.utils.getTimer;
@@ -51,26 +49,26 @@ package com.macro.gUI.core
 
 
 		/**
-		 * 鼠标点击的外层控件，基本控件或复合控件
+		 * 鼠标所在位置的外层控件，基本控件或复合控件
 		 */
 		private var _mouseControl:IControl;
 
 		/**
-		 * 鼠标点击的实际目标控件，如复合控件内的控件
+		 * 鼠标所在位置的实际目标控件，如复合控件内的控件
 		 */
 		private var _mouseTarget:IControl;
 		
 		
 		
 		/**
-		 * 鼠标按下位置
+		 * 鼠标按下控件
 		 */
-		protected var _mouseDownPoint:Point;
+		protected var _mouseDownTarget:IControl;
 		
 		/**
-		 * 鼠标点击位置
+		 * 鼠标弹起控件
 		 */
-		protected var _clickPoint:Point;
+		protected var _mouseUpTarget:IControl;
 		
 		/**
 		 * 鼠标点击时间戳
@@ -139,8 +137,8 @@ package com.macro.gUI.core
 					_dragMgr.startDrag(_mouseControl as IDrag, _mouseTarget);
 				}
 				
-				// 记录鼠标按下位置
-				_mouseDownPoint = new Point(e.stageX, e.stageY);
+				// 记录鼠标按下控件
+				_mouseDownTarget = _mouseTarget;
 				// 处理鼠标按下事件
 				_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_DOWN, _mouseControl));
 			}
@@ -182,7 +180,7 @@ package com.macro.gUI.core
 				}
 			}
 
-			// 处理鼠标松开
+			// 处理鼠标弹起
 			if (_mouseControl is IButton && _mouseControl.enabled && _mouseTarget.enabled)
 			{
 				if (_mouseTarget is IButton && Mouse.cursor == MouseCursor.AUTO)
@@ -193,32 +191,32 @@ package com.macro.gUI.core
 			}
 			
 			
-			// 处理鼠标松开事件
+			// 处理鼠标弹起事件
 			if (_mouseControl != null)
 			{
 				_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_UP, _mouseControl));
 			}
 			_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.MOUSE_UP, _mouseControl));
-				
-			// 如果有按下位置，则执行Click测试
-			if (_mouseControl != null && _mouseDownPoint != null)
+			
+			
+			// 如果有按下控件，则执行Click测试
+			if (_mouseControl != null && _mouseDownTarget == _mouseTarget)
 			{
-				if (_mouseControl.doubleClickEnabled && getTimer() - _clickTime < 400 && _clickPoint != null && _mouseDownPoint.equals(_clickPoint))
+				if (_mouseControl.doubleClickEnabled && getTimer() - _clickTime < 400 && _mouseUpTarget == _mouseDownTarget)
 				{
 					_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.DOUBLE_CLICK, _mouseControl));
 					_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.DOUBLE_CLICK, _mouseControl));
-					_clickPoint = null;
+					_clickTime = 0;
 				}
 				else
 				{
 					_mouseControl.dispatchEvent(new TouchEvent(TouchEvent.CLICK, _mouseControl));
 					_displayObjectContainer.dispatchEvent(new TouchEvent(TouchEvent.CLICK, _mouseControl));
-					_clickPoint = _mouseDownPoint;
 					_clickTime = getTimer();
 				}
-				_mouseDownPoint = null;
 			}
-			
+			_mouseDownTarget = null;
+			_mouseUpTarget = _mouseTarget;
 		}
 
 		protected function mouseMoveHandler(e:MouseEvent):void
