@@ -261,9 +261,8 @@ package com.macro.gUI.core
 
 			var child1:IControl = _children[index1];
 			var child2:IControl = _children[index2];
-
-			_children.splice(index2, 1, child1);
-			_children.splice(index1, 1, child2);
+			_children[index1] = child2;
+			_children[index2] = child1;
 
 			uiMgr.renderer.updateChildIndex(this, child1);
 			uiMgr.renderer.updateChildIndex(this, child2);
