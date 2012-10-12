@@ -45,14 +45,10 @@
     <classEntry path="com.macro.gUI.skin.StyleDef"/>
     <classEntry path="com.macro.gUI.skin.impl.BitmapSkin"/>
     <classEntry path="com.macro.gUI.skin.impl.SpriteSkin"/>
-    <classEntry path="com.macro.ioc.HandlerInfo"/>
     <classEntry path="com.macro.logging.IAppender"/>
-    <classEntry path="com.macro.logging.LogFilter"/>
     <classEntry path="com.macro.logging.LogLevel"/>
     <classEntry path="com.macro.logging.Logger"/>
-    <classEntry path="com.macro.logging.SOSAppender"/>
     <classEntry path="com.macro.logging.TraceAppender"/>
-    <classEntry path="com.macro.utils.StrUtil"/>
     <classEntry path="com.macro.utils.WordFilterUtil"/>
     <classEntry path="com.macro.utils.fte.TextSegment"/>
     <classEntry path="com.macro.utils.fte.TextUtil"/>
